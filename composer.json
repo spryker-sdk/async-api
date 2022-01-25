@@ -1,0 +1,52 @@
+{
+    "name": "spryker-sdk/async-api",
+    "type": "library",
+    "description": "SDK for AsyncAPI.",
+    "license": "proprietary",
+    "require": {
+        "php": ">=7.4"
+    },
+    "require-dev": {
+        "codeception/codeception": "*",
+        "codeception/module-asserts": "*",
+        "sllh/composer-versions-check": "^2.0",
+        "spryker-sdk/architector": "0.1.x-dev",
+        "spryker/code-sniffer": "*",
+        "spryker/testify": "^3.43",
+        "symfony/filesystem": "^5.3",
+        "symfony/var-dumper": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "SprykerSdk\\AsyncApi\\": "src/SprykerSdk/AsyncApi"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SprykerSdkTest\\AsyncApi\\": "tests/SprykerSdkTest/AsyncApi"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "sllh/composer-versions-check": true
+        }
+    },
+    "scripts": {
+        "cs-check": "phpcs --colors -p -s --extensions=php --standard=vendor/spryker/code-sniffer/Spryker/ruleset.xml src/SprykerSdk/ tests/",
+        "cs-fix": "phpcbf --colors -p --extensions=php --standard=vendor/spryker/code-sniffer/Spryker/ruleset.xml src/SprykerSdk/ tests/",
+        "stan": "phpstan analyze -l 8 src/SprykerSdk/",
+        "test": "codecept build && codecept run",
+        "test-cover": "codecept build && codecept run --coverage-xml",
+        "rector": "vendor/bin/rector process src/SprykerSdk/ --config architector.php --ansi",
+        "rector-diff": "vendor/bin/rector process src/SprykerSdk/ --config architector.php --ansi --dry-run"
+    }
+}

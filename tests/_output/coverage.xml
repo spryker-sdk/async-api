@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1643101365">
+  <project timestamp="1643101365">
+    <file name="/Users/reneklatt/www/async-api/src/SprykerSdk/AsyncApi/AsyncApi.php">
+      <class name="SprykerSdk\AsyncApi\AsyncApi" namespace="global">
+        <metrics complexity="3" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="4" elements="7" coveredelements="7"/>
+      </class>
+      <line num="23" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="9"/>
+      <line num="25" type="stmt" count="9"/>
+      <line num="26" type="stmt" count="9"/>
+      <line num="31" type="method" name="getChannels" visibility="public" complexity="1" crap="1" count="3"/>
+      <line num="33" type="stmt" count="3"/>
+      <line num="41" type="method" name="getChannel" visibility="public" complexity="1" crap="1" count="5"/>
+      <line num="43" type="stmt" count="5"/>
+      <metrics loc="45" ncloc="27" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="4" elements="7" coveredelements="7"/>
+    </file>
+    <file name="/Users/reneklatt/www/async-api/src/SprykerSdk/AsyncApi/AsyncApiInterface.php">
+      <metrics loc="25" ncloc="13" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <file name="/Users/reneklatt/www/async-api/src/SprykerSdk/AsyncApi/Channel/AsyncApiChannel.php">
+      <class name="SprykerSdk\AsyncApi\Channel\AsyncApiChannel" namespace="global">
+        <metrics complexity="6" methods="6" coveredmethods="6" conditionals="0" coveredconditionals="0" statements="13" coveredstatements="13" elements="19" coveredelements="19"/>
+      </class>
+      <line num="35" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="9"/>
+      <line num="37" type="stmt" count="9"/>
+      <line num="38" type="stmt" count="9"/>
+      <line num="39" type="stmt" count="9"/>
+      <line num="40" type="stmt" count="9"/>
+      <line num="45" type="method" name="getName" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="47" type="stmt" count="1"/>
+      <line num="53" type="method" name="getPublishMessages" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="55" type="stmt" count="1"/>
+      <line num="56" type="stmt" count="1"/>
+      <line num="63" type="method" name="getPublishMessage" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="65" type="stmt" count="1"/>
+      <line num="71" type="method" name="getSubscribeMessages" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="73" type="stmt" count="1"/>
+      <line num="74" type="stmt" count="1"/>
+      <line num="81" type="method" name="getSubscribeMessage" visibility="public" complexity="1" crap="1" count="3"/>
+      <line num="83" type="stmt" count="3"/>
+      <metrics loc="85" ncloc="48" classes="1" methods="6" coveredmethods="6" conditionals="0" coveredconditionals="0" statements="13" coveredstatements="13" elements="19" coveredelements="19"/>
+    </file>
+    <file name="/Users/reneklatt/www/async-api/src/SprykerSdk/AsyncApi/Channel/AsyncApiChannelCollection.php">
+      <class name="SprykerSdk\AsyncApi\Channel\AsyncApiChannelCollection" namespace="global">
+        <metrics complexity="4" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="7" elements="10" coveredelements="10"/>
+      </class>
+      <line num="20" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="9"/>
+      <line num="22" type="stmt" count="9"/>
+      <line num="23" type="stmt" count="9"/>
+      <line num="28" type="method" name="getChannels" visibility="public" complexity="2" crap="2" count="3"/>
+      <line num="30" type="stmt" count="3"/>
+      <line num="31" type="stmt" count="3"/>
+      <line num="33" type="stmt" count="3"/>
+      <line num="40" type="method" name="getChannel" visibility="public" complexity="1" crap="1" count="5"/>
+      <line num="42" type="stmt" count="5"/>
+      <metrics loc="44" ncloc="26" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="7" elements="10" coveredelements="10"/>
+    </file>
+    <file name="/Users/reneklatt/www/async-api/src/SprykerSdk/AsyncApi/Channel/AsyncApiChannelCollectionInterface.php">
+      <metrics loc="23" ncloc="11" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <file name="/Users/reneklatt/www/async-api/src/SprykerSdk/AsyncApi/Channel/AsyncApiChannelInterface.php">
+      <metrics loc="42" ncloc="19" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <file name="/Users/reneklatt/www/async-api/src/SprykerSdk/AsyncApi/Loader/AsyncApiLoader.php">
+      <class name="SprykerSdk\AsyncApi\Loader\AsyncApiLoader" namespace="global">
+        <metrics complexity="22" methods="11" coveredmethods="11" conditionals="0" coveredconditionals="0" statements="62" coveredstatements="62" elements="73" coveredelements="73"/>
+      </class>
+      <line num="30" type="method" name="load" visibility="public" complexity="1" crap="1" count="9"/>
+      <line num="32" type="stmt" count="9"/>
+      <line num="33" type="stmt" count="9"/>
+      <line num="35" type="stmt" count="9"/>
+      <line num="43" type="method" name="getChannels" visibility="protected" complexity="2" crap="2" count="9"/>
+      <line num="45" type="stmt" count="9"/>
+      <line num="47" type="stmt" count="9"/>
+      <line num="48" type="stmt" count="9"/>
+      <line num="49" type="stmt" count="9"/>
+      <line num="50" type="stmt" count="9"/>
+      <line num="51" type="stmt" count="9"/>
+      <line num="55" type="stmt" count="9"/>
+      <line num="65" type="method" name="getMessagesByTypeFromChannel" visibility="protected" complexity="2" crap="2" count="9"/>
+      <line num="67" type="stmt" count="9"/>
+      <line num="69" type="stmt" count="9"/>
+      <line num="71" type="stmt" count="9"/>
+      <line num="73" type="stmt" count="9"/>
+      <line num="74" type="stmt" count="9"/>
+      <line num="76" type="stmt" count="9"/>
+      <line num="79" type="stmt" count="9"/>
+      <line num="91" type="method" name="formatMessages" visibility="protected" complexity="2" crap="2" count="9"/>
+      <line num="93" type="stmt" count="9"/>
+      <line num="95" type="stmt" count="9"/>
+      <line num="96" type="stmt" count="9"/>
+      <line num="97" type="stmt" count="9"/>
+      <line num="99" type="stmt" count="9"/>
+      <line num="102" type="stmt" count="9"/>
+      <line num="110" type="method" name="createMessageAttributesCollection" visibility="protected" complexity="3" crap="3" count="9"/>
+      <line num="112" type="stmt" count="9"/>
+      <line num="114" type="stmt" count="9"/>
+      <line num="115" type="stmt" count="9"/>
+      <line num="116" type="stmt" count="9"/>
+      <line num="118" type="stmt" count="9"/>
+      <line num="121" type="stmt" count="9"/>
+      <line num="124" type="stmt" count="9"/>
+      <line num="133" type="method" name="getFromPropertyPath" visibility="protected" complexity="1" crap="1" count="9"/>
+      <line num="135" type="stmt" count="9"/>
+      <line num="137" type="stmt" count="9"/>
+      <line num="145" type="method" name="formatMessageFromOneOf" visibility="protected" complexity="3" crap="3" count="9"/>
+      <line num="147" type="stmt" count="9"/>
+      <line num="149" type="stmt" count="9"/>
+      <line num="150" type="stmt" count="9"/>
+      <line num="151" type="stmt" count="9"/>
+      <line num="155" type="stmt" count="9"/>
+      <line num="163" type="method" name="getChannelNames" visibility="protected" complexity="2" crap="2" count="9"/>
+      <line num="165" type="stmt" count="9"/>
+      <line num="167" type="stmt" count="9"/>
+      <line num="168" type="stmt" count="9"/>
+      <line num="171" type="stmt" count="9"/>
+      <line num="179" type="method" name="resolveReferences" visibility="protected" complexity="4" crap="4" count="9"/>
+      <line num="181" type="stmt" count="9"/>
+      <line num="182" type="stmt" count="9"/>
+      <line num="183" type="stmt" count="9"/>
+      <line num="184" type="stmt" count="9"/>
+      <line num="186" type="stmt" count="9"/>
+      <line num="189" type="stmt" count="9"/>
+      <line num="190" type="stmt" count="9"/>
+      <line num="191" type="stmt" count="9"/>
+      <line num="193" type="stmt" count="9"/>
+      <line num="194" type="stmt" count="9"/>
+      <line num="197" type="stmt" count="9"/>
+      <line num="199" type="stmt" count="9"/>
+      <line num="201" type="stmt" count="9"/>
+      <line num="209" type="method" name="resolveReferenceKey" visibility="protected" complexity="1" crap="1" count="9"/>
+      <line num="211" type="stmt" count="9"/>
+      <line num="212" type="stmt" count="9"/>
+      <line num="214" type="stmt" count="9"/>
+      <line num="223" type="method" name="resolveReference" visibility="protected" complexity="1" crap="1" count="9"/>
+      <line num="225" type="stmt" count="9"/>
+      <line num="227" type="stmt" count="9"/>
+      <line num="228" type="stmt" count="9"/>
+      <line num="230" type="stmt" count="9"/>
+      <line num="232" type="stmt" count="9"/>
+      <metrics loc="234" ncloc="167" classes="1" methods="11" coveredmethods="11" conditionals="0" coveredconditionals="0" statements="62" coveredstatements="62" elements="73" coveredelements="73"/>
+    </file>
+    <file name="/Users/reneklatt/www/async-api/src/SprykerSdk/AsyncApi/Loader/AsyncApiLoaderInterface.php">
+      <metrics loc="20" ncloc="11" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <file name="/Users/reneklatt/www/async-api/src/SprykerSdk/AsyncApi/Message/AsyncApiMessage.php">
+      <class name="SprykerSdk\AsyncApi\Message\AsyncApiMessage" namespace="global">
+        <metrics complexity="4" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="6" coveredstatements="6" elements="10" coveredelements="10"/>
+      </class>
+      <line num="28" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="9"/>
+      <line num="30" type="stmt" count="9"/>
+      <line num="31" type="stmt" count="9"/>
+      <line num="32" type="stmt" count="9"/>
+      <line num="37" type="method" name="getName" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="39" type="stmt" count="2"/>
+      <line num="45" type="method" name="getAttributes" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="47" type="stmt" count="1"/>
+      <line num="55" type="method" name="getAttribute" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="57" type="stmt" count="1"/>
+      <metrics loc="59" ncloc="34" classes="1" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="6" coveredstatements="6" elements="10" coveredelements="10"/>
+    </file>
+    <file name="/Users/reneklatt/www/async-api/src/SprykerSdk/AsyncApi/Message/AsyncApiMessageCollection.php">
+      <class name="SprykerSdk\AsyncApi\Message\AsyncApiMessageCollection" namespace="global">
+        <metrics complexity="4" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="7" elements="10" coveredelements="10"/>
+      </class>
+      <line num="20" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="9"/>
+      <line num="22" type="stmt" count="9"/>
+      <line num="23" type="stmt" count="9"/>
+      <line num="28" type="method" name="getMessages" visibility="public" complexity="2" crap="2" count="2"/>
+      <line num="30" type="stmt" count="2"/>
+      <line num="31" type="stmt" count="2"/>
+      <line num="33" type="stmt" count="2"/>
+      <line num="40" type="method" name="getMessage" visibility="public" complexity="1" crap="1" count="4"/>
+      <line num="42" type="stmt" count="4"/>
+      <metrics loc="44" ncloc="26" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="7" elements="10" coveredelements="10"/>
+    </file>
+    <file name="/Users/reneklatt/www/async-api/src/SprykerSdk/AsyncApi/Message/AsyncApiMessageCollectionInterface.php">
+      <metrics loc="23" ncloc="11" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <file name="/Users/reneklatt/www/async-api/src/SprykerSdk/AsyncApi/Message/AsyncApiMessageInterface.php">
+      <metrics loc="28" ncloc="13" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <file name="/Users/reneklatt/www/async-api/src/SprykerSdk/AsyncApi/Message/Attributes/AsyncApiMessageAttribute.php">
+      <class name="SprykerSdk\AsyncApi\Message\Attributes\AsyncApiMessageAttribute" namespace="global">
+        <metrics complexity="3" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="5" elements="8" coveredelements="8"/>
+      </class>
+      <line num="26" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="9"/>
+      <line num="28" type="stmt" count="9"/>
+      <line num="29" type="stmt" count="9"/>
+      <line num="30" type="stmt" count="9"/>
+      <line num="35" type="method" name="getName" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="37" type="stmt" count="1"/>
+      <line num="43" type="method" name="getValue" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="45" type="stmt" count="1"/>
+      <metrics loc="47" ncloc="27" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="5" elements="8" coveredelements="8"/>
+    </file>
+    <file name="/Users/reneklatt/www/async-api/src/SprykerSdk/AsyncApi/Message/Attributes/AsyncApiMessageAttributeCollection.php">
+      <class name="SprykerSdk\AsyncApi\Message\Attributes\AsyncApiMessageAttributeCollection" namespace="global">
+        <metrics complexity="4" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="7" elements="10" coveredelements="10"/>
+      </class>
+      <line num="20" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="9"/>
+      <line num="22" type="stmt" count="9"/>
+      <line num="23" type="stmt" count="9"/>
+      <line num="28" type="method" name="getAttributes" visibility="public" complexity="2" crap="2" count="1"/>
+      <line num="30" type="stmt" count="1"/>
+      <line num="31" type="stmt" count="1"/>
+      <line num="33" type="stmt" count="1"/>
+      <line num="40" type="method" name="getAttribute" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="42" type="stmt" count="1"/>
+      <metrics loc="44" ncloc="26" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="7" elements="10" coveredelements="10"/>
+    </file>
+    <file name="/Users/reneklatt/www/async-api/src/SprykerSdk/AsyncApi/Message/Attributes/AsyncApiMessageAttributeCollectionInterface.php">
+      <metrics loc="23" ncloc="11" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <file name="/Users/reneklatt/www/async-api/src/SprykerSdk/AsyncApi/Message/Attributes/AsyncApiMessageAttributeInterface.php">
+      <metrics loc="21" ncloc="11" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <metrics files="16" loc="807" ncloc="481" classes="8" methods="36" coveredmethods="36" conditionals="0" coveredconditionals="0" statements="111" coveredstatements="111" elements="147" coveredelements="147"/>
+  </project>
+</coverage>

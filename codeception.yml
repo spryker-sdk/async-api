@@ -1,0 +1,19 @@
+namespace: SprykerSdkTest\AsyncApi
+paths:
+    tests: tests
+    output: tests/_output
+    data: tests/_data
+    support: tests/_support
+    envs: tests/_envs
+actor_suffix: Tester
+coverage:
+    enabled: true
+    include:
+        - src/SprykerSdk/AsyncApi/*
+suites:
+    AsyncApi:
+        path: SprykerSdkTest/AsyncApi
+        class_name: AsyncApiTester
+extensions:
+    enabled:
+        - Codeception\Extension\RunFailed

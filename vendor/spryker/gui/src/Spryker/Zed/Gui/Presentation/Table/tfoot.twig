@@ -1,0 +1,9 @@
+<tfoot>
+{%- if config.footer is defined %}
+<tr>
+    {%- for value in config.footer %}
+        <td>{{ value | trans }}</td>
+    {% endfor -%}
+</tr>
+{%  endif -%}
+</tfoot>

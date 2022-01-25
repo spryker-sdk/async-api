@@ -1,0 +1,24 @@
+{
+  "name": "everon/utils",
+  "description": "Everon Utils Component",
+  "type": "library",
+  "license": "MIT",
+  "authors": [{
+    "name": "Oliwier Ptak",
+    "email": "everonphp@gmail.com"
+  }],
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-4": {
+      "Everon\\Component\\Utils\\": "src/",
+      "Everon\\Component\\Utils\\Tests\\Unit\\": "tests/unit/"
+    }
+  },
+  "require": {
+    "php": ">=5.6"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "*",
+    "mockery/mockery": "dev-master"
+  }
+}

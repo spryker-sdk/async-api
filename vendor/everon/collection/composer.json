@@ -1,0 +1,25 @@
+{
+  "name": "everon/collection",
+  "description": "Everon Collection Component",
+  "type": "library",
+  "license": "MIT",
+  "authors": [{
+    "name": "Oliwier Ptak",
+    "email": "everonphp@gmail.com"
+  }],
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-4": {
+      "Everon\\Component\\Collection\\": "src/",
+      "Everon\\Component\\Collection\\Tests\\Unit\\": "tests/unit/"
+    }
+  },
+  "require": {
+    "php": ">=5.6",
+    "everon/utils": "~1.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "*",
+    "mockery/mockery": "dev-master"
+  }
+}

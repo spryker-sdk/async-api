@@ -1,0 +1,24 @@
+namespace: SprykerTest
+include:
+    - tests/SprykerTest/Shared/Transfer
+    - tests/SprykerTest/Zed/Transfer
+
+paths:
+    tests: tests
+    support: tests/_support
+    log: tests/_output
+    data: tests/_data
+    envs: tests/_envs
+
+settings:
+    suite_class: \PHPUnit\Framework\TestSuite
+    colors: true
+    memory_limit: 1024M
+    log: true
+
+extensions:
+    enabled:
+
+    config:
+        SprykerTest\Shared\Testify\Helper\WebDriverHelper:
+            suites: ['Presentation']
