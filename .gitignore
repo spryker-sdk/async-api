@@ -1,5 +1,5 @@
 # IDE
-.idea/
+.idea/*
 .project/
 nbproject/
 .buildpath/
@@ -13,7 +13,7 @@ nbproject/
 *.AppleDesktop
 
 # tooling
-vendor/
+vendor/*
 composer.lock
 .phpunit.result.cache
 

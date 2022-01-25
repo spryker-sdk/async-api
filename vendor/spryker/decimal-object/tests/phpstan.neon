@@ -1,4 +1,0 @@
-parameters:
-    checkMissingIterableValueType: false
-    ignoreErrors:
-        - '#Unsafe usage of new static\(\).#'
