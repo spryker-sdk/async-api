@@ -164,6 +164,10 @@ class AsyncApiLoader implements AsyncApiLoaderInterface
     {
         $channelNames = [];
 
+        if (!isset($asyncApi['channels'])) {
+            return $channelNames;
+        }
+
         foreach ($asyncApi['channels'] as $channelName => $channelDefinition) {
             $channelNames[] = $channelName;
         }

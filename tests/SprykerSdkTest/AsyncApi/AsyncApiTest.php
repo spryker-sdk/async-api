@@ -188,4 +188,19 @@ class AsyncApiTest extends Unit
         $this->assertSame('name', $attribute->getName());
         $this->assertSame('OutgoingMessage', $attribute->getValue());
     }
+
+    /**
+     * @return void
+     */
+    public function testLoadDefinitionFromAnInvalidFileDoesNotThrowAnException(): void
+    {
+        // Arrange
+        $asyncApiLoader = new AsyncApiLoader();
+
+        // Act
+        $asyncApi = $asyncApiLoader->load(codecept_data_dir('api/asyncapi/asyncapi-empty.yml'));
+
+        // Assert
+        $this->assertNull($asyncApi->getChannel('channelNameA'), 'Expected that channel does not exists but it exists.');
+    }
 }
