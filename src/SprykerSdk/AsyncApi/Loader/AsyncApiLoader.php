@@ -30,7 +30,6 @@ class AsyncApiLoader implements AsyncApiLoaderInterface
     public function load(string $asyncApiPath): AsyncApiInterface
     {
         $asyncApi = Yaml::parseFile($asyncApiPath);
-        $asyncApi = $this->resolveReferences($asyncApi);
 
         return new AsyncApi($this->getChannels($asyncApi));
     }
@@ -71,12 +70,12 @@ class AsyncApiLoader implements AsyncApiLoaderInterface
         $messages = $this->getFromPropertyPath($asyncApi, $propertyPath);
 
         if ($messages) {
-            $messages = $this->formatMessageFromOneOf($messages);
+            $messages = $this->formatMessageFromOneOf($messages, $asyncApi);
 
             $channelMessages += $messages;
         }
 
-        return $this->formatMessages($channelMessages);
+        return $this->createAsyncApiMessages($channelMessages);
     }
 
     /**
@@ -88,14 +87,11 @@ class AsyncApiLoader implements AsyncApiLoaderInterface
      *
      * @return array<string, \SprykerSdk\AsyncApi\Message\AsyncApiMessageInterface>
      */
-    protected function formatMessages(array $messages): array
+    protected function createAsyncApiMessages(array $messages): array
     {
         $formattedMessages = [];
 
         foreach ($messages as $messageName => $message) {
-            $message['payload'] = $message['payload'][$messageName];
-            $message['headers'] = $message['headers']['headers'];
-
             $formattedMessages[$messageName] = new AsyncApiMessage($messageName, $this->createMessageAttributesCollection($message));
         }
 
@@ -139,16 +135,20 @@ class AsyncApiLoader implements AsyncApiLoaderInterface
 
     /**
      * @param array<string, array> $messages
+     * @param array<string, mixed> $asyncApi
      *
      * @return array<string, array>
      */
-    protected function formatMessageFromOneOf(array $messages): array
+    protected function formatMessageFromOneOf(array $messages, array $asyncApi): array
     {
         $formattedMessages = [];
 
         foreach ($messages as $message) {
-            if (is_array($message)) {
-                $formattedMessages[(string)array_key_first($message)] = current(array_values($message));
+            foreach ($message as $reference) {
+                $messageName = $this->resolveReferenceKey($reference);
+                $resolvedMessage = $this->resolveReference($asyncApi, $reference);
+                $messageWithResolvedReferences = $this->resolveReferences($resolvedMessage, $asyncApi);
+                $formattedMessages[$messageName] = $messageWithResolvedReferences;
             }
         }
 
@@ -176,33 +176,28 @@ class AsyncApiLoader implements AsyncApiLoaderInterface
     }
 
     /**
-     * @param array $loadedYml
+     * @param array<string, mixed> $array
+     * @param array<string, mixed> $asyncApi
      *
-     * @return array
+     * @return array<string, mixed>
      */
-    protected function resolveReferences(array $loadedYml): array
+    protected function resolveReferences(array $array, array $asyncApi): array
     {
-        $arrayWalkRecursive = function (&$array) use ($loadedYml, &$arrayWalkRecursive) {
-            foreach ($array as $key => &$value) {
-                if (is_array($value)) {
-                    $arrayWalkRecursive($value);
-
-                    continue;
-                }
-
-                if ($key === '$ref') {
-                    $newKey = $this->resolveReferenceKey($value);
-                    $resolved = $this->resolveReference($loadedYml, $value);
-
-                    $array[$newKey] = $resolved;
-                    unset($array[$key]);
-                }
+        foreach ($array as $key => $value) {
+            if (is_array($value)) {
+                $array[$key] = $this->resolveReferences($value, $asyncApi);
             }
-        };
 
-        $arrayWalkRecursive($loadedYml);
+            if ($key === '$ref') {
+                $resolved = $this->resolveReference($asyncApi, $value);
+                $resolved = $this->resolveReferences($resolved, $asyncApi);
+                $array += $resolved;
 
-        return $loadedYml;
+                unset($array[$key]);
+            }
+        }
+
+        return $array;
     }
 
     /**
@@ -219,12 +214,12 @@ class AsyncApiLoader implements AsyncApiLoaderInterface
     }
 
     /**
-     * @param array $loadedYml
+     * @param array<string, mixed> $asyncApi
      * @param string $reference
      *
-     * @return array
+     * @return array<string, mixed>
      */
-    protected function resolveReference(array $loadedYml, string $reference): array
+    protected function resolveReference(array $asyncApi, string $reference): array
     {
         $propertyAccessor = PropertyAccess::createPropertyAccessor();
 
@@ -233,6 +228,6 @@ class AsyncApiLoader implements AsyncApiLoaderInterface
 
         $propertyPath = sprintf('[%s]', $propertyPath);
 
-        return $propertyAccessor->getValue($loadedYml, $propertyPath);
+        return $propertyAccessor->getValue($asyncApi, $propertyPath);
     }
 }

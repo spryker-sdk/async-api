@@ -23,6 +23,21 @@ class AsyncApiTest extends Unit
     /**
      * @return void
      */
+    public function testLoadReturnsAsyncApiWithManyReferences(): void
+    {
+        // Arrange
+        $asyncApiLoader = new AsyncApiLoader();
+
+        // Act
+        $asyncApi = $asyncApiLoader->load(codecept_data_dir('api/asyncapi/asyncapi-many-references.yml'));
+
+        // Assert
+        $this->assertInstanceOf(AsyncApiInterface::class, $asyncApi);
+    }
+
+    /**
+     * @return void
+     */
     public function testLoadReturnsAsyncApi(): void
     {
         // Arrange
