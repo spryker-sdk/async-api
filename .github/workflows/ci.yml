@@ -54,15 +54,6 @@ jobs:
             - name: Composer install
               run: composer install
 
-            - name: Run Rector checks
-              run: composer rector-diff
-
-            - name: Run CodeStyle checks
-              run: composer cs-check
-
-            - name: Run PHPStan
-              run: composer stan
-
             - name: Codecept tests
               if: ${{ matrix.php-version == '7.4' }}
               run: composer test
@@ -70,6 +61,15 @@ jobs:
             - name: Codecept tests with coverage
               if: ${{ matrix.php-version == '8.1' }}
               run: composer test-cover
+
+            - name: Run PHPStan
+              run: composer stan
+
+            - name: Run Rector checks
+              run: composer rector-diff
+
+            - name: Run CodeStyle checks
+              run: composer cs-check
 
             - name: Upload coverage results to Coveralls
               if: ${{ matrix.php-version == '8.1' }}
