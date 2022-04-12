@@ -14,11 +14,11 @@ This library provides an AsyncAPI parser.
 
 ### Parsing an AsyncAPI file
 
-```
-use \SprykerSdk\AsyncApi\Loader\AsyncApiLoader;
+```php
+use SprykerSdk\AsyncApi\Loader\AsyncApiLoader;
 
 $asyncApiLoader = new AsyncApiLoader();
-$asyncApi = $asyncApiLoader->load('path/to/async-api.yml');
+$asyncApi = $asyncApiLoader->load('.../path/to/async-api.yml');
 
 // Get the channel(s)
 $channels = $asyncApi->getChannels();
