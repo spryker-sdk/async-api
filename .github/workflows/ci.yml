@@ -19,7 +19,7 @@ jobs:
             matrix:
                 php-version: [
                     '7.4',
-                    '8.0'
+                    '8.1'
                 ]
 
         steps:
@@ -54,25 +54,25 @@ jobs:
             - name: Composer install
               run: composer install
 
+            - name: Codecept tests
+              if: ${{ matrix.php-version == '7.4' }}
+              run: composer test
+
+            - name: Codecept tests with coverage
+              if: ${{ matrix.php-version == '8.1' }}
+              run: composer test-cover
+
+            - name: Run PHPStan
+              run: composer stan
+
             - name: Run Rector checks
               run: composer rector-diff
 
             - name: Run CodeStyle checks
               run: composer cs-check
 
-            - name: Run PHPStan
-              run: composer stan
-
-            - name: Codecept tests
-              if: ${{ matrix.php-version == '7.4' }}
-              run: composer test
-
-            - name: Codecept tests with coverage
-              if: ${{ matrix.php-version == '8.0' }}
-              run: composer test-cover
-
             - name: Upload coverage results to Coveralls
-              if: ${{ matrix.php-version == '8.0' }}
+              if: ${{ matrix.php-version == '8.1' }}
               env:
                   COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: |
