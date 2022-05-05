@@ -4,7 +4,9 @@
     "description": "SDK for AsyncAPI.",
     "license": "proprietary",
     "require": {
-        "php": ">=7.4"
+        "php": ">=7.4",
+        "symfony/console": "^5.3 || ^6.0",
+        "symfony/finder": "^5.3 || ^6.0"
     },
     "require-dev": {
         "codeception/codeception": "*",
@@ -18,12 +20,14 @@
     },
     "autoload": {
         "psr-4": {
-            "SprykerSdk\\AsyncApi\\": "src/SprykerSdk/AsyncApi"
+            "SprykerSdk\\AsyncApi\\": "src/SprykerSdk/AsyncApi",
+            "Generated\\Shared\\Transfer\\": "src/Generated/Shared/Transfer/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "SprykerSdkTest\\AsyncApi\\": "tests/SprykerSdkTest/AsyncApi"
+            "SprykerSdkTest\\AsyncApi\\": "tests/SprykerSdkTest/AsyncApi",
+            "SprykerSdkTest\\Helper\\": "tests/_support/Helper/"
         }
     },
     "minimum-stability": "dev",

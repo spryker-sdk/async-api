@@ -1,0 +1,44 @@
+#!/usr/bin/env php
+<?php
+
+foreach ([__DIR__ . '/../../../../../autoload.php', __DIR__ . '/../../../autoload.php', __DIR__ . '/../vendor/autoload.php'] as $file) {
+    if (file_exists($file)) {
+        define('COMPOSER_INSTALL', $file);
+        define('ROOT_DIR', realpath(dirname($file) . '/..'));
+        break;
+    }
+}
+
+unset($file);
+
+if (!defined('COMPOSER_INSTALL')) {
+    throw new \Exception('Could not resolve path to vendor/autoload.php');
+}
+
+require_once COMPOSER_INSTALL;
+
+defined('APPLICATION_ROOT_DIR')
+    || define('APPLICATION_ROOT_DIR', getcwd());
+
+defined('ASYNC_API_ROOT_DIR')
+    || define('ASYNC_API_ROOT_DIR', __DIR__ . '/..');
+
+defined('APPLICATION_ENV')
+    || define('APPLICATION_ENV', 'development');
+
+
+use Symfony\Component\Console\Application;
+use SprykerSdk\AsyncApi\Console\AsyncApiCreateConsole;
+use SprykerSdk\AsyncApi\Console\AsyncApiMessageAddConsole;
+use SprykerSdk\AsyncApi\Console\AsyncApiValidateConsole;
+use SprykerSdk\AsyncApi\Console\BuildCodeFromAsyncApiConsole;
+
+$application = new Application();
+$application->addCommands([
+    new AsyncApiCreateConsole(),
+    new AsyncApiMessageAddConsole(),
+    new AsyncApiValidateConsole(),
+    new BuildCodeFromAsyncApiConsole(),
+]);
+
+$application->run();

@@ -16,3 +16,68 @@ This library provides an AsyncAPI parser.
 - `composer cs-check` - This will run CodeStyle checks.
 - `composer cs-fix` - This will fix fixable CodeStyles.
 - `composer stan` - This will run PHPStan checks.
+
+Documentation
+
+The following console commands are available:
+
+- `vendor/bin/asyncapi asyncapi:create`
+- `vendor/bin/asyncapi asyncapi:add:message`
+
+## Adding an AsyncAPI file
+
+The `vendor/bin/asyncapi asyncapi:add` adds a minimal AsyncAPI file.
+
+### Arguments and Options
+
+#### Arguments
+
+- `title`
+
+`vendor/bin/asyncapi asyncapi:create "Your Async API title"` will set the title in your AsyncAPI file.
+
+```
+...
+info:
+    title: 'Your Async API title'
+...
+```
+
+#### Options
+
+- `asyncapi-file`
+- `api-version`
+
+`vendor/bin/asyncapi asyncapi:create --asyncapi-file "path/to/async-api.yml"` will override the default file location (config/api/asyncapi/asyncapi.yml).
+
+`vendor/bin/asyncapi asyncapi:create --api-version 1.0.0` will override the default file version (0.1.0).
+
+## Adding a message to an AsyncAPI file
+
+The `vendor/bin/asyncapi asyncapi:add:message` adds a message to a given AsyncAPI file. This command can also be used to reverse engineer from an existing Transfer object.
+
+This console command has many options to be configured. See all of them by running
+
+`vendor/bin/asyncapi asyncapi:add:message -h`
+
+it will print a help page for this command.
+
+
+## Create code from an existing AsyncAPI
+
+The `vendor/bin/asyncapi build:from:asyncapi` reads an existing AsyncAPI file and creates code out of it. This command creates:
+
+- Message Transfer definitions (XML)
+- Adds handler for Messages that are sent to the application
+
+#### Options
+
+- `asyncapi-file`, can be used to run the generator with a specific AsyncAPI file
+- `organization`, can be used to set a specific organization, when set to Spryker code will be generated in the core modules (default: App)
+
+After the command was running you need to generate the transfer objects `vendor/bin/console transfer:generate`. After that you can use the generated transfers to sendMessages.
+
+> **NOTE** Keep in mind that you need to wire the generated `MessageHandlerPluginInterface`s in the `MessageBrokerDependencyProvider::getMessageHandlerPlugins()`.
+
+
+

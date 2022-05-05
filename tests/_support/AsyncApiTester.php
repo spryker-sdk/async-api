@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright © 2019-present Spryker Systems GmbH. All rights reserved.
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
@@ -7,6 +8,8 @@
 namespace SprykerSdkTest\AsyncApi;
 
 use Codeception\Actor;
+use SprykerSdk\AsyncApi\AsyncApiFacade;
+use SprykerSdk\AsyncApi\AsyncApiFacadeInterface;
 
 /**
  * Inherited Methods
@@ -29,6 +32,19 @@ class AsyncApiTester extends Actor
     use _generated\AsyncApiTesterActions;
 
     /**
-     * Define custom actions here
+     * @var \SprykerSdk\AsyncApi\AsyncApiFacadeInterface|null
      */
+    protected ?AsyncApiFacadeInterface $asyncApiFacade = null;
+
+    /**
+     * @return \SprykerSdk\AsyncApi\AsyncApiFacadeInterface
+     */
+    public function getFacade(): AsyncApiFacadeInterface
+    {
+        if (!$this->asyncApiFacade) {
+            $this->asyncApiFacade = new AsyncApiFacade();
+        }
+
+        return $this->asyncApiFacade;
+    }
 }
