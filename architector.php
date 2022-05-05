@@ -6,6 +6,7 @@
  */
 
 use Rector\CodeQuality\Rector\Return_\SimplifyUselessVariableRector;
+use Rector\Config\RectorConfig;
 use Rector\Core\Configuration\Option;
 use Rector\DeadCode\Rector\ClassMethod\RemoveUnusedPromotedPropertyRector;
 use Rector\DeadCode\Rector\ClassMethod\RemoveUselessParamTagRector;
@@ -16,11 +17,10 @@ use Rector\EarlyReturn\Rector\Return_\ReturnBinaryAndToEarlyReturnRector;
 use Rector\Php74\Rector\Closure\ClosureToArrowFunctionRector;
 use Rector\Php74\Rector\Property\TypedPropertyRector;
 use Rector\Set\ValueObject\SetList;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 defined('APPLICATION_ROOT_DIR') || define('APPLICATION_ROOT_DIR', __DIR__);
 
-return static function (ContainerConfigurator $containerConfigurator) {
+return static function (RectorConfig $containerConfigurator) {
     $containerConfigurator->import(SetList::DEAD_CODE);
     $containerConfigurator->import(SetList::EARLY_RETURN);
     $containerConfigurator->import(SetList::PHP_74);

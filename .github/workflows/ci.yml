@@ -54,14 +54,14 @@ jobs:
             - name: Composer install
               run: composer install
 
+            - name: Run PHPStan
+              run: composer stan
+
             - name: Run Rector checks
               run: composer rector-diff
 
             - name: Run CodeStyle checks
               run: composer cs-check
-
-            - name: Run PHPStan
-              run: composer stan
 
             - name: Codecept tests
               if: ${{ matrix.php-version == '7.4' }}

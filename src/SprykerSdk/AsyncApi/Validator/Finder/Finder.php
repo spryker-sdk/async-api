@@ -12,12 +12,11 @@ use Symfony\Component\Finder\SplFileInfo;
 
 class Finder implements FinderInterface
 {
-
-    /**
-     * @param string|null $path
-     *
-     * @return bool
-     */
+ /**
+  * @param string|null $path
+  *
+  * @return bool
+  */
     public function hasFiles(?string $path): bool
     {
         return $path && file_exists($path);

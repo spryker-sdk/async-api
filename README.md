@@ -10,6 +10,34 @@ This library provides an AsyncAPI parser.
 
 - `composer require --dev spryker-sdk/async-api`
 
+## Usage
+
+### Parsing an AsyncAPI file
+
+```php
+use SprykerSdk\AsyncApi\Loader\AsyncApiLoader;
+
+$asyncApiLoader = new AsyncApiLoader();
+$asyncApi = $asyncApiLoader->load('.../path/to/async-api.yml');
+
+// Get the channel(s)
+$channels = $asyncApi->getChannels();
+$channel = $asyncApi->getChannel('channel-name');
+
+// Get publish message(s)
+$publishMessages = $channel->getPublishMessages();
+$publishMessage = $channel->getPublishMessage('message-name');
+
+// Get subscribe message(s)
+$subscribeMessages = $channel->getSubscribeMessages();
+$subscribeMessage = $channel->getSubscribeMessage('message-name');
+
+// Get message detail(s)
+$messageAttributes = $subscribeMessage->getAttributes();
+$messageAttribute = $subscribeMessage->getAttribute('attribute-name');
+```
+
+
 ### Run tests/checks
 
 - `composer test` - This will execute the tests.
