@@ -1,0 +1,34 @@
+#!/usr/bin/env php
+<?php
+
+foreach ([__DIR__ . '/../../../../../autoload.php', __DIR__ . '/../../../autoload.php', __DIR__ . '/../vendor/autoload.php'] as $file) {
+    if (file_exists($file)) {
+        define('COMPOSER_INSTALL', $file);
+        define('ROOT_DIR', realpath(dirname($file) . '/..'));
+        break;
+    }
+}
+
+unset($file);
+
+if (!defined('COMPOSER_INSTALL')) {
+    throw new \Exception('Could not resolve path to vendor/autoload.php');
+}
+
+require_once COMPOSER_INSTALL;
+
+use Symfony\Component\Console\Application;
+use SprykerSdk\AsyncApi\Console\SchemaCreateConsole;
+use SprykerSdk\AsyncApi\Console\SchemaMessageAddConsole;
+use SprykerSdk\AsyncApi\Console\SchemaValidateConsole;
+use SprykerSdk\AsyncApi\Console\CodeGenerateConsole;
+
+$application = new Application();
+$application->addCommands([
+    new SchemaCreateConsole(),
+    new SchemaMessageAddConsole(),
+    new SchemaValidateConsole(),
+    new CodeGenerateConsole(),
+]);
+
+$application->run();

@@ -14,6 +14,12 @@ suites:
     AsyncApi:
         path: SprykerSdkTest/AsyncApi
         class_name: AsyncApiTester
+        modules:
+            enabled:
+                - \SprykerSdkTest\Helper\AsyncApiHelper
+                - \SprykerSdkTest\Helper\AsyncApiValidatorHelper
+                - \SprykerSdkTest\Helper\ValidatorHelper
+                - \SprykerSdkTest\Helper\CommandHelper
 extensions:
     enabled:
         - Codeception\Extension\RunFailed

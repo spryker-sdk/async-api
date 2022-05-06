@@ -1,0 +1,48 @@
+asyncapi: 2.2.0
+info:
+    title: 'Test File'
+    version: 0.1.0
+channels:
+    foo/bar:
+        subscribe:
+        publish:
+components:
+    schemas:
+        headers:
+            type: object
+            required:
+                - timestamp
+                - store
+                - correlationId
+            properties:
+                timestamp:
+                    type: integer
+                    description: 'Timestamp when this message was created (microtime).'
+                store:
+                    type: string
+                    description: 'Store name that triggered the event.'
+                appIdentifier:
+                    type: string
+                    description: 'Identifier of the app for the triggered event.'
+                correlationId:
+                    type: string
+                    description: 'Identifier of the current process.'
+        message:
+            type: object
+            properties:
+                firstName:
+                    type: string
+                lastName:
+                    type: string
+                email:
+                    type: string
+            required:
+                - firstName
+                - email
+    messages:
+        message:
+            name: message
+            operationId: MyModule
+            summary: ''
+            payload:
+                $ref: '#/components/schemas/message'

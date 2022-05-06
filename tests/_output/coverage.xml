@@ -18,7 +18,7 @@
       <metrics loc="25" ncloc="13" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
     <file name="/Users/reneklatt/www/async-api/src/SprykerSdk/AsyncApi/Channel/AsyncApiChannel.php">
-      <class name="SprykerSdk\AsyncApi\Channel\AsyncApiChannel" namespace="global">
+      <class name="SprykerSdk\AsyncApi\AsyncApi\Channel\AsyncApiChannel" namespace="global">
         <metrics complexity="6" methods="6" coveredmethods="6" conditionals="0" coveredconditionals="0" statements="13" coveredstatements="13" elements="19" coveredelements="19"/>
       </class>
       <line num="35" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="9"/>
@@ -41,7 +41,7 @@
       <metrics loc="85" ncloc="48" classes="1" methods="6" coveredmethods="6" conditionals="0" coveredconditionals="0" statements="13" coveredstatements="13" elements="19" coveredelements="19"/>
     </file>
     <file name="/Users/reneklatt/www/async-api/src/SprykerSdk/AsyncApi/Channel/AsyncApiChannelCollection.php">
-      <class name="SprykerSdk\AsyncApi\Channel\AsyncApiChannelCollection" namespace="global">
+      <class name="SprykerSdk\AsyncApi\AsyncApi\Channel\AsyncApiChannelCollection" namespace="global">
         <metrics complexity="4" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="7" elements="10" coveredelements="10"/>
       </class>
       <line num="20" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="10"/>
@@ -62,7 +62,7 @@
       <metrics loc="42" ncloc="19" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
     <file name="/Users/reneklatt/www/async-api/src/SprykerSdk/AsyncApi/Loader/AsyncApiLoader.php">
-      <class name="SprykerSdk\AsyncApi\Loader\AsyncApiLoader" namespace="global">
+      <class name="SprykerSdk\AsyncApi\AsyncApi\Loader\AsyncApiLoader" namespace="global">
         <metrics complexity="23" methods="11" coveredmethods="11" conditionals="0" coveredconditionals="0" statements="64" coveredstatements="64" elements="75" coveredelements="75"/>
       </class>
       <line num="30" type="method" name="load" visibility="public" complexity="1" crap="1" count="10"/>
@@ -146,7 +146,7 @@
       <metrics loc="20" ncloc="11" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
     <file name="/Users/reneklatt/www/async-api/src/SprykerSdk/AsyncApi/Message/AsyncApiMessage.php">
-      <class name="SprykerSdk\AsyncApi\Message\AsyncApiMessage" namespace="global">
+      <class name="SprykerSdk\AsyncApi\AsyncApi\Message\AsyncApiMessage" namespace="global">
         <metrics complexity="4" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="6" coveredstatements="6" elements="10" coveredelements="10"/>
       </class>
       <line num="28" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="9"/>
@@ -162,7 +162,7 @@
       <metrics loc="59" ncloc="34" classes="1" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="6" coveredstatements="6" elements="10" coveredelements="10"/>
     </file>
     <file name="/Users/reneklatt/www/async-api/src/SprykerSdk/AsyncApi/Message/AsyncApiMessageCollection.php">
-      <class name="SprykerSdk\AsyncApi\Message\AsyncApiMessageCollection" namespace="global">
+      <class name="SprykerSdk\AsyncApi\AsyncApi\Message\AsyncApiMessageCollection" namespace="global">
         <metrics complexity="4" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="7" elements="10" coveredelements="10"/>
       </class>
       <line num="20" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="9"/>
@@ -183,7 +183,7 @@
       <metrics loc="28" ncloc="13" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
     <file name="/Users/reneklatt/www/async-api/src/SprykerSdk/AsyncApi/Message/Attributes/AsyncApiMessageAttribute.php">
-      <class name="SprykerSdk\AsyncApi\Message\Attributes\AsyncApiMessageAttribute" namespace="global">
+      <class name="SprykerSdk\AsyncApi\AsyncApi\Message\Attributes\AsyncApiMessageAttribute" namespace="global">
         <metrics complexity="3" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="5" elements="8" coveredelements="8"/>
       </class>
       <line num="26" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="9"/>
@@ -197,7 +197,7 @@
       <metrics loc="47" ncloc="27" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="5" elements="8" coveredelements="8"/>
     </file>
     <file name="/Users/reneklatt/www/async-api/src/SprykerSdk/AsyncApi/Message/Attributes/AsyncApiMessageAttributeCollection.php">
-      <class name="SprykerSdk\AsyncApi\Message\Attributes\AsyncApiMessageAttributeCollection" namespace="global">
+      <class name="SprykerSdk\AsyncApi\AsyncApi\Message\Attributes\AsyncApiMessageAttributeCollection" namespace="global">
         <metrics complexity="4" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="7" elements="10" coveredelements="10"/>
       </class>
       <line num="20" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="9"/>
