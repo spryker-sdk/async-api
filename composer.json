@@ -6,11 +6,14 @@
     "require": {
         "php": ">=7.4",
         "symfony/console": "^5.3 || ^6.0",
-        "symfony/finder": "^5.3 || ^6.0"
+        "symfony/finder": "^5.3 || ^6.0",
+        "symfony/process": "^5.4",
+        "symfony/property-access": "^5.4"
     },
     "require-dev": {
         "codeception/codeception": "*",
         "codeception/module-asserts": "*",
+        "mikey179/vfsstream": "^1.6",
         "sllh/composer-versions-check": "^2.0",
         "spryker-sdk/architector": "0.1.x-dev",
         "spryker/code-sniffer": "*",
@@ -29,6 +32,9 @@
             "SprykerSdkTest\\Helper\\": "tests/_support/Helper/"
         }
     },
+    "bin": [
+        "bin/asyncapi"
+    ],
     "minimum-stability": "dev",
     "prefer-stable": true,
     "extra": {

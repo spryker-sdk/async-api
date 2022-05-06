@@ -24,15 +24,10 @@ use SprykerSdk\AsyncApi\AsyncApiFacadeInterface;
 use SprykerSdk\AsyncApi\AsyncApiFactory;
 use SprykerSdk\AsyncApi\Code\Builder\AsyncApiCodeBuilder;
 use SprykerSdk\AsyncApi\Console\CodeGenerateConsole;
-use SprykerTest\Shared\Testify\Helper\ConfigHelperTrait;
-use SprykerTest\Zed\Testify\Helper\Business\BusinessHelperTrait;
 use Symfony\Component\Yaml\Yaml;
 
 class AsyncApiHelper extends Module
 {
-    use BusinessHelperTrait;
-    use ConfigHelperTrait;
-
     /**
      * @var string|null
      */

@@ -7,8 +7,6 @@
 namespace Generated\Shared\Transfer;
 
 use ArrayObject;
-use Spryker\DecimalObject\Decimal;
-use Spryker\Shared\Kernel\Transfer\AbstractTransfer;
 
 /**
  * !!! THIS FILE IS AUTO-GENERATED, EVERY CHANGE WILL BE LOST WITH THE NEXT RUN OF TRANSFER GENERATOR

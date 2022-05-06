@@ -9,16 +9,12 @@ namespace SprykerSdkTest\Helper;
 
 use Codeception\Module;
 use SprykerSdk\Zed\AopSdk\Communication\Console\AbstractConsole;
-use SprykerTest\Shared\Testify\Helper\ConfigHelperTrait;
-use SprykerTest\Zed\Testify\Helper\Business\BusinessHelperTrait;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
 class CommandHelper extends Module
 {
     use AsyncApiHelperTrait;
-    use BusinessHelperTrait;
-    use ConfigHelperTrait;
 
     /**
      * @param \SprykerSdk\Zed\AopSdk\Communication\Console\AbstractConsole|string $command
