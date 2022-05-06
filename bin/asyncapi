@@ -28,17 +28,17 @@ defined('APPLICATION_ENV')
 
 
 use Symfony\Component\Console\Application;
-use SprykerSdk\AsyncApi\Console\AsyncApiCreateConsole;
-use SprykerSdk\AsyncApi\Console\AsyncApiMessageAddConsole;
-use SprykerSdk\AsyncApi\Console\AsyncApiValidateConsole;
-use SprykerSdk\AsyncApi\Console\BuildCodeFromAsyncApiConsole;
+use SprykerSdk\AsyncApi\Console\SchemaCreateConsole;
+use SprykerSdk\AsyncApi\Console\SchemaMessageAddConsole;
+use SprykerSdk\AsyncApi\Console\SchemaValidateConsole;
+use SprykerSdk\AsyncApi\Console\CodeGenerateConsole;
 
 $application = new Application();
 $application->addCommands([
-    new AsyncApiCreateConsole(),
-    new AsyncApiMessageAddConsole(),
-    new AsyncApiValidateConsole(),
-    new BuildCodeFromAsyncApiConsole(),
+    new SchemaCreateConsole(),
+    new SchemaMessageAddConsole(),
+    new SchemaValidateConsole(),
+    new CodeGenerateConsole(),
 ]);
 
 $application->run();

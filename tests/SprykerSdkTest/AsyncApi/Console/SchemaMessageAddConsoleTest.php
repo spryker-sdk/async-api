@@ -10,19 +10,17 @@ namespace SprykerSdkTest\AsyncApi\Console;
 use Codeception\Test\Unit;
 use Generated\Shared\Transfer\AsyncApiBuilderTestTransfer;
 use SprykerSdk\AsyncApi\Console\AbstractConsole;
-use SprykerSdk\AsyncApi\Console\AsyncApiMessageAddConsole;
+use SprykerSdk\AsyncApi\Console\SchemaMessageAddConsole;
 use SprykerSdkTest\AsyncApi\AsyncApiTester;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @group SprykerSdkTest
- * @group Zed
- * @group AopSdk
- * @group Communication
+ * @group AsyncApi
  * @group Console
- * @group AsyncApiMessageAddConsoleTest
+ * @group SchemaMessageAddConsoleTest
  */
-class AsyncApiMessageAddConsoleTest extends Unit
+class SchemaMessageAddConsoleTest extends Unit
 {
     /**
      * @var \SprykerSdkTest\AsyncApi\AsyncApiTester
@@ -36,14 +34,14 @@ class AsyncApiMessageAddConsoleTest extends Unit
     {
         // Arrange
         $this->tester->haveAsyncApiFile();
-        $commandTester = $this->tester->getConsoleTester(AsyncApiMessageAddConsole::class);
+        $commandTester = $this->tester->getConsoleTester(SchemaMessageAddConsole::class);
 
         // Act
         $commandTester->execute(
             [
-                AsyncApiMessageAddConsole::ARGUMENT_CHANNEL_NAME => 'test/channel',
-                '--' . AsyncApiMessageAddConsole::OPTION_FROM_TRANSFER_CLASS => AsyncApiBuilderTestTransfer::class,
-                '--' . AsyncApiMessageAddConsole::OPTION_OPERATION_ID => 'operationId',
+                SchemaMessageAddConsole::ARGUMENT_CHANNEL_NAME => 'test/channel',
+                '--' . SchemaMessageAddConsole::OPTION_FROM_TRANSFER_CLASS => AsyncApiBuilderTestTransfer::class,
+                '--' . SchemaMessageAddConsole::OPTION_OPERATION_ID => 'operationId',
             ],
         );
 
@@ -56,14 +54,14 @@ class AsyncApiMessageAddConsoleTest extends Unit
      */
     public function testAddMessageReturnsErrorCodeAndPrintsErrorMessagesWhenMessageCouldNotBeAddedWhenAsyncApiDoesNotExists(): void
     {
-        $commandTester = $this->tester->getConsoleTester(AsyncApiMessageAddConsole::class, false);
+        $commandTester = $this->tester->getConsoleTester(SchemaMessageAddConsole::class, false);
 
         // Act
         $commandTester->execute(
             [
-                AsyncApiMessageAddConsole::ARGUMENT_CHANNEL_NAME => 'test/channel',
-                '--' . AsyncApiMessageAddConsole::OPTION_FROM_TRANSFER_CLASS => AsyncApiBuilderTestTransfer::class,
-                '--' . AsyncApiMessageAddConsole::OPTION_OPERATION_ID => 'operationId',
+                SchemaMessageAddConsole::ARGUMENT_CHANNEL_NAME => 'test/channel',
+                '--' . SchemaMessageAddConsole::OPTION_FROM_TRANSFER_CLASS => AsyncApiBuilderTestTransfer::class,
+                '--' . SchemaMessageAddConsole::OPTION_OPERATION_ID => 'operationId',
             ],
             ['verbosity' => OutputInterface::VERBOSITY_VERBOSE],
         );

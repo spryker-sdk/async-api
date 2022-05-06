@@ -9,19 +9,17 @@ namespace SprykerSdkTest\AsyncApi\Console;
 
 use Codeception\Test\Unit;
 use SprykerSdk\AsyncApi\Console\AbstractConsole;
-use SprykerSdk\AsyncApi\Console\BuildCodeFromAsyncApiConsole;
+use SprykerSdk\AsyncApi\Console\CodeGenerateConsole;
 use SprykerSdkTest\AsyncApi\AsyncApiTester;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @group SprykerSdkTest
- * @group Zed
- * @group AopSdk
- * @group Communication
+ * @group AsyncApi
  * @group Console
- * @group BuildFromAsyncApiConsoleTest
+ * @group CodeGenerateConsoleTest
  */
-class BuildFromAsyncApiConsoleTest extends Unit
+class CodeGenerateConsoleTest extends Unit
 {
     /**
      * @var \SprykerSdkTest\AsyncApi\AsyncApiTester
@@ -40,8 +38,8 @@ class BuildFromAsyncApiConsoleTest extends Unit
 
         // Act
         $commandTester->execute([
-            '--' . BuildCodeFromAsyncApiConsole::OPTION_ASYNC_API_FILE => codecept_data_dir('api/asyncapi/builder/asyncapi.yml'),
-            '--' . BuildCodeFromAsyncApiConsole::OPTION_ORGANIZATION => 'Spryker',
+            '--' . CodeGenerateConsole::OPTION_ASYNC_API_FILE => codecept_data_dir('api/asyncapi/builder/asyncapi.yml'),
+            '--' . CodeGenerateConsole::OPTION_ORGANIZATION => 'Spryker',
         ]);
 
         // Assert
@@ -60,7 +58,7 @@ class BuildFromAsyncApiConsoleTest extends Unit
 
         // Act
         $commandTester->execute([
-            '--' . BuildCodeFromAsyncApiConsole::OPTION_ASYNC_API_FILE => codecept_data_dir('api/asyncapi/builder/asyncapi.yml'),
+            '--' . CodeGenerateConsole::OPTION_ASYNC_API_FILE => codecept_data_dir('api/asyncapi/builder/asyncapi.yml'),
         ], ['verbosity' => OutputInterface::VERBOSITY_VERBOSE]);
 
         // Assert
@@ -81,7 +79,7 @@ class BuildFromAsyncApiConsoleTest extends Unit
 
         // Act
         $commandTester->execute([
-            '--' . BuildCodeFromAsyncApiConsole::OPTION_ASYNC_API_FILE => codecept_data_dir('api/asyncapi/builder/asyncapi-empty.yml'),
+            '--' . CodeGenerateConsole::OPTION_ASYNC_API_FILE => codecept_data_dir('api/asyncapi/builder/asyncapi-empty.yml'),
         ]);
 
         // Assert
@@ -100,7 +98,7 @@ class BuildFromAsyncApiConsoleTest extends Unit
 
         // Act
         $commandTester->execute([
-            '--' . BuildCodeFromAsyncApiConsole::OPTION_ASYNC_API_FILE => codecept_data_dir('api/asyncapi/builder/asyncapi-empty.yml'),
+            '--' . CodeGenerateConsole::OPTION_ASYNC_API_FILE => codecept_data_dir('api/asyncapi/builder/asyncapi-empty.yml'),
         ], ['verbosity' => OutputInterface::VERBOSITY_VERBOSE]);
 
         // Assert

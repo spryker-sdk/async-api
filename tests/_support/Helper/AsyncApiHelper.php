@@ -23,7 +23,7 @@ use SprykerSdk\AsyncApi\AsyncApiFacade;
 use SprykerSdk\AsyncApi\AsyncApiFacadeInterface;
 use SprykerSdk\AsyncApi\AsyncApiFactory;
 use SprykerSdk\AsyncApi\Code\Builder\AsyncApiCodeBuilder;
-use SprykerSdk\AsyncApi\Console\BuildCodeFromAsyncApiConsole;
+use SprykerSdk\AsyncApi\Console\CodeGenerateConsole;
 use SprykerTest\Shared\Testify\Helper\ConfigHelperTrait;
 use SprykerTest\Zed\Testify\Helper\Business\BusinessHelperTrait;
 use Symfony\Component\Yaml\Yaml;
@@ -462,9 +462,9 @@ class AsyncApiHelper extends Module
     }
 
     /**
-     * @return \SprykerSdk\AsyncApi\Console\BuildCodeFromAsyncApiConsole
+     * @return \SprykerSdk\AsyncApi\Console\CodeGenerateConsole
      */
-    public function getAsyncApiBuilderConsoleMock(): BuildCodeFromAsyncApiConsole
+    public function getAsyncApiBuilderConsoleMock(): CodeGenerateConsole
     {
         $asyncApiCodeBuilderStub = Stub::construct(
             AsyncApiCodeBuilder::class,
@@ -483,7 +483,7 @@ class AsyncApiHelper extends Module
         $facade = new AsyncApiFacade();
         $facade->setFactory($factoryMock);
 
-        $buildFromAsyncApiConsole = new BuildCodeFromAsyncApiConsole();
+        $buildFromAsyncApiConsole = new CodeGenerateConsole();
         $buildFromAsyncApiConsole->setFacade($facade);
 
         return $buildFromAsyncApiConsole;

@@ -13,7 +13,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class BuildCodeFromAsyncApiConsole extends AbstractConsole
+class CodeGenerateConsole extends AbstractConsole
 {
     /**
      * @var string
@@ -40,8 +40,8 @@ class BuildCodeFromAsyncApiConsole extends AbstractConsole
      */
     protected function configure(): void
     {
-        $this->setName('build:from:asyncapi')
-            ->setDescription('Builds code from an AsyncAPI file definition.')
+        $this->setName('code:generate')
+            ->setDescription('Generates code from an AsyncAPI file definition.')
             ->addOption(static::OPTION_ASYNC_API_FILE, static::OPTION_ASYNC_API_FILE_SHORT, InputOption::VALUE_REQUIRED, '', $this->getConfig()->getDefaultAsyncApiFile())
             ->addOption(static::OPTION_ORGANIZATION, static::OPTION_ORGANIZATION_SHORT, InputOption::VALUE_REQUIRED, 'Namespace that should be used for the code builder. When set to Spryker code will be generated in the core modules.', 'App');
     }

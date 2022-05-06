@@ -250,10 +250,10 @@ trait AsyncApiTesterActions
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
-     * @return \SprykerSdk\AsyncApi\Console\BuildCodeFromAsyncApiConsole
+     * @return \SprykerSdk\AsyncApi\Console\CodeGenerateConsole
      * @see \SprykerSdkTest\Helper\AsyncApiHelper::getAsyncApiBuilderConsoleMock()
      */
-    public function getAsyncApiBuilderConsoleMock(): \SprykerSdk\AsyncApi\Console\BuildCodeFromAsyncApiConsole {
+    public function getAsyncApiBuilderConsoleMock(): \SprykerSdk\AsyncApi\Console\CodeGenerateConsole {
         return $this->getScenario()->runStep(new \Codeception\Step\Action('getAsyncApiBuilderConsoleMock', func_get_args()));
     }
 

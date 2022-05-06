@@ -15,7 +15,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class AsyncApiMessageAddConsole extends AbstractConsole
+class SchemaMessageAddConsole extends AbstractConsole
 {
     /**
      * @var string
@@ -112,7 +112,7 @@ class AsyncApiMessageAddConsole extends AbstractConsole
      */
     protected function configure(): void
     {
-        $this->setName('asyncapi:message:add')
+        $this->setName('schema:message:add')
             ->setDescription('Adds a message definition to a specified Async API schema file.')
             ->addArgument(static::ARGUMENT_CHANNEL_NAME, InputArgument::REQUIRED, 'The channel name to which the message should be added.')
             ->addOption(static::OPTION_ASYNC_API_FILE, static::OPTION_ASYNC_API_FILE_SHORT, InputOption::VALUE_REQUIRED, '', $this->getConfig()->getDefaultAsyncApiFile())

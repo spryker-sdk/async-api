@@ -12,7 +12,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class AsyncApiValidateConsole extends AbstractConsole
+class SchemaValidateConsole extends AbstractConsole
 {
     /**
      * @var string
@@ -29,8 +29,8 @@ class AsyncApiValidateConsole extends AbstractConsole
      */
     protected function configure(): void
     {
-        $this->setName('asyncapi:validate')
-            ->setDescription('Validates the asyncapi files.')
+        $this->setName('schema:validate')
+            ->setDescription('Validates an AsyncAPI file.')
             ->addOption(static::ASYNC_API_FILE, static::ASYNC_API_FILE_SHORT, InputOption::VALUE_REQUIRED, '', $this->getConfig()->getDefaultAsyncApiFile());
     }
 

@@ -9,19 +9,17 @@ namespace SprykerSdkTest\AsyncApi\Console;
 
 use Codeception\Test\Unit;
 use SprykerSdk\AsyncApi\Console\AbstractConsole;
-use SprykerSdk\AsyncApi\Console\AsyncApiCreateConsole;
+use SprykerSdk\AsyncApi\Console\SchemaCreateConsole;
 use SprykerSdkTest\AsyncApi\AsyncApiTester;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @group SprykerSdkTest
- * @group Zed
- * @group AopSdk
- * @group Communication
+ * @group AsyncApi
  * @group Console
- * @group AsyncApiCreateConsoleTest
+ * @group SchemaCreateConsoleTest
  */
-class AsyncApiCreateConsoleTest extends Unit
+class SchemaCreateConsoleTest extends Unit
 {
     /**
      * @var \SprykerSdkTest\AsyncApi\AsyncApiTester
@@ -31,12 +29,12 @@ class AsyncApiCreateConsoleTest extends Unit
     /**
      * @return void
      */
-    public function testAsyncnApiCreateConsole(): void
+    public function testAsyncApiCreateConsole(): void
     {
-        $commandTester = $this->tester->getConsoleTester(new AsyncApiCreateConsole());
+        $commandTester = $this->tester->getConsoleTester(new SchemaCreateConsole());
 
         // Act
-        $commandTester->execute([AsyncApiCreateConsole::ARGUMENT_TITLE => 'Test File', '--' . AsyncApiCreateConsole::OPTION_ASYNC_API_FILE => 'config/api/asyncapi.yml'], ['verbosity' => OutputInterface::VERBOSITY_VERBOSE]);
+        $commandTester->execute([SchemaCreateConsole::ARGUMENT_TITLE => 'Test File', '--' . SchemaCreateConsole::OPTION_ASYNC_API_FILE => 'config/api/asyncapi.yml'], ['verbosity' => OutputInterface::VERBOSITY_VERBOSE]);
 
         // Assert
         $this->assertSame(AbstractConsole::CODE_SUCCESS, $commandTester->getStatusCode());
