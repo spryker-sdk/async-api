@@ -14,7 +14,6 @@
         "sllh/composer-versions-check": "^2.0",
         "spryker-sdk/architector": "0.1.x-dev",
         "spryker/code-sniffer": "*",
-        "spryker/testify": "^3.43",
         "symfony/filesystem": "^5.3",
         "symfony/var-dumper": "*"
     },
