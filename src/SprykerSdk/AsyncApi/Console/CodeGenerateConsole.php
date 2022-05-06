@@ -40,7 +40,7 @@ class CodeGenerateConsole extends AbstractConsole
      */
     protected function configure(): void
     {
-        $this->setName('code:generate')
+        $this->setName('code:asyncapi:generate')
             ->setDescription('Generates code from an AsyncAPI file definition.')
             ->addOption(static::OPTION_ASYNC_API_FILE, static::OPTION_ASYNC_API_FILE_SHORT, InputOption::VALUE_REQUIRED, '', $this->getConfig()->getDefaultAsyncApiFile())
             ->addOption(static::OPTION_ORGANIZATION, static::OPTION_ORGANIZATION_SHORT, InputOption::VALUE_REQUIRED, 'Namespace that should be used for the code builder. When set to Spryker code will be generated in the core modules.', 'App');

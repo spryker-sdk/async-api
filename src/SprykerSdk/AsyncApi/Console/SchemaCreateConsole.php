@@ -41,7 +41,7 @@ class SchemaCreateConsole extends AbstractConsole
      */
     protected function configure(): void
     {
-        $this->setName('schema:create')
+        $this->setName('schema:asyncapi:create')
             ->setDescription('Creates an AsyncAPI file in the specified Async API schema file path.')
             ->addArgument(static::ARGUMENT_TITLE, InputArgument::REQUIRED, 'The name of the App.')
             ->addOption(static::OPTION_ASYNC_API_FILE, static::OPTION_ASYNC_API_FILE_SHORT, InputOption::VALUE_REQUIRED, '', $this->getConfig()->getDefaultAsyncApiFile())

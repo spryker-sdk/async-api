@@ -29,7 +29,7 @@ class SchemaValidateConsole extends AbstractConsole
      */
     protected function configure(): void
     {
-        $this->setName('schema:validate')
+        $this->setName('schema:asyncapi:validate')
             ->setDescription('Validates an AsyncAPI file.')
             ->addOption(static::ASYNC_API_FILE, static::ASYNC_API_FILE_SHORT, InputOption::VALUE_REQUIRED, '', $this->getConfig()->getDefaultAsyncApiFile());
     }
