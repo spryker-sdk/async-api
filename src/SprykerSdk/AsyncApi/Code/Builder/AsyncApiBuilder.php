@@ -344,7 +344,7 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
         }
 
         if ($asyncApiRequestTransfer->getPayloadTransferObjectName()) {
-            /** @var class-string<\Spryker\Shared\Kernel\Transfer\AbstractTransfer> $transferObjectClassName */
+            /** @var class-string<\Generated\Shared\Transfer\AbstractTransfer> $transferObjectClassName */
             $transferObjectClassName = '\\' . ltrim($asyncApiRequestTransfer->getPayloadTransferObjectNameOrFail(), '\\');
 
             $transferObject = new $transferObjectClassName();
