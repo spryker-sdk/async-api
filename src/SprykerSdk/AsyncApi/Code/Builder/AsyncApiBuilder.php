@@ -150,6 +150,7 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
         if ($asyncApiRequestTransfer->getOperationId() === null) {
             return true;
         }
+
         return $asyncApiRequestTransfer->getOperationId() === '';
     }
 
