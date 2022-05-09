@@ -147,7 +147,10 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
      */
     protected function isOperationIdEmpty(AsyncApiRequestTransfer $asyncApiRequestTransfer): bool
     {
-        return $asyncApiRequestTransfer->getOperationId() === null || $asyncApiRequestTransfer->getOperationId() === '';
+        if ($asyncApiRequestTransfer->getOperationId() === null) {
+            return true;
+        }
+        return $asyncApiRequestTransfer->getOperationId() === '';
     }
 
     /**
