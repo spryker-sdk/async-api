@@ -100,7 +100,7 @@ class SchemaMessageAddConsole extends AbstractConsole
     /**
      * @var string
      */
-    public const OPTION_OPERATION_ID = 'operationId';
+    public const OPTION_OPERATION_ID = 'operation-id';
 
     /**
      * @var string
@@ -117,7 +117,7 @@ class SchemaMessageAddConsole extends AbstractConsole
             ->addArgument(static::ARGUMENT_CHANNEL_NAME, InputArgument::REQUIRED, 'The channel name to which the message should be added.')
             ->addOption(static::OPTION_ASYNC_API_FILE, static::OPTION_ASYNC_API_FILE_SHORT, InputOption::VALUE_REQUIRED, '', $this->getConfig()->getDefaultAsyncApiFile())
             ->addOption(static::OPTION_PROPERTY, static::OPTION_PROPERTY_SHORT, InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'When this option is set the property value will be added to the message definition of the specified channel.')
-            ->addOption(static::OPTION_MESSAGE_NAME, static::OPTION_MESSAGE_NAME_SHORT, InputOption::VALUE_REQUIRED, 'Name of the message. If not passed the name will be extracted from the ')
+            ->addOption(static::OPTION_MESSAGE_NAME, static::OPTION_MESSAGE_NAME_SHORT, InputOption::VALUE_REQUIRED, 'Name of the message.')
             ->addOption(static::OPTION_OPERATION_ID, static::OPTION_OPERATION_ID_SHORT, InputOption::VALUE_REQUIRED, 'Operation ID of the message. Operation ID is required for each message.')
             ->addOption(static::OPTION_FROM_TRANSFER_CLASS, static::OPTION_FROM_TRANSFER_CLASS_SHORT, InputOption::VALUE_REQUIRED, 'The Transfer class name from which the message should be created.')
             ->addOption(static::OPTION_PUBLISH, static::OPTION_PUBLISH_SHORT, InputOption::VALUE_NONE, 'When this option is set the message will be added to the publish part of the specified channel.')
@@ -156,6 +156,8 @@ class SchemaMessageAddConsole extends AbstractConsole
         $asyncApiResponseTransfer = $this->getFacade()->addAsyncApiMessage($asyncApiRequestTransfer);
 
         if ($asyncApiResponseTransfer->getErrors()->count() === 0) {
+            $output->write(sprintf('Added message successfully to "%s".', $input->getOption(static::OPTION_ASYNC_API_FILE)));
+
             return static::CODE_SUCCESS;
         }
 

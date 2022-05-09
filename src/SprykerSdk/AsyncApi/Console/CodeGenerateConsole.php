@@ -62,6 +62,8 @@ class CodeGenerateConsole extends AbstractConsole
         $asyncApiResponseTransfer = $this->getFacade()->buildFromAsyncApi($asyncApiRequestTransfer);
 
         if ($asyncApiResponseTransfer->getErrors()->count() === 0) {
+            $output->write('Generated code successfully.');
+
             $this->printMessages($asyncApiResponseTransfer, $output);
 
             return static::CODE_SUCCESS;

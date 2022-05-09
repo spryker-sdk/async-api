@@ -56,7 +56,7 @@ The following console commands are available:
 
 ## Adding an AsyncAPI file
 
-The `vendor/bin/asyncapi schema:create` adds a minimal AsyncAPI file.
+The `vendor/bin/asyncapi asyncapi:schema:create` adds a minimal AsyncAPI file.
 
 ### Arguments and Options
 
@@ -91,6 +91,32 @@ This console command has many options to be configured. See all of them by runni
 `vendor/bin/asyncapi asyncapi:schema:add:message -h`
 
 it will print a help page for this command.
+
+### Adding a subscribe message
+
+To subscribe to messages from a specific channel you need to run the command as following:
+
+`vendor/bin/asyncapi schema:asyncapi:message:add foo-bar --message-name ZipZap --subscribe -P propertyA:string -P propertyB:int -o module`
+
+This will add a subscribe section to the given AsyncAPI schema file that describes that sent messages with the name "ZipZap" that are sent over the channel "foo-bar" and that you sent the properties "propertyA of type string" and "propertyB of type int".
+
+You can now create code from this definition.
+
+The option `--operation-id` defines the module that is used to work with the message.
+
+### Adding a publish message
+
+To receive messages from a specific channel you need to run the command as following:
+
+`vendor/bin/asyncapi schema:asyncapi:message:add foo-bar --message-name ZipZap --publish -P propertyA:string -P propertyB:int -o module`
+
+This will add a publish section to the given AsyncAPI schema file that describes that you want to receive messages with the name "ZipZap" that are sent over the channel "foo-bar" and that you want to use the properties "propertyA of type string" and "propertyB of type int".
+
+You can now create code from this definition.
+
+The option `--operation-id` defines the module that is used to work with the message.
+
+### Reverse Engineer from given Transfer
 
 
 ## Validating an AsyncAPI file

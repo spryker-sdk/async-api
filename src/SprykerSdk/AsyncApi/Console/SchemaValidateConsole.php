@@ -48,6 +48,8 @@ class SchemaValidateConsole extends AbstractConsole
         $validateResponseTransfer = $this->getFacade()->validateAsyncApi($validateRequestTransfer);
 
         if ($validateResponseTransfer->getErrors()->count() === 0) {
+            $output->write('No validation errors found.');
+
             return static::CODE_SUCCESS;
         }
 

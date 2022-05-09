@@ -113,9 +113,9 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
             );
         }
 
-        if (!$this->isOperationIdEmpty($asyncApiRequestTransfer)) {
+        if ($this->isOperationIdEmpty($asyncApiRequestTransfer)) {
             throw new InvalidConfigurationException(
-                sprintf('You must pass operationId to message with the option `-o`.'),
+                sprintf('You must pass an operationId to the message with the option `-o`.'),
             );
         }
     }
@@ -147,7 +147,7 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
      */
     protected function isOperationIdEmpty(AsyncApiRequestTransfer $asyncApiRequestTransfer): bool
     {
-        return $asyncApiRequestTransfer->getOperationId() !== null && $asyncApiRequestTransfer->getOperationId() !== '';
+        return $asyncApiRequestTransfer->getOperationId() === null || $asyncApiRequestTransfer->getOperationId() === '';
     }
 
     /**
