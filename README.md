@@ -49,14 +49,14 @@ Documentation
 
 The following console commands are available:
 
-- `vendor/bin/asyncapi asyncapi:schema:create`
-- `vendor/bin/asyncapi asyncapi:schema:add:message`
-- `vendor/bin/asyncapi asyncapi:schema:validate`
-- `vendor/bin/asyncapi asyncapi:code:generate`
+- `vendor/bin/asyncapi schema:asyncapi:create`
+- `vendor/bin/asyncapi schema:asyncapi:message:add`
+- `vendor/bin/asyncapi schema:asyncapi:validate`
+- `vendor/bin/asyncapi code:asyncapi:generate`
 
 ## Adding an AsyncAPI file
 
-The `vendor/bin/asyncapi asyncapi:schema:create` adds a minimal AsyncAPI file.
+The `vendor/bin/asyncapi schema:asyncapi:create` adds a minimal AsyncAPI file.
 
 ### Arguments and Options
 
@@ -64,7 +64,7 @@ The `vendor/bin/asyncapi asyncapi:schema:create` adds a minimal AsyncAPI file.
 
 - `title`
 
-`vendor/bin/asyncapi asyncapi:schema:create "Your Async API title"` will set the title in your AsyncAPI file.
+`vendor/bin/asyncapi schema:asyncapi:create "Your Async API title"` will set the title in your AsyncAPI file.
 
 ```
 ...
@@ -78,17 +78,17 @@ info:
 - `asyncapi-file`
 - `api-version`
 
-`vendor/bin/asyncapi asyncapi:schema:create --asyncapi-file "path/to/async-api.yml"` will override the default file location (config/api/asyncapi/asyncapi.yml).
+`vendor/bin/asyncapi schema:asyncapi:create --asyncapi-file "path/to/async-api.yml"` will override the default file location (config/api/asyncapi/asyncapi.yml).
 
-`vendor/bin/asyncapi asyncapi:schema:create --api-version 1.0.0` will override the default file version (0.1.0).
+`vendor/bin/asyncapi schema:asyncapi:create --api-version 1.0.0` will override the default file version (0.1.0).
 
 ## Adding a message to an AsyncAPI file
 
-The `vendor/bin/asyncapi asyncapi:schema:add:message` adds a message to a given AsyncAPI file. This command can also be used to reverse engineer from an existing Transfer object.
+The `vendor/bin/asyncapi schema:asyncapi:message:add` adds a message to a given AsyncAPI file. This command can also be used to reverse engineer from an existing Transfer object.
 
 This console command has many options to be configured. See all of them by running
 
-`vendor/bin/asyncapi asyncapi:schema:add:message -h`
+`vendor/bin/asyncapi schema:asyncapi:message:add -h`
 
 it will print a help page for this command.
 
@@ -121,12 +121,12 @@ The option `--operation-id` defines the module that is used to work with the mes
 
 ## Validating an AsyncAPI file
 
-The `vendor/bin/asyncapi asyncapi:schema:validate` validates a given AsyncAPI file.
+The `vendor/bin/asyncapi schema:asyncapi:validate` validates a given AsyncAPI file.
 
 
 ## Create code from an existing AsyncAPI
 
-The `vendor/bin/asyncapi asyncapi:code:generate` reads an existing AsyncAPI file and creates code out of it. This command creates:
+The `vendor/bin/asyncapi code:asyncapi:generate` reads an existing AsyncAPI file and creates code out of it. This command creates:
 
 - Message Transfer definitions (XML)
 - Adds handler for Messages that are sent to the application
