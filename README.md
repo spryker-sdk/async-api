@@ -96,25 +96,21 @@ it will print a help page for this command.
 
 To subscribe to messages from a specific channel you need to run the command as following:
 
-`vendor/bin/asyncapi schema:asyncapi:message:add foo-bar --message-name ZipZap --subscribe -P propertyA:string -P propertyB:int -o module`
+`vendor/bin/asyncapi schema:asyncapi:message:add foo-bar ZipZap ModuleName --subscribe -P propertyA:string -P propertyB:int`
 
 This will add a subscribe section to the given AsyncAPI schema file that describes that sent messages with the name "ZipZap" that are sent over the channel "foo-bar" and that you sent the properties "propertyA of type string" and "propertyB of type int".
 
 You can now create code from this definition.
 
-The option `--operation-id` defines the module that is used to work with the message.
-
 ### Adding a publish message
 
 To receive messages from a specific channel you need to run the command as following:
 
-`vendor/bin/asyncapi schema:asyncapi:message:add foo-bar --message-name ZipZap --publish -P propertyA:string -P propertyB:int -o module`
+`vendor/bin/asyncapi schema:asyncapi:message:add foo-bar ZipZap ModuleName --publish -P propertyA:string -P propertyB:int`
 
 This will add a publish section to the given AsyncAPI schema file that describes that you want to receive messages with the name "ZipZap" that are sent over the channel "foo-bar" and that you want to use the properties "propertyA of type string" and "propertyB of type int".
 
 You can now create code from this definition.
-
-The option `--operation-id` defines the module that is used to work with the message.
 
 ### Reverse Engineer from given Transfer
 

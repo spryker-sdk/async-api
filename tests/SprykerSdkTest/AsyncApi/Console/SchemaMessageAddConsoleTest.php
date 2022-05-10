@@ -40,8 +40,8 @@ class SchemaMessageAddConsoleTest extends Unit
         $commandTester->execute(
             [
                 SchemaMessageAddConsole::ARGUMENT_CHANNEL_NAME => 'test/channel',
+                SchemaMessageAddConsole::ARGUMENT_OPERATION_ID => 'operationId',
                 '--' . SchemaMessageAddConsole::OPTION_FROM_TRANSFER_CLASS => AsyncApiBuilderTestTransfer::class,
-                '--' . SchemaMessageAddConsole::OPTION_OPERATION_ID => 'operationId',
             ],
         );
 
@@ -60,8 +60,8 @@ class SchemaMessageAddConsoleTest extends Unit
         $commandTester->execute(
             [
                 SchemaMessageAddConsole::ARGUMENT_CHANNEL_NAME => 'test/channel',
+                SchemaMessageAddConsole::ARGUMENT_OPERATION_ID => 'operationId',
                 '--' . SchemaMessageAddConsole::OPTION_FROM_TRANSFER_CLASS => AsyncApiBuilderTestTransfer::class,
-                '--' . SchemaMessageAddConsole::OPTION_OPERATION_ID => 'operationId',
             ],
             ['verbosity' => OutputInterface::VERBOSITY_VERBOSE],
         );

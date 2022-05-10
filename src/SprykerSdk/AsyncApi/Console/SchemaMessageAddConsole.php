@@ -35,17 +35,7 @@ class SchemaMessageAddConsole extends AbstractConsole
     /**
      * @var string
      */
-    public const ARGUMENT_CHANNEL_NAME_SHORT = 'c';
-
-    /**
-     * @var string
-     */
-    public const OPTION_MESSAGE_NAME = 'message-name';
-
-    /**
-     * @var string
-     */
-    public const OPTION_MESSAGE_NAME_SHORT = 'm';
+    public const ARGUMENT_MESSAGE_NAME = 'message-name';
 
     /**
      * @var string
@@ -100,12 +90,7 @@ class SchemaMessageAddConsole extends AbstractConsole
     /**
      * @var string
      */
-    public const OPTION_OPERATION_ID = 'operation-id';
-
-    /**
-     * @var string
-     */
-    public const OPTION_OPERATION_ID_SHORT = 'o';
+    public const ARGUMENT_OPERATION_ID = 'operation-id';
 
     /**
      * @return void
@@ -114,14 +99,14 @@ class SchemaMessageAddConsole extends AbstractConsole
     {
         $this->setName('schema:asyncapi:message:add')
             ->setDescription('Adds a message definition to a specified Async API schema file.')
-            ->addArgument(static::ARGUMENT_CHANNEL_NAME, InputArgument::REQUIRED, 'The channel name to which the message should be added.')
+            ->addArgument(static::ARGUMENT_CHANNEL_NAME, InputArgument::REQUIRED, 'The channel name to which the message should be sent.')
+            ->addArgument(static::ARGUMENT_MESSAGE_NAME, InputOption::VALUE_REQUIRED, 'Name of the message e.g ProductUpdated.')
+            ->addArgument(static::ARGUMENT_OPERATION_ID, InputOption::VALUE_REQUIRED, 'The module name that will work with the message.')
             ->addOption(static::OPTION_ASYNC_API_FILE, static::OPTION_ASYNC_API_FILE_SHORT, InputOption::VALUE_REQUIRED, '', $this->getConfig()->getDefaultAsyncApiFile())
-            ->addOption(static::OPTION_PROPERTY, static::OPTION_PROPERTY_SHORT, InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'When this option is set the property value will be added to the message definition of the specified channel.')
-            ->addOption(static::OPTION_MESSAGE_NAME, static::OPTION_MESSAGE_NAME_SHORT, InputOption::VALUE_REQUIRED, 'Name of the message.')
-            ->addOption(static::OPTION_OPERATION_ID, static::OPTION_OPERATION_ID_SHORT, InputOption::VALUE_REQUIRED, 'Operation ID of the message. Operation ID is required for each message.')
+            ->addOption(static::OPTION_PROPERTY, static::OPTION_PROPERTY_SHORT, InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'When this option is set the property value will be added to the message definition of the specified channel. Format: propertyName:propertyType. Example: -P firstName:string')
             ->addOption(static::OPTION_FROM_TRANSFER_CLASS, static::OPTION_FROM_TRANSFER_CLASS_SHORT, InputOption::VALUE_REQUIRED, 'The Transfer class name from which the message should be created.')
-            ->addOption(static::OPTION_PUBLISH, static::OPTION_PUBLISH_SHORT, InputOption::VALUE_NONE, 'When this option is set the message will be added to the publish part of the specified channel.')
-            ->addOption(static::OPTION_SUBSCRIBE, static::OPTION_SUBSCRIBE_SHORT, InputOption::VALUE_NONE, 'When this option is set the message will be added to the subscribe part of the specified channel.')
+            ->addOption(static::OPTION_PUBLISH, static::OPTION_PUBLISH_SHORT, InputOption::VALUE_NONE, 'When this option is set the message will be added to the publish part of the specified channel (Others can publish to).')
+            ->addOption(static::OPTION_SUBSCRIBE, static::OPTION_SUBSCRIBE_SHORT, InputOption::VALUE_NONE, 'When this option is set the message will be added to the subscribe part of the specified channel (Others can subscribe to).')
             ->addOption(static::OPTION_ADD_METADATA, static::OPTION_ADD_METADATA_SHORT, InputOption::VALUE_NONE, 'When this option is set the defined default set of metadata will be added to the message definition.');
     }
 
@@ -142,7 +127,7 @@ class SchemaMessageAddConsole extends AbstractConsole
         $asyncApiMessageTransfer = new AsyncApiMessageTransfer();
         $asyncApiMessageTransfer
             ->setChannel($asyncApiChannelTransfer)
-            ->setName($input->getOption(static::OPTION_MESSAGE_NAME))
+            ->setName($input->getArgument(static::ARGUMENT_MESSAGE_NAME))
             ->setAddMetadata($input->getOption(static::OPTION_ADD_METADATA))
             ->setIsPublish($input->getOption(static::OPTION_PUBLISH))
             ->setIsSubscribe($input->getOption(static::OPTION_SUBSCRIBE));
@@ -151,7 +136,7 @@ class SchemaMessageAddConsole extends AbstractConsole
 
         $asyncApiRequestTransfer->setPayloadTransferObjectName($input->getOption(static::OPTION_FROM_TRANSFER_CLASS));
         $asyncApiRequestTransfer->setProperties($input->getOption(static::OPTION_PROPERTY));
-        $asyncApiRequestTransfer->setOperationId($input->getOption(static::OPTION_OPERATION_ID));
+        $asyncApiRequestTransfer->setOperationId($input->getArgument(static::ARGUMENT_OPERATION_ID));
 
         $asyncApiResponseTransfer = $this->getFacade()->addAsyncApiMessage($asyncApiRequestTransfer);
 
