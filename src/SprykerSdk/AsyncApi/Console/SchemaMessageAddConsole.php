@@ -7,10 +7,10 @@
 
 namespace SprykerSdk\AsyncApi\Console;
 
-use _PHPStan_7bd9fb728\Nette\DI\InvalidConfigurationException;
 use Generated\Shared\Transfer\AsyncApiChannelTransfer;
 use Generated\Shared\Transfer\AsyncApiMessageTransfer;
 use Generated\Shared\Transfer\AsyncApiRequestTransfer;
+use SprykerSdk\AsyncApi\Exception\InvalidConfigurationException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -114,7 +114,7 @@ class SchemaMessageAddConsole extends AbstractConsole
      * @param \Symfony\Component\Console\Input\InputInterface $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      *
-     * @throws \_PHPStan_7bd9fb728\Nette\DI\InvalidConfigurationException
+     * @throws \SprykerSdk\Aop\Exception\InvalidConfigurationException
      *
      * @return int
      */
