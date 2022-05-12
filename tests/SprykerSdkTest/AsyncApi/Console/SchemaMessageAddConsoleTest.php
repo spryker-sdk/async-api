@@ -70,4 +70,26 @@ class SchemaMessageAddConsoleTest extends Unit
         $this->assertSame(AbstractConsole::CODE_ERROR, $commandTester->getStatusCode());
         $this->assertNotEmpty($commandTester->getDisplay());
     }
+
+    /**
+     * @return void
+     */
+    public function testAddMessageReturnsErrorCodeAndPrintsErrorMessagesWhenMessageTypeISWrong(): void
+    {
+        $commandTester = $this->tester->getConsoleTester(SchemaMessageAddConsole::class, false);
+
+        // Act
+        $commandTester->execute(
+            [
+                SchemaMessageAddConsole::ARGUMENT_CHANNEL_NAME => 'test/channel',
+                SchemaMessageAddConsole::ARGUMENT_OPERATION_ID => 'operationId',
+                '--' . SchemaMessageAddConsole::OPTION_MESSAGE_TYPE => 'publishTest',
+            ],
+            ['verbosity' => OutputInterface::VERBOSITY_VERBOSE],
+        );
+
+        // Assert
+        $this->assertSame(AbstractConsole::CODE_ERROR, $commandTester->getStatusCode());
+        $this->assertNotEmpty($commandTester->getDisplay());
+    }
 }

@@ -96,7 +96,7 @@ it will print a help page for this command.
 
 To subscribe to messages from a specific channel you need to run the command as following:
 
-`vendor/bin/asyncapi schema:asyncapi:message:add foo-bar ZipZap ModuleName --subscribe -P propertyA:string -P propertyB:int`
+`vendor/bin/asyncapi schema:asyncapi:message:add foo-bar ZipZap ModuleName -e subscribe -P propertyA:string -P propertyB:int`
 
 This will add a subscribe section to the given AsyncAPI schema file that describes that sent messages with the name "ZipZap" that are sent over the channel "foo-bar" and that you sent the properties "propertyA of type string" and "propertyB of type int".
 
@@ -106,7 +106,7 @@ You can now create code from this definition.
 
 To receive messages from a specific channel you need to run the command as following:
 
-`vendor/bin/asyncapi schema:asyncapi:message:add foo-bar ZipZap ModuleName --publish -P propertyA:string -P propertyB:int`
+`vendor/bin/asyncapi schema:asyncapi:message:add foo-bar ZipZap ModuleName -e publish -P propertyA:string -P propertyB:int`
 
 This will add a publish section to the given AsyncAPI schema file that describes that you want to receive messages with the name "ZipZap" that are sent over the channel "foo-bar" and that you want to use the properties "propertyA of type string" and "propertyB of type int".
 
