@@ -11,6 +11,7 @@ use Generated\Shared\Transfer\AsyncApiChannelTransfer;
 use Generated\Shared\Transfer\AsyncApiMessageTransfer;
 use Generated\Shared\Transfer\AsyncApiRequestTransfer;
 use SprykerSdk\AsyncApi\Exception\InvalidConfigurationException;
+use SprykerSdk\AsyncApi\Messages\AsyncApiMessages;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -130,11 +131,9 @@ class SchemaMessageAddConsole extends AbstractConsole
 
         if (!in_array($messageType, [static::VALUE_PUBLISH, static::VALUE_SUBSCRIBE])) {
             throw new InvalidConfigurationException(
-                sprintf(
-                    'The option "%s" must either be "%s" or "%s"',
+                AsyncApiMessages::errorMessageMessageTypeHasWrongValue(
                     static::OPTION_MESSAGE_TYPE,
-                    static::VALUE_PUBLISH,
-                    static::VALUE_SUBSCRIBE,
+                    [static::VALUE_PUBLISH, static::VALUE_SUBSCRIBE],
                 ),
             );
         }

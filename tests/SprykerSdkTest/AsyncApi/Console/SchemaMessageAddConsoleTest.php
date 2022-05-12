@@ -84,7 +84,7 @@ class SchemaMessageAddConsoleTest extends Unit
         // Assert
         $this->expectException(InvalidConfigurationException::class);
         $this->expectExceptionMessage(sprintf(
-            'The option "%s" must either be "%s" or "%s"',
+            'The option "%s" must either be "%s","%s"',
             SchemaMessageAddConsole::OPTION_MESSAGE_TYPE,
             SchemaMessageAddConsole::VALUE_PUBLISH,
             SchemaMessageAddConsole::VALUE_SUBSCRIBE,
