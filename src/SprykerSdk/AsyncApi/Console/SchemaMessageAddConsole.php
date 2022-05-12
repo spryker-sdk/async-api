@@ -114,7 +114,7 @@ class SchemaMessageAddConsole extends AbstractConsole
      * @param \Symfony\Component\Console\Input\InputInterface $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      *
-     * @throws \SprykerSdk\Aop\Exception\InvalidConfigurationException
+     * @throws \SprykerSdk\AsyncApi\Exception\InvalidConfigurationException
      *
      * @return int
      */
