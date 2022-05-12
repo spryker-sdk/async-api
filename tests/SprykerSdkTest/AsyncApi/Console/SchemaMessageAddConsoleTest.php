@@ -12,6 +12,7 @@ use Generated\Shared\Transfer\AsyncApiBuilderTestTransfer;
 use SprykerSdk\AsyncApi\Console\AbstractConsole;
 use SprykerSdk\AsyncApi\Console\SchemaMessageAddConsole;
 use SprykerSdk\AsyncApi\Exception\InvalidConfigurationException;
+use SprykerSdk\AsyncApi\Messages\AsyncApiMessages;
 use SprykerSdkTest\AsyncApi\AsyncApiTester;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -83,12 +84,12 @@ class SchemaMessageAddConsoleTest extends Unit
 
         // Assert
         $this->expectException(InvalidConfigurationException::class);
-        $this->expectExceptionMessage(sprintf(
-            'The option "%s" must either be "%s","%s"',
-            SchemaMessageAddConsole::OPTION_MESSAGE_TYPE,
-            SchemaMessageAddConsole::VALUE_PUBLISH,
-            SchemaMessageAddConsole::VALUE_SUBSCRIBE,
-        ));
+        $this->expectExceptionMessage(
+            AsyncApiMessages::errorMessageMessageTypeHasWrongValue(
+                SchemaMessageAddConsole::OPTION_MESSAGE_TYPE,
+                [SchemaMessageAddConsole::VALUE_PUBLISH, SchemaMessageAddConsole::VALUE_SUBSCRIBE],
+            ),
+        );
         // Act
         $commandTester->execute(
             [
