@@ -144,8 +144,8 @@ class SchemaMessageAddConsole extends AbstractConsole
             ->setChannel($asyncApiChannelTransfer)
             ->setName($input->getArgument(static::ARGUMENT_MESSAGE_NAME))
             ->setAddMetadata($input->getOption(static::OPTION_ADD_METADATA))
-            ->setIsPublish($messageType === static::VALUE_PUBLISH ?: false)
-            ->setIsSubscribe($messageType === static::VALUE_SUBSCRIBE ?: false);
+            ->setIsPublish($messageType === static::VALUE_PUBLISH)
+            ->setIsSubscribe($messageType === static::VALUE_SUBSCRIBE);
 
         $asyncApiRequestTransfer->setAsyncApiMesssage($asyncApiMessageTransfer);
 

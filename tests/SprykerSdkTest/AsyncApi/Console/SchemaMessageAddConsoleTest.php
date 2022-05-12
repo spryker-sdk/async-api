@@ -83,7 +83,12 @@ class SchemaMessageAddConsoleTest extends Unit
 
         // Assert
         $this->expectException(InvalidConfigurationException::class);
-
+        $this->expectExceptionMessage(sprintf(
+            '%s must be %s or %s',
+            SchemaMessageAddConsole::OPTION_MESSAGE_TYPE,
+            SchemaMessageAddConsole::VALUE_PUBLISH,
+            SchemaMessageAddConsole::VALUE_SUBSCRIBE,
+        ));
         // Act
         $commandTester->execute(
             [
