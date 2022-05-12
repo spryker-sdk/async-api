@@ -114,6 +114,8 @@ class SchemaMessageAddConsole extends AbstractConsole
      * @param \Symfony\Component\Console\Input\InputInterface $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      *
+     * @throws \_PHPStan_7bd9fb728\Nette\DI\InvalidConfigurationException
+     *
      * @return int
      */
     public function execute(InputInterface $input, OutputInterface $output): int
@@ -132,8 +134,8 @@ class SchemaMessageAddConsole extends AbstractConsole
                     '%s must be %s or %s',
                     static::OPTION_MESSAGE_TYPE,
                     static::VALUE_PUBLISH,
-                    static::VALUE_SUBSCRIBE
-                )
+                    static::VALUE_SUBSCRIBE,
+                ),
             );
         }
 
