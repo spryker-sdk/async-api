@@ -13,6 +13,7 @@ use Generated\Shared\Transfer\AsyncApiResponseTransfer;
 use Generated\Shared\Transfer\MessageTransfer;
 use ReflectionClass;
 use SprykerSdk\AsyncApi\Exception\InvalidConfigurationException;
+use SprykerSdk\AsyncApi\Messages\AsyncApiMessages;
 use Symfony\Component\Yaml\Yaml;
 
 class AsyncApiBuilder implements AsyncApiBuilderInterface
@@ -41,17 +42,23 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
             ],
         ];
 
-        $targetFilePath = $asyncApiRequestTransfer->getTargetFileOrFail();
+        $targetFile = $asyncApiRequestTransfer->getTargetFileOrFail();
 
-        if (is_file($targetFilePath)) {
-            $this->updateAsyncApi($targetFilePath, $asyncApi);
+        if (is_file($targetFile)) {
+            if ($this->updateAsyncApi($targetFile, $asyncApi)) {
+                $asyncApiResponseTransfer->addMessage((new MessageTransfer())->setMessage(AsyncApiMessages::successMessageAsyncApiFileUpdated($targetFile)));
+            }
 
             return $asyncApiResponseTransfer;
         }
 
         $asyncApi = $this->addDefaults($asyncApi);
 
-        $this->writeToFile($targetFilePath, $asyncApi);
+        $result = $this->writeToFile($targetFile, $asyncApi);
+
+        if ($result) {
+            $asyncApiResponseTransfer->addMessage((new MessageTransfer())->setMessage(AsyncApiMessages::successMessageAsyncApiFileCreated($targetFile)));
+        }
 
         return $asyncApiResponseTransfer;
     }
@@ -87,7 +94,11 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
 
         $asyncApi = $this->addDefaults($asyncApi);
 
-        $this->writeToFile($targetFile, $asyncApi);
+        $result = $this->writeToFile($targetFile, $asyncApi);
+
+        if ($result) {
+            $asyncApiResponseTransfer->addMessage((new MessageTransfer())->setMessage(AsyncApiMessages::successMessageAddedMessageToChannel($messageName, $asyncApiMessageTransfer->getChannelOrFail()->getNameOrFail())));
+        }
 
         return $asyncApiResponseTransfer;
     }
@@ -435,9 +446,9 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
      * @param string $targetFile
      * @param array $asyncApi
      *
-     * @return void
+     * @return bool
      */
-    protected function writeToFile(string $targetFile, array $asyncApi): void
+    protected function writeToFile(string $targetFile, array $asyncApi): bool
     {
         $asyncApi = $this->orderAsyncApiElements($asyncApi);
 
@@ -449,7 +460,7 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
             mkdir($dirname, 0770, true);
         }
 
-        file_put_contents($targetFile, $asyncApiSchemaYaml);
+        return (bool)file_put_contents($targetFile, $asyncApiSchemaYaml);
     }
 
     /**
@@ -517,13 +528,13 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
      * @param string $targetFile
      * @param array $asyncApi
      *
-     * @return void
+     * @return bool
      */
-    protected function updateAsyncApi(string $targetFile, array $asyncApi): void
+    protected function updateAsyncApi(string $targetFile, array $asyncApi): bool
     {
         $originAsyncApi = Yaml::parse((string)file_get_contents($targetFile));
         $originAsyncApi['info']['version'] = $asyncApi['info']['version'];
 
-        $this->writeToFile($targetFile, $originAsyncApi);
+        return $this->writeToFile($targetFile, $originAsyncApi);
     }
 }

@@ -15,6 +15,7 @@ use SprykerSdk\AsyncApi\AsyncApi\Channel\AsyncApiChannelInterface;
 use SprykerSdk\AsyncApi\AsyncApi\Loader\AsyncApiLoaderInterface;
 use SprykerSdk\AsyncApi\AsyncApi\Message\AsyncApiMessageInterface;
 use SprykerSdk\AsyncApi\AsyncApiConfig;
+use SprykerSdk\AsyncApi\Messages\AsyncApiMessages;
 use Symfony\Component\Process\Process;
 
 class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
@@ -63,10 +64,14 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
         $asyncApiResponseTransfer = $this->buildCodeForPublishMessagesChannels($asyncApi, $asyncApiResponseTransfer, $organization);
         $asyncApiResponseTransfer = $this->buildCodeForSubscribeMessagesChannels($asyncApi, $asyncApiResponseTransfer, $organization);
 
-        if ($asyncApiResponseTransfer->getMessages()->count() === 0) {
+        if ($asyncApiResponseTransfer->getErrors()->count() || !$asyncApiResponseTransfer->getMessages()->count()) {
             $messageTransfer = new MessageTransfer();
-            $messageTransfer->setMessage('Something went wrong. Either not channels have been found or the channels do not have messages defined.');
+            $messageTransfer->setMessage(AsyncApiMessages::VALIDATOR_ERROR_GENERATE_CODE);
             $asyncApiResponseTransfer->addError($messageTransfer);
+        }
+
+        if ($asyncApiResponseTransfer->getErrors()->count() === 0) {
+            $asyncApiResponseTransfer->addMessage((new MessageTransfer())->setMessage(AsyncApiMessages::SUCCESS_MESSAGES_GENERATED_CODE));
         }
 
         return $asyncApiResponseTransfer;

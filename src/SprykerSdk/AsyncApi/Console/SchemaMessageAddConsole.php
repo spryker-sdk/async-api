@@ -141,16 +141,12 @@ class SchemaMessageAddConsole extends AbstractConsole
         $asyncApiResponseTransfer = $this->getFacade()->addAsyncApiMessage($asyncApiRequestTransfer);
 
         if ($asyncApiResponseTransfer->getErrors()->count() === 0) {
-            $output->write(sprintf('Added message successfully to "%s".', $input->getOption(static::OPTION_ASYNC_API_FILE)));
+            $this->printMessages($output, $asyncApiResponseTransfer->getMessages());
 
             return static::CODE_SUCCESS;
         }
 
-        if ($output->isVerbose()) {
-            foreach ($asyncApiResponseTransfer->getErrors() as $error) {
-                $output->writeln($error->getMessageOrFail());
-            }
-        }
+        $this->printMessages($output, $asyncApiResponseTransfer->getErrors());
 
         return static::CODE_ERROR;
     }

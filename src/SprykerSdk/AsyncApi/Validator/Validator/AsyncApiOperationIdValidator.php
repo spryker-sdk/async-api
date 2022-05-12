@@ -10,6 +10,7 @@ namespace SprykerSdk\AsyncApi\Validator\Validator;
 use Generated\Shared\Transfer\MessageTransfer;
 use Generated\Shared\Transfer\ValidateResponseTransfer;
 use SprykerSdk\AsyncApi\AsyncApiConfig;
+use SprykerSdk\AsyncApi\Messages\AsyncApiMessages;
 use SprykerSdk\AsyncApi\Validator\FileValidatorInterface;
 
 class AsyncApiOperationIdValidator implements FileValidatorInterface
@@ -41,10 +42,14 @@ class AsyncApiOperationIdValidator implements FileValidatorInterface
         ValidateResponseTransfer $validateResponseTransfer,
         ?array $context = null
     ): ValidateResponseTransfer {
+        if (!isset($asyncApi['components']['messages'])) {
+            return $validateResponseTransfer;
+        }
+
         foreach ($asyncApi['components']['messages'] as $message) {
             if (!isset($message['operationId'])) {
                 $messageTransfer = new MessageTransfer();
-                $messageTransfer->setMessage('Async API file has missing operationId.');
+                $messageTransfer->setMessage(AsyncApiMessages::errorMessageMessageDoesNotHaveAnOperationId($message['name']));
                 $validateResponseTransfer->addError($messageTransfer);
             }
         }

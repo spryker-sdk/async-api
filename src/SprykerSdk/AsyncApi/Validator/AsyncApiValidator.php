@@ -11,6 +11,7 @@ use Exception;
 use Generated\Shared\Transfer\MessageTransfer;
 use Generated\Shared\Transfer\ValidateRequestTransfer;
 use Generated\Shared\Transfer\ValidateResponseTransfer;
+use SprykerSdk\AsyncApi\Messages\AsyncApiMessages;
 use Symfony\Component\Yaml\Yaml;
 
 class AsyncApiValidator extends AbstractValidator
@@ -27,6 +28,7 @@ class AsyncApiValidator extends AbstractValidator
     ): ValidateResponseTransfer {
         $validateResponseTransfer ??= new ValidateResponseTransfer();
         $asyncApiFile = $validateRequestTransfer->getAsyncApiFileOrFail();
+
         if (!$this->finder->hasFiles($asyncApiFile)) {
             $messageTransfer = new MessageTransfer();
             $messageTransfer->setMessage('No AsyncAPI file given, you need to pass a valid filename.');
@@ -45,14 +47,12 @@ class AsyncApiValidator extends AbstractValidator
             return $validateResponseTransfer;
         }
 
-        if (!isset($asyncApi['components']['messages']) || count($asyncApi['components']['messages']) === 0) {
-            $messageTransfer = new MessageTransfer();
-            $messageTransfer->setMessage('Async API file does not contain messages.');
-            $validateResponseTransfer->addError($messageTransfer);
+        $validateResponseTransfer = $this->validateFileData($asyncApi, $this->finder->getFile($asyncApiFile)->getFilename(), $validateResponseTransfer);
 
-            return $validateResponseTransfer;
+        if ($validateResponseTransfer->getErrors()->count() === 0) {
+            $validateResponseTransfer->addMessage((new MessageTransfer())->setMessage(AsyncApiMessages::VALIDATOR_MESSAGE_SUCCESS));
         }
 
-        return $this->validateFileData($asyncApi, $this->finder->getFile($asyncApiFile)->getFilename(), $validateResponseTransfer);
+        return $validateResponseTransfer;
     }
 }

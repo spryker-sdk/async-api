@@ -8,6 +8,7 @@
 namespace SprykerSdkTest\Zed\AopSdk\Business;
 
 use Codeception\Test\Unit;
+use SprykerSdk\AsyncApi\Messages\AsyncApiMessages;
 use SprykerSdkTest\AsyncApi\AsyncApiTester;
 
 /**
@@ -61,7 +62,7 @@ class AsyncApiValidatorFacadeTest extends Unit
     public function testValidateAsyncApiReturnsFailedResponseWhenFileDoNotContainMessages(): void
     {
         // Arrange
-        $this->tester->haveAsyncApiFileWithNoMessages();
+        $this->tester->haveDefaultCreatedAsyncApiFile();
 
         // Act
         $validateResponseTransfer = $this->tester->getFacade()->validateAsyncApi(
@@ -70,7 +71,7 @@ class AsyncApiValidatorFacadeTest extends Unit
 
         // Assert
         $expectedErrorMessage = $validateResponseTransfer->getErrors()[0];
-        $this->assertEquals('Async API file does not contain messages.', $expectedErrorMessage->getMessage(), 'AsyncApi file "vfs://root/config/api/asyncapi/valid/invalid_base_asyncapi.schema.yml" does not contain messages.');
+        $this->assertEquals(AsyncApiMessages::VALIDATOR_ERROR_NO_MESSAGES_DEFINED, $expectedErrorMessage->getMessage(), 'AsyncApi file "vfs://root/config/api/asyncapi/valid/invalid_base_asyncapi.schema.yml" does not contain messages.');
     }
 
     /**
@@ -87,7 +88,8 @@ class AsyncApiValidatorFacadeTest extends Unit
         );
 
         // Assert
-        $this->assertContains('Async API file has missing operationId.', $this->tester->getMessagesFromValidateResponseTransfer($validateResponseTransfer));
+        $messages = $this->tester->getMessagesFromValidateResponseTransfer($validateResponseTransfer);
+        $this->assertContains(AsyncApiMessages::errorMessageMessageDoesNotHaveAnOperationId('OutgoingMessage'), $messages, sprintf("Messages: \n\n%s\n", implode(PHP_EOL, $messages)));
     }
 
     /**
@@ -104,6 +106,8 @@ class AsyncApiValidatorFacadeTest extends Unit
         );
 
         // Assert
-        $this->assertContains('Async API file contains duplicate message names.', $this->tester->getMessagesFromValidateResponseTransfer($validateResponseTransfer));
+        $messages = $this->tester->getMessagesFromValidateResponseTransfer($validateResponseTransfer);
+        $this->assertContains(AsyncApiMessages::errorMessageMessageNameUsedMoreThanOnce('OutgoingMessage'), $messages, sprintf("Messages: \n\n%s\n", implode(PHP_EOL, $messages)));
+        $this->assertContains(AsyncApiMessages::errorMessageMessageNameUsedMoreThanOnce('IncomingMessage'), $messages, sprintf("Messages: \n\n%s\n", implode(PHP_EOL, $messages)));
     }
 }

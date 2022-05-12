@@ -8,7 +8,7 @@
 namespace SprykerSdkTest\Helper;
 
 use Codeception\Module;
-use SprykerSdk\Zed\AopSdk\Communication\Console\AbstractConsole;
+use SprykerSdk\AsyncApi\Console\AbstractConsole;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
@@ -17,7 +17,7 @@ class CommandHelper extends Module
     use AsyncApiHelperTrait;
 
     /**
-     * @param \SprykerSdk\Zed\AopSdk\Communication\Console\AbstractConsole|string $command
+     * @param \SprykerSdk\AsyncApi\Console\AbstractConsole|string $command
      *
      * @return \Symfony\Component\Console\Tester\CommandTester
      */

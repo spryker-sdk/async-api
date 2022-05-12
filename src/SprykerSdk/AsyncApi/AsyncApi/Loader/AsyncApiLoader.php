@@ -66,13 +66,19 @@ class AsyncApiLoader implements AsyncApiLoaderInterface
         $channelMessages = [];
 
         $propertyPath = sprintf('[channels][%s][%s][message][oneOf]', $channelName, $type);
+        $oneOfMessages = $this->getFromPropertyPath($asyncApi, $propertyPath);
 
-        $messages = $this->getFromPropertyPath($asyncApi, $propertyPath);
+        if ($oneOfMessages) {
+            $channelMessages += $this->formatMessageFromOneOf($oneOfMessages, $asyncApi);
 
-        if ($messages) {
-            $messages = $this->formatMessageFromOneOf($messages, $asyncApi);
+            return $this->createAsyncApiMessages($channelMessages);
+        }
 
-            $channelMessages += $messages;
+        $propertyPath = sprintf('[channels][%s][%s][message]', $channelName, $type);
+        $singleMessages = $this->getFromPropertyPath($asyncApi, $propertyPath);
+
+        if ($singleMessages) {
+            $channelMessages += $this->formatMessages($singleMessages, $asyncApi);
         }
 
         return $this->createAsyncApiMessages($channelMessages);
@@ -150,6 +156,26 @@ class AsyncApiLoader implements AsyncApiLoaderInterface
                 $messageWithResolvedReferences = $this->resolveReferences($resolvedMessage, $asyncApi);
                 $formattedMessages[$messageName] = $messageWithResolvedReferences;
             }
+        }
+
+        return $formattedMessages;
+    }
+
+    /**
+     * @param array<string> $messages
+     * @param array<string, mixed> $asyncApi
+     *
+     * @return array<string, array>
+     */
+    protected function formatMessages(array $messages, array $asyncApi): array
+    {
+        $formattedMessages = [];
+
+        foreach ($messages as $reference) {
+            $messageName = $this->resolveReferenceKey($reference);
+            $resolvedMessage = $this->resolveReference($asyncApi, $reference);
+            $messageWithResolvedReferences = $this->resolveReferences($resolvedMessage, $asyncApi);
+            $formattedMessages[$messageName] = $messageWithResolvedReferences;
         }
 
         return $formattedMessages;

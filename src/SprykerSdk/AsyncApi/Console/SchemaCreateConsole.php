@@ -68,20 +68,8 @@ class SchemaCreateConsole extends AbstractConsole
 
         $asyncApiResponseTransfer = $this->getFacade()->addAsyncApi($asyncApiRequestTransfer);
 
-        if ($asyncApiResponseTransfer->getErrors()->count() === 0) {
-            $output->write(sprintf('Created "%s" successfully.', $input->getOption(static::OPTION_ASYNC_API_FILE)));
+        $this->printMessages($output, $asyncApiResponseTransfer->getMessages());
 
-            return static::CODE_SUCCESS;
-        }
-
-        // @codeCoverageIgnoreStart
-        if ($output->isVerbose()) {
-            foreach ($asyncApiResponseTransfer->getErrors() as $error) {
-                $output->writeln($error->getMessageOrFail());
-            }
-        }
-
-        return static::CODE_ERROR;
-        // @codeCoverageIgnoreEnd
+        return static::CODE_SUCCESS;
     }
 }

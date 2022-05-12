@@ -13,7 +13,7 @@ use SprykerSdk\AsyncApi\AsyncApiConfig;
 use SprykerSdk\AsyncApi\Messages\AsyncApiMessages;
 use SprykerSdk\AsyncApi\Validator\FileValidatorInterface;
 
-class AsyncApiMessageValidator implements FileValidatorInterface
+class AsyncApiChannelValidator implements FileValidatorInterface
 {
     /**
      * @var \SprykerSdk\AsyncApi\AsyncApiConfig
@@ -29,7 +29,7 @@ class AsyncApiMessageValidator implements FileValidatorInterface
     }
 
     /**
-     * Validates the schema for duplicated messages.
+     * Validates the schema for existence of channels and that the existing channel at least one message to be handled.
      *
      * @param array $asyncApi
      * @param string $asyncApiFileName
@@ -44,8 +44,7 @@ class AsyncApiMessageValidator implements FileValidatorInterface
         ValidateResponseTransfer $validateResponseTransfer,
         ?array $context = null
     ): ValidateResponseTransfer {
-        $validateResponseTransfer = $this->validateAtLeastOneMessageExists($asyncApi, $validateResponseTransfer);
-        $validateResponseTransfer = $this->validateMessageNamesAreOnlyUsedOnce($asyncApi, $validateResponseTransfer);
+        $validateResponseTransfer = $this->validateAtLeastOneChannelExists($asyncApi, $validateResponseTransfer);
 
         return $validateResponseTransfer;
     }
@@ -56,38 +55,12 @@ class AsyncApiMessageValidator implements FileValidatorInterface
      *
      * @return \Generated\Shared\Transfer\ValidateResponseTransfer
      */
-    protected function validateAtLeastOneMessageExists(array $asyncApi, ValidateResponseTransfer $validateResponseTransfer): ValidateResponseTransfer
+    protected function validateAtLeastOneChannelExists(array $asyncApi, ValidateResponseTransfer $validateResponseTransfer): ValidateResponseTransfer
     {
-        if (!isset($asyncApi['components']['messages']) || count($asyncApi['components']['messages']) === 0) {
+        if (!isset($asyncApi['channels'])) {
             $messageTransfer = new MessageTransfer();
-            $messageTransfer->setMessage(AsyncApiMessages::VALIDATOR_ERROR_NO_MESSAGES_DEFINED);
+            $messageTransfer->setMessage(AsyncApiMessages::VALIDATOR_ERROR_NO_CHANNELS_DEFINED);
             $validateResponseTransfer->addError($messageTransfer);
-        }
-
-        return $validateResponseTransfer;
-    }
-
-    /**
-     * @param array $asyncApi
-     * @param \Generated\Shared\Transfer\ValidateResponseTransfer $validateResponseTransfer
-     *
-     * @return \Generated\Shared\Transfer\ValidateResponseTransfer
-     */
-    protected function validateMessageNamesAreOnlyUsedOnce(array $asyncApi, ValidateResponseTransfer $validateResponseTransfer): ValidateResponseTransfer
-    {
-        if (!isset($asyncApi['components']['messages'])) {
-            return $validateResponseTransfer;
-        }
-
-        $messageNames = [];
-
-        foreach ($asyncApi['components']['messages'] as $message) {
-            if (isset($messageNames[$message['name']])) {
-                $messageTransfer = new MessageTransfer();
-                $messageTransfer->setMessage(AsyncApiMessages::errorMessageMessageNameUsedMoreThanOnce($message['name']));
-                $validateResponseTransfer->addError($messageTransfer);
-            }
-            $messageNames[$message['name']] = true;
         }
 
         return $validateResponseTransfer;

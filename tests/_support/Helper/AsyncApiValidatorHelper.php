@@ -28,7 +28,7 @@ class AsyncApiValidatorHelper extends Module
     /**
      * @return void
      */
-    public function haveAsyncApiFileWithNoMessages(): void
+    public function haveDefaultCreatedAsyncApiFile(): void
     {
         $files = [
             'asyncapi.yml' => file_get_contents(codecept_data_dir('api/asyncapi/builder/asyncapi-empty.yml')),

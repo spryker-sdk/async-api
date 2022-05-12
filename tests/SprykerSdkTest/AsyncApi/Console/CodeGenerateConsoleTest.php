@@ -10,6 +10,7 @@ namespace SprykerSdkTest\AsyncApi\Console;
 use Codeception\Test\Unit;
 use SprykerSdk\AsyncApi\Console\AbstractConsole;
 use SprykerSdk\AsyncApi\Console\CodeGenerateConsole;
+use SprykerSdk\AsyncApi\Messages\AsyncApiMessages;
 use SprykerSdkTest\AsyncApi\AsyncApiTester;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -103,6 +104,6 @@ class CodeGenerateConsoleTest extends Unit
 
         // Assert
         $this->assertSame(AbstractConsole::CODE_ERROR, $commandTester->getStatusCode());
-        $this->assertStringContainsString('Something went wrong. Either not channels have been found or the channels do not have messages defined.', $commandTester->getDisplay());
+        $this->assertStringContainsString(AsyncApiMessages::VALIDATOR_ERROR_GENERATE_CODE, $commandTester->getDisplay());
     }
 }

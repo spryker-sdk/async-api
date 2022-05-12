@@ -17,6 +17,7 @@ use SprykerSdk\AsyncApi\Validator\AsyncApiValidator;
 use SprykerSdk\AsyncApi\Validator\FileValidatorInterface;
 use SprykerSdk\AsyncApi\Validator\Finder\Finder;
 use SprykerSdk\AsyncApi\Validator\Finder\FinderInterface;
+use SprykerSdk\AsyncApi\Validator\Validator\AsyncApiChannelValidator;
 use SprykerSdk\AsyncApi\Validator\Validator\AsyncApiMessageValidator;
 use SprykerSdk\AsyncApi\Validator\Validator\AsyncApiOperationIdValidator;
 
@@ -91,6 +92,7 @@ class AsyncApiFactory
         return [
             $this->createAsyncApiMessageValidator(),
             $this->createAsyncApiOperationIdValidator(),
+            $this->createAsyncApiChannelValidator(),
         ];
     }
 
@@ -108,5 +110,13 @@ class AsyncApiFactory
     protected function createAsyncApiOperationIdValidator(): FileValidatorInterface
     {
         return new AsyncApiOperationIdValidator($this->getConfig());
+    }
+
+    /**
+     * @return \SprykerSdk\AsyncApi\Validator\FileValidatorInterface
+     */
+    protected function createAsyncApiChannelValidator(): FileValidatorInterface
+    {
+        return new AsyncApiChannelValidator($this->getConfig());
     }
 }
