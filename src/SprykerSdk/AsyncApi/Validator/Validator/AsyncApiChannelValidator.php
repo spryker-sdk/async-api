@@ -44,9 +44,7 @@ class AsyncApiChannelValidator implements FileValidatorInterface
         ValidateResponseTransfer $validateResponseTransfer,
         ?array $context = null
     ): ValidateResponseTransfer {
-        $validateResponseTransfer = $this->validateAtLeastOneChannelExists($asyncApi, $validateResponseTransfer);
-
-        return $validateResponseTransfer;
+        return $this->validateAtLeastOneChannelExists($asyncApi, $validateResponseTransfer);
     }
 
     /**

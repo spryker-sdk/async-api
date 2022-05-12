@@ -45,9 +45,8 @@ class AsyncApiMessageValidator implements FileValidatorInterface
         ?array $context = null
     ): ValidateResponseTransfer {
         $validateResponseTransfer = $this->validateAtLeastOneMessageExists($asyncApi, $validateResponseTransfer);
-        $validateResponseTransfer = $this->validateMessageNamesAreOnlyUsedOnce($asyncApi, $validateResponseTransfer);
 
-        return $validateResponseTransfer;
+        return $this->validateMessageNamesAreOnlyUsedOnce($asyncApi, $validateResponseTransfer);
     }
 
     /**
