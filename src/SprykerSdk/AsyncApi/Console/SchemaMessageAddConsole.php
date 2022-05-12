@@ -131,7 +131,7 @@ class SchemaMessageAddConsole extends AbstractConsole
         if (!in_array($messageType, [static::VALUE_PUBLISH, static::VALUE_SUBSCRIBE])) {
             throw new InvalidConfigurationException(
                 sprintf(
-                    '%s must be %s or %s',
+                    'The option "%s" must either be "%s" or "%s"',
                     static::OPTION_MESSAGE_TYPE,
                     static::VALUE_PUBLISH,
                     static::VALUE_SUBSCRIBE,
