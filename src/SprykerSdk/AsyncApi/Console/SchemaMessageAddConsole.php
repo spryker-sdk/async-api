@@ -10,6 +10,8 @@ namespace SprykerSdk\AsyncApi\Console;
 use Generated\Shared\Transfer\AsyncApiChannelTransfer;
 use Generated\Shared\Transfer\AsyncApiMessageTransfer;
 use Generated\Shared\Transfer\AsyncApiRequestTransfer;
+use SprykerSdk\AsyncApi\Exception\InvalidConfigurationException;
+use SprykerSdk\AsyncApi\Messages\AsyncApiMessages;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -50,22 +52,12 @@ class SchemaMessageAddConsole extends AbstractConsole
     /**
      * @var string
      */
-    public const OPTION_PUBLISH = 'publish';
+    public const OPTION_MESSAGE_TYPE = 'message-type';
 
     /**
      * @var string
      */
-    public const OPTION_PUBLISH_SHORT = 'p';
-
-    /**
-     * @var string
-     */
-    public const OPTION_SUBSCRIBE = 'subscribe';
-
-    /**
-     * @var string
-     */
-    public const OPTION_SUBSCRIBE_SHORT = 's';
+    public const OPTION_MESSAGE_TYPE_SHORT = 'e';
 
     /**
      * @var string
@@ -93,6 +85,16 @@ class SchemaMessageAddConsole extends AbstractConsole
     public const ARGUMENT_OPERATION_ID = 'operation-id';
 
     /**
+     * @var string
+     */
+    public const VALUE_PUBLISH = 'publish';
+
+    /**
+     * @var string
+     */
+    public const VALUE_SUBSCRIBE = 'subscribe';
+
+    /**
      * @return void
      */
     protected function configure(): void
@@ -105,14 +107,15 @@ class SchemaMessageAddConsole extends AbstractConsole
             ->addOption(static::OPTION_ASYNC_API_FILE, static::OPTION_ASYNC_API_FILE_SHORT, InputOption::VALUE_REQUIRED, '', $this->getConfig()->getDefaultAsyncApiFile())
             ->addOption(static::OPTION_PROPERTY, static::OPTION_PROPERTY_SHORT, InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'When this option is set the property value will be added to the message definition of the specified channel. Format: propertyName:propertyType. Example: -P firstName:string')
             ->addOption(static::OPTION_FROM_TRANSFER_CLASS, static::OPTION_FROM_TRANSFER_CLASS_SHORT, InputOption::VALUE_REQUIRED, 'The Transfer class name from which the message should be created.')
-            ->addOption(static::OPTION_PUBLISH, static::OPTION_PUBLISH_SHORT, InputOption::VALUE_NONE, 'When this option is set the message will be added to the publish part of the specified channel (Others can publish to).')
-            ->addOption(static::OPTION_SUBSCRIBE, static::OPTION_SUBSCRIBE_SHORT, InputOption::VALUE_NONE, 'When this option is set the message will be added to the subscribe part of the specified channel (Others can subscribe to).')
+            ->addOption(static::OPTION_MESSAGE_TYPE, static::OPTION_MESSAGE_TYPE_SHORT, InputOption::VALUE_REQUIRED, 'When this option is set the message will be added to the `publish` or `subscribe` part of the specified channel (Others can publish or subscribe to).')
             ->addOption(static::OPTION_ADD_METADATA, static::OPTION_ADD_METADATA_SHORT, InputOption::VALUE_NONE, 'When this option is set the defined default set of metadata will be added to the message definition.');
     }
 
     /**
      * @param \Symfony\Component\Console\Input\InputInterface $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
+     *
+     * @throws \SprykerSdk\AsyncApi\Exception\InvalidConfigurationException
      *
      * @return int
      */
@@ -124,13 +127,24 @@ class SchemaMessageAddConsole extends AbstractConsole
         $asyncApiChannelTransfer = new AsyncApiChannelTransfer();
         $asyncApiChannelTransfer->setName($input->getArgument(static::ARGUMENT_CHANNEL_NAME));
 
+        $messageType = $input->getOption(static::OPTION_MESSAGE_TYPE);
+
+        if (!in_array($messageType, [static::VALUE_PUBLISH, static::VALUE_SUBSCRIBE])) {
+            throw new InvalidConfigurationException(
+                AsyncApiMessages::errorMessageMessageTypeHasWrongValue(
+                    static::OPTION_MESSAGE_TYPE,
+                    [static::VALUE_PUBLISH, static::VALUE_SUBSCRIBE],
+                ),
+            );
+        }
+
         $asyncApiMessageTransfer = new AsyncApiMessageTransfer();
         $asyncApiMessageTransfer
             ->setChannel($asyncApiChannelTransfer)
             ->setName($input->getArgument(static::ARGUMENT_MESSAGE_NAME))
             ->setAddMetadata($input->getOption(static::OPTION_ADD_METADATA))
-            ->setIsPublish($input->getOption(static::OPTION_PUBLISH))
-            ->setIsSubscribe($input->getOption(static::OPTION_SUBSCRIBE));
+            ->setIsPublish($messageType === static::VALUE_PUBLISH)
+            ->setIsSubscribe($messageType === static::VALUE_SUBSCRIBE);
 
         $asyncApiRequestTransfer->setAsyncApiMesssage($asyncApiMessageTransfer);
 

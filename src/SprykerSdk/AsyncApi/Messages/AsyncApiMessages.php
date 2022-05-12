@@ -12,6 +12,11 @@ class AsyncApiMessages
     /**
      * @var string
      */
+    public const VALIDATOR_MESSAGE_MESSAGE_TYPE_WRONG = 'The option "%s" must either be "%s"';
+
+    /**
+     * @var string
+     */
     public const VALIDATOR_MESSAGE_SUCCESS = 'Async API file doesn\'t contain any errors.';
 
     /**
@@ -58,6 +63,17 @@ class AsyncApiMessages
      * @var string
      */
     public const SUCCESS_MESSAGES_ADDED_MESSAGE_TO_CHANNEL_PATTERN = 'Successfully added the message "%s" to the channel "%s".';
+
+    /**
+     * @param string $messageTypeOption
+     * @param array $availableValues
+     *
+     * @return string
+     */
+    public static function errorMessageMessageTypeHasWrongValue(string $messageTypeOption, array $availableValues): string
+    {
+        return sprintf(static::VALIDATOR_MESSAGE_MESSAGE_TYPE_WRONG, $messageTypeOption, implode('","', $availableValues));
+    }
 
     /**
      * @param string $messageName
