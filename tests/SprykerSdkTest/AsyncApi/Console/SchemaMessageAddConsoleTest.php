@@ -77,7 +77,7 @@ class SchemaMessageAddConsoleTest extends Unit
     /**
      * @return void
      */
-    public function testAddMessageReturnsErrorCodeAndPrintsErrorMessagesWhenMessageTypeISWrong(): void
+    public function testAddMessageReturnsErrorCodeAndPrintsErrorMessagesWhenMessageTypeIsNotPublishAndNotSubscribe(): void
     {
         $commandTester = $this->tester->getConsoleTester(SchemaMessageAddConsole::class, false);
 
