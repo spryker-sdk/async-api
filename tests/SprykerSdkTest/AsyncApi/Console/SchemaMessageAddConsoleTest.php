@@ -11,6 +11,8 @@ use Codeception\Test\Unit;
 use Generated\Shared\Transfer\AsyncApiBuilderTestTransfer;
 use SprykerSdk\AsyncApi\Console\AbstractConsole;
 use SprykerSdk\AsyncApi\Console\SchemaMessageAddConsole;
+use SprykerSdk\AsyncApi\Exception\InvalidConfigurationException;
+use SprykerSdk\AsyncApi\Message\AsyncApiError;
 use SprykerSdkTest\AsyncApi\AsyncApiTester;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -41,6 +43,7 @@ class SchemaMessageAddConsoleTest extends Unit
             [
                 SchemaMessageAddConsole::ARGUMENT_CHANNEL_NAME => 'test/channel',
                 SchemaMessageAddConsole::ARGUMENT_OPERATION_ID => 'operationId',
+                '--' . SchemaMessageAddConsole::OPTION_MESSAGE_TYPE => 'subscribe',
                 '--' . SchemaMessageAddConsole::OPTION_FROM_TRANSFER_CLASS => AsyncApiBuilderTestTransfer::class,
             ],
         );
@@ -61,6 +64,7 @@ class SchemaMessageAddConsoleTest extends Unit
             [
                 SchemaMessageAddConsole::ARGUMENT_CHANNEL_NAME => 'test/channel',
                 SchemaMessageAddConsole::ARGUMENT_OPERATION_ID => 'operationId',
+                '--' . SchemaMessageAddConsole::OPTION_MESSAGE_TYPE => 'publish',
                 '--' . SchemaMessageAddConsole::OPTION_FROM_TRANSFER_CLASS => AsyncApiBuilderTestTransfer::class,
             ],
             ['verbosity' => OutputInterface::VERBOSITY_VERBOSE],
@@ -69,5 +73,31 @@ class SchemaMessageAddConsoleTest extends Unit
         // Assert
         $this->assertSame(AbstractConsole::CODE_ERROR, $commandTester->getStatusCode());
         $this->assertNotEmpty($commandTester->getDisplay());
+    }
+
+    /**
+     * @return void
+     */
+    public function testAddMessageReturnsErrorCodeAndPrintsErrorMessagesWhenMessageTypeIsNotPublishAndNotSubscribe(): void
+    {
+        $commandTester = $this->tester->getConsoleTester(SchemaMessageAddConsole::class, false);
+
+        // Assert
+        $this->expectException(InvalidConfigurationException::class);
+        $this->expectExceptionMessage(
+            AsyncApiError::messageTypeHasWrongValue(
+                SchemaMessageAddConsole::OPTION_MESSAGE_TYPE,
+                [SchemaMessageAddConsole::VALUE_PUBLISH, SchemaMessageAddConsole::VALUE_SUBSCRIBE],
+            ),
+        );
+        // Act
+        $commandTester->execute(
+            [
+                SchemaMessageAddConsole::ARGUMENT_CHANNEL_NAME => 'test/channel',
+                SchemaMessageAddConsole::ARGUMENT_OPERATION_ID => 'operationId',
+                '--' . SchemaMessageAddConsole::OPTION_MESSAGE_TYPE => 'publishTest',
+            ],
+            ['verbosity' => OutputInterface::VERBOSITY_VERBOSE],
+        );
     }
 }

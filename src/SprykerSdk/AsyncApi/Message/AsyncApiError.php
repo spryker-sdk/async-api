@@ -74,6 +74,17 @@ class AsyncApiError
     }
 
     /**
+     * @param string $messageTypeOption
+     * @param array $availableValues
+     *
+     * @return string
+     */
+    public static function messageTypeHasWrongValue(string $messageTypeOption, array $availableValues): string
+    {
+        return static::format(sprintf('The option "%s" must be one of "%s"', $messageTypeOption, implode('","', $availableValues)));
+    }
+
+    /**
      * Colorize output in CLI on Linux machines.
      *
      * Error text will be in red, everything in double quotes will be yellow, and quotes will be removed.
