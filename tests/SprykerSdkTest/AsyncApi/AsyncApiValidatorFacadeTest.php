@@ -8,7 +8,7 @@
 namespace SprykerSdkTest\Zed\AopSdk\Business;
 
 use Codeception\Test\Unit;
-use SprykerSdk\AsyncApi\Messages\AsyncApiMessages;
+use SprykerSdk\AsyncApi\Message\AsyncApiError;
 use SprykerSdkTest\AsyncApi\AsyncApiTester;
 
 /**
@@ -35,7 +35,7 @@ class AsyncApiValidatorFacadeTest extends Unit
 
         // Assert
         $expectedErrorMessage = $validateResponseTransfer->getErrors()[0];
-        $this->assertEquals('No AsyncAPI file given, you need to pass a valid filename.', $expectedErrorMessage->getMessage(), 'Async API file "vfs://root/config/api/asyncapi/asyncapi.yml" not found');
+        $this->assertEquals(AsyncApiError::asyncApiFileDoesNotExist('vfs://root/config/api/asyncapi/asyncapi.yml'), $expectedErrorMessage->getMessage(), 'Async API file "vfs://root/config/api/asyncapi/asyncapi.yml" not found');
     }
 
     /**
@@ -53,7 +53,7 @@ class AsyncApiValidatorFacadeTest extends Unit
 
         // Assert
         $expectedErrorMessage = $validateResponseTransfer->getErrors()[0];
-        $this->assertEquals('Could not parse AsyncApi file.', $expectedErrorMessage->getMessage(), 'AsyncApi file "vfs://root/config/api/asyncapi/valid/invalid_base_asyncapi.schema.yml" is invalid. Error: "Syntax error".');
+        $this->assertEquals(AsyncApiError::couldNotParseAsyncApiFile('vfs://root/config/api/asyncapi/asyncapi.yml'), $expectedErrorMessage->getMessage(), 'AsyncApi file "vfs://root/config/api/asyncapi/valid/invalid_base_asyncapi.schema.yml" is invalid. Error: "Syntax error".');
     }
 
     /**
@@ -71,7 +71,7 @@ class AsyncApiValidatorFacadeTest extends Unit
 
         // Assert
         $expectedErrorMessage = $validateResponseTransfer->getErrors()[0];
-        $this->assertEquals(AsyncApiMessages::VALIDATOR_ERROR_NO_MESSAGES_DEFINED, $expectedErrorMessage->getMessage(), 'AsyncApi file "vfs://root/config/api/asyncapi/valid/invalid_base_asyncapi.schema.yml" does not contain messages.');
+        $this->assertEquals(AsyncApiError::asyncApiDoesNotDefineMessages(), $expectedErrorMessage->getMessage(), 'AsyncApi file "vfs://root/config/api/asyncapi/valid/invalid_base_asyncapi.schema.yml" does not contain messages.');
     }
 
     /**
@@ -89,7 +89,7 @@ class AsyncApiValidatorFacadeTest extends Unit
 
         // Assert
         $messages = $this->tester->getMessagesFromValidateResponseTransfer($validateResponseTransfer);
-        $this->assertContains(AsyncApiMessages::errorMessageMessageDoesNotHaveAnOperationId('OutgoingMessage'), $messages, sprintf("Messages: \n\n%s\n", implode(PHP_EOL, $messages)));
+        $this->assertContains(AsyncApiError::messageDoesNotHaveAnOperationId('OutgoingMessage'), $messages, sprintf("Messages: \n\n%s\n", implode(PHP_EOL, $messages)));
     }
 
     /**
@@ -107,7 +107,7 @@ class AsyncApiValidatorFacadeTest extends Unit
 
         // Assert
         $messages = $this->tester->getMessagesFromValidateResponseTransfer($validateResponseTransfer);
-        $this->assertContains(AsyncApiMessages::errorMessageMessageNameUsedMoreThanOnce('OutgoingMessage'), $messages, sprintf("Messages: \n\n%s\n", implode(PHP_EOL, $messages)));
-        $this->assertContains(AsyncApiMessages::errorMessageMessageNameUsedMoreThanOnce('IncomingMessage'), $messages, sprintf("Messages: \n\n%s\n", implode(PHP_EOL, $messages)));
+        $this->assertContains(AsyncApiError::messageNameUsedMoreThanOnce('OutgoingMessage'), $messages, sprintf("Messages: \n\n%s\n", implode(PHP_EOL, $messages)));
+        $this->assertContains(AsyncApiError::messageNameUsedMoreThanOnce('IncomingMessage'), $messages, sprintf("Messages: \n\n%s\n", implode(PHP_EOL, $messages)));
     }
 }

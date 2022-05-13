@@ -13,13 +13,13 @@ use SprykerSdk\AsyncApi\Code\Builder\AsyncApiBuilder;
 use SprykerSdk\AsyncApi\Code\Builder\AsyncApiBuilderInterface;
 use SprykerSdk\AsyncApi\Code\Builder\AsyncApiCodeBuilder;
 use SprykerSdk\AsyncApi\Code\Builder\AsyncApiCodeBuilderInterface;
+use SprykerSdk\AsyncApi\Message\MessageBuilder;
+use SprykerSdk\AsyncApi\Message\MessageBuilderInterface;
 use SprykerSdk\AsyncApi\Validator\AsyncApiValidator;
-use SprykerSdk\AsyncApi\Validator\FileValidatorInterface;
-use SprykerSdk\AsyncApi\Validator\Finder\Finder;
-use SprykerSdk\AsyncApi\Validator\Finder\FinderInterface;
-use SprykerSdk\AsyncApi\Validator\Validator\AsyncApiChannelValidator;
-use SprykerSdk\AsyncApi\Validator\Validator\AsyncApiMessageValidator;
-use SprykerSdk\AsyncApi\Validator\Validator\AsyncApiOperationIdValidator;
+use SprykerSdk\AsyncApi\Validator\Rule\AsyncApiChannelValidatorRule;
+use SprykerSdk\AsyncApi\Validator\Rule\AsyncApiMessageValidatorRule;
+use SprykerSdk\AsyncApi\Validator\Rule\AsyncApiOperationIdValidatorRule;
+use SprykerSdk\AsyncApi\Validator\Rule\ValidatorRuleInterface;
 
 class AsyncApiFactory
 {
@@ -41,19 +41,11 @@ class AsyncApiFactory
     }
 
     /**
-     * @return \SprykerSdk\AsyncApi\Validator\Finder\FinderInterface
-     */
-    protected function createFinder(): FinderInterface
-    {
-        return new Finder();
-    }
-
-    /**
      * @return \SprykerSdk\AsyncApi\Code\Builder\AsyncApiBuilderInterface
      */
     public function createAsyncApiBuilder(): AsyncApiBuilderInterface
     {
-        return new AsyncApiBuilder();
+        return new AsyncApiBuilder($this->createMessageBuilder());
     }
 
     /**
@@ -61,7 +53,7 @@ class AsyncApiFactory
      */
     public function createAsyncApiCodeBuilder(): AsyncApiCodeBuilderInterface
     {
-        return new AsyncApiCodeBuilder($this->getConfig(), $this->createAsyncApiLoader());
+        return new AsyncApiCodeBuilder($this->getConfig(), $this->createMessageBuilder(), $this->createAsyncApiLoader());
     }
 
     /**
@@ -79,44 +71,52 @@ class AsyncApiFactory
     {
         return new AsyncApiValidator(
             $this->getConfig(),
-            $this->createFinder(),
-            $this->getAsyncApiValidators(),
+            $this->createMessageBuilder(),
+            $this->getAsyncApiValidatorRules(),
         );
     }
 
     /**
      * @return array
      */
-    public function getAsyncApiValidators(): array
+    public function getAsyncApiValidatorRules(): array
     {
         return [
-            $this->createAsyncApiMessageValidator(),
-            $this->createAsyncApiOperationIdValidator(),
-            $this->createAsyncApiChannelValidator(),
+            $this->createAsyncApiMessageValidatorRule(),
+            $this->createAsyncApiOperationIdValidatorRule(),
+            $this->createAsyncApiChannelValidatorRule(),
         ];
     }
 
     /**
-     * @return \SprykerSdk\AsyncApi\Validator\FileValidatorInterface
+     * @return \SprykerSdk\AsyncApi\Validator\Rule\ValidatorRuleInterface
      */
-    protected function createAsyncApiMessageValidator(): FileValidatorInterface
+    protected function createAsyncApiMessageValidatorRule(): ValidatorRuleInterface
     {
-        return new AsyncApiMessageValidator($this->getConfig());
+        return new AsyncApiMessageValidatorRule($this->createMessageBuilder());
     }
 
     /**
-     * @return \SprykerSdk\AsyncApi\Validator\FileValidatorInterface
+     * @return \SprykerSdk\AsyncApi\Validator\Rule\ValidatorRuleInterface
      */
-    protected function createAsyncApiOperationIdValidator(): FileValidatorInterface
+    protected function createAsyncApiOperationIdValidatorRule(): ValidatorRuleInterface
     {
-        return new AsyncApiOperationIdValidator($this->getConfig());
+        return new AsyncApiOperationIdValidatorRule($this->createMessageBuilder());
     }
 
     /**
-     * @return \SprykerSdk\AsyncApi\Validator\FileValidatorInterface
+     * @return \SprykerSdk\AsyncApi\Validator\Rule\ValidatorRuleInterface
      */
-    protected function createAsyncApiChannelValidator(): FileValidatorInterface
+    protected function createAsyncApiChannelValidatorRule(): ValidatorRuleInterface
     {
-        return new AsyncApiChannelValidator($this->getConfig());
+        return new AsyncApiChannelValidatorRule($this->createMessageBuilder());
+    }
+
+    /**
+     * @return \SprykerSdk\AsyncApi\Message\MessageBuilderInterface
+     */
+    public function createMessageBuilder(): MessageBuilderInterface
+    {
+        return new MessageBuilder();
     }
 }

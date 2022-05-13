@@ -9,6 +9,7 @@ namespace SprykerSdkTest\AsyncApi;
 
 use Codeception\Test\Unit;
 use SprykerSdk\AsyncApi\Exception\InvalidConfigurationException;
+use SprykerSdk\AsyncApi\Message\AsyncApiError;
 
 /**
  * @group SprykerSdkTest
@@ -80,7 +81,7 @@ class AsyncApiFacadeTest extends Unit
 
         // Assert
         $this->assertCount(1, $asyncApiResponseTransfer->getErrors());
-        $this->assertSame('File "not existing file" does not exists. Please create one to continue.', $asyncApiResponseTransfer->getErrors()[0]->getMessage());
+        $this->assertSame(AsyncApiError::asyncApiFileDoesNotExist('not existing file'), $asyncApiResponseTransfer->getErrors()[0]->getMessage());
     }
 
     /**

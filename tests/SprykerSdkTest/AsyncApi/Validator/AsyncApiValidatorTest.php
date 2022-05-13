@@ -10,7 +10,7 @@ namespace SprykerSdkTest\AsyncApi\Console;
 use Codeception\Test\Unit;
 use SprykerSdk\AsyncApi\Console\AbstractConsole;
 use SprykerSdk\AsyncApi\Console\SchemaValidateConsole;
-use SprykerSdk\AsyncApi\Messages\AsyncApiMessages;
+use SprykerSdk\AsyncApi\Message\AsyncApiError;
 use SprykerSdkTest\AsyncApi\AsyncApiTester;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -42,6 +42,6 @@ class AsyncApiValidatorTest extends Unit
 
         // Assert
         $this->assertSame(AbstractConsole::CODE_ERROR, $commandTester->getStatusCode());
-        $this->assertStringContainsString(AsyncApiMessages::VALIDATOR_ERROR_NO_CHANNELS_DEFINED, $commandTester->getDisplay());
+        $this->assertStringContainsString(AsyncApiError::asyncApiDoesNotDefineChannels(), $commandTester->getDisplay());
     }
 }

@@ -5,27 +5,25 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace SprykerSdk\AsyncApi\Validator\Validator;
+namespace SprykerSdk\AsyncApi\Validator\Rule;
 
-use Generated\Shared\Transfer\MessageTransfer;
 use Generated\Shared\Transfer\ValidateResponseTransfer;
-use SprykerSdk\AsyncApi\AsyncApiConfig;
-use SprykerSdk\AsyncApi\Messages\AsyncApiMessages;
-use SprykerSdk\AsyncApi\Validator\FileValidatorInterface;
+use SprykerSdk\AsyncApi\Message\AsyncApiError;
+use SprykerSdk\AsyncApi\Message\MessageBuilderInterface;
 
-class AsyncApiChannelValidator implements FileValidatorInterface
+class AsyncApiChannelValidatorRule implements ValidatorRuleInterface
 {
     /**
-     * @var \SprykerSdk\AsyncApi\AsyncApiConfig
+     * @var \SprykerSdk\AsyncApi\Message\MessageBuilderInterface
      */
-    protected AsyncApiConfig $config;
+    protected MessageBuilderInterface $messageBuilder;
 
     /**
-     * @param \SprykerSdk\AsyncApi\AsyncApiConfig $config
+     * @param \SprykerSdk\AsyncApi\Message\MessageBuilderInterface $messageBuilder
      */
-    public function __construct(AsyncApiConfig $config)
+    public function __construct(MessageBuilderInterface $messageBuilder)
     {
-        $this->config = $config;
+        $this->messageBuilder = $messageBuilder;
     }
 
     /**
@@ -56,9 +54,9 @@ class AsyncApiChannelValidator implements FileValidatorInterface
     protected function validateAtLeastOneChannelExists(array $asyncApi, ValidateResponseTransfer $validateResponseTransfer): ValidateResponseTransfer
     {
         if (!isset($asyncApi['channels'])) {
-            $messageTransfer = new MessageTransfer();
-            $messageTransfer->setMessage(AsyncApiMessages::VALIDATOR_ERROR_NO_CHANNELS_DEFINED);
-            $validateResponseTransfer->addError($messageTransfer);
+            $validateResponseTransfer->addError($this->messageBuilder->buildMessage(
+                AsyncApiError::asyncApiDoesNotDefineChannels(),
+            ));
         }
 
         return $validateResponseTransfer;

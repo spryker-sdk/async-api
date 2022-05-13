@@ -24,6 +24,7 @@ use SprykerSdk\AsyncApi\AsyncApiFacadeInterface;
 use SprykerSdk\AsyncApi\AsyncApiFactory;
 use SprykerSdk\AsyncApi\Code\Builder\AsyncApiCodeBuilder;
 use SprykerSdk\AsyncApi\Console\CodeGenerateConsole;
+use SprykerSdk\AsyncApi\Message\MessageBuilder;
 use Symfony\Component\Yaml\Yaml;
 
 class AsyncApiHelper extends Module
@@ -465,6 +466,7 @@ class AsyncApiHelper extends Module
             AsyncApiCodeBuilder::class,
             [
                 new AsyncApiConfig(),
+                new MessageBuilder(),
                 new AsyncApiLoader(),
             ],
             [

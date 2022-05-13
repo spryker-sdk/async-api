@@ -10,10 +10,11 @@ namespace SprykerSdk\AsyncApi\Code\Builder;
 use Generated\Shared\Transfer\AsyncApiMessageTransfer;
 use Generated\Shared\Transfer\AsyncApiRequestTransfer;
 use Generated\Shared\Transfer\AsyncApiResponseTransfer;
-use Generated\Shared\Transfer\MessageTransfer;
 use ReflectionClass;
 use SprykerSdk\AsyncApi\Exception\InvalidConfigurationException;
-use SprykerSdk\AsyncApi\Messages\AsyncApiMessages;
+use SprykerSdk\AsyncApi\Message\AsyncApiError;
+use SprykerSdk\AsyncApi\Message\AsyncApiInfo;
+use SprykerSdk\AsyncApi\Message\MessageBuilderInterface;
 use Symfony\Component\Yaml\Yaml;
 
 class AsyncApiBuilder implements AsyncApiBuilderInterface
@@ -24,6 +25,19 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
     protected $transferToAsyncApiTypeMap = [
         'int' => 'integer',
     ];
+
+    /**
+     * @var \SprykerSdk\AsyncApi\Message\MessageBuilderInterface
+     */
+    protected MessageBuilderInterface $messageBuilder;
+
+    /**
+     * @param \SprykerSdk\AsyncApi\Message\MessageBuilderInterface $messageBuilder
+     */
+    public function __construct(MessageBuilderInterface $messageBuilder)
+    {
+        $this->messageBuilder = $messageBuilder;
+    }
 
     /**
      * @param \Generated\Shared\Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
@@ -46,7 +60,7 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
 
         if (is_file($targetFile)) {
             if ($this->updateAsyncApi($targetFile, $asyncApi)) {
-                $asyncApiResponseTransfer->addMessage((new MessageTransfer())->setMessage(AsyncApiMessages::successMessageAsyncApiFileUpdated($targetFile)));
+                $asyncApiResponseTransfer->addMessage($this->messageBuilder->buildMessage(AsyncApiInfo::asyncApiFileUpdated($targetFile)));
             }
 
             return $asyncApiResponseTransfer;
@@ -57,7 +71,7 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
         $result = $this->writeToFile($targetFile, $asyncApi);
 
         if ($result) {
-            $asyncApiResponseTransfer->addMessage((new MessageTransfer())->setMessage(AsyncApiMessages::successMessageAsyncApiFileCreated($targetFile)));
+            $asyncApiResponseTransfer->addMessage($this->messageBuilder->buildMessage(AsyncApiInfo::asyncApiFileCreated($targetFile)));
         }
 
         return $asyncApiResponseTransfer;
@@ -74,7 +88,7 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
         $targetFile = $asyncApiRequestTransfer->getTargetFileOrFail();
 
         if (!file_exists($targetFile)) {
-            $asyncApiResponseTransfer->addError((new MessageTransfer())->setMessage(sprintf('File "%s" does not exists. Please create one to continue.', $targetFile)));
+            $asyncApiResponseTransfer->addError($this->messageBuilder->buildMessage(AsyncApiError::asyncApiFileDoesNotExist($targetFile)));
 
             return $asyncApiResponseTransfer;
         }
@@ -97,7 +111,7 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
         $result = $this->writeToFile($targetFile, $asyncApi);
 
         if ($result) {
-            $asyncApiResponseTransfer->addMessage((new MessageTransfer())->setMessage(AsyncApiMessages::successMessageAddedMessageToChannel($messageName, $asyncApiMessageTransfer->getChannelOrFail()->getNameOrFail())));
+            $asyncApiResponseTransfer->addMessage($this->messageBuilder->buildMessage(AsyncApiInfo::addedMessageToChannel($messageName, $asyncApiMessageTransfer->getChannelOrFail()->getNameOrFail())));
         }
 
         return $asyncApiResponseTransfer;

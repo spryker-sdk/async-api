@@ -8,14 +8,43 @@
 namespace SprykerSdk\AsyncApi\Validator;
 
 use Exception;
-use Generated\Shared\Transfer\MessageTransfer;
 use Generated\Shared\Transfer\ValidateRequestTransfer;
 use Generated\Shared\Transfer\ValidateResponseTransfer;
-use SprykerSdk\AsyncApi\Messages\AsyncApiMessages;
+use SprykerSdk\AsyncApi\AsyncApiConfig;
+use SprykerSdk\AsyncApi\Message\AsyncApiError;
+use SprykerSdk\AsyncApi\Message\AsyncApiInfo;
+use SprykerSdk\AsyncApi\Message\MessageBuilderInterface;
 use Symfony\Component\Yaml\Yaml;
 
-class AsyncApiValidator extends AbstractValidator
+class AsyncApiValidator implements ValidatorInterface
 {
+    /**
+     * @var \SprykerSdk\AsyncApi\AsyncApiConfig
+     */
+    protected AsyncApiConfig $config;
+
+    /**
+     * @var \SprykerSdk\AsyncApi\Message\MessageBuilderInterface
+     */
+    protected MessageBuilderInterface $messageBuilder;
+
+    /**
+     * @var array<\SprykerSdk\AsyncApi\Validator\Rule\ValidatorRuleInterface>
+     */
+    protected array $validatorRules;
+
+    /**
+     * @param \SprykerSdk\AsyncApi\AsyncApiConfig $config
+     * @param \SprykerSdk\AsyncApi\Message\MessageBuilderInterface $messageBuilder
+     * @param array<\SprykerSdk\AsyncApi\Validator\Rule\ValidatorRuleInterface> $validatorRules
+     */
+    public function __construct(AsyncApiConfig $config, MessageBuilderInterface $messageBuilder, array $validatorRules = [])
+    {
+        $this->config = $config;
+        $this->messageBuilder = $messageBuilder;
+        $this->validatorRules = $validatorRules;
+    }
+
     /**
      * @param \Generated\Shared\Transfer\ValidateRequestTransfer $validateRequestTransfer
      * @param \Generated\Shared\Transfer\ValidateResponseTransfer|null $validateResponseTransfer
@@ -29,10 +58,10 @@ class AsyncApiValidator extends AbstractValidator
         $validateResponseTransfer ??= new ValidateResponseTransfer();
         $asyncApiFile = $validateRequestTransfer->getAsyncApiFileOrFail();
 
-        if (!$this->finder->hasFiles($asyncApiFile)) {
-            $messageTransfer = new MessageTransfer();
-            $messageTransfer->setMessage('No AsyncAPI file given, you need to pass a valid filename.');
-            $validateResponseTransfer->addError($messageTransfer);
+        if (!is_file($asyncApiFile)) {
+            $validateResponseTransfer->addError($this->messageBuilder->buildMessage(
+                AsyncApiError::asyncApiFileDoesNotExist($asyncApiFile),
+            ));
 
             return $validateResponseTransfer;
         }
@@ -40,17 +69,38 @@ class AsyncApiValidator extends AbstractValidator
         try {
             $asyncApi = Yaml::parseFile($asyncApiFile);
         } catch (Exception $e) {
-            $messageTransfer = new MessageTransfer();
-            $messageTransfer->setMessage('Could not parse AsyncApi file.');
-            $validateResponseTransfer->addError($messageTransfer);
+            $validateResponseTransfer->addError($this->messageBuilder->buildMessage(
+                AsyncApiError::couldNotParseAsyncApiFile($asyncApiFile),
+            ));
 
             return $validateResponseTransfer;
         }
 
-        $validateResponseTransfer = $this->validateFileData($asyncApi, $this->finder->getFile($asyncApiFile)->getFilename(), $validateResponseTransfer);
+        $validateResponseTransfer = $this->executeValidatorRules($asyncApi, $asyncApiFile, $validateResponseTransfer);
 
         if ($validateResponseTransfer->getErrors()->count() === 0) {
-            $validateResponseTransfer->addMessage((new MessageTransfer())->setMessage(AsyncApiMessages::VALIDATOR_MESSAGE_SUCCESS));
+            $validateResponseTransfer->addMessage($this->messageBuilder->buildMessage(AsyncApiInfo::asyncApiSchemaFileIsValid()));
+        }
+
+        return $validateResponseTransfer;
+    }
+
+    /**
+     * @param array $fileData
+     * @param string $fileName
+     * @param \Generated\Shared\Transfer\ValidateResponseTransfer $validateResponseTransfer
+     * @param array|null $context
+     *
+     * @return \Generated\Shared\Transfer\ValidateResponseTransfer
+     */
+    protected function executeValidatorRules(
+        array $fileData,
+        string $fileName,
+        ValidateResponseTransfer $validateResponseTransfer,
+        ?array $context = null
+    ): ValidateResponseTransfer {
+        foreach ($this->validatorRules as $fileValidator) {
+            $validateResponseTransfer = $fileValidator->validate($fileData, $fileName, $validateResponseTransfer, $context);
         }
 
         return $validateResponseTransfer;

@@ -15,7 +15,9 @@ use SprykerSdk\AsyncApi\AsyncApi\Channel\AsyncApiChannelInterface;
 use SprykerSdk\AsyncApi\AsyncApi\Loader\AsyncApiLoaderInterface;
 use SprykerSdk\AsyncApi\AsyncApi\Message\AsyncApiMessageInterface;
 use SprykerSdk\AsyncApi\AsyncApiConfig;
-use SprykerSdk\AsyncApi\Messages\AsyncApiMessages;
+use SprykerSdk\AsyncApi\Message\AsyncApiError;
+use SprykerSdk\AsyncApi\Message\AsyncApiInfo;
+use SprykerSdk\AsyncApi\Message\MessageBuilderInterface;
 use Symfony\Component\Process\Process;
 
 class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
@@ -24,6 +26,11 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
      * @var \SprykerSdk\AsyncApi\AsyncApiConfig
      */
     protected AsyncApiConfig $config;
+
+    /**
+     * @var \SprykerSdk\AsyncApi\Message\MessageBuilderInterface
+     */
+    protected MessageBuilderInterface $messageBuilder;
 
     /**
      * @var \SprykerSdk\AsyncApi\AsyncApi\Loader\AsyncApiLoaderInterface
@@ -37,11 +44,13 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
 
     /**
      * @param \SprykerSdk\AsyncApi\AsyncApiConfig $config
+     * @param \SprykerSdk\AsyncApi\Message\MessageBuilderInterface $messageBuilder
      * @param \SprykerSdk\AsyncApi\AsyncApi\Loader\AsyncApiLoaderInterface $asyncApiLoader
      */
-    public function __construct(AsyncApiConfig $config, AsyncApiLoaderInterface $asyncApiLoader)
+    public function __construct(AsyncApiConfig $config, MessageBuilderInterface $messageBuilder, AsyncApiLoaderInterface $asyncApiLoader)
     {
         $this->config = $config;
+        $this->messageBuilder = $messageBuilder;
         $this->asyncApiLoader = $asyncApiLoader;
     }
 
@@ -65,13 +74,11 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
         $asyncApiResponseTransfer = $this->buildCodeForSubscribeMessagesChannels($asyncApi, $asyncApiResponseTransfer, $organization);
 
         if ($asyncApiResponseTransfer->getErrors()->count() || !$asyncApiResponseTransfer->getMessages()->count()) {
-            $messageTransfer = new MessageTransfer();
-            $messageTransfer->setMessage(AsyncApiMessages::VALIDATOR_ERROR_GENERATE_CODE);
-            $asyncApiResponseTransfer->addError($messageTransfer);
+            $asyncApiResponseTransfer->addError($this->messageBuilder->buildMessage(AsyncApiError::couldNotGenerateCodeFromAsyncApi()));
         }
 
         if ($asyncApiResponseTransfer->getErrors()->count() === 0) {
-            $asyncApiResponseTransfer->addMessage((new MessageTransfer())->setMessage(AsyncApiMessages::SUCCESS_MESSAGES_GENERATED_CODE));
+            $asyncApiResponseTransfer->addMessage($this->messageBuilder->buildMessage(AsyncApiInfo::generatedCodeFromAsyncApiSchema()));
         }
 
         return $asyncApiResponseTransfer;

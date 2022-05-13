@@ -5,27 +5,25 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace SprykerSdk\AsyncApi\Validator\Validator;
+namespace SprykerSdk\AsyncApi\Validator\Rule;
 
-use Generated\Shared\Transfer\MessageTransfer;
 use Generated\Shared\Transfer\ValidateResponseTransfer;
-use SprykerSdk\AsyncApi\AsyncApiConfig;
-use SprykerSdk\AsyncApi\Messages\AsyncApiMessages;
-use SprykerSdk\AsyncApi\Validator\FileValidatorInterface;
+use SprykerSdk\AsyncApi\Message\AsyncApiError;
+use SprykerSdk\AsyncApi\Message\MessageBuilderInterface;
 
-class AsyncApiMessageValidator implements FileValidatorInterface
+class AsyncApiMessageValidatorRule implements ValidatorRuleInterface
 {
-    /**
-     * @var \SprykerSdk\AsyncApi\AsyncApiConfig
-     */
-    protected AsyncApiConfig $config;
+ /**
+  * @var \SprykerSdk\AsyncApi\Message\MessageBuilderInterface
+  */
+    protected MessageBuilderInterface $messageBuilder;
 
     /**
-     * @param \SprykerSdk\AsyncApi\AsyncApiConfig $config
+     * @param \SprykerSdk\AsyncApi\Message\MessageBuilderInterface $messageBuilder
      */
-    public function __construct(AsyncApiConfig $config)
+    public function __construct(MessageBuilderInterface $messageBuilder)
     {
-        $this->config = $config;
+        $this->messageBuilder = $messageBuilder;
     }
 
     /**
@@ -58,9 +56,9 @@ class AsyncApiMessageValidator implements FileValidatorInterface
     protected function validateAtLeastOneMessageExists(array $asyncApi, ValidateResponseTransfer $validateResponseTransfer): ValidateResponseTransfer
     {
         if (!isset($asyncApi['components']['messages']) || count($asyncApi['components']['messages']) === 0) {
-            $messageTransfer = new MessageTransfer();
-            $messageTransfer->setMessage(AsyncApiMessages::VALIDATOR_ERROR_NO_MESSAGES_DEFINED);
-            $validateResponseTransfer->addError($messageTransfer);
+            $validateResponseTransfer->addError($this->messageBuilder->buildMessage(
+                AsyncApiError::asyncApiDoesNotDefineMessages(),
+            ));
         }
 
         return $validateResponseTransfer;
@@ -82,9 +80,9 @@ class AsyncApiMessageValidator implements FileValidatorInterface
 
         foreach ($asyncApi['components']['messages'] as $message) {
             if (isset($messageNames[$message['name']])) {
-                $messageTransfer = new MessageTransfer();
-                $messageTransfer->setMessage(AsyncApiMessages::errorMessageMessageNameUsedMoreThanOnce($message['name']));
-                $validateResponseTransfer->addError($messageTransfer);
+                $validateResponseTransfer->addError($this->messageBuilder->buildMessage(
+                    AsyncApiError::messageNameUsedMoreThanOnce($message['name']),
+                ));
             }
             $messageNames[$message['name']] = true;
         }
