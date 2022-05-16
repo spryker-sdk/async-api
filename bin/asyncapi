@@ -9,10 +9,6 @@ foreach ([__DIR__ . '/../../../../../autoload.php', __DIR__ . '/../../../autoloa
     }
 }
 
-if (!defined('APPLICATION_ROOT_DIR')) {
-    define('APPLICATION_ROOT_DIR', dirname(__DIR__, 4));
-}
-
 unset($file);
 
 if (!defined('COMPOSER_INSTALL')) {
