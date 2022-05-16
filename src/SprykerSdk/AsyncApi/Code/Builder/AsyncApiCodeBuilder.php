@@ -205,7 +205,7 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
         }
 
         $transferBuildCommandLine = [
-            'vendor/bin/spryk-run',
+            APPLICATION_ROOT_DIR . DIRECTORY_SEPARATOR . 'vendor/bin/spryk-run',
             'AddSharedTransferProperty',
             '--mode', $this->sprykMode,
             '--organization', $projectNamespace,
@@ -220,7 +220,7 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
 
         // Add messageAttributes to the Transfer
         $commandLines[] = [
-            'vendor/bin/spryk-run',
+            APPLICATION_ROOT_DIR . DIRECTORY_SEPARATOR . 'vendor/bin/spryk-run',
             'AddSharedTransferProperty',
             '--mode', $this->sprykMode,
             '--organization', $projectNamespace,
@@ -236,7 +236,7 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
         $asyncApiResponseTransfer->addMessage($messageTransfer);
 
         $commandLines[] = [
-            'vendor/bin/spryk-run',
+            APPLICATION_ROOT_DIR . DIRECTORY_SEPARATOR .  'vendor/bin/spryk-run',
             'AddSharedTransferDefinition',
             '--mode', $this->sprykMode,
             '--organization', $projectNamespace,
@@ -278,7 +278,7 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
         $messageName = $messageNameAttribute->getValue();
 
         $commandLines[] = [
-            'vendor/bin/spryk-run',
+            APPLICATION_ROOT_DIR . DIRECTORY_SEPARATOR . 'vendor/bin/spryk-run',
             'AddMessageBrokerHandlerPlugin',
             '--mode', $this->sprykMode,
             '--organization', $projectNamespace,
@@ -308,6 +308,7 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
     {
         foreach ($commandLines as $commandLine) {
             $process = new Process($commandLine, $this->config->getProjectRootPath());
+
             $process->run(function ($a, $buffer) {
                 echo $buffer;
                 // For debugging purposes, set a breakpoint here to see issues.
