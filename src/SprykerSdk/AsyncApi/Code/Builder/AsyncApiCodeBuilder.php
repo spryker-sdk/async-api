@@ -236,7 +236,7 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
         $asyncApiResponseTransfer->addMessage($messageTransfer);
 
         $commandLines[] = [
-            APPLICATION_ROOT_DIR . DIRECTORY_SEPARATOR .  'vendor/bin/spryk-run',
+            APPLICATION_ROOT_DIR . DIRECTORY_SEPARATOR . 'vendor/bin/spryk-run',
             'AddSharedTransferDefinition',
             '--mode', $this->sprykMode,
             '--organization', $projectNamespace,
