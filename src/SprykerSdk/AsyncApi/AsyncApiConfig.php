@@ -40,15 +40,7 @@ class AsyncApiConfig
      */
     public function getProjectRootPath(): string
     {
-        $cwd = getcwd();
-
-        // @codeCoverageIgnoreStart
-        if (!$cwd) {
-            throw new AsyncApiException('Could not get the current working directory.');
-        }
-        // @codeCoverageIgnoreEnd
-
-        return $cwd;
+        return (string)getcwd();
     }
 
     /**
