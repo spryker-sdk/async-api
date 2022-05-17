@@ -202,7 +202,7 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
         }
 
         $transferBuildCommandLine = [
-            'spryk-run',
+            'vendor/bin/spryk-run',
             'AddSharedTransferProperty',
             '--mode', $this->sprykMode,
             '--organization', $projectNamespace,
@@ -217,7 +217,7 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
 
         // Add messageAttributes to the Transfer
         $commandLines[] = [
-            'spryk-run',
+            'vendor/bin/spryk-run',
             'AddSharedTransferProperty',
             '--mode', $this->sprykMode,
             '--organization', $projectNamespace,
@@ -232,7 +232,7 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
         $asyncApiResponseTransfer->addMessage($this->messageBuilder->buildMessage(AsyncApiInfo::addedPropertyWithTypeTo('messageAttributes', 'MessageAttributesTransfer', $asyncApiMessage->getName(), $moduleName)));
 
         $commandLines[] = [
-            'spryk-run',
+            'vendor/bin/spryk-run',
             'AddSharedTransferDefinition',
             '--mode', $this->sprykMode,
             '--organization', $projectNamespace,
@@ -273,7 +273,7 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
         $messageName = $messageNameAttribute->getValue();
 
         $commandLines[] = [
-            'spryk-run',
+            'vendor/bin/spryk-run',
             'AddMessageBrokerHandlerPlugin',
             '--mode', $this->sprykMode,
             '--organization', $projectNamespace,
