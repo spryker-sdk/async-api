@@ -202,7 +202,7 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
         }
 
         $transferBuildCommandLine = [
-            'vendor/bin/spryk-run',
+            $this->config->getSprykRunExecutablePath() . '/vendor/bin/spryk-run',
             'AddSharedTransferProperty',
             '--mode', $this->sprykMode,
             '--organization', $projectNamespace,
@@ -217,7 +217,7 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
 
         // Add messageAttributes to the Transfer
         $commandLines[] = [
-            'vendor/bin/spryk-run',
+            $this->config->getSprykRunExecutablePath() . '/vendor/bin/spryk-run',
             'AddSharedTransferProperty',
             '--mode', $this->sprykMode,
             '--organization', $projectNamespace,
@@ -232,7 +232,7 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
         $asyncApiResponseTransfer->addMessage($this->messageBuilder->buildMessage(AsyncApiInfo::addedPropertyWithTypeTo('messageAttributes', 'MessageAttributesTransfer', $asyncApiMessage->getName(), $moduleName)));
 
         $commandLines[] = [
-            'vendor/bin/spryk-run',
+            $this->config->getSprykRunExecutablePath() . '/vendor/bin/spryk-run',
             'AddSharedTransferDefinition',
             '--mode', $this->sprykMode,
             '--organization', $projectNamespace,
@@ -273,7 +273,7 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
         $messageName = $messageNameAttribute->getValue();
 
         $commandLines[] = [
-            'vendor/bin/spryk-run',
+            $this->config->getSprykRunExecutablePath() . '/vendor/bin/spryk-run',
             'AddMessageBrokerHandlerPlugin',
             '--mode', $this->sprykMode,
             '--organization', $projectNamespace,
@@ -300,7 +300,7 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
     protected function runCommandLines(array $commandLines): void
     {
         foreach ($commandLines as $commandLine) {
-            $process = new Process($commandLine, $this->config->getSprykRunExecutablePath());
+            $process = new Process($commandLine, $this->config->getProjectRootPath());
 
             $process->run(function ($a, $buffer) {
                 echo $buffer;
