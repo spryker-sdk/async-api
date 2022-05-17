@@ -7,8 +7,6 @@
 
 namespace SprykerSdk\AsyncApi;
 
-use SprykerSdk\AsyncApi\Exception\AsyncApiException;
-
 class AsyncApiConfig
 {
     /**
