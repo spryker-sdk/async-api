@@ -18,8 +18,5 @@ composer.lock
 .phpunit.result.cache
 
 # tests
-tests/**/_generated/
-tests/_output/*
-!tests/_output/.gitkeep
-
+tests/_output
 tests/_support/_generated/

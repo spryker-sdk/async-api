@@ -11,6 +11,7 @@ use Codeception\Test\Unit;
 use SprykerSdk\AsyncApi\Console\AbstractConsole;
 use SprykerSdk\AsyncApi\Console\CodeGenerateConsole;
 use SprykerSdk\AsyncApi\Message\AsyncApiError;
+use SprykerSdk\AsyncApi\Message\AsyncApiInfo;
 use SprykerSdkTest\AsyncApi\AsyncApiTester;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -64,8 +65,8 @@ class CodeGenerateConsoleTest extends Unit
 
         // Assert
         $this->assertSame(AbstractConsole::CODE_SUCCESS, $commandTester->getStatusCode());
-        $this->assertStringContainsString('Added property "incomingSourceStatus" with type "string" to the "IncomingMessageTransfer" transfer object of the module "Module".', $commandTester->getDisplay());
-        $this->assertStringContainsString('Added MessageHandlerPlugin for the message "IncomingMessage" to the module "Module".', $commandTester->getDisplay());
+        $this->assertStringContainsString(AsyncApiInfo::addedPropertyWithTypeTo('incomingSourceStatus', 'string', 'IncomingMessage', 'Module'), $commandTester->getDisplay());
+        $this->assertStringContainsString(AsyncApiInfo::addedMessageHandlerPluginForMessageTo('IncomingMessage', 'Module'), $commandTester->getDisplay());
     }
 
     /**
