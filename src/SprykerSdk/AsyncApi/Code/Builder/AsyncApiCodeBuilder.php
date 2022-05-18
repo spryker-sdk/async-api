@@ -7,8 +7,6 @@
 
 namespace SprykerSdk\AsyncApi\Code\Builder;
 
-use Generated\Shared\Transfer\AsyncApiRequestTransfer;
-use Generated\Shared\Transfer\AsyncApiResponseTransfer;
 use SprykerSdk\AsyncApi\AsyncApi\AsyncApiInterface;
 use SprykerSdk\AsyncApi\AsyncApi\Channel\AsyncApiChannelInterface;
 use SprykerSdk\AsyncApi\AsyncApi\Loader\AsyncApiLoaderInterface;
@@ -18,6 +16,8 @@ use SprykerSdk\AsyncApi\Message\AsyncApiError;
 use SprykerSdk\AsyncApi\Message\AsyncApiInfo;
 use SprykerSdk\AsyncApi\Message\MessageBuilderInterface;
 use Symfony\Component\Process\Process;
+use Transfer\AsyncApiRequestTransfer;
+use Transfer\AsyncApiResponseTransfer;
 
 class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
 {
@@ -54,9 +54,9 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
+     * @param \Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
      *
-     * @return \Generated\Shared\Transfer\AsyncApiResponseTransfer
+     * @return \Transfer\AsyncApiResponseTransfer
      */
     public function build(AsyncApiRequestTransfer $asyncApiRequestTransfer): AsyncApiResponseTransfer
     {
@@ -85,10 +85,10 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
 
     /**
      * @param \SprykerSdk\AsyncApi\AsyncApi\AsyncApiInterface $asyncApi
-     * @param \Generated\Shared\Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
+     * @param \Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
      * @param string $projectNamespace
      *
-     * @return \Generated\Shared\Transfer\AsyncApiResponseTransfer
+     * @return \Transfer\AsyncApiResponseTransfer
      */
     protected function buildCodeForPublishMessagesChannels(
         AsyncApiInterface $asyncApi,
@@ -104,10 +104,10 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
 
     /**
      * @param \SprykerSdk\AsyncApi\AsyncApi\AsyncApiInterface $asyncApi
-     * @param \Generated\Shared\Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
+     * @param \Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
      * @param string $projectNamespace
      *
-     * @return \Generated\Shared\Transfer\AsyncApiResponseTransfer
+     * @return \Transfer\AsyncApiResponseTransfer
      */
     protected function buildCodeForSubscribeMessagesChannels(
         AsyncApiInterface $asyncApi,
@@ -123,10 +123,10 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
 
     /**
      * @param \SprykerSdk\AsyncApi\AsyncApi\Channel\AsyncApiChannelInterface $asyncApiChannel
-     * @param \Generated\Shared\Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
+     * @param \Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
      * @param string $projectNamespace
      *
-     * @return \Generated\Shared\Transfer\AsyncApiResponseTransfer
+     * @return \Transfer\AsyncApiResponseTransfer
      */
     protected function buildCodeForPublishMessages(
         AsyncApiChannelInterface $asyncApiChannel,
@@ -143,10 +143,10 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
 
     /**
      * @param \SprykerSdk\AsyncApi\AsyncApi\Channel\AsyncApiChannelInterface $asyncApiChannel
-     * @param \Generated\Shared\Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
+     * @param \Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
      * @param string $projectNamespace
      *
-     * @return \Generated\Shared\Transfer\AsyncApiResponseTransfer
+     * @return \Transfer\AsyncApiResponseTransfer
      */
     protected function buildCodeForSubscribeMessages(
         AsyncApiChannelInterface $asyncApiChannel,
@@ -162,10 +162,10 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
 
     /**
      * @param \SprykerSdk\AsyncApi\AsyncApi\Message\AsyncApiMessageInterface $asyncApiMessage
-     * @param \Generated\Shared\Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
+     * @param \Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
      * @param string $projectNamespace
      *
-     * @return \Generated\Shared\Transfer\AsyncApiResponseTransfer
+     * @return \Transfer\AsyncApiResponseTransfer
      */
     protected function createTransferForMessage(
         AsyncApiMessageInterface $asyncApiMessage,
@@ -251,10 +251,10 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
 
     /**
      * @param \SprykerSdk\AsyncApi\AsyncApi\Message\AsyncApiMessageInterface $asyncApiMessage
-     * @param \Generated\Shared\Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
+     * @param \Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
      * @param string $projectNamespace
      *
-     * @return \Generated\Shared\Transfer\AsyncApiResponseTransfer
+     * @return \Transfer\AsyncApiResponseTransfer
      */
     protected function createHandlerForMessage(
         AsyncApiMessageInterface $asyncApiMessage,

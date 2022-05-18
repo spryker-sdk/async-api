@@ -83,7 +83,7 @@ class AbstractConsole extends Command
 
     /**
      * @param \Symfony\Component\Console\Output\OutputInterface $output
-     * @param \ArrayObject<int, \Generated\Shared\Transfer\MessageTransfer> $messageTransfers
+     * @param \ArrayObject<int, \Transfer\MessageTransfer> $messageTransfers
      *
      * @return void
      */

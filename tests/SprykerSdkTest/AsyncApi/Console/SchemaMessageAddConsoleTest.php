@@ -8,13 +8,13 @@
 namespace SprykerSdkTest\AsyncApi\Console;
 
 use Codeception\Test\Unit;
-use Generated\Shared\Transfer\AsyncApiBuilderTestTransfer;
 use SprykerSdk\AsyncApi\Console\AbstractConsole;
 use SprykerSdk\AsyncApi\Console\SchemaMessageAddConsole;
 use SprykerSdk\AsyncApi\Exception\InvalidConfigurationException;
 use SprykerSdk\AsyncApi\Message\AsyncApiError;
 use SprykerSdkTest\AsyncApi\AsyncApiTester;
 use Symfony\Component\Console\Output\OutputInterface;
+use Transfer\AsyncApiBuilderTestTransfer;
 
 /**
  * @group SprykerSdkTest

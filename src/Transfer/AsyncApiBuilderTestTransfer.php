@@ -4,52 +4,78 @@
  * (c) Spryker Systems GmbH copyright protected
  */
 
-namespace Generated\Shared\Transfer;
+namespace Transfer;
+
+use ArrayObject;
 
 /**
  * !!! THIS FILE IS AUTO-GENERATED, EVERY CHANGE WILL BE LOST WITH THE NEXT RUN OF TRANSFER GENERATOR
  * !!! DO NOT CHANGE ANYTHING IN THIS FILE
  */
-class AsyncApiTransfer extends AbstractTransfer
+class AsyncApiBuilderTestTransfer extends AbstractTransfer
 {
     /**
      * @var string
      */
-    public const TITLE = 'title';
+    public const STRING = 'string';
 
     /**
      * @var string
      */
-    public const VERSION = 'version';
+    public const INTEGER = 'integer';
+
+    /**
+     * @var string
+     */
+    public const DECIMAL = 'decimal';
+
+    /**
+     * @var string
+     */
+    public const ERRORS = 'errors';
 
     /**
      * @var string|null
      */
-    protected $title;
+    protected $string;
 
     /**
-     * @var string|null
+     * @var int|null
      */
-    protected $version;
+    protected $integer;
+
+    /**
+     * @var \Spryker\DecimalObject\Decimal|null
+     */
+    protected $decimal;
+
+    /**
+     * @var \ArrayObject|\Transfer\MessageTransfer[]
+     */
+    protected $errors;
 
     /**
      * @var array<string, string>
      */
     protected $transferPropertyNameMap = [
-        'title' => 'title',
-        'Title' => 'title',
-        'version' => 'version',
-        'Version' => 'version',
+        'string' => 'string',
+        'String' => 'string',
+        'integer' => 'integer',
+        'Integer' => 'integer',
+        'decimal' => 'decimal',
+        'Decimal' => 'decimal',
+        'errors' => 'errors',
+        'Errors' => 'errors',
     ];
 
     /**
      * @var array<string, array<string, mixed>>
      */
     protected $transferMetadata = [
-        self::TITLE => [
+        self::STRING => [
             'type' => 'string',
             'type_shim' => null,
-            'name_underscore' => 'title',
+            'name_underscore' => 'string',
             'is_collection' => false,
             'is_transfer' => false,
             'is_value_object' => false,
@@ -58,12 +84,36 @@ class AsyncApiTransfer extends AbstractTransfer
             'is_nullable' => false,
             'is_strict' => false,
         ],
-        self::VERSION => [
-            'type' => 'string',
+        self::INTEGER => [
+            'type' => 'int',
             'type_shim' => null,
-            'name_underscore' => 'version',
+            'name_underscore' => 'integer',
             'is_collection' => false,
             'is_transfer' => false,
+            'is_value_object' => false,
+            'rest_request_parameter' => 'no',
+            'is_associative' => false,
+            'is_nullable' => false,
+            'is_strict' => false,
+        ],
+        self::DECIMAL => [
+            'type' => 'Spryker\DecimalObject\Decimal',
+            'type_shim' => null,
+            'name_underscore' => 'decimal',
+            'is_collection' => false,
+            'is_transfer' => false,
+            'is_value_object' => true,
+            'rest_request_parameter' => 'no',
+            'is_associative' => false,
+            'is_nullable' => false,
+            'is_strict' => false,
+        ],
+        self::ERRORS => [
+            'type' => 'Generated\Shared\Transfer\MessageTransfer',
+            'type_shim' => null,
+            'name_underscore' => 'errors',
+            'is_collection' => true,
+            'is_transfer' => true,
             'is_value_object' => false,
             'rest_request_parameter' => 'no',
             'is_associative' => false,
@@ -75,14 +125,14 @@ class AsyncApiTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @param string|null $title
+     * @param string|null $string
      *
      * @return $this
      */
-    public function setTitle($title)
+    public function setString($string)
     {
-        $this->title = $title;
-        $this->modifiedProperties[self::TITLE] = true;
+        $this->string = $string;
+        $this->modifiedProperties[self::STRING] = true;
 
         return $this;
     }
@@ -92,100 +142,27 @@ class AsyncApiTransfer extends AbstractTransfer
      *
      * @return string|null
      */
-    public function getTitle()
+    public function getString()
     {
-        return $this->title;
+        return $this->string;
     }
 
     /**
      * @module AsyncApi
      *
-     * @param string|null $title
+     * @param string|null $string
      *
      * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
      *
      * @return $this
      */
-    public function setTitleOrFail($title)
+    public function setStringOrFail($string)
     {
-        if ($title === null) {
-            $this->throwNullValueException(static::TITLE);
+        if ($string === null) {
+            $this->throwNullValueException(static::STRING);
         }
 
-        return $this->setTitle($title);
-    }
-
-    /**
-     * @module AsyncApi
-     *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
-     *
-     * @return string
-     */
-    public function getTitleOrFail()
-    {
-        if ($this->title === null) {
-            $this->throwNullValueException(static::TITLE);
-        }
-
-        return $this->title;
-    }
-
-    /**
-     * @module AsyncApi
-     *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
-     *
-     * @return $this
-     */
-    public function requireTitle()
-    {
-        $this->assertPropertyIsSet(self::TITLE);
-
-        return $this;
-    }
-
-    /**
-     * @module AsyncApi
-     *
-     * @param string|null $version
-     *
-     * @return $this
-     */
-    public function setVersion($version)
-    {
-        $this->version = $version;
-        $this->modifiedProperties[self::VERSION] = true;
-
-        return $this;
-    }
-
-    /**
-     * @module AsyncApi
-     *
-     * @return string|null
-     */
-    public function getVersion()
-    {
-        return $this->version;
-    }
-
-    /**
-     * @module AsyncApi
-     *
-     * @param string|null $version
-     *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
-     *
-     * @return $this
-     */
-    public function setVersionOrFail($version)
-    {
-        if ($version === null) {
-            $this->throwNullValueException(static::VERSION);
-        }
-
-        return $this->setVersion($version);
+        return $this->setString($string);
     }
 
     /**
@@ -195,13 +172,13 @@ class AsyncApiTransfer extends AbstractTransfer
      *
      * @return string
      */
-    public function getVersionOrFail()
+    public function getStringOrFail()
     {
-        if ($this->version === null) {
-            $this->throwNullValueException(static::VERSION);
+        if ($this->string === null) {
+            $this->throwNullValueException(static::STRING);
         }
 
-        return $this->version;
+        return $this->string;
     }
 
     /**
@@ -211,9 +188,213 @@ class AsyncApiTransfer extends AbstractTransfer
      *
      * @return $this
      */
-    public function requireVersion()
+    public function requireString()
     {
-        $this->assertPropertyIsSet(self::VERSION);
+        $this->assertPropertyIsSet(self::STRING);
+
+        return $this;
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @param int|null $integer
+     *
+     * @return $this
+     */
+    public function setInteger($integer)
+    {
+        $this->integer = $integer;
+        $this->modifiedProperties[self::INTEGER] = true;
+
+        return $this;
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @return int|null
+     */
+    public function getInteger()
+    {
+        return $this->integer;
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @param int|null $integer
+     *
+     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     *
+     * @return $this
+     */
+    public function setIntegerOrFail($integer)
+    {
+        if ($integer === null) {
+            $this->throwNullValueException(static::INTEGER);
+        }
+
+        return $this->setInteger($integer);
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     *
+     * @return int
+     */
+    public function getIntegerOrFail()
+    {
+        if ($this->integer === null) {
+            $this->throwNullValueException(static::INTEGER);
+        }
+
+        return $this->integer;
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
+     *
+     * @return $this
+     */
+    public function requireInteger()
+    {
+        $this->assertPropertyIsSet(self::INTEGER);
+
+        return $this;
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @param string|int|float|\Spryker\DecimalObject\Decimal|null $decimal
+     *
+     * @return $this
+     */
+    public function setDecimal($decimal = null)
+    {
+        if ($decimal !== null && !$decimal instanceof Decimal) {
+            $decimal = new Decimal($decimal);
+        }
+
+        $this->decimal = $decimal;
+        $this->modifiedProperties[self::DECIMAL] = true;
+
+        return $this;
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @return \Spryker\DecimalObject\Decimal|null
+     */
+    public function getDecimal()
+    {
+        return $this->decimal;
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @param string|int|float|\Spryker\DecimalObject\Decimal $decimal
+     *
+     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     *
+     * @return $this
+     */
+    public function setDecimalOrFail($decimal)
+    {
+        if ($decimal === null) {
+            $this->throwNullValueException(static::DECIMAL);
+        }
+
+        return $this->setDecimal($decimal);
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     *
+     * @return \Spryker\DecimalObject\Decimal
+     */
+    public function getDecimalOrFail()
+    {
+        if ($this->decimal === null) {
+            $this->throwNullValueException(static::DECIMAL);
+        }
+
+        return $this->decimal;
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
+     *
+     * @return $this
+     */
+    public function requireDecimal()
+    {
+        $this->assertPropertyIsSet(self::DECIMAL);
+
+        return $this;
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @param \ArrayObject|\Transfer\MessageTransfer[] $errors
+     *
+     * @return $this
+     */
+    public function setErrors(ArrayObject $errors)
+    {
+        $this->errors = $errors;
+        $this->modifiedProperties[self::ERRORS] = true;
+
+        return $this;
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @return \ArrayObject|\Transfer\MessageTransfer[]
+     */
+    public function getErrors()
+    {
+        return $this->errors;
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @param \Transfer\MessageTransfer $error
+     *
+     * @return $this
+     */
+    public function addError(MessageTransfer $error)
+    {
+        $this->errors[] = $error;
+        $this->modifiedProperties[self::ERRORS] = true;
+
+        return $this;
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
+     *
+     * @return $this
+     */
+    public function requireErrors()
+    {
+        $this->assertCollectionPropertyIsSet(self::ERRORS);
 
         return $this;
     }
@@ -232,10 +413,20 @@ class AsyncApiTransfer extends AbstractTransfer
             $normalizedPropertyName = $this->transferPropertyNameMap[$property] ?? null;
 
             switch ($normalizedPropertyName) {
-                case 'title':
-                case 'version':
+                case 'string':
+                case 'integer':
                     $this->$normalizedPropertyName = $value;
                     $this->modifiedProperties[$normalizedPropertyName] = true;
+
+                    break;
+                case 'errors':
+                    $elementType = $this->transferMetadata[$normalizedPropertyName]['type'];
+                    $this->$normalizedPropertyName = $this->processArrayObject($elementType, $value, $ignoreMissingProperty);
+                    $this->modifiedProperties[$normalizedPropertyName] = true;
+
+                    break;
+                case 'decimal':
+                    $this->assignValueObject($normalizedPropertyName, $value);
 
                     break;
                 default:
@@ -353,9 +544,14 @@ class AsyncApiTransfer extends AbstractTransfer
                 continue;
             }
             switch ($property) {
-                case 'title':
-                case 'version':
+                case 'string':
+                case 'integer':
+                case 'decimal':
                     $values[$arrayKey] = $value;
+
+                    break;
+                case 'errors':
+                    $values[$arrayKey] = $value ? $this->addValuesToCollectionModified($value, true, true) : $value;
 
                     break;
             }
@@ -381,9 +577,14 @@ class AsyncApiTransfer extends AbstractTransfer
                 continue;
             }
             switch ($property) {
-                case 'title':
-                case 'version':
+                case 'string':
+                case 'integer':
+                case 'decimal':
                     $values[$arrayKey] = $value;
+
+                    break;
+                case 'errors':
+                    $values[$arrayKey] = $value ? $this->addValuesToCollectionModified($value, true, false) : $value;
 
                     break;
             }
@@ -431,6 +632,7 @@ class AsyncApiTransfer extends AbstractTransfer
      */
     protected function initCollectionProperties(): void
     {
+        $this->errors = $this->errors ?: new ArrayObject();
     }
 
     /**
@@ -439,8 +641,10 @@ class AsyncApiTransfer extends AbstractTransfer
     public function toArrayNotRecursiveCamelCased(): array
     {
         return [
-            'title' => $this->title,
-            'version' => $this->version,
+            'string' => $this->string,
+            'integer' => $this->integer,
+            'errors' => $this->errors,
+            'decimal' => $this->decimal,
         ];
     }
 
@@ -450,8 +654,10 @@ class AsyncApiTransfer extends AbstractTransfer
     public function toArrayNotRecursiveNotCamelCased(): array
     {
         return [
-            'title' => $this->title,
-            'version' => $this->version,
+            'string' => $this->string,
+            'integer' => $this->integer,
+            'errors' => $this->errors,
+            'decimal' => $this->decimal,
         ];
     }
 
@@ -461,8 +667,10 @@ class AsyncApiTransfer extends AbstractTransfer
     public function toArrayRecursiveNotCamelCased(): array
     {
         return [
-            'title' => $this->title instanceof AbstractTransfer ? $this->title->toArray(true, false) : $this->title,
-            'version' => $this->version instanceof AbstractTransfer ? $this->version->toArray(true, false) : $this->version,
+            'string' => $this->string instanceof AbstractTransfer ? $this->string->toArray(true, false) : $this->string,
+            'integer' => $this->integer instanceof AbstractTransfer ? $this->integer->toArray(true, false) : $this->integer,
+            'errors' => $this->errors instanceof AbstractTransfer ? $this->errors->toArray(true, false) : $this->addValuesToCollection($this->errors, true, false),
+            'decimal' => $this->decimal,
         ];
     }
 
@@ -472,8 +680,10 @@ class AsyncApiTransfer extends AbstractTransfer
     public function toArrayRecursiveCamelCased(): array
     {
         return [
-            'title' => $this->title instanceof AbstractTransfer ? $this->title->toArray(true, true) : $this->title,
-            'version' => $this->version instanceof AbstractTransfer ? $this->version->toArray(true, true) : $this->version,
+            'string' => $this->string instanceof AbstractTransfer ? $this->string->toArray(true, true) : $this->string,
+            'integer' => $this->integer instanceof AbstractTransfer ? $this->integer->toArray(true, true) : $this->integer,
+            'errors' => $this->errors instanceof AbstractTransfer ? $this->errors->toArray(true, true) : $this->addValuesToCollection($this->errors, true, true),
+            'decimal' => $this->decimal,
         ];
     }
 }

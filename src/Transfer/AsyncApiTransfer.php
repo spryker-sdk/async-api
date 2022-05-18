@@ -4,40 +4,64 @@
  * (c) Spryker Systems GmbH copyright protected
  */
 
-namespace Generated\Shared\Transfer;
+namespace Transfer;
 
 /**
  * !!! THIS FILE IS AUTO-GENERATED, EVERY CHANGE WILL BE LOST WITH THE NEXT RUN OF TRANSFER GENERATOR
  * !!! DO NOT CHANGE ANYTHING IN THIS FILE
  */
-class AsyncApiChannelTransfer extends AbstractTransfer
+class AsyncApiTransfer extends AbstractTransfer
 {
     /**
      * @var string
      */
-    public const NAME = 'name';
+    public const TITLE = 'title';
+
+    /**
+     * @var string
+     */
+    public const VERSION = 'version';
 
     /**
      * @var string|null
      */
-    protected $name;
+    protected $title;
+
+    /**
+     * @var string|null
+     */
+    protected $version;
 
     /**
      * @var array<string, string>
      */
     protected $transferPropertyNameMap = [
-        'name' => 'name',
-        'Name' => 'name',
+        'title' => 'title',
+        'Title' => 'title',
+        'version' => 'version',
+        'Version' => 'version',
     ];
 
     /**
      * @var array<string, array<string, mixed>>
      */
     protected $transferMetadata = [
-        self::NAME => [
+        self::TITLE => [
             'type' => 'string',
             'type_shim' => null,
-            'name_underscore' => 'name',
+            'name_underscore' => 'title',
+            'is_collection' => false,
+            'is_transfer' => false,
+            'is_value_object' => false,
+            'rest_request_parameter' => 'no',
+            'is_associative' => false,
+            'is_nullable' => false,
+            'is_strict' => false,
+        ],
+        self::VERSION => [
+            'type' => 'string',
+            'type_shim' => null,
+            'name_underscore' => 'version',
             'is_collection' => false,
             'is_transfer' => false,
             'is_value_object' => false,
@@ -51,14 +75,14 @@ class AsyncApiChannelTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @param string|null $name
+     * @param string|null $title
      *
      * @return $this
      */
-    public function setName($name)
+    public function setTitle($title)
     {
-        $this->name = $name;
-        $this->modifiedProperties[self::NAME] = true;
+        $this->title = $title;
+        $this->modifiedProperties[self::TITLE] = true;
 
         return $this;
     }
@@ -68,27 +92,27 @@ class AsyncApiChannelTransfer extends AbstractTransfer
      *
      * @return string|null
      */
-    public function getName()
+    public function getTitle()
     {
-        return $this->name;
+        return $this->title;
     }
 
     /**
      * @module AsyncApi
      *
-     * @param string|null $name
+     * @param string|null $title
      *
      * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
      *
      * @return $this
      */
-    public function setNameOrFail($name)
+    public function setTitleOrFail($title)
     {
-        if ($name === null) {
-            $this->throwNullValueException(static::NAME);
+        if ($title === null) {
+            $this->throwNullValueException(static::TITLE);
         }
 
-        return $this->setName($name);
+        return $this->setTitle($title);
     }
 
     /**
@@ -98,13 +122,13 @@ class AsyncApiChannelTransfer extends AbstractTransfer
      *
      * @return string
      */
-    public function getNameOrFail()
+    public function getTitleOrFail()
     {
-        if ($this->name === null) {
-            $this->throwNullValueException(static::NAME);
+        if ($this->title === null) {
+            $this->throwNullValueException(static::TITLE);
         }
 
-        return $this->name;
+        return $this->title;
     }
 
     /**
@@ -114,9 +138,82 @@ class AsyncApiChannelTransfer extends AbstractTransfer
      *
      * @return $this
      */
-    public function requireName()
+    public function requireTitle()
     {
-        $this->assertPropertyIsSet(self::NAME);
+        $this->assertPropertyIsSet(self::TITLE);
+
+        return $this;
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @param string|null $version
+     *
+     * @return $this
+     */
+    public function setVersion($version)
+    {
+        $this->version = $version;
+        $this->modifiedProperties[self::VERSION] = true;
+
+        return $this;
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @return string|null
+     */
+    public function getVersion()
+    {
+        return $this->version;
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @param string|null $version
+     *
+     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     *
+     * @return $this
+     */
+    public function setVersionOrFail($version)
+    {
+        if ($version === null) {
+            $this->throwNullValueException(static::VERSION);
+        }
+
+        return $this->setVersion($version);
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     *
+     * @return string
+     */
+    public function getVersionOrFail()
+    {
+        if ($this->version === null) {
+            $this->throwNullValueException(static::VERSION);
+        }
+
+        return $this->version;
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
+     *
+     * @return $this
+     */
+    public function requireVersion()
+    {
+        $this->assertPropertyIsSet(self::VERSION);
 
         return $this;
     }
@@ -135,7 +232,8 @@ class AsyncApiChannelTransfer extends AbstractTransfer
             $normalizedPropertyName = $this->transferPropertyNameMap[$property] ?? null;
 
             switch ($normalizedPropertyName) {
-                case 'name':
+                case 'title':
+                case 'version':
                     $this->$normalizedPropertyName = $value;
                     $this->modifiedProperties[$normalizedPropertyName] = true;
 
@@ -255,7 +353,8 @@ class AsyncApiChannelTransfer extends AbstractTransfer
                 continue;
             }
             switch ($property) {
-                case 'name':
+                case 'title':
+                case 'version':
                     $values[$arrayKey] = $value;
 
                     break;
@@ -282,7 +381,8 @@ class AsyncApiChannelTransfer extends AbstractTransfer
                 continue;
             }
             switch ($property) {
-                case 'name':
+                case 'title':
+                case 'version':
                     $values[$arrayKey] = $value;
 
                     break;
@@ -339,7 +439,8 @@ class AsyncApiChannelTransfer extends AbstractTransfer
     public function toArrayNotRecursiveCamelCased(): array
     {
         return [
-            'name' => $this->name,
+            'title' => $this->title,
+            'version' => $this->version,
         ];
     }
 
@@ -349,7 +450,8 @@ class AsyncApiChannelTransfer extends AbstractTransfer
     public function toArrayNotRecursiveNotCamelCased(): array
     {
         return [
-            'name' => $this->name,
+            'title' => $this->title,
+            'version' => $this->version,
         ];
     }
 
@@ -359,7 +461,8 @@ class AsyncApiChannelTransfer extends AbstractTransfer
     public function toArrayRecursiveNotCamelCased(): array
     {
         return [
-            'name' => $this->name instanceof AbstractTransfer ? $this->name->toArray(true, false) : $this->name,
+            'title' => $this->title instanceof AbstractTransfer ? $this->title->toArray(true, false) : $this->title,
+            'version' => $this->version instanceof AbstractTransfer ? $this->version->toArray(true, false) : $this->version,
         ];
     }
 
@@ -369,7 +472,8 @@ class AsyncApiChannelTransfer extends AbstractTransfer
     public function toArrayRecursiveCamelCased(): array
     {
         return [
-            'name' => $this->name instanceof AbstractTransfer ? $this->name->toArray(true, true) : $this->name,
+            'title' => $this->title instanceof AbstractTransfer ? $this->title->toArray(true, true) : $this->title,
+            'version' => $this->version instanceof AbstractTransfer ? $this->version->toArray(true, true) : $this->version,
         ];
     }
 }

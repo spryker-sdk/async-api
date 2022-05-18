@@ -8,13 +8,13 @@
 namespace SprykerSdk\AsyncApi\Validator;
 
 use Exception;
-use Generated\Shared\Transfer\ValidateRequestTransfer;
-use Generated\Shared\Transfer\ValidateResponseTransfer;
 use SprykerSdk\AsyncApi\AsyncApiConfig;
 use SprykerSdk\AsyncApi\Message\AsyncApiError;
 use SprykerSdk\AsyncApi\Message\AsyncApiInfo;
 use SprykerSdk\AsyncApi\Message\MessageBuilderInterface;
 use Symfony\Component\Yaml\Yaml;
+use Transfer\ValidateRequestTransfer;
+use Transfer\ValidateResponseTransfer;
 
 class AsyncApiValidator implements ValidatorInterface
 {
@@ -46,10 +46,10 @@ class AsyncApiValidator implements ValidatorInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\ValidateRequestTransfer $validateRequestTransfer
-     * @param \Generated\Shared\Transfer\ValidateResponseTransfer|null $validateResponseTransfer
+     * @param \Transfer\ValidateRequestTransfer $validateRequestTransfer
+     * @param \Transfer\ValidateResponseTransfer|null $validateResponseTransfer
      *
-     * @return \Generated\Shared\Transfer\ValidateResponseTransfer
+     * @return \Transfer\ValidateResponseTransfer
      */
     public function validate(
         ValidateRequestTransfer $validateRequestTransfer,
@@ -88,10 +88,10 @@ class AsyncApiValidator implements ValidatorInterface
     /**
      * @param array $fileData
      * @param string $fileName
-     * @param \Generated\Shared\Transfer\ValidateResponseTransfer $validateResponseTransfer
+     * @param \Transfer\ValidateResponseTransfer $validateResponseTransfer
      * @param array|null $context
      *
-     * @return \Generated\Shared\Transfer\ValidateResponseTransfer
+     * @return \Transfer\ValidateResponseTransfer
      */
     protected function executeValidatorRules(
         array $fileData,

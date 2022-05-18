@@ -4,7 +4,7 @@
  * (c) Spryker Systems GmbH copyright protected
  */
 
-namespace Generated\Shared\Transfer;
+namespace Transfer;
 
 use ArrayObject;
 
@@ -12,106 +12,58 @@ use ArrayObject;
  * !!! THIS FILE IS AUTO-GENERATED, EVERY CHANGE WILL BE LOST WITH THE NEXT RUN OF TRANSFER GENERATOR
  * !!! DO NOT CHANGE ANYTHING IN THIS FILE
  */
-class AsyncApiBuilderTestTransfer extends AbstractTransfer
+class AsyncApiResponseTransfer extends AbstractTransfer
 {
-    /**
-     * @var string
-     */
-    public const STRING = 'string';
-
-    /**
-     * @var string
-     */
-    public const INTEGER = 'integer';
-
-    /**
-     * @var string
-     */
-    public const DECIMAL = 'decimal';
-
     /**
      * @var string
      */
     public const ERRORS = 'errors';
 
     /**
-     * @var string|null
+     * @var string
      */
-    protected $string;
+    public const MESSAGES = 'messages';
 
     /**
-     * @var int|null
-     */
-    protected $integer;
-
-    /**
-     * @var \Spryker\DecimalObject\Decimal|null
-     */
-    protected $decimal;
-
-    /**
-     * @var \ArrayObject|\Generated\Shared\Transfer\MessageTransfer[]
+     * @var \ArrayObject|\Transfer\MessageTransfer[]
      */
     protected $errors;
+
+    /**
+     * @var \ArrayObject|\Transfer\MessageTransfer[]
+     */
+    protected $messages;
 
     /**
      * @var array<string, string>
      */
     protected $transferPropertyNameMap = [
-        'string' => 'string',
-        'String' => 'string',
-        'integer' => 'integer',
-        'Integer' => 'integer',
-        'decimal' => 'decimal',
-        'Decimal' => 'decimal',
         'errors' => 'errors',
         'Errors' => 'errors',
+        'messages' => 'messages',
+        'Messages' => 'messages',
     ];
 
     /**
      * @var array<string, array<string, mixed>>
      */
     protected $transferMetadata = [
-        self::STRING => [
-            'type' => 'string',
-            'type_shim' => null,
-            'name_underscore' => 'string',
-            'is_collection' => false,
-            'is_transfer' => false,
-            'is_value_object' => false,
-            'rest_request_parameter' => 'no',
-            'is_associative' => false,
-            'is_nullable' => false,
-            'is_strict' => false,
-        ],
-        self::INTEGER => [
-            'type' => 'int',
-            'type_shim' => null,
-            'name_underscore' => 'integer',
-            'is_collection' => false,
-            'is_transfer' => false,
-            'is_value_object' => false,
-            'rest_request_parameter' => 'no',
-            'is_associative' => false,
-            'is_nullable' => false,
-            'is_strict' => false,
-        ],
-        self::DECIMAL => [
-            'type' => 'Spryker\DecimalObject\Decimal',
-            'type_shim' => null,
-            'name_underscore' => 'decimal',
-            'is_collection' => false,
-            'is_transfer' => false,
-            'is_value_object' => true,
-            'rest_request_parameter' => 'no',
-            'is_associative' => false,
-            'is_nullable' => false,
-            'is_strict' => false,
-        ],
         self::ERRORS => [
             'type' => 'Generated\Shared\Transfer\MessageTransfer',
             'type_shim' => null,
             'name_underscore' => 'errors',
+            'is_collection' => true,
+            'is_transfer' => true,
+            'is_value_object' => false,
+            'rest_request_parameter' => 'no',
+            'is_associative' => false,
+            'is_nullable' => false,
+            'is_strict' => false,
+        ],
+        self::MESSAGES => [
+            'type' => 'Generated\Shared\Transfer\MessageTransfer',
+            'type_shim' => null,
+            'name_underscore' => 'messages',
             'is_collection' => true,
             'is_transfer' => true,
             'is_value_object' => false,
@@ -125,230 +77,7 @@ class AsyncApiBuilderTestTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @param string|null $string
-     *
-     * @return $this
-     */
-    public function setString($string)
-    {
-        $this->string = $string;
-        $this->modifiedProperties[self::STRING] = true;
-
-        return $this;
-    }
-
-    /**
-     * @module AsyncApi
-     *
-     * @return string|null
-     */
-    public function getString()
-    {
-        return $this->string;
-    }
-
-    /**
-     * @module AsyncApi
-     *
-     * @param string|null $string
-     *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
-     *
-     * @return $this
-     */
-    public function setStringOrFail($string)
-    {
-        if ($string === null) {
-            $this->throwNullValueException(static::STRING);
-        }
-
-        return $this->setString($string);
-    }
-
-    /**
-     * @module AsyncApi
-     *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
-     *
-     * @return string
-     */
-    public function getStringOrFail()
-    {
-        if ($this->string === null) {
-            $this->throwNullValueException(static::STRING);
-        }
-
-        return $this->string;
-    }
-
-    /**
-     * @module AsyncApi
-     *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
-     *
-     * @return $this
-     */
-    public function requireString()
-    {
-        $this->assertPropertyIsSet(self::STRING);
-
-        return $this;
-    }
-
-    /**
-     * @module AsyncApi
-     *
-     * @param int|null $integer
-     *
-     * @return $this
-     */
-    public function setInteger($integer)
-    {
-        $this->integer = $integer;
-        $this->modifiedProperties[self::INTEGER] = true;
-
-        return $this;
-    }
-
-    /**
-     * @module AsyncApi
-     *
-     * @return int|null
-     */
-    public function getInteger()
-    {
-        return $this->integer;
-    }
-
-    /**
-     * @module AsyncApi
-     *
-     * @param int|null $integer
-     *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
-     *
-     * @return $this
-     */
-    public function setIntegerOrFail($integer)
-    {
-        if ($integer === null) {
-            $this->throwNullValueException(static::INTEGER);
-        }
-
-        return $this->setInteger($integer);
-    }
-
-    /**
-     * @module AsyncApi
-     *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
-     *
-     * @return int
-     */
-    public function getIntegerOrFail()
-    {
-        if ($this->integer === null) {
-            $this->throwNullValueException(static::INTEGER);
-        }
-
-        return $this->integer;
-    }
-
-    /**
-     * @module AsyncApi
-     *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
-     *
-     * @return $this
-     */
-    public function requireInteger()
-    {
-        $this->assertPropertyIsSet(self::INTEGER);
-
-        return $this;
-    }
-
-    /**
-     * @module AsyncApi
-     *
-     * @param string|int|float|\Spryker\DecimalObject\Decimal|null $decimal
-     *
-     * @return $this
-     */
-    public function setDecimal($decimal = null)
-    {
-        if ($decimal !== null && !$decimal instanceof Decimal) {
-            $decimal = new Decimal($decimal);
-        }
-
-        $this->decimal = $decimal;
-        $this->modifiedProperties[self::DECIMAL] = true;
-
-        return $this;
-    }
-
-    /**
-     * @module AsyncApi
-     *
-     * @return \Spryker\DecimalObject\Decimal|null
-     */
-    public function getDecimal()
-    {
-        return $this->decimal;
-    }
-
-    /**
-     * @module AsyncApi
-     *
-     * @param string|int|float|\Spryker\DecimalObject\Decimal $decimal
-     *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
-     *
-     * @return $this
-     */
-    public function setDecimalOrFail($decimal)
-    {
-        if ($decimal === null) {
-            $this->throwNullValueException(static::DECIMAL);
-        }
-
-        return $this->setDecimal($decimal);
-    }
-
-    /**
-     * @module AsyncApi
-     *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
-     *
-     * @return \Spryker\DecimalObject\Decimal
-     */
-    public function getDecimalOrFail()
-    {
-        if ($this->decimal === null) {
-            $this->throwNullValueException(static::DECIMAL);
-        }
-
-        return $this->decimal;
-    }
-
-    /**
-     * @module AsyncApi
-     *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
-     *
-     * @return $this
-     */
-    public function requireDecimal()
-    {
-        $this->assertPropertyIsSet(self::DECIMAL);
-
-        return $this;
-    }
-
-    /**
-     * @module AsyncApi
-     *
-     * @param \ArrayObject|\Generated\Shared\Transfer\MessageTransfer[] $errors
+     * @param \ArrayObject|\Transfer\MessageTransfer[] $errors
      *
      * @return $this
      */
@@ -363,7 +92,7 @@ class AsyncApiBuilderTestTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @return \ArrayObject|\Generated\Shared\Transfer\MessageTransfer[]
+     * @return \ArrayObject|\Transfer\MessageTransfer[]
      */
     public function getErrors()
     {
@@ -373,7 +102,7 @@ class AsyncApiBuilderTestTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @param \Generated\Shared\Transfer\MessageTransfer $error
+     * @param \Transfer\MessageTransfer $error
      *
      * @return $this
      */
@@ -400,6 +129,60 @@ class AsyncApiBuilderTestTransfer extends AbstractTransfer
     }
 
     /**
+     * @module AsyncApi
+     *
+     * @param \ArrayObject|\Transfer\MessageTransfer[] $messages
+     *
+     * @return $this
+     */
+    public function setMessages(ArrayObject $messages)
+    {
+        $this->messages = $messages;
+        $this->modifiedProperties[self::MESSAGES] = true;
+
+        return $this;
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @return \ArrayObject|\Transfer\MessageTransfer[]
+     */
+    public function getMessages()
+    {
+        return $this->messages;
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @param \Transfer\MessageTransfer $message
+     *
+     * @return $this
+     */
+    public function addMessage(MessageTransfer $message)
+    {
+        $this->messages[] = $message;
+        $this->modifiedProperties[self::MESSAGES] = true;
+
+        return $this;
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
+     *
+     * @return $this
+     */
+    public function requireMessages()
+    {
+        $this->assertCollectionPropertyIsSet(self::MESSAGES);
+
+        return $this;
+    }
+
+    /**
      * @param array<string, mixed> $data
      * @param bool $ignoreMissingProperty
      *
@@ -413,20 +196,11 @@ class AsyncApiBuilderTestTransfer extends AbstractTransfer
             $normalizedPropertyName = $this->transferPropertyNameMap[$property] ?? null;
 
             switch ($normalizedPropertyName) {
-                case 'string':
-                case 'integer':
-                    $this->$normalizedPropertyName = $value;
-                    $this->modifiedProperties[$normalizedPropertyName] = true;
-
-                    break;
                 case 'errors':
+                case 'messages':
                     $elementType = $this->transferMetadata[$normalizedPropertyName]['type'];
                     $this->$normalizedPropertyName = $this->processArrayObject($elementType, $value, $ignoreMissingProperty);
                     $this->modifiedProperties[$normalizedPropertyName] = true;
-
-                    break;
-                case 'decimal':
-                    $this->assignValueObject($normalizedPropertyName, $value);
 
                     break;
                 default:
@@ -544,13 +318,8 @@ class AsyncApiBuilderTestTransfer extends AbstractTransfer
                 continue;
             }
             switch ($property) {
-                case 'string':
-                case 'integer':
-                case 'decimal':
-                    $values[$arrayKey] = $value;
-
-                    break;
                 case 'errors':
+                case 'messages':
                     $values[$arrayKey] = $value ? $this->addValuesToCollectionModified($value, true, true) : $value;
 
                     break;
@@ -577,13 +346,8 @@ class AsyncApiBuilderTestTransfer extends AbstractTransfer
                 continue;
             }
             switch ($property) {
-                case 'string':
-                case 'integer':
-                case 'decimal':
-                    $values[$arrayKey] = $value;
-
-                    break;
                 case 'errors':
+                case 'messages':
                     $values[$arrayKey] = $value ? $this->addValuesToCollectionModified($value, true, false) : $value;
 
                     break;
@@ -633,6 +397,7 @@ class AsyncApiBuilderTestTransfer extends AbstractTransfer
     protected function initCollectionProperties(): void
     {
         $this->errors = $this->errors ?: new ArrayObject();
+        $this->messages = $this->messages ?: new ArrayObject();
     }
 
     /**
@@ -641,10 +406,8 @@ class AsyncApiBuilderTestTransfer extends AbstractTransfer
     public function toArrayNotRecursiveCamelCased(): array
     {
         return [
-            'string' => $this->string,
-            'integer' => $this->integer,
             'errors' => $this->errors,
-            'decimal' => $this->decimal,
+            'messages' => $this->messages,
         ];
     }
 
@@ -654,10 +417,8 @@ class AsyncApiBuilderTestTransfer extends AbstractTransfer
     public function toArrayNotRecursiveNotCamelCased(): array
     {
         return [
-            'string' => $this->string,
-            'integer' => $this->integer,
             'errors' => $this->errors,
-            'decimal' => $this->decimal,
+            'messages' => $this->messages,
         ];
     }
 
@@ -667,10 +428,8 @@ class AsyncApiBuilderTestTransfer extends AbstractTransfer
     public function toArrayRecursiveNotCamelCased(): array
     {
         return [
-            'string' => $this->string instanceof AbstractTransfer ? $this->string->toArray(true, false) : $this->string,
-            'integer' => $this->integer instanceof AbstractTransfer ? $this->integer->toArray(true, false) : $this->integer,
             'errors' => $this->errors instanceof AbstractTransfer ? $this->errors->toArray(true, false) : $this->addValuesToCollection($this->errors, true, false),
-            'decimal' => $this->decimal,
+            'messages' => $this->messages instanceof AbstractTransfer ? $this->messages->toArray(true, false) : $this->addValuesToCollection($this->messages, true, false),
         ];
     }
 
@@ -680,10 +439,8 @@ class AsyncApiBuilderTestTransfer extends AbstractTransfer
     public function toArrayRecursiveCamelCased(): array
     {
         return [
-            'string' => $this->string instanceof AbstractTransfer ? $this->string->toArray(true, true) : $this->string,
-            'integer' => $this->integer instanceof AbstractTransfer ? $this->integer->toArray(true, true) : $this->integer,
             'errors' => $this->errors instanceof AbstractTransfer ? $this->errors->toArray(true, true) : $this->addValuesToCollection($this->errors, true, true),
-            'decimal' => $this->decimal,
+            'messages' => $this->messages instanceof AbstractTransfer ? $this->messages->toArray(true, true) : $this->addValuesToCollection($this->messages, true, true),
         ];
     }
 }

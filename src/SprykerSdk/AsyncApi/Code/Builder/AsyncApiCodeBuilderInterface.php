@@ -7,15 +7,15 @@
 
 namespace SprykerSdk\AsyncApi\Code\Builder;
 
-use Generated\Shared\Transfer\AsyncApiRequestTransfer;
-use Generated\Shared\Transfer\AsyncApiResponseTransfer;
+use Transfer\AsyncApiRequestTransfer;
+use Transfer\AsyncApiResponseTransfer;
 
 interface AsyncApiCodeBuilderInterface
 {
     /**
-     * @param \Generated\Shared\Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
+     * @param \Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
      *
-     * @return \Generated\Shared\Transfer\AsyncApiResponseTransfer
+     * @return \Transfer\AsyncApiResponseTransfer
      */
     public function build(AsyncApiRequestTransfer $asyncApiRequestTransfer): AsyncApiResponseTransfer;
 }

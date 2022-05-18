@@ -7,17 +7,17 @@
 
 namespace SprykerSdk\AsyncApi\Validator\Rule;
 
-use Generated\Shared\Transfer\ValidateResponseTransfer;
+use Transfer\ValidateResponseTransfer;
 
 interface ValidatorRuleInterface
 {
     /**
      * @param array $data
      * @param string $fileName
-     * @param \Generated\Shared\Transfer\ValidateResponseTransfer $validateResponseTransfer
+     * @param \Transfer\ValidateResponseTransfer $validateResponseTransfer
      * @param array|null $context
      *
-     * @return \Generated\Shared\Transfer\ValidateResponseTransfer
+     * @return \Transfer\ValidateResponseTransfer
      */
     public function validate(
         array $data,

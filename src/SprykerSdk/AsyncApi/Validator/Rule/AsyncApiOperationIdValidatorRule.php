@@ -7,9 +7,9 @@
 
 namespace SprykerSdk\AsyncApi\Validator\Rule;
 
-use Generated\Shared\Transfer\ValidateResponseTransfer;
 use SprykerSdk\AsyncApi\Message\AsyncApiError;
 use SprykerSdk\AsyncApi\Message\MessageBuilderInterface;
+use Transfer\ValidateResponseTransfer;
 
 class AsyncApiOperationIdValidatorRule implements ValidatorRuleInterface
 {
@@ -29,10 +29,10 @@ class AsyncApiOperationIdValidatorRule implements ValidatorRuleInterface
     /**
      * @param array $asyncApi
      * @param string $asyncApiFileName
-     * @param \Generated\Shared\Transfer\ValidateResponseTransfer $validateResponseTransfer
+     * @param \Transfer\ValidateResponseTransfer $validateResponseTransfer
      * @param array|null $context
      *
-     * @return \Generated\Shared\Transfer\ValidateResponseTransfer
+     * @return \Transfer\ValidateResponseTransfer
      */
     public function validate(
         array $asyncApi,

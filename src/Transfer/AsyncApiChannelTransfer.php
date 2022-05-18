@@ -4,68 +4,42 @@
  * (c) Spryker Systems GmbH copyright protected
  */
 
-namespace Generated\Shared\Transfer;
-
-use ArrayObject;
+namespace Transfer;
 
 /**
  * !!! THIS FILE IS AUTO-GENERATED, EVERY CHANGE WILL BE LOST WITH THE NEXT RUN OF TRANSFER GENERATOR
  * !!! DO NOT CHANGE ANYTHING IN THIS FILE
  */
-class AsyncApiResponseTransfer extends AbstractTransfer
+class AsyncApiChannelTransfer extends AbstractTransfer
 {
     /**
      * @var string
      */
-    public const ERRORS = 'errors';
+    public const NAME = 'name';
 
     /**
-     * @var string
+     * @var string|null
      */
-    public const MESSAGES = 'messages';
-
-    /**
-     * @var \ArrayObject|\Generated\Shared\Transfer\MessageTransfer[]
-     */
-    protected $errors;
-
-    /**
-     * @var \ArrayObject|\Generated\Shared\Transfer\MessageTransfer[]
-     */
-    protected $messages;
+    protected $name;
 
     /**
      * @var array<string, string>
      */
     protected $transferPropertyNameMap = [
-        'errors' => 'errors',
-        'Errors' => 'errors',
-        'messages' => 'messages',
-        'Messages' => 'messages',
+        'name' => 'name',
+        'Name' => 'name',
     ];
 
     /**
      * @var array<string, array<string, mixed>>
      */
     protected $transferMetadata = [
-        self::ERRORS => [
-            'type' => 'Generated\Shared\Transfer\MessageTransfer',
+        self::NAME => [
+            'type' => 'string',
             'type_shim' => null,
-            'name_underscore' => 'errors',
-            'is_collection' => true,
-            'is_transfer' => true,
-            'is_value_object' => false,
-            'rest_request_parameter' => 'no',
-            'is_associative' => false,
-            'is_nullable' => false,
-            'is_strict' => false,
-        ],
-        self::MESSAGES => [
-            'type' => 'Generated\Shared\Transfer\MessageTransfer',
-            'type_shim' => null,
-            'name_underscore' => 'messages',
-            'is_collection' => true,
-            'is_transfer' => true,
+            'name_underscore' => 'name',
+            'is_collection' => false,
+            'is_transfer' => false,
             'is_value_object' => false,
             'rest_request_parameter' => 'no',
             'is_associative' => false,
@@ -77,14 +51,14 @@ class AsyncApiResponseTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @param \ArrayObject|\Generated\Shared\Transfer\MessageTransfer[] $errors
+     * @param string|null $name
      *
      * @return $this
      */
-    public function setErrors(ArrayObject $errors)
+    public function setName($name)
     {
-        $this->errors = $errors;
-        $this->modifiedProperties[self::ERRORS] = true;
+        $this->name = $name;
+        $this->modifiedProperties[self::NAME] = true;
 
         return $this;
     }
@@ -92,26 +66,45 @@ class AsyncApiResponseTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @return \ArrayObject|\Generated\Shared\Transfer\MessageTransfer[]
+     * @return string|null
      */
-    public function getErrors()
+    public function getName()
     {
-        return $this->errors;
+        return $this->name;
     }
 
     /**
      * @module AsyncApi
      *
-     * @param \Generated\Shared\Transfer\MessageTransfer $error
+     * @param string|null $name
+     *
+     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
      *
      * @return $this
      */
-    public function addError(MessageTransfer $error)
+    public function setNameOrFail($name)
     {
-        $this->errors[] = $error;
-        $this->modifiedProperties[self::ERRORS] = true;
+        if ($name === null) {
+            $this->throwNullValueException(static::NAME);
+        }
 
-        return $this;
+        return $this->setName($name);
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     *
+     * @return string
+     */
+    public function getNameOrFail()
+    {
+        if ($this->name === null) {
+            $this->throwNullValueException(static::NAME);
+        }
+
+        return $this->name;
     }
 
     /**
@@ -121,63 +114,9 @@ class AsyncApiResponseTransfer extends AbstractTransfer
      *
      * @return $this
      */
-    public function requireErrors()
+    public function requireName()
     {
-        $this->assertCollectionPropertyIsSet(self::ERRORS);
-
-        return $this;
-    }
-
-    /**
-     * @module AsyncApi
-     *
-     * @param \ArrayObject|\Generated\Shared\Transfer\MessageTransfer[] $messages
-     *
-     * @return $this
-     */
-    public function setMessages(ArrayObject $messages)
-    {
-        $this->messages = $messages;
-        $this->modifiedProperties[self::MESSAGES] = true;
-
-        return $this;
-    }
-
-    /**
-     * @module AsyncApi
-     *
-     * @return \ArrayObject|\Generated\Shared\Transfer\MessageTransfer[]
-     */
-    public function getMessages()
-    {
-        return $this->messages;
-    }
-
-    /**
-     * @module AsyncApi
-     *
-     * @param \Generated\Shared\Transfer\MessageTransfer $message
-     *
-     * @return $this
-     */
-    public function addMessage(MessageTransfer $message)
-    {
-        $this->messages[] = $message;
-        $this->modifiedProperties[self::MESSAGES] = true;
-
-        return $this;
-    }
-
-    /**
-     * @module AsyncApi
-     *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
-     *
-     * @return $this
-     */
-    public function requireMessages()
-    {
-        $this->assertCollectionPropertyIsSet(self::MESSAGES);
+        $this->assertPropertyIsSet(self::NAME);
 
         return $this;
     }
@@ -196,10 +135,8 @@ class AsyncApiResponseTransfer extends AbstractTransfer
             $normalizedPropertyName = $this->transferPropertyNameMap[$property] ?? null;
 
             switch ($normalizedPropertyName) {
-                case 'errors':
-                case 'messages':
-                    $elementType = $this->transferMetadata[$normalizedPropertyName]['type'];
-                    $this->$normalizedPropertyName = $this->processArrayObject($elementType, $value, $ignoreMissingProperty);
+                case 'name':
+                    $this->$normalizedPropertyName = $value;
                     $this->modifiedProperties[$normalizedPropertyName] = true;
 
                     break;
@@ -318,9 +255,8 @@ class AsyncApiResponseTransfer extends AbstractTransfer
                 continue;
             }
             switch ($property) {
-                case 'errors':
-                case 'messages':
-                    $values[$arrayKey] = $value ? $this->addValuesToCollectionModified($value, true, true) : $value;
+                case 'name':
+                    $values[$arrayKey] = $value;
 
                     break;
             }
@@ -346,9 +282,8 @@ class AsyncApiResponseTransfer extends AbstractTransfer
                 continue;
             }
             switch ($property) {
-                case 'errors':
-                case 'messages':
-                    $values[$arrayKey] = $value ? $this->addValuesToCollectionModified($value, true, false) : $value;
+                case 'name':
+                    $values[$arrayKey] = $value;
 
                     break;
             }
@@ -396,8 +331,6 @@ class AsyncApiResponseTransfer extends AbstractTransfer
      */
     protected function initCollectionProperties(): void
     {
-        $this->errors = $this->errors ?: new ArrayObject();
-        $this->messages = $this->messages ?: new ArrayObject();
     }
 
     /**
@@ -406,8 +339,7 @@ class AsyncApiResponseTransfer extends AbstractTransfer
     public function toArrayNotRecursiveCamelCased(): array
     {
         return [
-            'errors' => $this->errors,
-            'messages' => $this->messages,
+            'name' => $this->name,
         ];
     }
 
@@ -417,8 +349,7 @@ class AsyncApiResponseTransfer extends AbstractTransfer
     public function toArrayNotRecursiveNotCamelCased(): array
     {
         return [
-            'errors' => $this->errors,
-            'messages' => $this->messages,
+            'name' => $this->name,
         ];
     }
 
@@ -428,8 +359,7 @@ class AsyncApiResponseTransfer extends AbstractTransfer
     public function toArrayRecursiveNotCamelCased(): array
     {
         return [
-            'errors' => $this->errors instanceof AbstractTransfer ? $this->errors->toArray(true, false) : $this->addValuesToCollection($this->errors, true, false),
-            'messages' => $this->messages instanceof AbstractTransfer ? $this->messages->toArray(true, false) : $this->addValuesToCollection($this->messages, true, false),
+            'name' => $this->name instanceof AbstractTransfer ? $this->name->toArray(true, false) : $this->name,
         ];
     }
 
@@ -439,8 +369,7 @@ class AsyncApiResponseTransfer extends AbstractTransfer
     public function toArrayRecursiveCamelCased(): array
     {
         return [
-            'errors' => $this->errors instanceof AbstractTransfer ? $this->errors->toArray(true, true) : $this->addValuesToCollection($this->errors, true, true),
-            'messages' => $this->messages instanceof AbstractTransfer ? $this->messages->toArray(true, true) : $this->addValuesToCollection($this->messages, true, true),
+            'name' => $this->name instanceof AbstractTransfer ? $this->name->toArray(true, true) : $this->name,
         ];
     }
 }

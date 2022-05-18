@@ -4,43 +4,28 @@
  * (c) Spryker Systems GmbH copyright protected
  */
 
-namespace Generated\Shared\Transfer;
+namespace Transfer;
 
 /**
  * !!! THIS FILE IS AUTO-GENERATED, EVERY CHANGE WILL BE LOST WITH THE NEXT RUN OF TRANSFER GENERATOR
  * !!! DO NOT CHANGE ANYTHING IN THIS FILE
  */
-class AsyncApiRequestTransfer extends AbstractTransfer
+class AsyncApiMessageTransfer extends AbstractTransfer
 {
     /**
      * @var string
      */
-    public const TARGET_FILE = 'targetFile';
+    public const NAME = 'name';
 
     /**
      * @var string
      */
-    public const ORGANIZATION = 'organization';
+    public const SUMMARY = 'summary';
 
     /**
      * @var string
      */
-    public const ASYNC_API = 'asyncApi';
-
-    /**
-     * @var string
-     */
-    public const VERSION = 'version';
-
-    /**
-     * @var string
-     */
-    public const ASYNC_API_MESSSAGE = 'asyncApiMesssage';
-
-    /**
-     * @var string
-     */
-    public const PAYLOAD_TRANSFER_OBJECT_NAME = 'payloadTransferObjectName';
+    public const CONTENT_TYPE = 'contentType';
 
     /**
      * @var string
@@ -50,37 +35,42 @@ class AsyncApiRequestTransfer extends AbstractTransfer
     /**
      * @var string
      */
-    public const OPERATION_ID = 'operationId';
+    public const REQUIRED_PROPERTIES = 'requiredProperties';
+
+    /**
+     * @var string
+     */
+    public const ADD_METADATA = 'addMetadata';
+
+    /**
+     * @var string
+     */
+    public const CHANNEL = 'channel';
+
+    /**
+     * @var string
+     */
+    public const IS_PUBLISH = 'isPublish';
+
+    /**
+     * @var string
+     */
+    public const IS_SUBSCRIBE = 'isSubscribe';
 
     /**
      * @var string|null
      */
-    protected $targetFile;
+    protected $name;
 
     /**
      * @var string|null
      */
-    protected $organization;
-
-    /**
-     * @var \Generated\Shared\Transfer\AsyncApiTransfer|null
-     */
-    protected $asyncApi;
+    protected $summary;
 
     /**
      * @var string|null
      */
-    protected $version;
-
-    /**
-     * @var \Generated\Shared\Transfer\AsyncApiMessageTransfer|null
-     */
-    protected $asyncApiMesssage;
-
-    /**
-     * @var string|null
-     */
-    protected $payloadTransferObjectName;
+    protected $contentType;
 
     /**
      * @var array
@@ -88,45 +78,67 @@ class AsyncApiRequestTransfer extends AbstractTransfer
     protected $properties = [];
 
     /**
-     * @var string|null
+     * @var array
      */
-    protected $operationId;
+    protected $requiredProperties = [];
+
+    /**
+     * @var bool|null
+     */
+    protected $addMetadata;
+
+    /**
+     * @var \Transfer\AsyncApiChannelTransfer|null
+     */
+    protected $channel;
+
+    /**
+     * @var bool|null
+     */
+    protected $isPublish;
+
+    /**
+     * @var bool|null
+     */
+    protected $isSubscribe;
 
     /**
      * @var array<string, string>
      */
     protected $transferPropertyNameMap = [
-        'target_file' => 'targetFile',
-        'targetFile' => 'targetFile',
-        'TargetFile' => 'targetFile',
-        'organization' => 'organization',
-        'Organization' => 'organization',
-        'async_api' => 'asyncApi',
-        'asyncApi' => 'asyncApi',
-        'AsyncApi' => 'asyncApi',
-        'version' => 'version',
-        'Version' => 'version',
-        'async_api_messsage' => 'asyncApiMesssage',
-        'asyncApiMesssage' => 'asyncApiMesssage',
-        'AsyncApiMesssage' => 'asyncApiMesssage',
-        'payload_transfer_object_name' => 'payloadTransferObjectName',
-        'payloadTransferObjectName' => 'payloadTransferObjectName',
-        'PayloadTransferObjectName' => 'payloadTransferObjectName',
+        'name' => 'name',
+        'Name' => 'name',
+        'summary' => 'summary',
+        'Summary' => 'summary',
+        'content_type' => 'contentType',
+        'contentType' => 'contentType',
+        'ContentType' => 'contentType',
         'properties' => 'properties',
         'Properties' => 'properties',
-        'operation_id' => 'operationId',
-        'operationId' => 'operationId',
-        'OperationId' => 'operationId',
+        'required_properties' => 'requiredProperties',
+        'requiredProperties' => 'requiredProperties',
+        'RequiredProperties' => 'requiredProperties',
+        'add_metadata' => 'addMetadata',
+        'addMetadata' => 'addMetadata',
+        'AddMetadata' => 'addMetadata',
+        'channel' => 'channel',
+        'Channel' => 'channel',
+        'is_publish' => 'isPublish',
+        'isPublish' => 'isPublish',
+        'IsPublish' => 'isPublish',
+        'is_subscribe' => 'isSubscribe',
+        'isSubscribe' => 'isSubscribe',
+        'IsSubscribe' => 'isSubscribe',
     ];
 
     /**
      * @var array<string, array<string, mixed>>
      */
     protected $transferMetadata = [
-        self::TARGET_FILE => [
+        self::NAME => [
             'type' => 'string',
             'type_shim' => null,
-            'name_underscore' => 'target_file',
+            'name_underscore' => 'name',
             'is_collection' => false,
             'is_transfer' => false,
             'is_value_object' => false,
@@ -135,10 +147,10 @@ class AsyncApiRequestTransfer extends AbstractTransfer
             'is_nullable' => false,
             'is_strict' => false,
         ],
-        self::ORGANIZATION => [
+        self::SUMMARY => [
             'type' => 'string',
             'type_shim' => null,
-            'name_underscore' => 'organization',
+            'name_underscore' => 'summary',
             'is_collection' => false,
             'is_transfer' => false,
             'is_value_object' => false,
@@ -147,46 +159,10 @@ class AsyncApiRequestTransfer extends AbstractTransfer
             'is_nullable' => false,
             'is_strict' => false,
         ],
-        self::ASYNC_API => [
-            'type' => 'Generated\Shared\Transfer\AsyncApiTransfer',
-            'type_shim' => null,
-            'name_underscore' => 'async_api',
-            'is_collection' => false,
-            'is_transfer' => true,
-            'is_value_object' => false,
-            'rest_request_parameter' => 'no',
-            'is_associative' => false,
-            'is_nullable' => false,
-            'is_strict' => false,
-        ],
-        self::VERSION => [
+        self::CONTENT_TYPE => [
             'type' => 'string',
             'type_shim' => null,
-            'name_underscore' => 'version',
-            'is_collection' => false,
-            'is_transfer' => false,
-            'is_value_object' => false,
-            'rest_request_parameter' => 'no',
-            'is_associative' => false,
-            'is_nullable' => false,
-            'is_strict' => false,
-        ],
-        self::ASYNC_API_MESSSAGE => [
-            'type' => 'Generated\Shared\Transfer\AsyncApiMessageTransfer',
-            'type_shim' => null,
-            'name_underscore' => 'async_api_messsage',
-            'is_collection' => false,
-            'is_transfer' => true,
-            'is_value_object' => false,
-            'rest_request_parameter' => 'no',
-            'is_associative' => false,
-            'is_nullable' => false,
-            'is_strict' => false,
-        ],
-        self::PAYLOAD_TRANSFER_OBJECT_NAME => [
-            'type' => 'string',
-            'type_shim' => null,
-            'name_underscore' => 'payload_transfer_object_name',
+            'name_underscore' => 'content_type',
             'is_collection' => false,
             'is_transfer' => false,
             'is_value_object' => false,
@@ -207,10 +183,58 @@ class AsyncApiRequestTransfer extends AbstractTransfer
             'is_nullable' => false,
             'is_strict' => false,
         ],
-        self::OPERATION_ID => [
-            'type' => 'string',
+        self::REQUIRED_PROPERTIES => [
+            'type' => 'array',
             'type_shim' => null,
-            'name_underscore' => 'operation_id',
+            'name_underscore' => 'required_properties',
+            'is_collection' => false,
+            'is_transfer' => false,
+            'is_value_object' => false,
+            'rest_request_parameter' => 'no',
+            'is_associative' => false,
+            'is_nullable' => false,
+            'is_strict' => false,
+        ],
+        self::ADD_METADATA => [
+            'type' => 'bool',
+            'type_shim' => null,
+            'name_underscore' => 'add_metadata',
+            'is_collection' => false,
+            'is_transfer' => false,
+            'is_value_object' => false,
+            'rest_request_parameter' => 'no',
+            'is_associative' => false,
+            'is_nullable' => false,
+            'is_strict' => false,
+        ],
+        self::CHANNEL => [
+            'type' => 'Generated\Shared\Transfer\AsyncApiChannelTransfer',
+            'type_shim' => null,
+            'name_underscore' => 'channel',
+            'is_collection' => false,
+            'is_transfer' => true,
+            'is_value_object' => false,
+            'rest_request_parameter' => 'no',
+            'is_associative' => false,
+            'is_nullable' => false,
+            'is_strict' => false,
+        ],
+        self::IS_PUBLISH => [
+            'type' => 'bool',
+            'type_shim' => null,
+            'name_underscore' => 'is_publish',
+            'is_collection' => false,
+            'is_transfer' => false,
+            'is_value_object' => false,
+            'rest_request_parameter' => 'no',
+            'is_associative' => false,
+            'is_nullable' => false,
+            'is_strict' => false,
+        ],
+        self::IS_SUBSCRIBE => [
+            'type' => 'bool',
+            'type_shim' => null,
+            'name_underscore' => 'is_subscribe',
             'is_collection' => false,
             'is_transfer' => false,
             'is_value_object' => false,
@@ -224,14 +248,14 @@ class AsyncApiRequestTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @param string|null $targetFile
+     * @param string|null $name
      *
      * @return $this
      */
-    public function setTargetFile($targetFile)
+    public function setName($name)
     {
-        $this->targetFile = $targetFile;
-        $this->modifiedProperties[self::TARGET_FILE] = true;
+        $this->name = $name;
+        $this->modifiedProperties[self::NAME] = true;
 
         return $this;
     }
@@ -241,27 +265,27 @@ class AsyncApiRequestTransfer extends AbstractTransfer
      *
      * @return string|null
      */
-    public function getTargetFile()
+    public function getName()
     {
-        return $this->targetFile;
+        return $this->name;
     }
 
     /**
      * @module AsyncApi
      *
-     * @param string|null $targetFile
+     * @param string|null $name
      *
      * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
      *
      * @return $this
      */
-    public function setTargetFileOrFail($targetFile)
+    public function setNameOrFail($name)
     {
-        if ($targetFile === null) {
-            $this->throwNullValueException(static::TARGET_FILE);
+        if ($name === null) {
+            $this->throwNullValueException(static::NAME);
         }
 
-        return $this->setTargetFile($targetFile);
+        return $this->setName($name);
     }
 
     /**
@@ -271,13 +295,13 @@ class AsyncApiRequestTransfer extends AbstractTransfer
      *
      * @return string
      */
-    public function getTargetFileOrFail()
+    public function getNameOrFail()
     {
-        if ($this->targetFile === null) {
-            $this->throwNullValueException(static::TARGET_FILE);
+        if ($this->name === null) {
+            $this->throwNullValueException(static::NAME);
         }
 
-        return $this->targetFile;
+        return $this->name;
     }
 
     /**
@@ -287,9 +311,9 @@ class AsyncApiRequestTransfer extends AbstractTransfer
      *
      * @return $this
      */
-    public function requireTargetFile()
+    public function requireName()
     {
-        $this->assertPropertyIsSet(self::TARGET_FILE);
+        $this->assertPropertyIsSet(self::NAME);
 
         return $this;
     }
@@ -297,14 +321,14 @@ class AsyncApiRequestTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @param string|null $organization
+     * @param string|null $summary
      *
      * @return $this
      */
-    public function setOrganization($organization)
+    public function setSummary($summary)
     {
-        $this->organization = $organization;
-        $this->modifiedProperties[self::ORGANIZATION] = true;
+        $this->summary = $summary;
+        $this->modifiedProperties[self::SUMMARY] = true;
 
         return $this;
     }
@@ -314,27 +338,27 @@ class AsyncApiRequestTransfer extends AbstractTransfer
      *
      * @return string|null
      */
-    public function getOrganization()
+    public function getSummary()
     {
-        return $this->organization;
+        return $this->summary;
     }
 
     /**
      * @module AsyncApi
      *
-     * @param string|null $organization
+     * @param string|null $summary
      *
      * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
      *
      * @return $this
      */
-    public function setOrganizationOrFail($organization)
+    public function setSummaryOrFail($summary)
     {
-        if ($organization === null) {
-            $this->throwNullValueException(static::ORGANIZATION);
+        if ($summary === null) {
+            $this->throwNullValueException(static::SUMMARY);
         }
 
-        return $this->setOrganization($organization);
+        return $this->setSummary($summary);
     }
 
     /**
@@ -344,13 +368,13 @@ class AsyncApiRequestTransfer extends AbstractTransfer
      *
      * @return string
      */
-    public function getOrganizationOrFail()
+    public function getSummaryOrFail()
     {
-        if ($this->organization === null) {
-            $this->throwNullValueException(static::ORGANIZATION);
+        if ($this->summary === null) {
+            $this->throwNullValueException(static::SUMMARY);
         }
 
-        return $this->organization;
+        return $this->summary;
     }
 
     /**
@@ -360,9 +384,9 @@ class AsyncApiRequestTransfer extends AbstractTransfer
      *
      * @return $this
      */
-    public function requireOrganization()
+    public function requireSummary()
     {
-        $this->assertPropertyIsSet(self::ORGANIZATION);
+        $this->assertPropertyIsSet(self::SUMMARY);
 
         return $this;
     }
@@ -370,83 +394,14 @@ class AsyncApiRequestTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @param \Generated\Shared\Transfer\AsyncApiTransfer|null $asyncApi
+     * @param string|null $contentType
      *
      * @return $this
      */
-    public function setAsyncApi(AsyncApiTransfer $asyncApi = null)
+    public function setContentType($contentType)
     {
-        $this->asyncApi = $asyncApi;
-        $this->modifiedProperties[self::ASYNC_API] = true;
-
-        return $this;
-    }
-
-    /**
-     * @module AsyncApi
-     *
-     * @return \Generated\Shared\Transfer\AsyncApiTransfer|null
-     */
-    public function getAsyncApi()
-    {
-        return $this->asyncApi;
-    }
-
-    /**
-     * @module AsyncApi
-     *
-     * @param \Generated\Shared\Transfer\AsyncApiTransfer $asyncApi
-     *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
-     *
-     * @return $this
-     */
-    public function setAsyncApiOrFail(AsyncApiTransfer $asyncApi)
-    {
-        return $this->setAsyncApi($asyncApi);
-    }
-
-    /**
-     * @module AsyncApi
-     *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
-     *
-     * @return \Generated\Shared\Transfer\AsyncApiTransfer
-     */
-    public function getAsyncApiOrFail()
-    {
-        if ($this->asyncApi === null) {
-            $this->throwNullValueException(static::ASYNC_API);
-        }
-
-        return $this->asyncApi;
-    }
-
-    /**
-     * @module AsyncApi
-     *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
-     *
-     * @return $this
-     */
-    public function requireAsyncApi()
-    {
-        $this->assertPropertyIsSet(self::ASYNC_API);
-
-        return $this;
-    }
-
-    /**
-     * @module AsyncApi
-     *
-     * @param string|null $version
-     *
-     * @return $this
-     */
-    public function setVersion($version)
-    {
-        $this->version = $version;
-        $this->modifiedProperties[self::VERSION] = true;
+        $this->contentType = $contentType;
+        $this->modifiedProperties[self::CONTENT_TYPE] = true;
 
         return $this;
     }
@@ -456,27 +411,27 @@ class AsyncApiRequestTransfer extends AbstractTransfer
      *
      * @return string|null
      */
-    public function getVersion()
+    public function getContentType()
     {
-        return $this->version;
+        return $this->contentType;
     }
 
     /**
      * @module AsyncApi
      *
-     * @param string|null $version
+     * @param string|null $contentType
      *
      * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
      *
      * @return $this
      */
-    public function setVersionOrFail($version)
+    public function setContentTypeOrFail($contentType)
     {
-        if ($version === null) {
-            $this->throwNullValueException(static::VERSION);
+        if ($contentType === null) {
+            $this->throwNullValueException(static::CONTENT_TYPE);
         }
 
-        return $this->setVersion($version);
+        return $this->setContentType($contentType);
     }
 
     /**
@@ -486,13 +441,13 @@ class AsyncApiRequestTransfer extends AbstractTransfer
      *
      * @return string
      */
-    public function getVersionOrFail()
+    public function getContentTypeOrFail()
     {
-        if ($this->version === null) {
-            $this->throwNullValueException(static::VERSION);
+        if ($this->contentType === null) {
+            $this->throwNullValueException(static::CONTENT_TYPE);
         }
 
-        return $this->version;
+        return $this->contentType;
     }
 
     /**
@@ -502,151 +457,9 @@ class AsyncApiRequestTransfer extends AbstractTransfer
      *
      * @return $this
      */
-    public function requireVersion()
+    public function requireContentType()
     {
-        $this->assertPropertyIsSet(self::VERSION);
-
-        return $this;
-    }
-
-    /**
-     * @module AsyncApi
-     *
-     * @param \Generated\Shared\Transfer\AsyncApiMessageTransfer|null $asyncApiMesssage
-     *
-     * @return $this
-     */
-    public function setAsyncApiMesssage(AsyncApiMessageTransfer $asyncApiMesssage = null)
-    {
-        $this->asyncApiMesssage = $asyncApiMesssage;
-        $this->modifiedProperties[self::ASYNC_API_MESSSAGE] = true;
-
-        return $this;
-    }
-
-    /**
-     * @module AsyncApi
-     *
-     * @return \Generated\Shared\Transfer\AsyncApiMessageTransfer|null
-     */
-    public function getAsyncApiMesssage()
-    {
-        return $this->asyncApiMesssage;
-    }
-
-    /**
-     * @module AsyncApi
-     *
-     * @param \Generated\Shared\Transfer\AsyncApiMessageTransfer $asyncApiMesssage
-     *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
-     *
-     * @return $this
-     */
-    public function setAsyncApiMesssageOrFail(AsyncApiMessageTransfer $asyncApiMesssage)
-    {
-        return $this->setAsyncApiMesssage($asyncApiMesssage);
-    }
-
-    /**
-     * @module AsyncApi
-     *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
-     *
-     * @return \Generated\Shared\Transfer\AsyncApiMessageTransfer
-     */
-    public function getAsyncApiMesssageOrFail()
-    {
-        if ($this->asyncApiMesssage === null) {
-            $this->throwNullValueException(static::ASYNC_API_MESSSAGE);
-        }
-
-        return $this->asyncApiMesssage;
-    }
-
-    /**
-     * @module AsyncApi
-     *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
-     *
-     * @return $this
-     */
-    public function requireAsyncApiMesssage()
-    {
-        $this->assertPropertyIsSet(self::ASYNC_API_MESSSAGE);
-
-        return $this;
-    }
-
-    /**
-     * @module AsyncApi
-     *
-     * @param string|null $payloadTransferObjectName
-     *
-     * @return $this
-     */
-    public function setPayloadTransferObjectName($payloadTransferObjectName)
-    {
-        $this->payloadTransferObjectName = $payloadTransferObjectName;
-        $this->modifiedProperties[self::PAYLOAD_TRANSFER_OBJECT_NAME] = true;
-
-        return $this;
-    }
-
-    /**
-     * @module AsyncApi
-     *
-     * @return string|null
-     */
-    public function getPayloadTransferObjectName()
-    {
-        return $this->payloadTransferObjectName;
-    }
-
-    /**
-     * @module AsyncApi
-     *
-     * @param string|null $payloadTransferObjectName
-     *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
-     *
-     * @return $this
-     */
-    public function setPayloadTransferObjectNameOrFail($payloadTransferObjectName)
-    {
-        if ($payloadTransferObjectName === null) {
-            $this->throwNullValueException(static::PAYLOAD_TRANSFER_OBJECT_NAME);
-        }
-
-        return $this->setPayloadTransferObjectName($payloadTransferObjectName);
-    }
-
-    /**
-     * @module AsyncApi
-     *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
-     *
-     * @return string
-     */
-    public function getPayloadTransferObjectNameOrFail()
-    {
-        if ($this->payloadTransferObjectName === null) {
-            $this->throwNullValueException(static::PAYLOAD_TRANSFER_OBJECT_NAME);
-        }
-
-        return $this->payloadTransferObjectName;
-    }
-
-    /**
-     * @module AsyncApi
-     *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
-     *
-     * @return $this
-     */
-    public function requirePayloadTransferObjectName()
-    {
-        $this->assertPropertyIsSet(self::PAYLOAD_TRANSFER_OBJECT_NAME);
+        $this->assertPropertyIsSet(self::CONTENT_TYPE);
 
         return $this;
     }
@@ -712,14 +525,18 @@ class AsyncApiRequestTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @param string|null $operationId
+     * @param array|null $requiredProperties
      *
      * @return $this
      */
-    public function setOperationId($operationId)
+    public function setRequiredProperties(array $requiredProperties = null)
     {
-        $this->operationId = $operationId;
-        $this->modifiedProperties[self::OPERATION_ID] = true;
+        if ($requiredProperties === null) {
+            $requiredProperties = [];
+        }
+
+        $this->requiredProperties = $requiredProperties;
+        $this->modifiedProperties[self::REQUIRED_PROPERTIES] = true;
 
         return $this;
     }
@@ -727,45 +544,26 @@ class AsyncApiRequestTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @return string|null
+     * @return array
      */
-    public function getOperationId()
+    public function getRequiredProperties()
     {
-        return $this->operationId;
+        return $this->requiredProperties;
     }
 
     /**
      * @module AsyncApi
      *
-     * @param string|null $operationId
-     *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     * @param mixed $requiredProperties
      *
      * @return $this
      */
-    public function setOperationIdOrFail($operationId)
+    public function addRequiredProperties($requiredProperties)
     {
-        if ($operationId === null) {
-            $this->throwNullValueException(static::OPERATION_ID);
-        }
+        $this->requiredProperties[] = $requiredProperties;
+        $this->modifiedProperties[self::REQUIRED_PROPERTIES] = true;
 
-        return $this->setOperationId($operationId);
-    }
-
-    /**
-     * @module AsyncApi
-     *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
-     *
-     * @return string
-     */
-    public function getOperationIdOrFail()
-    {
-        if ($this->operationId === null) {
-            $this->throwNullValueException(static::OPERATION_ID);
-        }
-
-        return $this->operationId;
+        return $this;
     }
 
     /**
@@ -775,9 +573,297 @@ class AsyncApiRequestTransfer extends AbstractTransfer
      *
      * @return $this
      */
-    public function requireOperationId()
+    public function requireRequiredProperties()
     {
-        $this->assertPropertyIsSet(self::OPERATION_ID);
+        $this->assertPropertyIsSet(self::REQUIRED_PROPERTIES);
+
+        return $this;
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @param bool|null $addMetadata
+     *
+     * @return $this
+     */
+    public function setAddMetadata($addMetadata)
+    {
+        $this->addMetadata = $addMetadata;
+        $this->modifiedProperties[self::ADD_METADATA] = true;
+
+        return $this;
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @return bool|null
+     */
+    public function getAddMetadata()
+    {
+        return $this->addMetadata;
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @param bool|null $addMetadata
+     *
+     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     *
+     * @return $this
+     */
+    public function setAddMetadataOrFail($addMetadata)
+    {
+        if ($addMetadata === null) {
+            $this->throwNullValueException(static::ADD_METADATA);
+        }
+
+        return $this->setAddMetadata($addMetadata);
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     *
+     * @return bool
+     */
+    public function getAddMetadataOrFail()
+    {
+        if ($this->addMetadata === null) {
+            $this->throwNullValueException(static::ADD_METADATA);
+        }
+
+        return $this->addMetadata;
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
+     *
+     * @return $this
+     */
+    public function requireAddMetadata()
+    {
+        $this->assertPropertyIsSet(self::ADD_METADATA);
+
+        return $this;
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @param \Transfer\AsyncApiChannelTransfer|null $channel
+     *
+     * @return $this
+     */
+    public function setChannel(AsyncApiChannelTransfer $channel = null)
+    {
+        $this->channel = $channel;
+        $this->modifiedProperties[self::CHANNEL] = true;
+
+        return $this;
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @return \Transfer\AsyncApiChannelTransfer|null
+     */
+    public function getChannel()
+    {
+        return $this->channel;
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @param \Transfer\AsyncApiChannelTransfer $channel
+     *
+     * @return $this
+     *@throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     *
+     */
+    public function setChannelOrFail(AsyncApiChannelTransfer $channel)
+    {
+        return $this->setChannel($channel);
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @return \Transfer\AsyncApiChannelTransfer
+     *@throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     *
+     */
+    public function getChannelOrFail()
+    {
+        if ($this->channel === null) {
+            $this->throwNullValueException(static::CHANNEL);
+        }
+
+        return $this->channel;
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
+     *
+     * @return $this
+     */
+    public function requireChannel()
+    {
+        $this->assertPropertyIsSet(self::CHANNEL);
+
+        return $this;
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @param bool|null $isPublish
+     *
+     * @return $this
+     */
+    public function setIsPublish($isPublish)
+    {
+        $this->isPublish = $isPublish;
+        $this->modifiedProperties[self::IS_PUBLISH] = true;
+
+        return $this;
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @return bool|null
+     */
+    public function getIsPublish()
+    {
+        return $this->isPublish;
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @param bool|null $isPublish
+     *
+     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     *
+     * @return $this
+     */
+    public function setIsPublishOrFail($isPublish)
+    {
+        if ($isPublish === null) {
+            $this->throwNullValueException(static::IS_PUBLISH);
+        }
+
+        return $this->setIsPublish($isPublish);
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     *
+     * @return bool
+     */
+    public function getIsPublishOrFail()
+    {
+        if ($this->isPublish === null) {
+            $this->throwNullValueException(static::IS_PUBLISH);
+        }
+
+        return $this->isPublish;
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
+     *
+     * @return $this
+     */
+    public function requireIsPublish()
+    {
+        $this->assertPropertyIsSet(self::IS_PUBLISH);
+
+        return $this;
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @param bool|null $isSubscribe
+     *
+     * @return $this
+     */
+    public function setIsSubscribe($isSubscribe)
+    {
+        $this->isSubscribe = $isSubscribe;
+        $this->modifiedProperties[self::IS_SUBSCRIBE] = true;
+
+        return $this;
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @return bool|null
+     */
+    public function getIsSubscribe()
+    {
+        return $this->isSubscribe;
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @param bool|null $isSubscribe
+     *
+     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     *
+     * @return $this
+     */
+    public function setIsSubscribeOrFail($isSubscribe)
+    {
+        if ($isSubscribe === null) {
+            $this->throwNullValueException(static::IS_SUBSCRIBE);
+        }
+
+        return $this->setIsSubscribe($isSubscribe);
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     *
+     * @return bool
+     */
+    public function getIsSubscribeOrFail()
+    {
+        if ($this->isSubscribe === null) {
+            $this->throwNullValueException(static::IS_SUBSCRIBE);
+        }
+
+        return $this->isSubscribe;
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
+     *
+     * @return $this
+     */
+    public function requireIsSubscribe()
+    {
+        $this->assertPropertyIsSet(self::IS_SUBSCRIBE);
 
         return $this;
     }
@@ -796,18 +882,19 @@ class AsyncApiRequestTransfer extends AbstractTransfer
             $normalizedPropertyName = $this->transferPropertyNameMap[$property] ?? null;
 
             switch ($normalizedPropertyName) {
-                case 'targetFile':
-                case 'organization':
-                case 'version':
-                case 'payloadTransferObjectName':
+                case 'name':
+                case 'summary':
+                case 'contentType':
                 case 'properties':
-                case 'operationId':
+                case 'requiredProperties':
+                case 'addMetadata':
+                case 'isPublish':
+                case 'isSubscribe':
                     $this->$normalizedPropertyName = $value;
                     $this->modifiedProperties[$normalizedPropertyName] = true;
 
                     break;
-                case 'asyncApi':
-                case 'asyncApiMesssage':
+                case 'channel':
                     if (is_array($value)) {
                         $type = $this->transferMetadata[$normalizedPropertyName]['type'];
                         /** @var \Spryker\Shared\Kernel\Transfer\TransferInterface $value */
@@ -936,17 +1023,18 @@ class AsyncApiRequestTransfer extends AbstractTransfer
                 continue;
             }
             switch ($property) {
-                case 'targetFile':
-                case 'organization':
-                case 'version':
-                case 'payloadTransferObjectName':
+                case 'name':
+                case 'summary':
+                case 'contentType':
                 case 'properties':
-                case 'operationId':
+                case 'requiredProperties':
+                case 'addMetadata':
+                case 'isPublish':
+                case 'isSubscribe':
                     $values[$arrayKey] = $value;
 
                     break;
-                case 'asyncApi':
-                case 'asyncApiMesssage':
+                case 'channel':
                     $values[$arrayKey] = $value instanceof AbstractTransfer ? $value->modifiedToArray(true, true) : $value;
 
                     break;
@@ -973,17 +1061,18 @@ class AsyncApiRequestTransfer extends AbstractTransfer
                 continue;
             }
             switch ($property) {
-                case 'targetFile':
-                case 'organization':
-                case 'version':
-                case 'payloadTransferObjectName':
+                case 'name':
+                case 'summary':
+                case 'contentType':
                 case 'properties':
-                case 'operationId':
+                case 'requiredProperties':
+                case 'addMetadata':
+                case 'isPublish':
+                case 'isSubscribe':
                     $values[$arrayKey] = $value;
 
                     break;
-                case 'asyncApi':
-                case 'asyncApiMesssage':
+                case 'channel':
                     $values[$arrayKey] = $value instanceof AbstractTransfer ? $value->modifiedToArray(true, false) : $value;
 
                     break;
@@ -1040,14 +1129,15 @@ class AsyncApiRequestTransfer extends AbstractTransfer
     public function toArrayNotRecursiveCamelCased(): array
     {
         return [
-            'targetFile' => $this->targetFile,
-            'organization' => $this->organization,
-            'version' => $this->version,
-            'payloadTransferObjectName' => $this->payloadTransferObjectName,
+            'name' => $this->name,
+            'summary' => $this->summary,
+            'contentType' => $this->contentType,
             'properties' => $this->properties,
-            'operationId' => $this->operationId,
-            'asyncApi' => $this->asyncApi,
-            'asyncApiMesssage' => $this->asyncApiMesssage,
+            'requiredProperties' => $this->requiredProperties,
+            'addMetadata' => $this->addMetadata,
+            'isPublish' => $this->isPublish,
+            'isSubscribe' => $this->isSubscribe,
+            'channel' => $this->channel,
         ];
     }
 
@@ -1057,14 +1147,15 @@ class AsyncApiRequestTransfer extends AbstractTransfer
     public function toArrayNotRecursiveNotCamelCased(): array
     {
         return [
-            'target_file' => $this->targetFile,
-            'organization' => $this->organization,
-            'version' => $this->version,
-            'payload_transfer_object_name' => $this->payloadTransferObjectName,
+            'name' => $this->name,
+            'summary' => $this->summary,
+            'content_type' => $this->contentType,
             'properties' => $this->properties,
-            'operation_id' => $this->operationId,
-            'async_api' => $this->asyncApi,
-            'async_api_messsage' => $this->asyncApiMesssage,
+            'required_properties' => $this->requiredProperties,
+            'add_metadata' => $this->addMetadata,
+            'is_publish' => $this->isPublish,
+            'is_subscribe' => $this->isSubscribe,
+            'channel' => $this->channel,
         ];
     }
 
@@ -1074,14 +1165,15 @@ class AsyncApiRequestTransfer extends AbstractTransfer
     public function toArrayRecursiveNotCamelCased(): array
     {
         return [
-            'target_file' => $this->targetFile instanceof AbstractTransfer ? $this->targetFile->toArray(true, false) : $this->targetFile,
-            'organization' => $this->organization instanceof AbstractTransfer ? $this->organization->toArray(true, false) : $this->organization,
-            'version' => $this->version instanceof AbstractTransfer ? $this->version->toArray(true, false) : $this->version,
-            'payload_transfer_object_name' => $this->payloadTransferObjectName instanceof AbstractTransfer ? $this->payloadTransferObjectName->toArray(true, false) : $this->payloadTransferObjectName,
+            'name' => $this->name instanceof AbstractTransfer ? $this->name->toArray(true, false) : $this->name,
+            'summary' => $this->summary instanceof AbstractTransfer ? $this->summary->toArray(true, false) : $this->summary,
+            'content_type' => $this->contentType instanceof AbstractTransfer ? $this->contentType->toArray(true, false) : $this->contentType,
             'properties' => $this->properties instanceof AbstractTransfer ? $this->properties->toArray(true, false) : $this->properties,
-            'operation_id' => $this->operationId instanceof AbstractTransfer ? $this->operationId->toArray(true, false) : $this->operationId,
-            'async_api' => $this->asyncApi instanceof AbstractTransfer ? $this->asyncApi->toArray(true, false) : $this->asyncApi,
-            'async_api_messsage' => $this->asyncApiMesssage instanceof AbstractTransfer ? $this->asyncApiMesssage->toArray(true, false) : $this->asyncApiMesssage,
+            'required_properties' => $this->requiredProperties instanceof AbstractTransfer ? $this->requiredProperties->toArray(true, false) : $this->requiredProperties,
+            'add_metadata' => $this->addMetadata instanceof AbstractTransfer ? $this->addMetadata->toArray(true, false) : $this->addMetadata,
+            'is_publish' => $this->isPublish instanceof AbstractTransfer ? $this->isPublish->toArray(true, false) : $this->isPublish,
+            'is_subscribe' => $this->isSubscribe instanceof AbstractTransfer ? $this->isSubscribe->toArray(true, false) : $this->isSubscribe,
+            'channel' => $this->channel instanceof AbstractTransfer ? $this->channel->toArray(true, false) : $this->channel,
         ];
     }
 
@@ -1091,14 +1183,15 @@ class AsyncApiRequestTransfer extends AbstractTransfer
     public function toArrayRecursiveCamelCased(): array
     {
         return [
-            'targetFile' => $this->targetFile instanceof AbstractTransfer ? $this->targetFile->toArray(true, true) : $this->targetFile,
-            'organization' => $this->organization instanceof AbstractTransfer ? $this->organization->toArray(true, true) : $this->organization,
-            'version' => $this->version instanceof AbstractTransfer ? $this->version->toArray(true, true) : $this->version,
-            'payloadTransferObjectName' => $this->payloadTransferObjectName instanceof AbstractTransfer ? $this->payloadTransferObjectName->toArray(true, true) : $this->payloadTransferObjectName,
+            'name' => $this->name instanceof AbstractTransfer ? $this->name->toArray(true, true) : $this->name,
+            'summary' => $this->summary instanceof AbstractTransfer ? $this->summary->toArray(true, true) : $this->summary,
+            'contentType' => $this->contentType instanceof AbstractTransfer ? $this->contentType->toArray(true, true) : $this->contentType,
             'properties' => $this->properties instanceof AbstractTransfer ? $this->properties->toArray(true, true) : $this->properties,
-            'operationId' => $this->operationId instanceof AbstractTransfer ? $this->operationId->toArray(true, true) : $this->operationId,
-            'asyncApi' => $this->asyncApi instanceof AbstractTransfer ? $this->asyncApi->toArray(true, true) : $this->asyncApi,
-            'asyncApiMesssage' => $this->asyncApiMesssage instanceof AbstractTransfer ? $this->asyncApiMesssage->toArray(true, true) : $this->asyncApiMesssage,
+            'requiredProperties' => $this->requiredProperties instanceof AbstractTransfer ? $this->requiredProperties->toArray(true, true) : $this->requiredProperties,
+            'addMetadata' => $this->addMetadata instanceof AbstractTransfer ? $this->addMetadata->toArray(true, true) : $this->addMetadata,
+            'isPublish' => $this->isPublish instanceof AbstractTransfer ? $this->isPublish->toArray(true, true) : $this->isPublish,
+            'isSubscribe' => $this->isSubscribe instanceof AbstractTransfer ? $this->isSubscribe->toArray(true, true) : $this->isSubscribe,
+            'channel' => $this->channel instanceof AbstractTransfer ? $this->channel->toArray(true, true) : $this->channel,
         ];
     }
 }

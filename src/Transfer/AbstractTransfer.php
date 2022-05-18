@@ -5,7 +5,7 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace Generated\Shared\Transfer;
+namespace Transfer;
 
 use ArrayAccess;
 use ArrayObject;
@@ -228,7 +228,7 @@ abstract class AbstractTransfer implements TransferInterface, Serializable, Arra
      * @param \ArrayObject<int|string, mixed>|array $arrayObject
      * @param bool $ignoreMissingProperty
      *
-     * @return \ArrayObject<int, \Generated\Shared\Transfer\TransferInterface>
+     * @return \ArrayObject<int, \Transfer\TransferInterface>
      */
     protected function processArrayObject($elementType, $arrayObject, $ignoreMissingProperty = false): ArrayObject
     {
@@ -241,7 +241,7 @@ abstract class AbstractTransfer implements TransferInterface, Serializable, Arra
             }
 
             if ($arrayElement) {
-                /** @var \Generated\Shared\Transfer\TransferInterface $transferObject */
+                /** @var \Transfer\TransferInterface $transferObject */
                 $transferObject = new $elementType();
                 $transferObject->fromArray($arrayElement, $ignoreMissingProperty);
                 $result->offsetSet($key, $transferObject);
@@ -294,13 +294,13 @@ abstract class AbstractTransfer implements TransferInterface, Serializable, Arra
      * @param mixed $value
      * @param bool $ignoreMissingProperty
      *
-     * @return \Generated\Shared\Transfer\TransferInterface
+     * @return \Transfer\TransferInterface
      */
     protected function initializeNestedTransferObject($property, $value, $ignoreMissingProperty = false)
     {
         $type = $this->transferMetadata[$property]['type'];
 
-        /** @var \Generated\Shared\Transfer\TransferInterface $transferObject */
+        /** @var \Transfer\TransferInterface $transferObject */
         $transferObject = new $type();
 
         if (is_array($value)) {
