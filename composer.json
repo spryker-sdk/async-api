@@ -15,6 +15,7 @@
         "codeception/codeception": "*",
         "codeception/module-asserts": "*",
         "mikey179/vfsstream": "^1.6",
+        "phpstan/phpstan": "1.6.7",
         "sllh/composer-versions-check": "^2.0",
         "spryker-sdk/architector": "0.1.x-dev",
         "spryker/code-sniffer": "*",
