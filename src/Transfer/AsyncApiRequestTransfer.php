@@ -148,7 +148,7 @@ class AsyncApiRequestTransfer extends AbstractTransfer
             'is_strict' => false,
         ],
         self::ASYNC_API => [
-            'type' => 'Generated\Shared\Transfer\AsyncApiTransfer',
+            'type' => 'Transfer\AsyncApiTransfer',
             'type_shim' => null,
             'name_underscore' => 'async_api',
             'is_collection' => false,
@@ -172,7 +172,7 @@ class AsyncApiRequestTransfer extends AbstractTransfer
             'is_strict' => false,
         ],
         self::ASYNC_API_MESSSAGE => [
-            'type' => 'Generated\Shared\Transfer\AsyncApiMessageTransfer',
+            'type' => 'Transfer\AsyncApiMessageTransfer',
             'type_shim' => null,
             'name_underscore' => 'async_api_messsage',
             'is_collection' => false,
@@ -251,7 +251,7 @@ class AsyncApiRequestTransfer extends AbstractTransfer
      *
      * @param string|null $targetFile
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     * @throws \Exception
      *
      * @return $this
      */
@@ -267,7 +267,7 @@ class AsyncApiRequestTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     * @throws \Exception
      *
      * @return string
      */
@@ -283,7 +283,7 @@ class AsyncApiRequestTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
+     * @throws \Exception
      *
      * @return $this
      */
@@ -324,7 +324,7 @@ class AsyncApiRequestTransfer extends AbstractTransfer
      *
      * @param string|null $organization
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     * @throws \Exception
      *
      * @return $this
      */
@@ -340,7 +340,7 @@ class AsyncApiRequestTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     * @throws \Exception
      *
      * @return string
      */
@@ -356,7 +356,7 @@ class AsyncApiRequestTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
+     * @throws \Exception
      *
      * @return $this
      */
@@ -397,9 +397,9 @@ class AsyncApiRequestTransfer extends AbstractTransfer
      *
      * @param \Transfer\AsyncApiTransfer $asyncApi
      *
-     * @return $this
-     *@throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     * @throws \Exception
      *
+     * @return $this
      */
     public function setAsyncApiOrFail(AsyncApiTransfer $asyncApi)
     {
@@ -409,9 +409,9 @@ class AsyncApiRequestTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @return \Transfer\AsyncApiTransfer
-     *@throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     * @throws \Exception
      *
+     * @return \Transfer\AsyncApiTransfer
      */
     public function getAsyncApiOrFail()
     {
@@ -425,7 +425,7 @@ class AsyncApiRequestTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
+     * @throws \Exception
      *
      * @return $this
      */
@@ -466,7 +466,7 @@ class AsyncApiRequestTransfer extends AbstractTransfer
      *
      * @param string|null $version
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     * @throws \Exception
      *
      * @return $this
      */
@@ -482,7 +482,7 @@ class AsyncApiRequestTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     * @throws \Exception
      *
      * @return string
      */
@@ -498,7 +498,7 @@ class AsyncApiRequestTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
+     * @throws \Exception
      *
      * @return $this
      */
@@ -539,9 +539,9 @@ class AsyncApiRequestTransfer extends AbstractTransfer
      *
      * @param \Transfer\AsyncApiMessageTransfer $asyncApiMesssage
      *
-     * @return $this
-     *@throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     * @throws \Exception
      *
+     * @return $this
      */
     public function setAsyncApiMesssageOrFail(AsyncApiMessageTransfer $asyncApiMesssage)
     {
@@ -551,9 +551,9 @@ class AsyncApiRequestTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @return \Transfer\AsyncApiMessageTransfer
-     *@throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     * @throws \Exception
      *
+     * @return \Transfer\AsyncApiMessageTransfer
      */
     public function getAsyncApiMesssageOrFail()
     {
@@ -567,7 +567,7 @@ class AsyncApiRequestTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
+     * @throws \Exception
      *
      * @return $this
      */
@@ -608,7 +608,7 @@ class AsyncApiRequestTransfer extends AbstractTransfer
      *
      * @param string|null $payloadTransferObjectName
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     * @throws \Exception
      *
      * @return $this
      */
@@ -624,7 +624,7 @@ class AsyncApiRequestTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     * @throws \Exception
      *
      * @return string
      */
@@ -640,7 +640,7 @@ class AsyncApiRequestTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
+     * @throws \Exception
      *
      * @return $this
      */
@@ -698,7 +698,7 @@ class AsyncApiRequestTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
+     * @throws \Exception
      *
      * @return $this
      */
@@ -739,7 +739,7 @@ class AsyncApiRequestTransfer extends AbstractTransfer
      *
      * @param string|null $operationId
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     * @throws \Exception
      *
      * @return $this
      */
@@ -755,7 +755,7 @@ class AsyncApiRequestTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     * @throws \Exception
      *
      * @return string
      */
@@ -771,7 +771,7 @@ class AsyncApiRequestTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
+     * @throws \Exception
      *
      * @return $this
      */
@@ -810,7 +810,7 @@ class AsyncApiRequestTransfer extends AbstractTransfer
                 case 'asyncApiMesssage':
                     if (is_array($value)) {
                         $type = $this->transferMetadata[$normalizedPropertyName]['type'];
-                        /** @var \Spryker\Shared\Kernel\Transfer\TransferInterface $value */
+                        /** @var \Transfer\TransferInterface $value */
                         $value = (new $type())->fromArray($value, $ignoreMissingProperty);
                     }
 

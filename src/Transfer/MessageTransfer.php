@@ -102,7 +102,7 @@ class MessageTransfer extends AbstractTransfer
      *
      * @param string|null $message
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     * @throws \Exception
      *
      * @return $this
      */
@@ -118,7 +118,7 @@ class MessageTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     * @throws \Exception
      *
      * @return string
      */
@@ -134,7 +134,7 @@ class MessageTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
+     * @throws \Exception
      *
      * @return $this
      */
@@ -175,7 +175,7 @@ class MessageTransfer extends AbstractTransfer
      *
      * @param string|null $type
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     * @throws \Exception
      *
      * @return $this
      */
@@ -191,7 +191,7 @@ class MessageTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     * @throws \Exception
      *
      * @return string
      */
@@ -207,7 +207,7 @@ class MessageTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
+     * @throws \Exception
      *
      * @return $this
      */

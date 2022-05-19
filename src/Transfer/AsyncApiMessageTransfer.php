@@ -208,7 +208,7 @@ class AsyncApiMessageTransfer extends AbstractTransfer
             'is_strict' => false,
         ],
         self::CHANNEL => [
-            'type' => 'Generated\Shared\Transfer\AsyncApiChannelTransfer',
+            'type' => 'Transfer\AsyncApiChannelTransfer',
             'type_shim' => null,
             'name_underscore' => 'channel',
             'is_collection' => false,
@@ -275,7 +275,7 @@ class AsyncApiMessageTransfer extends AbstractTransfer
      *
      * @param string|null $name
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     * @throws \Exception
      *
      * @return $this
      */
@@ -291,7 +291,7 @@ class AsyncApiMessageTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     * @throws \Exception
      *
      * @return string
      */
@@ -307,7 +307,7 @@ class AsyncApiMessageTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
+     * @throws \Exception
      *
      * @return $this
      */
@@ -348,7 +348,7 @@ class AsyncApiMessageTransfer extends AbstractTransfer
      *
      * @param string|null $summary
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     * @throws \Exception
      *
      * @return $this
      */
@@ -364,7 +364,7 @@ class AsyncApiMessageTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     * @throws \Exception
      *
      * @return string
      */
@@ -380,7 +380,7 @@ class AsyncApiMessageTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
+     * @throws \Exception
      *
      * @return $this
      */
@@ -421,7 +421,7 @@ class AsyncApiMessageTransfer extends AbstractTransfer
      *
      * @param string|null $contentType
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     * @throws \Exception
      *
      * @return $this
      */
@@ -437,7 +437,7 @@ class AsyncApiMessageTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     * @throws \Exception
      *
      * @return string
      */
@@ -453,7 +453,7 @@ class AsyncApiMessageTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
+     * @throws \Exception
      *
      * @return $this
      */
@@ -511,7 +511,7 @@ class AsyncApiMessageTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
+     * @throws \Exception
      *
      * @return $this
      */
@@ -569,7 +569,7 @@ class AsyncApiMessageTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
+     * @throws \Exception
      *
      * @return $this
      */
@@ -610,7 +610,7 @@ class AsyncApiMessageTransfer extends AbstractTransfer
      *
      * @param bool|null $addMetadata
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     * @throws \Exception
      *
      * @return $this
      */
@@ -626,7 +626,7 @@ class AsyncApiMessageTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     * @throws \Exception
      *
      * @return bool
      */
@@ -642,7 +642,7 @@ class AsyncApiMessageTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
+     * @throws \Exception
      *
      * @return $this
      */
@@ -683,9 +683,9 @@ class AsyncApiMessageTransfer extends AbstractTransfer
      *
      * @param \Transfer\AsyncApiChannelTransfer $channel
      *
-     * @return $this
-     *@throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     * @throws \Exception
      *
+     * @return $this
      */
     public function setChannelOrFail(AsyncApiChannelTransfer $channel)
     {
@@ -695,9 +695,9 @@ class AsyncApiMessageTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @return \Transfer\AsyncApiChannelTransfer
-     *@throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     * @throws \Exception
      *
+     * @return \Transfer\AsyncApiChannelTransfer
      */
     public function getChannelOrFail()
     {
@@ -711,7 +711,7 @@ class AsyncApiMessageTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
+     * @throws \Exception
      *
      * @return $this
      */
@@ -752,7 +752,7 @@ class AsyncApiMessageTransfer extends AbstractTransfer
      *
      * @param bool|null $isPublish
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     * @throws \Exception
      *
      * @return $this
      */
@@ -768,7 +768,7 @@ class AsyncApiMessageTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     * @throws \Exception
      *
      * @return bool
      */
@@ -784,7 +784,7 @@ class AsyncApiMessageTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
+     * @throws \Exception
      *
      * @return $this
      */
@@ -825,7 +825,7 @@ class AsyncApiMessageTransfer extends AbstractTransfer
      *
      * @param bool|null $isSubscribe
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     * @throws \Exception
      *
      * @return $this
      */
@@ -841,7 +841,7 @@ class AsyncApiMessageTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     * @throws \Exception
      *
      * @return bool
      */
@@ -857,7 +857,7 @@ class AsyncApiMessageTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
+     * @throws \Exception
      *
      * @return $this
      */
@@ -897,7 +897,7 @@ class AsyncApiMessageTransfer extends AbstractTransfer
                 case 'channel':
                     if (is_array($value)) {
                         $type = $this->transferMetadata[$normalizedPropertyName]['type'];
-                        /** @var \Spryker\Shared\Kernel\Transfer\TransferInterface $value */
+                        /** @var \Transfer\TransferInterface $value */
                         $value = (new $type())->fromArray($value, $ignoreMissingProperty);
                     }
 
