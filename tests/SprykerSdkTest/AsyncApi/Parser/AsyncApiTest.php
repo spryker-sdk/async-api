@@ -10,7 +10,7 @@ namespace SprykerSdkTest\AsyncApi\Parser;
 use Codeception\Test\Unit;
 use SprykerSdk\AsyncApi\AsyncApi\AsyncApiInterface;
 use SprykerSdk\AsyncApi\AsyncApi\Channel\AsyncApiChannelInterface;
-use SprykerSdk\AsyncApi\AsyncApi\Loader\AsyncApiLoader;
+use SprykerSdk\AsyncApi\Loader\AsyncApiLoader;
 use SprykerSdk\AsyncApi\AsyncApi\Message\AsyncApiMessageInterface;
 
 /**

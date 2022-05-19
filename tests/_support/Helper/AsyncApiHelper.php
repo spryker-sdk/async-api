@@ -12,7 +12,7 @@ use Codeception\Stub;
 use Codeception\Stub\Expected;
 use Codeception\TestInterface;
 use org\bovigo\vfs\vfsStream;
-use SprykerSdk\AsyncApi\AsyncApi\Loader\AsyncApiLoader;
+use SprykerSdk\AsyncApi\Loader\AsyncApiLoader;
 use SprykerSdk\AsyncApi\AsyncApiConfig;
 use SprykerSdk\AsyncApi\AsyncApiFacade;
 use SprykerSdk\AsyncApi\AsyncApiFacadeInterface;

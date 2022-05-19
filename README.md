@@ -15,7 +15,7 @@ This library provides an AsyncAPI parser.
 ### Parsing an AsyncAPI file
 
 ```php
-use SprykerSdk\AsyncApi\AsyncApi\Loader\AsyncApiLoader;
+use SprykerSdk\AsyncApi\Loader\AsyncApiLoader;
 
 $asyncApiLoader = new AsyncApiLoader();
 $asyncApi = $asyncApiLoader->load('.../path/to/async-api.yml');
