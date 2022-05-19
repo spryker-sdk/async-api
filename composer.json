@@ -23,13 +23,13 @@
     },
     "autoload": {
         "psr-4": {
-            "SprykerSdk\\AsyncApi\\": "src/SprykerSdk/AsyncApi",
-            "Transfer\\": "src/Transfer"
+            "SprykerSdk\\AsyncApi\\": "src/SprykerSdk/AsyncApi/",
+            "Transfer\\": "src/Transfer/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "SprykerSdkTest\\AsyncApi\\": "tests/SprykerSdkTest/AsyncApi",
+            "SprykerSdkTest\\AsyncApi\\": "tests/SprykerSdkTest/AsyncApi/",
             "SprykerSdkTest\\Helper\\": "tests/_support/Helper/"
         }
     },

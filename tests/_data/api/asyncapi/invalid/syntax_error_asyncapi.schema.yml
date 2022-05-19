@@ -2,8 +2,8 @@ asyncapi: 2.2.0
 info:
     title: 'Test File'
     version: 0.1.0
-components:
-    schemas
+components
+    schemas:
         headers:
             type: object
             required:

@@ -60,7 +60,6 @@
     <transfer name="AsyncApiBuilderTest">
         <property name="string" type="string"/>
         <property name="integer" type="int"/>
-        <property name="decimal" type="decimal"/>
         <property name="errors" type="Message[]" singular="error"/>
     </transfer>
 
