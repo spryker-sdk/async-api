@@ -7,3 +7,5 @@ parameters:
 
     ignoreErrors:
         - '#Parameter .+ of method .+Transfer::.+\(\).+ given.#'
+
+    reportUnmatchedIgnoredErrors: false
