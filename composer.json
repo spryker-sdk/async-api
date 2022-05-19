@@ -6,10 +6,10 @@
     "require": {
         "php": ">=7.4",
         "spryker-sdk/spryk": "^0.4.0",
-        "symfony/console": "^5.3 || ^6.0",
-        "symfony/finder": "^5.3 || ^6.0",
-        "symfony/process": "^5.4",
-        "symfony/property-access": "^5.4"
+        "symfony/console": "^4.0.0 || ^5.3 || ^6.0",
+        "symfony/finder": "^4.0.0 || ^5.3 || ^6.0",
+        "symfony/process": "^4.0.0 || ^5.4",
+        "symfony/property-access": "^4.0.0 || ^5.4"
     },
     "require-dev": {
         "codeception/codeception": "*",
