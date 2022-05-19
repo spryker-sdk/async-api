@@ -27,6 +27,11 @@ class AsyncApiBuilderTestTransfer extends AbstractTransfer
     /**
      * @var string
      */
+    public const DECIMAL = 'decimal';
+
+    /**
+     * @var string
+     */
     public const ERRORS = 'errors';
 
     /**
@@ -38,6 +43,11 @@ class AsyncApiBuilderTestTransfer extends AbstractTransfer
      * @var int|null
      */
     protected $integer;
+
+    /**
+     * @var \Spryker\DecimalObject\Decimal|null
+     */
+    protected $decimal;
 
     /**
      * @var \ArrayObject|\Transfer\MessageTransfer[]
@@ -52,6 +62,8 @@ class AsyncApiBuilderTestTransfer extends AbstractTransfer
         'String' => 'string',
         'integer' => 'integer',
         'Integer' => 'integer',
+        'decimal' => 'decimal',
+        'Decimal' => 'decimal',
         'errors' => 'errors',
         'Errors' => 'errors',
     ];
@@ -79,6 +91,18 @@ class AsyncApiBuilderTestTransfer extends AbstractTransfer
             'is_collection' => false,
             'is_transfer' => false,
             'is_value_object' => false,
+            'rest_request_parameter' => 'no',
+            'is_associative' => false,
+            'is_nullable' => false,
+            'is_strict' => false,
+        ],
+        self::DECIMAL => [
+            'type' => 'Spryker\DecimalObject\Decimal',
+            'type_shim' => null,
+            'name_underscore' => 'decimal',
+            'is_collection' => false,
+            'is_transfer' => false,
+            'is_value_object' => true,
             'rest_request_parameter' => 'no',
             'is_associative' => false,
             'is_nullable' => false,
@@ -247,6 +271,83 @@ class AsyncApiBuilderTestTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
+     * @param string|int|float|\Spryker\DecimalObject\Decimal|null $decimal
+     *
+     * @return $this
+     */
+    public function setDecimal($decimal = null)
+    {
+        if ($decimal !== null && !$decimal instanceof Decimal) {
+            $decimal = new Decimal($decimal);
+        }
+
+        $this->decimal = $decimal;
+        $this->modifiedProperties[self::DECIMAL] = true;
+
+        return $this;
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @return \Spryker\DecimalObject\Decimal|null
+     */
+    public function getDecimal()
+    {
+        return $this->decimal;
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @param string|int|float|\Spryker\DecimalObject\Decimal $decimal
+     *
+     * @throws \Exception
+     *
+     * @return $this
+     */
+    public function setDecimalOrFail($decimal)
+    {
+        if ($decimal === null) {
+            $this->throwNullValueException(static::DECIMAL);
+        }
+
+        return $this->setDecimal($decimal);
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @throws \Exception
+     *
+     * @return \Spryker\DecimalObject\Decimal
+     */
+    public function getDecimalOrFail()
+    {
+        if ($this->decimal === null) {
+            $this->throwNullValueException(static::DECIMAL);
+        }
+
+        return $this->decimal;
+    }
+
+    /**
+     * @module AsyncApi
+     *
+     * @throws \Exception
+     *
+     * @return $this
+     */
+    public function requireDecimal()
+    {
+        $this->assertPropertyIsSet(self::DECIMAL);
+
+        return $this;
+    }
+
+    /**
+     * @module AsyncApi
+     *
      * @param \ArrayObject|\Transfer\MessageTransfer[] $errors
      *
      * @return $this
@@ -322,6 +423,10 @@ class AsyncApiBuilderTestTransfer extends AbstractTransfer
                     $elementType = $this->transferMetadata[$normalizedPropertyName]['type'];
                     $this->$normalizedPropertyName = $this->processArrayObject($elementType, $value, $ignoreMissingProperty);
                     $this->modifiedProperties[$normalizedPropertyName] = true;
+
+                    break;
+                case 'decimal':
+                    $this->assignValueObject($normalizedPropertyName, $value);
 
                     break;
                 default:
@@ -441,6 +546,10 @@ class AsyncApiBuilderTestTransfer extends AbstractTransfer
             switch ($property) {
                 case 'string':
                 case 'integer':
+                case 'decimal':
+                    $values[$arrayKey] = $value;
+
+                    break;
                 case 'errors':
                     $values[$arrayKey] = $value ? $this->addValuesToCollectionModified($value, true, true) : $value;
 
@@ -470,6 +579,10 @@ class AsyncApiBuilderTestTransfer extends AbstractTransfer
             switch ($property) {
                 case 'string':
                 case 'integer':
+                case 'decimal':
+                    $values[$arrayKey] = $value;
+
+                    break;
                 case 'errors':
                     $values[$arrayKey] = $value ? $this->addValuesToCollectionModified($value, true, false) : $value;
 
@@ -531,6 +644,7 @@ class AsyncApiBuilderTestTransfer extends AbstractTransfer
             'string' => $this->string,
             'integer' => $this->integer,
             'errors' => $this->errors,
+            'decimal' => $this->decimal,
         ];
     }
 
@@ -543,6 +657,7 @@ class AsyncApiBuilderTestTransfer extends AbstractTransfer
             'string' => $this->string,
             'integer' => $this->integer,
             'errors' => $this->errors,
+            'decimal' => $this->decimal,
         ];
     }
 
@@ -555,6 +670,7 @@ class AsyncApiBuilderTestTransfer extends AbstractTransfer
             'string' => $this->string instanceof AbstractTransfer ? $this->string->toArray(true, false) : $this->string,
             'integer' => $this->integer instanceof AbstractTransfer ? $this->integer->toArray(true, false) : $this->integer,
             'errors' => $this->errors instanceof AbstractTransfer ? $this->errors->toArray(true, false) : $this->addValuesToCollection($this->errors, true, false),
+            'decimal' => $this->decimal,
         ];
     }
 
@@ -567,6 +683,7 @@ class AsyncApiBuilderTestTransfer extends AbstractTransfer
             'string' => $this->string instanceof AbstractTransfer ? $this->string->toArray(true, true) : $this->string,
             'integer' => $this->integer instanceof AbstractTransfer ? $this->integer->toArray(true, true) : $this->integer,
             'errors' => $this->errors instanceof AbstractTransfer ? $this->errors->toArray(true, true) : $this->addValuesToCollection($this->errors, true, true),
+            'decimal' => $this->decimal,
         ];
     }
 }
