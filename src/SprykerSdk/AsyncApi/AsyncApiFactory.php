@@ -7,8 +7,8 @@
 
 namespace SprykerSdk\AsyncApi;
 
-use SprykerSdk\AsyncApi\Loader\AsyncApiLoader;
-use SprykerSdk\AsyncApi\Loader\AsyncApiLoaderInterface;
+use SprykerSdk\AsyncApi\AsyncApi\Loader\AsyncApiLoader;
+use SprykerSdk\AsyncApi\AsyncApi\Loader\AsyncApiLoaderInterface;
 use SprykerSdk\AsyncApi\Code\Builder\AsyncApiBuilder;
 use SprykerSdk\AsyncApi\Code\Builder\AsyncApiBuilderInterface;
 use SprykerSdk\AsyncApi\Code\Builder\AsyncApiCodeBuilder;
@@ -57,7 +57,7 @@ class AsyncApiFactory
     }
 
     /**
-     * @return \SprykerSdk\AsyncApi\Loader\AsyncApiLoaderInterface
+     * @return \SprykerSdk\AsyncApi\AsyncApi\Loader\AsyncApiLoaderInterface
      */
     public function createAsyncApiLoader(): AsyncApiLoaderInterface
     {

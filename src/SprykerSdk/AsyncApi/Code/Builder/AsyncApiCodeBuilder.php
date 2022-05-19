@@ -9,7 +9,7 @@ namespace SprykerSdk\AsyncApi\Code\Builder;
 
 use SprykerSdk\AsyncApi\AsyncApi\AsyncApiInterface;
 use SprykerSdk\AsyncApi\AsyncApi\Channel\AsyncApiChannelInterface;
-use SprykerSdk\AsyncApi\Loader\AsyncApiLoaderInterface;
+use SprykerSdk\AsyncApi\AsyncApi\Loader\AsyncApiLoaderInterface;
 use SprykerSdk\AsyncApi\AsyncApi\Message\AsyncApiMessageInterface;
 use SprykerSdk\AsyncApi\AsyncApiConfig;
 use SprykerSdk\AsyncApi\Message\AsyncApiError;
@@ -32,7 +32,7 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
     protected MessageBuilderInterface $messageBuilder;
 
     /**
-     * @var \SprykerSdk\AsyncApi\Loader\AsyncApiLoaderInterface
+     * @var \SprykerSdk\AsyncApi\AsyncApi\Loader\AsyncApiLoaderInterface
      */
     protected AsyncApiLoaderInterface $asyncApiLoader;
 
@@ -44,7 +44,7 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
     /**
      * @param \SprykerSdk\AsyncApi\AsyncApiConfig $config
      * @param \SprykerSdk\AsyncApi\Message\MessageBuilderInterface $messageBuilder
-     * @param \SprykerSdk\AsyncApi\Loader\AsyncApiLoaderInterface $asyncApiLoader
+     * @param \SprykerSdk\AsyncApi\AsyncApi\Loader\AsyncApiLoaderInterface $asyncApiLoader
      */
     public function __construct(AsyncApiConfig $config, MessageBuilderInterface $messageBuilder, AsyncApiLoaderInterface $asyncApiLoader)
     {
