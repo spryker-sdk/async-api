@@ -4,3 +4,6 @@ parameters:
 
     bootstrapFiles:
         - phpstan-bootstrap.php
+
+    ignoreErrors:
+        - '#Parameter .+ of method .+Transfer::.+\(\).+ given.#'
