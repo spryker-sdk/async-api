@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cbe67eb4c44fdff4106cc6e7e8ad633e",
+    "content-hash": "fffb84c9939ea926485eb8406ae34a79",
     "packages": [
         {
             "name": "psr/container",
@@ -4743,7 +4743,7 @@
         },
         {
             "name": "spryker/code-sniffer",
-            "version": "0.17.7",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spryker/code-sniffer.git",
@@ -4764,6 +4764,7 @@
                 "phpstan/phpstan": "^1.0.0",
                 "phpunit/phpunit": "^9.5"
             },
+            "default-branch": true,
             "bin": [
                 "bin/tokenize"
             ],
@@ -6533,7 +6534,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "spryker-sdk/architector": 20
+        "spryker-sdk/architector": 20,
+        "spryker/code-sniffer": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
