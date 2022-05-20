@@ -7,9 +7,9 @@
 
 namespace SprykerSdk\AsyncApi\Validator\Rule;
 
-use Generated\Shared\Transfer\ValidateResponseTransfer;
 use SprykerSdk\AsyncApi\Message\AsyncApiError;
 use SprykerSdk\AsyncApi\Message\MessageBuilderInterface;
+use Transfer\ValidateResponseTransfer;
 
 class AsyncApiMessageValidatorRule implements ValidatorRuleInterface
 {
@@ -31,10 +31,10 @@ class AsyncApiMessageValidatorRule implements ValidatorRuleInterface
      *
      * @param array $asyncApi
      * @param string $asyncApiFileName
-     * @param \Generated\Shared\Transfer\ValidateResponseTransfer $validateResponseTransfer
+     * @param \Transfer\ValidateResponseTransfer $validateResponseTransfer
      * @param array|null $context
      *
-     * @return \Generated\Shared\Transfer\ValidateResponseTransfer
+     * @return \Transfer\ValidateResponseTransfer
      */
     public function validate(
         array $asyncApi,
@@ -49,9 +49,9 @@ class AsyncApiMessageValidatorRule implements ValidatorRuleInterface
 
     /**
      * @param array $asyncApi
-     * @param \Generated\Shared\Transfer\ValidateResponseTransfer $validateResponseTransfer
+     * @param \Transfer\ValidateResponseTransfer $validateResponseTransfer
      *
-     * @return \Generated\Shared\Transfer\ValidateResponseTransfer
+     * @return \Transfer\ValidateResponseTransfer
      */
     protected function validateAtLeastOneMessageExists(array $asyncApi, ValidateResponseTransfer $validateResponseTransfer): ValidateResponseTransfer
     {
@@ -66,9 +66,9 @@ class AsyncApiMessageValidatorRule implements ValidatorRuleInterface
 
     /**
      * @param array $asyncApi
-     * @param \Generated\Shared\Transfer\ValidateResponseTransfer $validateResponseTransfer
+     * @param \Transfer\ValidateResponseTransfer $validateResponseTransfer
      *
-     * @return \Generated\Shared\Transfer\ValidateResponseTransfer
+     * @return \Transfer\ValidateResponseTransfer
      */
     protected function validateMessageNamesAreOnlyUsedOnce(array $asyncApi, ValidateResponseTransfer $validateResponseTransfer): ValidateResponseTransfer
     {

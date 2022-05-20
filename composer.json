@@ -6,10 +6,10 @@
     "require": {
         "php": ">=7.4",
         "spryker-sdk/spryk": "^0.4.0",
-        "symfony/console": "^5.3 || ^6.0",
-        "symfony/finder": "^5.3 || ^6.0",
-        "symfony/process": "^5.4",
-        "symfony/property-access": "^5.4"
+        "symfony/console": "^4.0.0 || ^5.3 || ^6.0",
+        "symfony/finder": "^4.0.0 || ^5.3 || ^6.0",
+        "symfony/process": "^4.0.0 || ^5.4",
+        "symfony/property-access": "^4.0.0 || ^5.4"
     },
     "require-dev": {
         "codeception/codeception": "*",
@@ -17,19 +17,18 @@
         "mikey179/vfsstream": "^1.6",
         "sllh/composer-versions-check": "^2.0",
         "spryker-sdk/architector": "0.1.x-dev",
-        "spryker/code-sniffer": "*",
-        "symfony/filesystem": "^5.3",
+        "spryker/code-sniffer": "dev-master",
         "symfony/var-dumper": "*"
     },
     "autoload": {
         "psr-4": {
-            "SprykerSdk\\AsyncApi\\": "src/SprykerSdk/AsyncApi",
-            "Generated\\Shared\\Transfer\\": "src/Generated/Shared/Transfer/"
+            "SprykerSdk\\AsyncApi\\": "src/SprykerSdk/AsyncApi/",
+            "Transfer\\": "src/Transfer/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "SprykerSdkTest\\AsyncApi\\": "tests/SprykerSdkTest/AsyncApi",
+            "SprykerSdkTest\\AsyncApi\\": "tests/SprykerSdkTest/AsyncApi/",
             "SprykerSdkTest\\Helper\\": "tests/_support/Helper/"
         }
     },

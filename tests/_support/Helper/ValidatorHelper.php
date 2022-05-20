@@ -8,8 +8,8 @@
 namespace SprykerSdkTest\Helper;
 
 use Codeception\Module;
-use Generated\Shared\Transfer\ValidateRequestTransfer;
-use Generated\Shared\Transfer\ValidateResponseTransfer;
+use Transfer\ValidateRequestTransfer;
+use Transfer\ValidateResponseTransfer;
 
 class ValidatorHelper extends Module
 {
@@ -42,7 +42,7 @@ class ValidatorHelper extends Module
     }
 
     /**
-     * @return \Generated\Shared\Transfer\ValidateRequestTransfer
+     * @return \Transfer\ValidateRequestTransfer
      */
     public function haveValidateRequest(): ValidateRequestTransfer
     {
@@ -55,7 +55,7 @@ class ValidatorHelper extends Module
     }
 
     /**
-     * @param \Generated\Shared\Transfer\ValidateResponseTransfer $validateResponseTransfer
+     * @param \Transfer\ValidateResponseTransfer $validateResponseTransfer
      *
      * @return array
      */

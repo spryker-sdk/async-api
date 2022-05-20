@@ -11,11 +11,6 @@ use Codeception\Module;
 use Codeception\Stub;
 use Codeception\Stub\Expected;
 use Codeception\TestInterface;
-use Generated\Shared\Transfer\AsyncApiChannelTransfer;
-use Generated\Shared\Transfer\AsyncApiMessageTransfer;
-use Generated\Shared\Transfer\AsyncApiRequestTransfer;
-use Generated\Shared\Transfer\AsyncApiResponseTransfer;
-use Generated\Shared\Transfer\AsyncApiTransfer;
 use org\bovigo\vfs\vfsStream;
 use SprykerSdk\AsyncApi\AsyncApi\Loader\AsyncApiLoader;
 use SprykerSdk\AsyncApi\AsyncApiConfig;
@@ -26,6 +21,11 @@ use SprykerSdk\AsyncApi\Code\Builder\AsyncApiCodeBuilder;
 use SprykerSdk\AsyncApi\Console\CodeGenerateConsole;
 use SprykerSdk\AsyncApi\Message\MessageBuilder;
 use Symfony\Component\Yaml\Yaml;
+use Transfer\AsyncApiChannelTransfer;
+use Transfer\AsyncApiMessageTransfer;
+use Transfer\AsyncApiRequestTransfer;
+use Transfer\AsyncApiResponseTransfer;
+use Transfer\AsyncApiTransfer;
 
 class AsyncApiHelper extends Module
 {
@@ -121,7 +121,7 @@ class AsyncApiHelper extends Module
     public const CHANNEL_NAME = 'foo/bar';
 
     /**
-     * @return \Generated\Shared\Transfer\AsyncApiRequestTransfer
+     * @return \Transfer\AsyncApiRequestTransfer
      */
     public function haveAsyncApiAddRequest(): AsyncApiRequestTransfer
     {
@@ -142,7 +142,7 @@ class AsyncApiHelper extends Module
      * We assume that an AsyncApi file with version 0.1.0 exists when `\SprykerSdkTest\Helper\AsyncApiHelper::haveAsyncApiFile()`
      * was called before `\SprykerSdk\Zed\AopSdk\Business\AopSdkFacadeInterface::addAsyncApi()` is executed.
      *
-     * @return \Generated\Shared\Transfer\AsyncApiRequestTransfer
+     * @return \Transfer\AsyncApiRequestTransfer
      */
     public function haveAsyncApiUpdateVersionRequest(): AsyncApiRequestTransfer
     {
@@ -160,7 +160,7 @@ class AsyncApiHelper extends Module
     }
 
     /**
-     * @return \Generated\Shared\Transfer\AsyncApiRequestTransfer
+     * @return \Transfer\AsyncApiRequestTransfer
      */
     public function haveAsyncApiAddRequestWithExistingAsyncApi(): AsyncApiRequestTransfer
     {
@@ -180,7 +180,7 @@ class AsyncApiHelper extends Module
     }
 
     /**
-     * @return \Generated\Shared\Transfer\AsyncApiRequestTransfer
+     * @return \Transfer\AsyncApiRequestTransfer
      */
     public function haveAsyncApiAddRequestWithExistingAsyncApiAndPayloadTransferObject(): AsyncApiRequestTransfer
     {
@@ -197,7 +197,7 @@ class AsyncApiHelper extends Module
      *
      * @param array|null $properties
      *
-     * @return \Generated\Shared\Transfer\AsyncApiRequestTransfer
+     * @return \Transfer\AsyncApiRequestTransfer
      */
     public function haveAsyncApiAddRequestWithExistingAsyncApiAndProperties(?array $properties = null): AsyncApiRequestTransfer
     {
@@ -236,7 +236,7 @@ class AsyncApiHelper extends Module
     }
 
     /**
-     * @param \Generated\Shared\Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
+     * @param \Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
      *
      * @return array
      */
@@ -388,7 +388,7 @@ class AsyncApiHelper extends Module
     }
 
     /**
-     * @param \Generated\Shared\Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
+     * @param \Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
      *
      * @return void
      */
@@ -403,7 +403,7 @@ class AsyncApiHelper extends Module
     /**
      * @param string|null $messageName When $messageName is passed the message will not have a PayloadTransferObjectName.
      *
-     * @return \Generated\Shared\Transfer\AsyncApiMessageTransfer
+     * @return \Transfer\AsyncApiMessageTransfer
      */
     public function havePublishMessageWithMetadata(?string $messageName = null): AsyncApiMessageTransfer
     {
@@ -413,7 +413,7 @@ class AsyncApiHelper extends Module
     /**
      * @param string|null $messageName When $messageName is passed the message will not have a PayloadTransferObjectName.
      *
-     * @return \Generated\Shared\Transfer\AsyncApiMessageTransfer
+     * @return \Transfer\AsyncApiMessageTransfer
      */
     public function haveSubscribeMessageWithMetadata(?string $messageName = null): AsyncApiMessageTransfer
     {
@@ -425,7 +425,7 @@ class AsyncApiHelper extends Module
      * @param string $channelType
      * @param string|null $messageName
      *
-     * @return \Generated\Shared\Transfer\AsyncApiMessageTransfer
+     * @return \Transfer\AsyncApiMessageTransfer
      */
     protected function createMessage(bool $withMetadata, string $channelType, ?string $messageName = null): AsyncApiMessageTransfer
     {

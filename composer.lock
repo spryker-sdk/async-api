@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fbf91ce38d9bb67d09931ee5e895fb28",
+    "content-hash": "1637196cc75ed9e860786b26a223fdb0",
     "packages": [
         {
             "name": "psr/container",
@@ -2817,16 +2817,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.6.7",
+            "version": "1.6.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "d41c39cb2e487663bce9bbd97c660e244b73abad"
+                "reference": "d76498c5531232cb8386ceb6004f7e013138d3ba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/d41c39cb2e487663bce9bbd97c660e244b73abad",
-                "reference": "d41c39cb2e487663bce9bbd97c660e244b73abad",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/d76498c5531232cb8386ceb6004f7e013138d3ba",
+                "reference": "d76498c5531232cb8386ceb6004f7e013138d3ba",
                 "shasum": ""
             },
             "require": {
@@ -2852,7 +2852,7 @@
             "description": "PHPStan - PHP Static Analysis Tool",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/1.6.7"
+                "source": "https://github.com/phpstan/phpstan/tree/1.6.8"
             },
             "funding": [
                 {
@@ -2872,7 +2872,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-05-04T22:55:41+00:00"
+            "time": "2022-05-10T06:54:21+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -4743,7 +4743,7 @@
         },
         {
             "name": "spryker/code-sniffer",
-            "version": "0.17.7",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spryker/code-sniffer.git",
@@ -4764,6 +4764,7 @@
                 "phpstan/phpstan": "^1.0.0",
                 "phpunit/phpunit": "^9.5"
             },
+            "default-branch": true,
             "bin": [
                 "bin/tokenize"
             ],
@@ -6533,7 +6534,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "spryker-sdk/architector": 20
+        "spryker-sdk/architector": 20,
+        "spryker/code-sniffer": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
@@ -6544,5 +6546,5 @@
     "platform-overrides": {
         "php": "7.4.15"
     },
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.2.0"
 }

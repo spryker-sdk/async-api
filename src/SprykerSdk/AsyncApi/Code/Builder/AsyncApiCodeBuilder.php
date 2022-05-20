@@ -7,9 +7,6 @@
 
 namespace SprykerSdk\AsyncApi\Code\Builder;
 
-use Generated\Shared\Transfer\AsyncApiRequestTransfer;
-use Generated\Shared\Transfer\AsyncApiResponseTransfer;
-use Generated\Shared\Transfer\MessageTransfer;
 use SprykerSdk\AsyncApi\AsyncApi\AsyncApiInterface;
 use SprykerSdk\AsyncApi\AsyncApi\Channel\AsyncApiChannelInterface;
 use SprykerSdk\AsyncApi\AsyncApi\Loader\AsyncApiLoaderInterface;
@@ -19,6 +16,8 @@ use SprykerSdk\AsyncApi\Message\AsyncApiError;
 use SprykerSdk\AsyncApi\Message\AsyncApiInfo;
 use SprykerSdk\AsyncApi\Message\MessageBuilderInterface;
 use Symfony\Component\Process\Process;
+use Transfer\AsyncApiRequestTransfer;
+use Transfer\AsyncApiResponseTransfer;
 
 class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
 {
@@ -55,9 +54,9 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
+     * @param \Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
      *
-     * @return \Generated\Shared\Transfer\AsyncApiResponseTransfer
+     * @return \Transfer\AsyncApiResponseTransfer
      */
     public function build(AsyncApiRequestTransfer $asyncApiRequestTransfer): AsyncApiResponseTransfer
     {
@@ -86,10 +85,10 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
 
     /**
      * @param \SprykerSdk\AsyncApi\AsyncApi\AsyncApiInterface $asyncApi
-     * @param \Generated\Shared\Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
+     * @param \Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
      * @param string $projectNamespace
      *
-     * @return \Generated\Shared\Transfer\AsyncApiResponseTransfer
+     * @return \Transfer\AsyncApiResponseTransfer
      */
     protected function buildCodeForPublishMessagesChannels(
         AsyncApiInterface $asyncApi,
@@ -105,10 +104,10 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
 
     /**
      * @param \SprykerSdk\AsyncApi\AsyncApi\AsyncApiInterface $asyncApi
-     * @param \Generated\Shared\Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
+     * @param \Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
      * @param string $projectNamespace
      *
-     * @return \Generated\Shared\Transfer\AsyncApiResponseTransfer
+     * @return \Transfer\AsyncApiResponseTransfer
      */
     protected function buildCodeForSubscribeMessagesChannels(
         AsyncApiInterface $asyncApi,
@@ -124,10 +123,10 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
 
     /**
      * @param \SprykerSdk\AsyncApi\AsyncApi\Channel\AsyncApiChannelInterface $asyncApiChannel
-     * @param \Generated\Shared\Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
+     * @param \Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
      * @param string $projectNamespace
      *
-     * @return \Generated\Shared\Transfer\AsyncApiResponseTransfer
+     * @return \Transfer\AsyncApiResponseTransfer
      */
     protected function buildCodeForPublishMessages(
         AsyncApiChannelInterface $asyncApiChannel,
@@ -144,10 +143,10 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
 
     /**
      * @param \SprykerSdk\AsyncApi\AsyncApi\Channel\AsyncApiChannelInterface $asyncApiChannel
-     * @param \Generated\Shared\Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
+     * @param \Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
      * @param string $projectNamespace
      *
-     * @return \Generated\Shared\Transfer\AsyncApiResponseTransfer
+     * @return \Transfer\AsyncApiResponseTransfer
      */
     protected function buildCodeForSubscribeMessages(
         AsyncApiChannelInterface $asyncApiChannel,
@@ -163,10 +162,10 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
 
     /**
      * @param \SprykerSdk\AsyncApi\AsyncApi\Message\AsyncApiMessageInterface $asyncApiMessage
-     * @param \Generated\Shared\Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
+     * @param \Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
      * @param string $projectNamespace
      *
-     * @return \Generated\Shared\Transfer\AsyncApiResponseTransfer
+     * @return \Transfer\AsyncApiResponseTransfer
      */
     protected function createTransferForMessage(
         AsyncApiMessageInterface $asyncApiMessage,
@@ -199,13 +198,11 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
             $type = $typeAttribute->getValue();
 
             $transferPropertiesToAdd[] = sprintf('%s:%s', $propertyName, $type);
-            $messageTransfer = new MessageTransfer();
-            $messageTransfer->setMessage(sprintf('Added property "%s" with type "%s" to the "%sTransfer" transfer object of the module "%s".', $propertyName, $type, $asyncApiMessageName, $moduleName));
-            $asyncApiResponseTransfer->addMessage($messageTransfer);
+            $asyncApiResponseTransfer->addMessage($this->messageBuilder->buildMessage(AsyncApiInfo::addedPropertyWithTypeTo($propertyName, $type, $asyncApiMessageName, $moduleName)));
         }
 
         $transferBuildCommandLine = [
-            'vendor/bin/spryk-run',
+            $this->config->getSprykRunExecutablePath() . '/vendor/bin/spryk-run',
             'AddSharedTransferProperty',
             '--mode', $this->sprykMode,
             '--organization', $projectNamespace,
@@ -220,7 +217,7 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
 
         // Add messageAttributes to the Transfer
         $commandLines[] = [
-            'vendor/bin/spryk-run',
+            $this->config->getSprykRunExecutablePath() . '/vendor/bin/spryk-run',
             'AddSharedTransferProperty',
             '--mode', $this->sprykMode,
             '--organization', $projectNamespace,
@@ -231,12 +228,11 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
             '-n',
             '-v',
         ];
-        $messageTransfer = new MessageTransfer();
-        $messageTransfer->setMessage(sprintf('Added property "messageAttributes" with type "MessageAttributesTransfer" to the "%sTransfer" transfer object of the module "%s".', $asyncApiMessage->getName(), $moduleName));
-        $asyncApiResponseTransfer->addMessage($messageTransfer);
+
+        $asyncApiResponseTransfer->addMessage($this->messageBuilder->buildMessage(AsyncApiInfo::addedPropertyWithTypeTo('messageAttributes', 'MessageAttributesTransfer', $asyncApiMessage->getName(), $moduleName)));
 
         $commandLines[] = [
-            'vendor/bin/spryk-run',
+            $this->config->getSprykRunExecutablePath() . '/vendor/bin/spryk-run',
             'AddSharedTransferDefinition',
             '--mode', $this->sprykMode,
             '--organization', $projectNamespace,
@@ -245,9 +241,8 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
             '-n',
             '-v',
         ];
-        $messageTransfer = new MessageTransfer();
-        $messageTransfer->setMessage(sprintf('Added transfer definition for "MessageAttributeTransfer" to the module "%s".', $moduleName));
-        $asyncApiResponseTransfer->addMessage($messageTransfer);
+
+        $asyncApiResponseTransfer->addMessage($this->messageBuilder->buildMessage(AsyncApiInfo::addedTransferDefinitionTo('MessageAttributeTransfer', $moduleName)));
 
         $this->runCommandLines($commandLines);
 
@@ -256,10 +251,10 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
 
     /**
      * @param \SprykerSdk\AsyncApi\AsyncApi\Message\AsyncApiMessageInterface $asyncApiMessage
-     * @param \Generated\Shared\Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
+     * @param \Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
      * @param string $projectNamespace
      *
-     * @return \Generated\Shared\Transfer\AsyncApiResponseTransfer
+     * @return \Transfer\AsyncApiResponseTransfer
      */
     protected function createHandlerForMessage(
         AsyncApiMessageInterface $asyncApiMessage,
@@ -278,7 +273,7 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
         $messageName = $messageNameAttribute->getValue();
 
         $commandLines[] = [
-            'vendor/bin/spryk-run',
+            $this->config->getSprykRunExecutablePath() . '/vendor/bin/spryk-run',
             'AddMessageBrokerHandlerPlugin',
             '--mode', $this->sprykMode,
             '--organization', $projectNamespace,
@@ -288,9 +283,7 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
             '-v',
         ];
 
-        $messageTransfer = new MessageTransfer();
-        $messageTransfer->setMessage(sprintf('Added MessageHandlerPlugin for the message "%s" to the module "%s".', $messageName, $moduleName));
-        $asyncApiResponseTransfer->addMessage($messageTransfer);
+        $asyncApiResponseTransfer->addMessage($this->messageBuilder->buildMessage(AsyncApiInfo::addedMessageHandlerPluginForMessageTo($messageName, $moduleName)));
 
         $this->runCommandLines($commandLines);
 
@@ -308,6 +301,7 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
     {
         foreach ($commandLines as $commandLine) {
             $process = new Process($commandLine, $this->config->getProjectRootPath());
+
             $process->run(function ($a, $buffer) {
                 echo $buffer;
                 // For debugging purposes, set a breakpoint here to see issues.

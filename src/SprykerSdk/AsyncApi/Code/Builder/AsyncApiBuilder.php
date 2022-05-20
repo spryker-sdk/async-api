@@ -7,15 +7,15 @@
 
 namespace SprykerSdk\AsyncApi\Code\Builder;
 
-use Generated\Shared\Transfer\AsyncApiMessageTransfer;
-use Generated\Shared\Transfer\AsyncApiRequestTransfer;
-use Generated\Shared\Transfer\AsyncApiResponseTransfer;
 use ReflectionClass;
 use SprykerSdk\AsyncApi\Exception\InvalidConfigurationException;
 use SprykerSdk\AsyncApi\Message\AsyncApiError;
 use SprykerSdk\AsyncApi\Message\AsyncApiInfo;
 use SprykerSdk\AsyncApi\Message\MessageBuilderInterface;
 use Symfony\Component\Yaml\Yaml;
+use Transfer\AsyncApiMessageTransfer;
+use Transfer\AsyncApiRequestTransfer;
+use Transfer\AsyncApiResponseTransfer;
 
 class AsyncApiBuilder implements AsyncApiBuilderInterface
 {
@@ -40,9 +40,9 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
+     * @param \Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
      *
-     * @return \Generated\Shared\Transfer\AsyncApiResponseTransfer
+     * @return \Transfer\AsyncApiResponseTransfer
      */
     public function addAsyncApi(AsyncApiRequestTransfer $asyncApiRequestTransfer): AsyncApiResponseTransfer
     {
@@ -78,9 +78,9 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
+     * @param \Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
      *
-     * @return \Generated\Shared\Transfer\AsyncApiResponseTransfer
+     * @return \Transfer\AsyncApiResponseTransfer
      */
     public function addAsyncApiMessage(AsyncApiRequestTransfer $asyncApiRequestTransfer): AsyncApiResponseTransfer
     {
@@ -118,7 +118,7 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
+     * @param \Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
      *
      * @throws \SprykerSdk\AsyncApi\Exception\InvalidConfigurationException
      *
@@ -146,7 +146,7 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
+     * @param \Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
      *
      * @return bool
      */
@@ -156,7 +156,7 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
+     * @param \Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
      *
      * @return bool
      */
@@ -166,7 +166,7 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
+     * @param \Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
      *
      * @return bool
      */
@@ -182,8 +182,8 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
     /**
      * @param array $asyncApi
      * @param string $messageName
-     * @param \Generated\Shared\Transfer\AsyncApiMessageTransfer $asyncApiMessageTransfer
-     * @param \Generated\Shared\Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
+     * @param \Transfer\AsyncApiMessageTransfer $asyncApiMessageTransfer
+     * @param \Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
      *
      * @return array
      */
@@ -208,8 +208,8 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
     /**
      * @param array $asyncApi
      * @param string $messageName
-     * @param \Generated\Shared\Transfer\AsyncApiMessageTransfer $asyncApiMessageTransfer
-     * @param \Generated\Shared\Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
+     * @param \Transfer\AsyncApiMessageTransfer $asyncApiMessageTransfer
+     * @param \Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
      *
      * @return array
      */
@@ -251,7 +251,7 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
     /**
      * @param array $asyncApi
      * @param string $messageName
-     * @param \Generated\Shared\Transfer\AsyncApiMessageTransfer $asyncApiMessageTransfer
+     * @param \Transfer\AsyncApiMessageTransfer $asyncApiMessageTransfer
      *
      * @return array
      */
@@ -311,7 +311,7 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
     /**
      * @param array $asyncApi
      * @param string $messageName
-     * @param \Generated\Shared\Transfer\AsyncApiMessageTransfer $asyncApiMessageTransfer
+     * @param \Transfer\AsyncApiMessageTransfer $asyncApiMessageTransfer
      *
      * @return array
      */
@@ -341,8 +341,8 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\AsyncApiMessageTransfer $asyncApiMessageTransfer
-     * @param \Generated\Shared\Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
+     * @param \Transfer\AsyncApiMessageTransfer $asyncApiMessageTransfer
+     * @param \Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
      *
      * @return string
      */
@@ -359,10 +359,10 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\AsyncApiMessageTransfer $asyncApiMessageTransfer
-     * @param \Generated\Shared\Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
+     * @param \Transfer\AsyncApiMessageTransfer $asyncApiMessageTransfer
+     * @param \Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
      *
-     * @return \Generated\Shared\Transfer\AsyncApiMessageTransfer
+     * @return \Transfer\AsyncApiMessageTransfer
      */
     protected function getMessageAttributes(
         AsyncApiMessageTransfer $asyncApiMessageTransfer,
@@ -373,7 +373,7 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
         }
 
         if ($asyncApiRequestTransfer->getPayloadTransferObjectName()) {
-            /** @var class-string<\Generated\Shared\Transfer\AbstractTransfer> $transferObjectClassName */
+            /** @var class-string<\Transfer\AbstractTransfer> $transferObjectClassName */
             $transferObjectClassName = '\\' . ltrim($asyncApiRequestTransfer->getPayloadTransferObjectNameOrFail(), '\\');
 
             $transferObject = new $transferObjectClassName();
@@ -509,10 +509,10 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\AsyncApiMessageTransfer $asyncApiMessageTransfer
-     * @param \Generated\Shared\Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
+     * @param \Transfer\AsyncApiMessageTransfer $asyncApiMessageTransfer
+     * @param \Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
      *
-     * @return \Generated\Shared\Transfer\AsyncApiMessageTransfer
+     * @return \Transfer\AsyncApiMessageTransfer
      */
     protected function formatProperty(
         AsyncApiMessageTransfer $asyncApiMessageTransfer,

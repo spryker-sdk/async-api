@@ -7,14 +7,14 @@
 
 namespace SprykerSdk\AsyncApi\Message;
 
-use Generated\Shared\Transfer\MessageTransfer;
+use Transfer\MessageTransfer;
 
 interface MessageBuilderInterface
 {
     /**
      * @param string $message
      *
-     * @return \Generated\Shared\Transfer\MessageTransfer
+     * @return \Transfer\MessageTransfer
      */
     public function buildMessage(string $message): MessageTransfer;
 }

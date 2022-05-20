@@ -57,6 +57,41 @@ class AsyncApiInfo
     }
 
     /**
+     * @param string $propertyName
+     * @param string $type
+     * @param string $asyncApiMessageName
+     * @param string $moduleName
+     *
+     * @return string
+     */
+    public static function addedPropertyWithTypeTo(string $propertyName, string $type, string $asyncApiMessageName, string $moduleName): string
+    {
+        return static::format(sprintf('Added property "%s" with type "%s" to the "%sTransfer" transfer object of the module "%s".', $propertyName, $type, $asyncApiMessageName, $moduleName));
+    }
+
+    /**
+     * @param string $asyncApiMessageName
+     * @param string $moduleName
+     *
+     * @return string
+     */
+    public static function addedTransferDefinitionTo(string $asyncApiMessageName, string $moduleName): string
+    {
+        return static::format(sprintf('Added transfer definition for "%s" to the module "%s".', $asyncApiMessageName, $moduleName));
+    }
+
+    /**
+     * @param string $asyncApiMessageName
+     * @param string $moduleName
+     *
+     * @return string
+     */
+    public static function addedMessageHandlerPluginForMessageTo(string $asyncApiMessageName, string $moduleName): string
+    {
+        return static::format(sprintf('Added MessageHandlerPlugin for the message "%sTransfer" to the module "%s".', $asyncApiMessageName, $moduleName));
+    }
+
+    /**
      * Colorize output in CLI on Linux machines.
      *
      * Info text will be in green, everything in double quotes will be yellow, and quotes will be removed.

@@ -7,10 +7,10 @@
 
 namespace SprykerSdk\AsyncApi;
 
-use Generated\Shared\Transfer\AsyncApiRequestTransfer;
-use Generated\Shared\Transfer\AsyncApiResponseTransfer;
-use Generated\Shared\Transfer\ValidateRequestTransfer;
-use Generated\Shared\Transfer\ValidateResponseTransfer;
+use Transfer\AsyncApiRequestTransfer;
+use Transfer\AsyncApiResponseTransfer;
+use Transfer\ValidateRequestTransfer;
+use Transfer\ValidateResponseTransfer;
 
 interface AsyncApiFacadeInterface
 {
@@ -20,9 +20,9 @@ interface AsyncApiFacadeInterface
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
+     * @param \Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
      *
-     * @return \Generated\Shared\Transfer\AsyncApiResponseTransfer
+     * @return \Transfer\AsyncApiResponseTransfer
      */
     public function addAsyncApi(AsyncApiRequestTransfer $asyncApiRequestTransfer): AsyncApiResponseTransfer;
 
@@ -33,9 +33,9 @@ interface AsyncApiFacadeInterface
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
+     * @param \Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
      *
-     * @return \Generated\Shared\Transfer\AsyncApiResponseTransfer
+     * @return \Transfer\AsyncApiResponseTransfer
      */
     public function addAsyncApiMessage(AsyncApiRequestTransfer $asyncApiRequestTransfer): AsyncApiResponseTransfer;
 
@@ -45,9 +45,9 @@ interface AsyncApiFacadeInterface
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
+     * @param \Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
      *
-     * @return \Generated\Shared\Transfer\AsyncApiResponseTransfer
+     * @return \Transfer\AsyncApiResponseTransfer
      */
     public function buildFromAsyncApi(AsyncApiRequestTransfer $asyncApiRequestTransfer): AsyncApiResponseTransfer;
 
@@ -60,9 +60,9 @@ interface AsyncApiFacadeInterface
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\ValidateRequestTransfer $validateRequestTransfer
+     * @param \Transfer\ValidateRequestTransfer $validateRequestTransfer
      *
-     * @return \Generated\Shared\Transfer\ValidateResponseTransfer
+     * @return \Transfer\ValidateResponseTransfer
      */
     public function validateAsyncApi(ValidateRequestTransfer $validateRequestTransfer): ValidateResponseTransfer;
 }

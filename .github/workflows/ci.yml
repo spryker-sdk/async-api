@@ -21,7 +21,6 @@ jobs:
                     '7.4',
                     '8.1'
                 ]
-
         steps:
             - uses: actions/checkout@v2
 
@@ -52,7 +51,7 @@ jobs:
               run: composer --version
 
             - name: Composer install
-              run: composer install
+              run: composer install --optimize-autoloader
 
             - name: Run PHPStan
               run: composer stan
@@ -76,3 +75,49 @@ jobs:
               uses: codecov/codecov-action@v1
               with:
                   file: ./tests/_output/coverage.xml
+
+    prefer-lowest:
+        name: "Prefer lowest checks"
+        runs-on: ubuntu-18.04
+        env:
+            APPLICATION_ENV: testing
+        strategy:
+            fail-fast: false
+            matrix:
+                php-version: [
+                    '7.4'
+                ]
+        steps:
+            - uses: actions/checkout@v2
+
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php-version }}
+                  extensions: mbstring, intl, pdo_mysql, redis
+                  tools: composer:v2
+
+            - name: Composer get cache directory
+              id: composer-cache
+              run: |
+                  echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+            - name: Composer cache
+              uses: actions/cache@v2
+              with:
+                  path: ${{ steps.composer-cache.outputs.dir }}
+                  key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+                  restore-keys: |
+                      ${{ runner.os }}-composer-
+
+            - name: Composer validate
+              run: composer validate
+
+            - name: Composer version
+              run: composer --version
+
+            - name: "Install lowest dependencies"
+              run: composer update --prefer-lowest
+
+            - name: Codecept tests
+              run: composer test

@@ -7,8 +7,6 @@
 
 namespace SprykerSdk\AsyncApi;
 
-use SprykerSdk\AsyncApi\Exception\AsyncApiException;
-
 class AsyncApiConfig
 {
     /**
@@ -40,24 +38,21 @@ class AsyncApiConfig
      */
     public function getProjectRootPath(): string
     {
-        $cwd = getcwd();
-
-        // @codeCoverageIgnoreStart
-        if (!$cwd) {
-            throw new AsyncApiException('Could not get the current working directory.');
-        }
-        // @codeCoverageIgnoreEnd
-
-        return $cwd;
+        return (string)getcwd();
     }
 
     /**
-     * @codeCoverageIgnore
+     * Returns the current working directory or `INSTALLED_ROOT_DIRECTORY` (when INSTALLED_ROOT_DIRECTORY is defined).
+     * This is needed to be able to execute this tool within the SprykerSdk and not inside of a project directly.
      *
      * @return string
      */
-    protected function getRootPath(): string
+    public function getSprykRunExecutablePath(): string
     {
-        return ASYNC_API_ROOT_DIR;
+        if (getenv('INSTALLED_ROOT_DIRECTORY')) {
+            return getenv('INSTALLED_ROOT_DIRECTORY');
+        }
+
+        return (string)getcwd();
     }
 }

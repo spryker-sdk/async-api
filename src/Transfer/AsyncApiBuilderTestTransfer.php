@@ -4,7 +4,7 @@
  * (c) Spryker Systems GmbH copyright protected
  */
 
-namespace Generated\Shared\Transfer;
+namespace Transfer;
 
 use ArrayObject;
 
@@ -50,7 +50,7 @@ class AsyncApiBuilderTestTransfer extends AbstractTransfer
     protected $decimal;
 
     /**
-     * @var \ArrayObject|\Generated\Shared\Transfer\MessageTransfer[]
+     * @var \ArrayObject|\Transfer\MessageTransfer[]
      */
     protected $errors;
 
@@ -109,7 +109,7 @@ class AsyncApiBuilderTestTransfer extends AbstractTransfer
             'is_strict' => false,
         ],
         self::ERRORS => [
-            'type' => 'Generated\Shared\Transfer\MessageTransfer',
+            'type' => 'Transfer\MessageTransfer',
             'type_shim' => null,
             'name_underscore' => 'errors',
             'is_collection' => true,
@@ -152,7 +152,7 @@ class AsyncApiBuilderTestTransfer extends AbstractTransfer
      *
      * @param string|null $string
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     * @throws \Exception
      *
      * @return $this
      */
@@ -168,7 +168,7 @@ class AsyncApiBuilderTestTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     * @throws \Exception
      *
      * @return string
      */
@@ -184,7 +184,7 @@ class AsyncApiBuilderTestTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
+     * @throws \Exception
      *
      * @return $this
      */
@@ -225,7 +225,7 @@ class AsyncApiBuilderTestTransfer extends AbstractTransfer
      *
      * @param int|null $integer
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     * @throws \Exception
      *
      * @return $this
      */
@@ -241,7 +241,7 @@ class AsyncApiBuilderTestTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     * @throws \Exception
      *
      * @return int
      */
@@ -257,7 +257,7 @@ class AsyncApiBuilderTestTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
+     * @throws \Exception
      *
      * @return $this
      */
@@ -302,7 +302,7 @@ class AsyncApiBuilderTestTransfer extends AbstractTransfer
      *
      * @param string|int|float|\Spryker\DecimalObject\Decimal $decimal
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     * @throws \Exception
      *
      * @return $this
      */
@@ -318,7 +318,7 @@ class AsyncApiBuilderTestTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\NullValueException
+     * @throws \Exception
      *
      * @return \Spryker\DecimalObject\Decimal
      */
@@ -334,7 +334,7 @@ class AsyncApiBuilderTestTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
+     * @throws \Exception
      *
      * @return $this
      */
@@ -348,7 +348,7 @@ class AsyncApiBuilderTestTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @param \ArrayObject|\Generated\Shared\Transfer\MessageTransfer[] $errors
+     * @param \ArrayObject|\Transfer\MessageTransfer[] $errors
      *
      * @return $this
      */
@@ -363,7 +363,7 @@ class AsyncApiBuilderTestTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @return \ArrayObject|\Generated\Shared\Transfer\MessageTransfer[]
+     * @return \ArrayObject|\Transfer\MessageTransfer[]
      */
     public function getErrors()
     {
@@ -373,7 +373,7 @@ class AsyncApiBuilderTestTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @param \Generated\Shared\Transfer\MessageTransfer $error
+     * @param \Transfer\MessageTransfer $error
      *
      * @return $this
      */
@@ -388,7 +388,7 @@ class AsyncApiBuilderTestTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @throws \Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException
+     * @throws \Exception
      *
      * @return $this
      */
