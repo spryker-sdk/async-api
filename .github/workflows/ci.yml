@@ -117,7 +117,7 @@ jobs:
               run: composer --version
 
             - name: "Install lowest dependencies"
-              run: composer install --prefer-lowest
+              run: composer update --prefer-lowest
 
             - name: Codecept tests
               run: composer test
