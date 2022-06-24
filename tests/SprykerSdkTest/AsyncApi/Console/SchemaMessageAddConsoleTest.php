@@ -102,6 +102,9 @@ class SchemaMessageAddConsoleTest extends Unit
         );
     }
 
+    /**
+     * @return void
+     */
     public function testAddExistingMessageAndCheckOnlyOneExists(): void
     {
         // Arrange
