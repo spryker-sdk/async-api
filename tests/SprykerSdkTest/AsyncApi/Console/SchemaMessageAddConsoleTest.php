@@ -8,6 +8,7 @@
 namespace SprykerSdkTest\AsyncApi\Console;
 
 use Codeception\Test\Unit;
+use SprykerSdk\AsyncApi\AsyncApi\Loader\AsyncApiLoader;
 use SprykerSdk\AsyncApi\Console\AbstractConsole;
 use SprykerSdk\AsyncApi\Console\SchemaMessageAddConsole;
 use SprykerSdk\AsyncApi\Exception\InvalidConfigurationException;
@@ -99,5 +100,30 @@ class SchemaMessageAddConsoleTest extends Unit
             ],
             ['verbosity' => OutputInterface::VERBOSITY_VERBOSE],
         );
+    }
+
+    public function testAddExistingMessageAndCheckOnlyOneExists(): void
+    {
+        // Arrange
+        $commandTester = $this->tester->getConsoleTester(SchemaMessageAddConsole::class, false);
+
+        // Act
+        $commandTester->execute(
+            [
+                '--' . SchemaMessageAddConsole::OPTION_MESSAGE_TYPE => 'publish',
+                '--' . SchemaMessageAddConsole::OPTION_PROPERTY => ['property:string'],
+                '--' . SchemaMessageAddConsole::OPTION_ASYNC_API_FILE => codecept_data_dir('api/asyncapi/console/asyncapi-empty.yml'),
+
+                SchemaMessageAddConsole::ARGUMENT_CHANNEL_NAME => 'test/channel',
+                SchemaMessageAddConsole::ARGUMENT_OPERATION_ID => 'operationId',
+                SchemaMessageAddConsole::ARGUMENT_MESSAGE_NAME => 'testing',
+            ]
+        );
+
+        $asyncApiLoader = new AsyncApiLoader();
+        $asyncApi = $asyncApiLoader->load(codecept_data_dir('api/asyncapi/console/asyncapi-empty.yml'));
+
+        // Assert
+        $this->assertCount(1, $asyncApi->getChannel('test/channel')->getPublishMessages());
     }
 }
