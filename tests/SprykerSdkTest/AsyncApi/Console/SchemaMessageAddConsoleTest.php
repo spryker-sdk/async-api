@@ -8,7 +8,6 @@
 namespace SprykerSdkTest\AsyncApi\Console;
 
 use Codeception\Test\Unit;
-use SprykerSdk\AsyncApi\AsyncApi\Loader\AsyncApiLoader;
 use SprykerSdk\AsyncApi\Console\AbstractConsole;
 use SprykerSdk\AsyncApi\Console\SchemaMessageAddConsole;
 use SprykerSdk\AsyncApi\Exception\InvalidConfigurationException;
