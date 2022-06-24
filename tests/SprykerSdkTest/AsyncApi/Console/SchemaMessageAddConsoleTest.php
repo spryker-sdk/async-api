@@ -15,6 +15,7 @@ use SprykerSdk\AsyncApi\Exception\InvalidConfigurationException;
 use SprykerSdk\AsyncApi\Message\AsyncApiError;
 use SprykerSdkTest\AsyncApi\AsyncApiTester;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Yaml\Yaml;
 use Transfer\AsyncApiBuilderTestTransfer;
 
 /**
@@ -105,7 +106,7 @@ class SchemaMessageAddConsoleTest extends Unit
     /**
      * @return void
      */
-    public function testAddExistingMessageAndCheckOnlyOneExists(): void
+    public function testAddExistingMessageAndCheckArraySizeIsTheSame(): void
     {
         // Arrange
         $commandTester = $this->tester->getConsoleTester(SchemaMessageAddConsole::class, false);
@@ -118,14 +119,13 @@ class SchemaMessageAddConsoleTest extends Unit
                 '--' . SchemaMessageAddConsole::OPTION_ASYNC_API_FILE => codecept_data_dir('api/asyncapi/console/asyncapi.yml'),
                 SchemaMessageAddConsole::ARGUMENT_CHANNEL_NAME => 'test/channel',
                 SchemaMessageAddConsole::ARGUMENT_OPERATION_ID => 'operationId',
-                SchemaMessageAddConsole::ARGUMENT_MESSAGE_NAME => 'testing',
+                SchemaMessageAddConsole::ARGUMENT_MESSAGE_NAME => 'testing-3',
             ],
         );
 
-        $asyncApiLoader = new AsyncApiLoader();
-        $asyncApi = $asyncApiLoader->load(codecept_data_dir('api/asyncapi/console/asyncapi.yml'));
+        $asyncApi = Yaml::parseFile(codecept_data_dir('api/asyncapi/console/asyncapi.yml'));
 
         // Assert
-        $this->assertCount(1, $asyncApi->getChannel('test/channel')->getPublishMessages());
+        $this->assertCount(3, $asyncApi['channels']['test/channel']['publish']['message']['oneOf']);
     }
 }

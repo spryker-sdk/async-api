@@ -280,37 +280,38 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
      */
     protected function addMessageToChannelType(array $asyncApi, string $messageName, string $channelName, string $channelType): array
     {
-        if (isset($asyncApi['channels'][$channelName][$channelType]['message'])) {
-            if (!isset($asyncApi['channels'][$channelName][$channelType]['message']['oneOf'])) {
-                $messages = [
-                    $asyncApi['channels'][$channelName][$channelType]['message'],
-                ];
+        if (!isset($asyncApi['channels'][$channelName][$channelType]['message'])) {
+            $asyncApi['channels'][$channelName][$channelType]['message'] = [
+                '$ref' => sprintf('#/components/messages/%s', $messageName),
+            ];
 
-                if ($this->messageNameExists($messageName, $messages) === true) {
-                    return $asyncApi;
-                }
-
-                $messages[] = [
-                    '$ref' => sprintf('#/components/messages/%s', $messageName),
-                ];
-
-                $asyncApi['channels'][$channelName][$channelType]['message'] = [];
-                $asyncApi['channels'][$channelName][$channelType]['message']['oneOf'] = $messages;
-
-                return $asyncApi;
-            }
-
-            if ($this->messageNameExists($messageName, $asyncApi['channels'][$channelName][$channelType]['message']['oneOf']) === false) {
-                $asyncApi['channels'][$channelName][$channelType]['message']['oneOf'][] = [
-                    '$ref' => sprintf('#/components/messages/%s', $messageName),
-                ];
-
-                return $asyncApi;
-            }
+            return $asyncApi;
         }
-        $asyncApi['channels'][$channelName][$channelType]['message'] = [
-            '$ref' => sprintf('#/components/messages/%s', $messageName),
-        ];
+
+        if (!isset($asyncApi['channels'][$channelName][$channelType]['message']['oneOf'])) {
+            $messages = [
+                $asyncApi['channels'][$channelName][$channelType]['message'],
+            ];
+
+            if ($this->messageNameExists($messageName, $messages) === true) {
+                return $asyncApi;
+            }
+
+            $messages[] = [
+                '$ref' => sprintf('#/components/messages/%s', $messageName),
+            ];
+
+            $asyncApi['channels'][$channelName][$channelType]['message'] = [];
+            $asyncApi['channels'][$channelName][$channelType]['message']['oneOf'] = $messages;
+
+            return $asyncApi;
+        }
+
+        if ($this->messageNameExists($messageName, $asyncApi['channels'][$channelName][$channelType]['message']['oneOf']) === false) {
+            $asyncApi['channels'][$channelName][$channelType]['message']['oneOf'][] = [
+                '$ref' => sprintf('#/components/messages/%s', $messageName),
+            ];
+        }
 
         return $asyncApi;
     }
