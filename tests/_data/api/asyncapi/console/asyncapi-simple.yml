@@ -1,0 +1,42 @@
+asyncapi: 2.2.0
+info:
+    title: 'Registry service (ATRS) AsyncAPI definition.'
+    version: 0.1.0
+channels:
+    test/channel:
+        publish:
+            message:
+                $ref: '#/components/messages/testing-1'
+components:
+    schemas:
+        testing-1:
+            type: object
+            properties:
+                property:
+                    type: string
+        headers:
+            type: object
+            required:
+                - timestamp
+                - store
+                - correlationId
+            properties:
+                timestamp:
+                    type: integer
+                    description: 'Timestamp when this message was created (microtime).'
+                store:
+                    type: string
+                    description: 'Store name that triggered the event.'
+                appIdentifier:
+                    type: string
+                    description: 'Identifier of the app for the triggered event.'
+                correlationId:
+                    type: string
+                    description: 'Identifier of the current process.'
+    messages:
+        testing-1:
+            name: testing-1
+            operationId: operationId
+            summary: ''
+            payload:
+                $ref: '#/components/schemas/testing-1'

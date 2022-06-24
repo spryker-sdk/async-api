@@ -118,7 +118,7 @@ class SchemaMessageAddConsoleTest extends Unit
                 '--' . SchemaMessageAddConsole::OPTION_ASYNC_API_FILE => codecept_data_dir('api/asyncapi/console/asyncapi.yml'),
                 SchemaMessageAddConsole::ARGUMENT_CHANNEL_NAME => 'test/channel',
                 SchemaMessageAddConsole::ARGUMENT_OPERATION_ID => 'operationId',
-                SchemaMessageAddConsole::ARGUMENT_MESSAGE_NAME => 'testing-3',
+                SchemaMessageAddConsole::ARGUMENT_MESSAGE_NAME => 'testing-1',
             ],
         );
 
@@ -126,5 +126,31 @@ class SchemaMessageAddConsoleTest extends Unit
 
         // Assert
         $this->assertCount(3, $asyncApi['channels']['test/channel']['publish']['message']['oneOf']);
+    }
+
+    /**
+     * @return void
+     */
+    public function testAddExistingMessageAndCheckArrayIsNotCreated(): void
+    {
+        // Arrange
+        $commandTester = $this->tester->getConsoleTester(SchemaMessageAddConsole::class, false);
+
+        // Act
+        $commandTester->execute(
+            [
+                '--' . SchemaMessageAddConsole::OPTION_MESSAGE_TYPE => 'publish',
+                '--' . SchemaMessageAddConsole::OPTION_PROPERTY => ['property:string'],
+                '--' . SchemaMessageAddConsole::OPTION_ASYNC_API_FILE => codecept_data_dir('api/asyncapi/console/asyncapi-simple.yml'),
+                SchemaMessageAddConsole::ARGUMENT_CHANNEL_NAME => 'test/channel',
+                SchemaMessageAddConsole::ARGUMENT_OPERATION_ID => 'operationId',
+                SchemaMessageAddConsole::ARGUMENT_MESSAGE_NAME => 'testing-1',
+            ],
+        );
+
+        $asyncApi = Yaml::parseFile(codecept_data_dir('api/asyncapi/console/asyncapi-simple.yml'));
+
+        // Assert
+        $this->assertTrue(!isset($asyncApi['channels']['test/channel']['publish']['message']['oneOf']));
     }
 }
