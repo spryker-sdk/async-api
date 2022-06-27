@@ -111,6 +111,7 @@ class SchemaMessageAddConsoleTest extends Unit
         $commandTester = $this->tester->getConsoleTester(SchemaMessageAddConsole::class, false);
 
         // Act
+        // The message 'testing-1' is added for the second time in the channel 'test/channel'
         $commandTester->execute(
             [
                 '--' . SchemaMessageAddConsole::OPTION_MESSAGE_TYPE => 'publish',
@@ -122,9 +123,11 @@ class SchemaMessageAddConsoleTest extends Unit
             ],
         );
 
+        // The YAML file is parsed after the message was added
         $asyncApi = Yaml::parseFile(codecept_data_dir('api/asyncapi/console/asyncapi.yml'));
 
         // Assert
+        // The number of elements in the array is the same as before
         $this->assertCount(3, $asyncApi['channels']['test/channel']['publish']['message']['oneOf']);
     }
 
@@ -137,6 +140,7 @@ class SchemaMessageAddConsoleTest extends Unit
         $commandTester = $this->tester->getConsoleTester(SchemaMessageAddConsole::class, false);
 
         // Act
+        // The message 'testing-1' is added for the second time in the channel 'test/channel'
         $commandTester->execute(
             [
                 '--' . SchemaMessageAddConsole::OPTION_MESSAGE_TYPE => 'publish',
@@ -148,9 +152,11 @@ class SchemaMessageAddConsoleTest extends Unit
             ],
         );
 
+        // The YAML file is parsed after the message was added
         $asyncApi = Yaml::parseFile(codecept_data_dir('api/asyncapi/console/asyncapi-simple.yml'));
 
         // Assert
+        // Not only the message wasn't added again, but also the 'oneOf' array wasn't created
         $this->assertTrue(!isset($asyncApi['channels']['test/channel']['publish']['message']['oneOf']));
     }
 }
