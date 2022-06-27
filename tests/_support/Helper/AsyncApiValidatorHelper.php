@@ -81,10 +81,8 @@ class AsyncApiValidatorHelper extends Module
     protected function prepareAsyncApiSchema(array $files): void
     {
         $structure = [
-            'config' => [
-                'api' => [
-                    'asyncapi' => $files,
-                ],
+            'resources' => [
+                'api' => $files,
             ],
         ];
 

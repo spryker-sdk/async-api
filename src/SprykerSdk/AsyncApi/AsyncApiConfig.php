@@ -20,9 +20,8 @@ class AsyncApiConfig
     {
         $pathFragments = [
             $this->getProjectRootPath(),
-            'config',
+            'resources',
             'api',
-            'asyncapi',
             'asyncapi.yml',
         ];
 
