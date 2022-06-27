@@ -216,7 +216,7 @@ class AsyncApiHelper extends Module
      */
     public function haveAsyncApiFile(): void
     {
-        $this->prepareAsyncApiFile(codecept_data_dir('api/asyncapi/valid/base_asyncapi.schema.yml'));
+        $this->prepareAsyncApiFile(codecept_data_dir('api/valid/base_asyncapi.schema.yml'));
     }
 
     /**
