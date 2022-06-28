@@ -103,60 +103,64 @@ class SchemaMessageAddConsoleTest extends Unit
     }
 
     /**
+     * This test ensures that a message can only be added once per channel.
+     * The given API file already has the message that should be added defined and thus adding it again will be skipped.
+     *
      * @return void
      */
-    public function testAddExistingMessageAndCheckArraySizeIsTheSame(): void
+    public function testAddsMessageOnlyWhenMessageWithNameIsNotUsedInChannel(): void
     {
         // Arrange
         $commandTester = $this->tester->getConsoleTester(SchemaMessageAddConsole::class, false);
 
         // Act
-        // The message 'testing-1' is added for the second time in the channel 'test/channel'
+        // The message 'OutgoingMessage' is added for the second time in the channel 'channelNameA'
         $commandTester->execute(
             [
-                '--' . SchemaMessageAddConsole::OPTION_MESSAGE_TYPE => 'publish',
+                '--' . SchemaMessageAddConsole::OPTION_MESSAGE_TYPE => 'subscribe',
                 '--' . SchemaMessageAddConsole::OPTION_PROPERTY => ['property:string'],
-                '--' . SchemaMessageAddConsole::OPTION_ASYNC_API_FILE => codecept_data_dir('api/asyncapi/console/asyncapi.yml'),
-                SchemaMessageAddConsole::ARGUMENT_CHANNEL_NAME => 'test/channel',
+                '--' . SchemaMessageAddConsole::OPTION_ASYNC_API_FILE => codecept_data_dir('api/asyncapi/asyncapi.yml'),
+                SchemaMessageAddConsole::ARGUMENT_CHANNEL_NAME => 'channelNameA',
                 SchemaMessageAddConsole::ARGUMENT_OPERATION_ID => 'operationId',
-                SchemaMessageAddConsole::ARGUMENT_MESSAGE_NAME => 'testing-1',
+                SchemaMessageAddConsole::ARGUMENT_MESSAGE_NAME => 'OutgoingMessage',
             ],
         );
 
         // The YAML file is parsed after the message was added
-        $asyncApi = Yaml::parseFile(codecept_data_dir('api/asyncapi/console/asyncapi.yml'));
+        $asyncApi = Yaml::parseFile(codecept_data_dir('api/asyncapi/asyncapi.yml'));
 
         // Assert
-        // The number of elements in the array is the same as before
-        $this->assertCount(3, $asyncApi['channels']['test/channel']['publish']['message']['oneOf']);
+        $this->tester->assertMessageExistsOnlyOnceInChannel($asyncApi, 'OutgoingMessage', 'channelNameA', 'subscribe');
     }
 
     /**
+     * This test ensures that trying to add an existing message to a channel with only one message will not create an array.
+     *
      * @return void
      */
-    public function testAddExistingMessageAndCheckArrayIsNotCreated(): void
+    public function testAddExistingMessageToChannelWithOneMessageWillNotCreateArrayOfMessages(): void
     {
         // Arrange
         $commandTester = $this->tester->getConsoleTester(SchemaMessageAddConsole::class, false);
 
         // Act
-        // The message 'testing-1' is added for the second time in the channel 'test/channel'
+        // The message 'PaymentMethodAdded' is added for the second time in the channel 'payment'
         $commandTester->execute(
             [
                 '--' . SchemaMessageAddConsole::OPTION_MESSAGE_TYPE => 'publish',
                 '--' . SchemaMessageAddConsole::OPTION_PROPERTY => ['property:string'],
-                '--' . SchemaMessageAddConsole::OPTION_ASYNC_API_FILE => codecept_data_dir('api/asyncapi/console/asyncapi-simple.yml'),
-                SchemaMessageAddConsole::ARGUMENT_CHANNEL_NAME => 'test/channel',
+                '--' . SchemaMessageAddConsole::OPTION_ASYNC_API_FILE => codecept_data_dir('api/asyncapi/asyncapi-one-reference.yml'),
+                SchemaMessageAddConsole::ARGUMENT_CHANNEL_NAME => 'payment',
                 SchemaMessageAddConsole::ARGUMENT_OPERATION_ID => 'operationId',
-                SchemaMessageAddConsole::ARGUMENT_MESSAGE_NAME => 'testing-1',
+                SchemaMessageAddConsole::ARGUMENT_MESSAGE_NAME => 'PaymentMethodAdded',
             ],
         );
 
         // The YAML file is parsed after the message was added
-        $asyncApi = Yaml::parseFile(codecept_data_dir('api/asyncapi/console/asyncapi-simple.yml'));
+        $asyncApi = Yaml::parseFile(codecept_data_dir('api/asyncapi/asyncapi-one-reference.yml'));
 
         // Assert
         // Not only the message wasn't added again, but also the 'oneOf' array wasn't created
-        $this->assertTrue(!isset($asyncApi['channels']['test/channel']['publish']['message']['oneOf']));
+        $this->assertTrue(!isset($asyncApi['channels']['payment']['publish']['message']['oneOf']));
     }
 }
