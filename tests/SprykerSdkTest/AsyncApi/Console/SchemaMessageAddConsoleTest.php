@@ -104,11 +104,11 @@ class SchemaMessageAddConsoleTest extends Unit
 
     /**
      * This test ensures that a message can only be added once per channel.
-     * The given API file already has the message that should be added defined and thus adding it again will be skipped.
+     * The given API file already has the message that should be added and thus adding it again will be skipped.
      *
      * @return void
      */
-    public function testAddsMessageOnlyWhenMessageWithNameIsNotUsedInChannel(): void
+    public function testAddMessageOnlyWhenMessageNameDoesNotExistInChannel(): void
     {
         // Arrange
         $commandTester = $this->tester->getConsoleTester(SchemaMessageAddConsole::class, false);
@@ -134,11 +134,11 @@ class SchemaMessageAddConsoleTest extends Unit
     }
 
     /**
-     * This test ensures that trying to add an existing message to a channel with only one message will not create an array.
+     * This test ensures that the array 'oneOf' is not created when trying to add an existing message to a channel that has only one message.
      *
      * @return void
      */
-    public function testAddExistingMessageToChannelWithOneMessageWillNotCreateArrayOfMessages(): void
+    public function testAddExistingMessageToChannelWithOneMessageDoesNotCreateOneOfArray(): void
     {
         // Arrange
         $commandTester = $this->tester->getConsoleTester(SchemaMessageAddConsole::class, false);
@@ -160,7 +160,7 @@ class SchemaMessageAddConsoleTest extends Unit
         $asyncApi = Yaml::parseFile(codecept_data_dir('api/asyncapi/asyncapi-one-reference.yml'));
 
         // Assert
-        // Not only the message wasn't added again, but also the 'oneOf' array wasn't created
+        // The 'oneOf' array wasn't created
         $this->assertTrue(!isset($asyncApi['channels']['payment']['publish']['message']['oneOf']));
     }
 }
