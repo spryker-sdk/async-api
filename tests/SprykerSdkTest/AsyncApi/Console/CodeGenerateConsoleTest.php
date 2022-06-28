@@ -40,7 +40,7 @@ class CodeGenerateConsoleTest extends Unit
 
         // Act
         $commandTester->execute([
-            '--' . CodeGenerateConsole::OPTION_ASYNC_API_FILE => codecept_data_dir('api/asyncapi/builder/asyncapi.yml'),
+            '--' . CodeGenerateConsole::OPTION_ASYNC_API_FILE => codecept_data_dir('api/builder/asyncapi.yml'),
             '--' . CodeGenerateConsole::OPTION_ORGANIZATION => 'Spryker',
         ]);
 
@@ -60,7 +60,7 @@ class CodeGenerateConsoleTest extends Unit
 
         // Act
         $commandTester->execute([
-            '--' . CodeGenerateConsole::OPTION_ASYNC_API_FILE => codecept_data_dir('api/asyncapi/builder/asyncapi.yml'),
+            '--' . CodeGenerateConsole::OPTION_ASYNC_API_FILE => codecept_data_dir('api/builder/asyncapi.yml'),
         ], ['verbosity' => OutputInterface::VERBOSITY_VERBOSE]);
 
         // Assert
@@ -81,7 +81,7 @@ class CodeGenerateConsoleTest extends Unit
 
         // Act
         $commandTester->execute([
-            '--' . CodeGenerateConsole::OPTION_ASYNC_API_FILE => codecept_data_dir('api/asyncapi/builder/asyncapi-empty.yml'),
+            '--' . CodeGenerateConsole::OPTION_ASYNC_API_FILE => codecept_data_dir('api/builder/asyncapi-empty.yml'),
         ]);
 
         // Assert
@@ -100,7 +100,7 @@ class CodeGenerateConsoleTest extends Unit
 
         // Act
         $commandTester->execute([
-            '--' . CodeGenerateConsole::OPTION_ASYNC_API_FILE => codecept_data_dir('api/asyncapi/builder/asyncapi-empty.yml'),
+            '--' . CodeGenerateConsole::OPTION_ASYNC_API_FILE => codecept_data_dir('api/builder/asyncapi-empty.yml'),
         ], ['verbosity' => OutputInterface::VERBOSITY_VERBOSE]);
 
         // Assert

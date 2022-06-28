@@ -29,7 +29,7 @@ class AsyncApiTest extends Unit
         $asyncApiLoader = new AsyncApiLoader();
 
         // Act
-        $asyncApi = $asyncApiLoader->load(codecept_data_dir('api/asyncapi/asyncapi-many-references.yml'));
+        $asyncApi = $asyncApiLoader->load(codecept_data_dir('api/asyncapi-many-references.yml'));
 
         // Assert
         $this->assertInstanceOf(AsyncApiInterface::class, $asyncApi);
@@ -44,7 +44,7 @@ class AsyncApiTest extends Unit
         $asyncApiLoader = new AsyncApiLoader();
 
         // Act
-        $asyncApi = $asyncApiLoader->load(codecept_data_dir('api/asyncapi/asyncapi-one-reference.yml'));
+        $asyncApi = $asyncApiLoader->load(codecept_data_dir('api/asyncapi-one-reference.yml'));
 
         // Assert
         $this->assertInstanceOf(AsyncApiInterface::class, $asyncApi);
@@ -59,7 +59,7 @@ class AsyncApiTest extends Unit
         $asyncApiLoader = new AsyncApiLoader();
 
         // Act
-        $asyncApi = $asyncApiLoader->load(codecept_data_dir('api/asyncapi/asyncapi.yml'));
+        $asyncApi = $asyncApiLoader->load(codecept_data_dir('api/asyncapi.yml'));
 
         // Assert
         $this->assertInstanceOf(AsyncApiInterface::class, $asyncApi);
@@ -74,7 +74,7 @@ class AsyncApiTest extends Unit
         $asyncApiLoader = new AsyncApiLoader();
 
         // Act
-        $asyncApi = $asyncApiLoader->load(codecept_data_dir('api/asyncapi/asyncapi.yml'));
+        $asyncApi = $asyncApiLoader->load(codecept_data_dir('api/asyncapi.yml'));
 
         // Assert
         foreach ($asyncApi->getChannels() as $channelName => $channel) {
@@ -92,7 +92,7 @@ class AsyncApiTest extends Unit
         $asyncApiLoader = new AsyncApiLoader();
 
         // Act
-        $asyncApi = $asyncApiLoader->load(codecept_data_dir('api/asyncapi/asyncapi.yml'));
+        $asyncApi = $asyncApiLoader->load(codecept_data_dir('api/asyncapi.yml'));
 
         // Assert
         $channel = $asyncApi->getChannel('channelNameA');
@@ -110,7 +110,7 @@ class AsyncApiTest extends Unit
         $asyncApiLoader = new AsyncApiLoader();
 
         // Act
-        $asyncApi = $asyncApiLoader->load(codecept_data_dir('api/asyncapi/asyncapi.yml'));
+        $asyncApi = $asyncApiLoader->load(codecept_data_dir('api/asyncapi.yml'));
 
         // Assert
         $channel = $asyncApi->getChannel('channelNameA');
@@ -129,7 +129,7 @@ class AsyncApiTest extends Unit
         $asyncApiLoader = new AsyncApiLoader();
 
         // Act
-        $asyncApi = $asyncApiLoader->load(codecept_data_dir('api/asyncapi/asyncapi.yml'));
+        $asyncApi = $asyncApiLoader->load(codecept_data_dir('api/asyncapi.yml'));
 
         // Assert
         $channel = $asyncApi->getChannel('channelNameA');
@@ -148,7 +148,7 @@ class AsyncApiTest extends Unit
         $asyncApiLoader = new AsyncApiLoader();
 
         // Act
-        $asyncApi = $asyncApiLoader->load(codecept_data_dir('api/asyncapi/asyncapi.yml'));
+        $asyncApi = $asyncApiLoader->load(codecept_data_dir('api/asyncapi.yml'));
 
         // Assert
         foreach ($asyncApi->getChannels() as $channel) {
@@ -168,7 +168,7 @@ class AsyncApiTest extends Unit
         $asyncApiLoader = new AsyncApiLoader();
 
         // Act
-        $asyncApi = $asyncApiLoader->load(codecept_data_dir('api/asyncapi/asyncapi.yml'));
+        $asyncApi = $asyncApiLoader->load(codecept_data_dir('api/asyncapi.yml'));
 
         // Assert
         foreach ($asyncApi->getChannels() as $channel) {
@@ -188,7 +188,7 @@ class AsyncApiTest extends Unit
         $asyncApiLoader = new AsyncApiLoader();
 
         // Act
-        $asyncApi = $asyncApiLoader->load(codecept_data_dir('api/asyncapi/asyncapi.yml'));
+        $asyncApi = $asyncApiLoader->load(codecept_data_dir('api/asyncapi.yml'));
 
         // Assert
         $channel = $asyncApi->getChannel('channelNameA');
@@ -208,7 +208,7 @@ class AsyncApiTest extends Unit
         $asyncApiLoader = new AsyncApiLoader();
 
         // Act
-        $asyncApi = $asyncApiLoader->load(codecept_data_dir('api/asyncapi/asyncapi.yml'));
+        $asyncApi = $asyncApiLoader->load(codecept_data_dir('api/asyncapi.yml'));
 
         // Assert
         $channel = $asyncApi->getChannel('channelNameA');
@@ -228,7 +228,7 @@ class AsyncApiTest extends Unit
         $asyncApiLoader = new AsyncApiLoader();
 
         // Act
-        $asyncApi = $asyncApiLoader->load(codecept_data_dir('api/asyncapi/asyncapi-empty.yml'));
+        $asyncApi = $asyncApiLoader->load(codecept_data_dir('api/asyncapi-empty.yml'));
 
         // Assert
         $this->assertNull($asyncApi->getChannel('channelNameA'), 'Expected that channel does not exists but it exists.');

@@ -216,7 +216,7 @@ class AsyncApiHelper extends Module
      */
     public function haveAsyncApiFile(): void
     {
-        $this->prepareAsyncApiFile(codecept_data_dir('api/asyncapi/valid/base_asyncapi.schema.yml'));
+        $this->prepareAsyncApiFile(codecept_data_dir('api/valid/base_asyncapi.schema.yml'));
     }
 
     /**
@@ -226,7 +226,7 @@ class AsyncApiHelper extends Module
      */
     protected function prepareAsyncApiFile(string $pathToAsyncApi): void
     {
-        $filePath = sprintf('%s/config/api/asyncapi/asyncapi.yml', $this->getRootPath());
+        $filePath = sprintf('%s/resources/api/asyncapi.yml', $this->getRootPath());
 
         if (!is_dir(dirname($filePath))) {
             mkdir(dirname($filePath), 0770, true);
