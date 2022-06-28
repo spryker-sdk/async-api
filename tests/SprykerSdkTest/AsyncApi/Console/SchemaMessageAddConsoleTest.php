@@ -130,6 +130,7 @@ class SchemaMessageAddConsoleTest extends Unit
         $asyncApi = Yaml::parseFile(codecept_data_dir('api/asyncapi/asyncapi.yml'));
 
         // Assert
+        // The message exists only once in the channel
         $this->tester->assertMessageExistsOnlyOnceInChannel($asyncApi, 'OutgoingMessage', 'channelNameA', 'subscribe');
     }
 
