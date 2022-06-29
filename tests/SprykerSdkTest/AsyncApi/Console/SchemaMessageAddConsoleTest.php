@@ -131,34 +131,4 @@ class SchemaMessageAddConsoleTest extends Unit
         // Assert
         $this->tester->assertMessageExistsOnlyOnceInChannel($asyncApi, 'OutgoingMessage', 'channelNameA', 'subscribe');
     }
-
-    /**
-     * This test ensures that the array 'oneOf' is not created when trying to add an existing message to a channel that has only one message.
-     *
-     * @return void
-     */
-    public function testAddExistingMessageToChannelWithOneMessageDoesNotCreateOneOfArray(): void
-    {
-        // Arrange
-        $commandTester = $this->tester->getConsoleTester(SchemaMessageAddConsole::class, false);
-
-        // Act
-        // The message 'PaymentMethodAdded' is added for the second time in the channel 'payment'
-        $commandTester->execute(
-            [
-                '--' . SchemaMessageAddConsole::OPTION_MESSAGE_TYPE => 'publish',
-                '--' . SchemaMessageAddConsole::OPTION_PROPERTY => ['property:string'],
-                '--' . SchemaMessageAddConsole::OPTION_ASYNC_API_FILE => codecept_data_dir('api/asyncapi/asyncapi-one-reference.yml'),
-                SchemaMessageAddConsole::ARGUMENT_CHANNEL_NAME => 'payment',
-                SchemaMessageAddConsole::ARGUMENT_OPERATION_ID => 'operationId',
-                SchemaMessageAddConsole::ARGUMENT_MESSAGE_NAME => 'PaymentMethodAdded',
-            ],
-        );
-
-        $asyncApi = Yaml::parseFile(codecept_data_dir('api/asyncapi/asyncapi-one-reference.yml'));
-
-        // Assert
-        // The 'oneOf' array wasn't created
-        $this->assertTrue(!isset($asyncApi['channels']['payment']['publish']['message']['oneOf']));
-    }
 }
