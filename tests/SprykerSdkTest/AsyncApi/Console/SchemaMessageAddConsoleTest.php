@@ -133,7 +133,12 @@ class SchemaMessageAddConsoleTest extends Unit
     }
 
     /**
-     * This test ensures that the array 'oneOf' is not created when trying to add an existing message to a channel that has only one message.
+     * This test ensures that the array 'oneOf' is not created unnecessarily if it still doesn't exist and the message is not added to the channel.
+     *
+     * Test Coverage: AsyncApiBuilder::addMessageToChannelType()
+     * if ($this->messageNameExists($messageName, $messages) === true) {
+     *     return $asyncApi;
+     * }
      *
      * @return void
      */
