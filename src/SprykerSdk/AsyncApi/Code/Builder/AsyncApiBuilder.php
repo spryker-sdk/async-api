@@ -566,7 +566,7 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
      *
      * @return bool
      */
-    protected function messageNameExists($messageName, $messages): bool
+    protected function messageNameExists(string $messageName, array $messages): bool
     {
         $ref = sprintf('#/components/messages/%s', $messageName);
 
