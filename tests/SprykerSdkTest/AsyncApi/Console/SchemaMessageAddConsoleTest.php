@@ -119,14 +119,14 @@ class SchemaMessageAddConsoleTest extends Unit
             [
                 '--' . SchemaMessageAddConsole::OPTION_MESSAGE_TYPE => 'subscribe',
                 '--' . SchemaMessageAddConsole::OPTION_PROPERTY => ['property:string'],
-                '--' . SchemaMessageAddConsole::OPTION_ASYNC_API_FILE => codecept_data_dir('api/asyncapi/asyncapi.yml'),
+                '--' . SchemaMessageAddConsole::OPTION_ASYNC_API_FILE => codecept_data_dir('api/asyncapi.yml'),
                 SchemaMessageAddConsole::ARGUMENT_CHANNEL_NAME => 'channelNameA',
                 SchemaMessageAddConsole::ARGUMENT_OPERATION_ID => 'operationId',
                 SchemaMessageAddConsole::ARGUMENT_MESSAGE_NAME => 'OutgoingMessage',
             ],
         );
 
-        $asyncApi = Yaml::parseFile(codecept_data_dir('api/asyncapi/asyncapi.yml'));
+        $asyncApi = Yaml::parseFile(codecept_data_dir('api/asyncapi.yml'));
 
         // Assert
         $this->tester->assertMessageExistsOnlyOnceInChannel($asyncApi, 'OutgoingMessage', 'channelNameA', 'subscribe');
@@ -153,14 +153,14 @@ class SchemaMessageAddConsoleTest extends Unit
             [
                 '--' . SchemaMessageAddConsole::OPTION_MESSAGE_TYPE => 'publish',
                 '--' . SchemaMessageAddConsole::OPTION_PROPERTY => ['property:string'],
-                '--' . SchemaMessageAddConsole::OPTION_ASYNC_API_FILE => codecept_data_dir('api/asyncapi/asyncapi-one-reference.yml'),
+                '--' . SchemaMessageAddConsole::OPTION_ASYNC_API_FILE => codecept_data_dir('api/asyncapi-one-reference.yml'),
                 SchemaMessageAddConsole::ARGUMENT_CHANNEL_NAME => 'payment',
                 SchemaMessageAddConsole::ARGUMENT_OPERATION_ID => 'operationId',
                 SchemaMessageAddConsole::ARGUMENT_MESSAGE_NAME => 'PaymentMethodAdded',
             ],
         );
 
-        $asyncApi = Yaml::parseFile(codecept_data_dir('api/asyncapi/asyncapi-one-reference.yml'));
+        $asyncApi = Yaml::parseFile(codecept_data_dir('api/asyncapi-one-reference.yml'));
 
         // Assert
         // The 'oneOf' array wasn't created

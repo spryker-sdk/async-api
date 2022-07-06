@@ -4,19 +4,12 @@ channels:
             message:
                 $ref: '#/components/messages/PaymentMethodAdded'
 components:
-    messages:
-        PaymentMethodAdded:
-            name: PaymentMethodAdded
-            operationId: Oms
-            summary: 'Handle a new Payment method.'
-            payload:
-                $ref: '#/components/schemas/PaymentMethodAdded'
-            headers:
-                $ref: '#/components/schemas/headers'
     schemas:
         PaymentMethodAdded:
-            $ref: '#/components/schemas/GenericPaymentMethodPayload'
-
+            type: object
+            properties:
+                property:
+                    type: string
         GenericPaymentMethodPayload:
             type: object
             properties:
@@ -52,3 +45,10 @@ components:
                 correlationId:
                     type: string
                     description: 'Identifier of the current process.'
+    messages:
+        PaymentMethodAdded:
+            name: PaymentMethodAdded
+            operationId: operationId
+            summary: ''
+            payload:
+                $ref: '#/components/schemas/PaymentMethodAdded'
