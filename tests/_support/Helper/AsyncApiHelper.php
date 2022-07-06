@@ -542,4 +542,39 @@ class AsyncApiHelper extends Module
             $messageName,
         ));
     }
+
+    /**
+     * @param array $asyncApi
+     * @param string $messageName
+     * @param string $channelName
+     * @param string $channelType
+     *
+     * @return void
+     */
+    public function assertMessageExistsOnlyOnceInChannel(array $asyncApi, string $messageName, string $channelName, string $channelType): void
+    {
+        $this->assertMessageInChannelType($asyncApi, $messageName, $channelName, $channelType);
+
+        $messages = $asyncApi['channels'][$channelName][$channelType]['message'];
+
+        if (!isset($messages['oneOf'])) {
+            return;
+        }
+
+        $expectedMessageReference = sprintf('#/components/messages/%s', $messageName);
+
+        $count = 0;
+
+        foreach ($messages['oneOf'] as $message) {
+            if ($message['$ref'] === $expectedMessageReference) {
+                $count++;
+            }
+        }
+
+        $this->assertEquals(1, $count, sprintf(
+            'Expected to have only one message "%s" in channel "%s"',
+            $messageName,
+            $channelName,
+        ));
+    }
 }

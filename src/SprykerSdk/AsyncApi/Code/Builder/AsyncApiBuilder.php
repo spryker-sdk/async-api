@@ -280,30 +280,38 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
      */
     protected function addMessageToChannelType(array $asyncApi, string $messageName, string $channelName, string $channelType): array
     {
-        if (isset($asyncApi['channels'][$channelName][$channelType]['message'])) {
-            if (isset($asyncApi['channels'][$channelName][$channelType]['message']['oneOf'])) {
-                $asyncApi['channels'][$channelName][$channelType]['message']['oneOf'][] = [
-                    '$ref' => sprintf('#/components/messages/%s', $messageName),
-                ];
+        if (!isset($asyncApi['channels'][$channelName][$channelType]['message'])) {
+            $asyncApi['channels'][$channelName][$channelType]['message'] = [
+                '$ref' => sprintf('#/components/messages/%s', $messageName),
+            ];
 
-                return $asyncApi;
-            }
+            return $asyncApi;
+        }
 
+        if (!isset($asyncApi['channels'][$channelName][$channelType]['message']['oneOf'])) {
             $messages = [
                 $asyncApi['channels'][$channelName][$channelType]['message'],
             ];
 
+            if ($this->messageNameExists($messageName, $messages) === true) {
+                return $asyncApi;
+            }
+
             $messages[] = [
                 '$ref' => sprintf('#/components/messages/%s', $messageName),
             ];
+
             $asyncApi['channels'][$channelName][$channelType]['message'] = [];
             $asyncApi['channels'][$channelName][$channelType]['message']['oneOf'] = $messages;
 
             return $asyncApi;
         }
-        $asyncApi['channels'][$channelName][$channelType]['message'] = [
-            '$ref' => sprintf('#/components/messages/%s', $messageName),
-        ];
+
+        if ($this->messageNameExists($messageName, $asyncApi['channels'][$channelName][$channelType]['message']['oneOf']) === false) {
+            $asyncApi['channels'][$channelName][$channelType]['message']['oneOf'][] = [
+                '$ref' => sprintf('#/components/messages/%s', $messageName),
+            ];
+        }
 
         return $asyncApi;
     }
@@ -550,5 +558,24 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
         $originAsyncApi['info']['version'] = $asyncApi['info']['version'];
 
         return $this->writeToFile($targetFile, $originAsyncApi);
+    }
+
+    /**
+     * @param string $messageName
+     * @param array $messages
+     *
+     * @return bool
+     */
+    protected function messageNameExists(string $messageName, array $messages): bool
+    {
+        $ref = sprintf('#/components/messages/%s', $messageName);
+
+        foreach ($messages as $message) {
+            if ($message['$ref'] === $ref) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

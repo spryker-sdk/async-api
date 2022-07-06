@@ -34,14 +34,74 @@ channels:
                     -
                         $ref: '#/components/messages/AnotherIncomingMessage'
 components:
+    schemas:
+        OutgoingMessage:
+            type: object
+            properties:
+                property:
+                    type: string
+        AnotherOutgoingMessage:
+            type: object
+            properties:
+                anotherOutgoingSourceStatus:
+                    type: string
+                    example: anotherOutgoingSourceStatus
+                anotherOutgoingTargetStatus:
+                    type: string
+                    example: anotherOutgoingTargetStatus
+            required:
+                - anotherOutgoingSourceStatus
+                - anotherOutgoingTargetStatus
+        IncomingMessage:
+            type: object
+            properties:
+                incomingSourceStatus:
+                    type: string
+                    example: incomingSourceStatus
+                incomingTargetStatus:
+                    type: string
+                    example: incomingTargetStatus
+            required:
+                - incomingSourceStatus
+                - incomingTargetStatus
+        AnotherIncomingMessage:
+            type: object
+            properties:
+                anothorIncomingSourceStatus:
+                    type: string
+                    example: anothorIncomingSourceStatus
+                anothorIncomingTargetStatus:
+                    type: string
+                    example: anothorIncomingTargetStatus
+            required:
+                - sourceStatus
+                - anothorIncomingTargetStatus
+        headers:
+            type: object
+            required:
+                - timestamp
+                - store
+                - correlationId
+            properties:
+                timestamp:
+                    type: integer
+                    description: 'Timestamp when this message was created (microtime).'
+                store:
+                    type: string
+                    description: 'Store name that triggered the event.'
+                appIdentifier:
+                    type: string
+                    description: 'Identifier of the app for the triggered event.'
+                correlationId:
+                    type: string
+                    description: 'Identifier of the current process.'
     messages:
         OutgoingMessage:
             name: OutgoingMessage
-            operationId: Module
+            operationId: operationId
+            summary: ''
             payload:
                 $ref: '#/components/schemas/OutgoingMessage'
-            headers:
-                $ref: '#/components/schemas/headers'
         AnotherOutgoingMessage:
             name: OutgoingMessage
             operationId: Module
@@ -63,74 +123,3 @@ components:
                 $ref: '#/components/schemas/AnotherIncomingMessage'
             headers:
                 $ref: '#/components/schemas/headers'
-    schemas:
-        OutgoingMessage:
-            type: object
-            properties:
-                outgoingSourceStatus:
-                    type: string
-                    example: 'outgoingSourceStatus'
-                outgoingTargetStatus:
-                    type: string
-                    example: 'outgoingTargetStatus'
-            required:
-                - outgoingSourceStatus
-                - outgoingTargetStatus
-
-        AnotherOutgoingMessage:
-            type: object
-            properties:
-                anotherOutgoingSourceStatus:
-                    type: string
-                    example: 'anotherOutgoingSourceStatus'
-                anotherOutgoingTargetStatus:
-                    type: string
-                    example: 'anotherOutgoingTargetStatus'
-            required:
-                - anotherOutgoingSourceStatus
-                - anotherOutgoingTargetStatus
-
-        IncomingMessage:
-            type: object
-            properties:
-                incomingSourceStatus:
-                    type: string
-                    example: 'incomingSourceStatus'
-                incomingTargetStatus:
-                    type: string
-                    example: 'incomingTargetStatus'
-            required:
-                - incomingSourceStatus
-                - incomingTargetStatus
-
-        AnotherIncomingMessage:
-            type: object
-            properties:
-                anothorIncomingSourceStatus:
-                    type: string
-                    example: 'anothorIncomingSourceStatus'
-                anothorIncomingTargetStatus:
-                    type: string
-                    example: 'anothorIncomingTargetStatus'
-            required:
-                - sourceStatus
-                - anothorIncomingTargetStatus
-
-        headers:
-            type: object
-            properties:
-                timestamp:
-                    type: integer
-                    description: 'Timestamp when this message was created (microtime).'
-                tenantIdentifier:
-                    type: string
-                    description: 'Identifier of the tenant for the triggered event.'
-                appIdentifier:
-                    type: string
-                    description: 'Identifier of the app for the triggered event.'
-                correlationId:
-                    type: string
-                    description: 'Identifier of the current process.'
-            required:
-                - timestamp
-                - correlationId
