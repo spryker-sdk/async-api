@@ -34,7 +34,7 @@ class SchemaCreateConsoleTest extends Unit
         $commandTester = $this->tester->getConsoleTester(new SchemaCreateConsole());
 
         // Act
-        $commandTester->execute([SchemaCreateConsole::ARGUMENT_TITLE => 'Test File', '--' . SchemaCreateConsole::OPTION_ASYNC_API_FILE => 'config/api/asyncapi.yml'], ['verbosity' => OutputInterface::VERBOSITY_VERBOSE]);
+        $commandTester->execute([SchemaCreateConsole::ARGUMENT_TITLE => 'Test File', '--' . SchemaCreateConsole::OPTION_ASYNC_API_FILE => 'resources/api/asyncapi.yml'], ['verbosity' => OutputInterface::VERBOSITY_VERBOSE]);
 
         // Assert
         $this->assertSame(AbstractConsole::CODE_SUCCESS, $commandTester->getStatusCode());

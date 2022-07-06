@@ -78,7 +78,7 @@ info:
 - `asyncapi-file`
 - `api-version`
 
-`vendor/bin/asyncapi schema:asyncapi:create --asyncapi-file "path/to/async-api.yml"` will override the default file location (config/api/asyncapi/asyncapi.yml).
+`vendor/bin/asyncapi schema:asyncapi:create --asyncapi-file "path/to/async-api.yml"` will override the default file location (resources/api/asyncapi.yml).
 
 `vendor/bin/asyncapi schema:asyncapi:create --api-version 1.0.0` will override the default file version (0.1.0).
 
