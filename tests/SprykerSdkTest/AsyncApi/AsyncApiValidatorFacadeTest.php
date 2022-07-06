@@ -35,7 +35,7 @@ class AsyncApiValidatorFacadeTest extends Unit
 
         // Assert
         $expectedErrorMessage = $validateResponseTransfer->getErrors()[0];
-        $this->assertEquals(AsyncApiError::asyncApiFileDoesNotExist('vfs://root/config/api/asyncapi/asyncapi.yml'), $expectedErrorMessage->getMessage(), 'Async API file "vfs://root/config/api/asyncapi/asyncapi.yml" not found');
+        $this->assertEquals(AsyncApiError::asyncApiFileDoesNotExist('vfs://root/resources/api/asyncapi.yml'), $expectedErrorMessage->getMessage(), 'Async API file "vfs://root/resources/api/asyncapi.yml" not found');
     }
 
     /**
@@ -53,7 +53,7 @@ class AsyncApiValidatorFacadeTest extends Unit
 
         // Assert
         $expectedErrorMessage = $validateResponseTransfer->getErrors()[0];
-        $this->assertEquals(AsyncApiError::couldNotParseAsyncApiFile('vfs://root/config/api/asyncapi/asyncapi.yml'), $expectedErrorMessage->getMessage(), 'AsyncApi file "vfs://root/config/api/asyncapi/valid/invalid_base_asyncapi.schema.yml" is invalid. Error: "Syntax error".');
+        $this->assertEquals(AsyncApiError::couldNotParseAsyncApiFile('vfs://root/resources/api/asyncapi.yml'), $expectedErrorMessage->getMessage(), 'AsyncApi file "vfs://root/resources/api/valid/invalid_base_asyncapi.schema.yml" is invalid. Error: "Syntax error".');
     }
 
     /**
@@ -71,7 +71,7 @@ class AsyncApiValidatorFacadeTest extends Unit
 
         // Assert
         $expectedErrorMessage = $validateResponseTransfer->getErrors()[0];
-        $this->assertEquals(AsyncApiError::asyncApiDoesNotDefineMessages(), $expectedErrorMessage->getMessage(), 'AsyncApi file "vfs://root/config/api/asyncapi/valid/invalid_base_asyncapi.schema.yml" does not contain messages.');
+        $this->assertEquals(AsyncApiError::asyncApiDoesNotDefineMessages(), $expectedErrorMessage->getMessage(), 'AsyncApi file "vfs://root/resources/api/valid/invalid_base_asyncapi.schema.yml" does not contain messages.');
     }
 
     /**

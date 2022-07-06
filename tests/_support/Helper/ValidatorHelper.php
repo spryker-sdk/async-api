@@ -31,11 +31,9 @@ class ValidatorHelper extends Module
     protected function getValidBaseStructure(): array
     {
         return [
-            'config' => [
+            'resources' => [
                 'api' => [
-                    'asyncapi' => [
-                        'asyncapi.yml' => file_get_contents(codecept_data_dir('api/asyncapi/valid/base_asyncapi.schema.yml')),
-                    ],
+                    'asyncapi.yml' => file_get_contents(codecept_data_dir('api/valid/base_asyncapi.schema.yml')),
                 ],
             ],
         ];
