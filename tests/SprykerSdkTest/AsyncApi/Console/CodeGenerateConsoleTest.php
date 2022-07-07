@@ -105,6 +105,9 @@ class CodeGenerateConsoleTest extends Unit
 
         // Assert
         $this->assertSame(AbstractConsole::CODE_ERROR, $commandTester->getStatusCode());
-        $this->assertStringContainsString(AsyncApiError::couldNotGenerateCodeFromAsyncApi(), $commandTester->getDisplay());
+        $this->assertStringContainsString(
+            AsyncApiError::couldNotGenerateCodeFromAsyncApi(codecept_data_dir('api/builder/asyncapi-empty.yml')),
+            $commandTester->getDisplay(),
+        );
     }
 }

@@ -42,6 +42,9 @@ class AsyncApiValidatorTest extends Unit
 
         // Assert
         $this->assertSame(AbstractConsole::CODE_ERROR, $commandTester->getStatusCode());
-        $this->assertStringContainsString(AsyncApiError::asyncApiDoesNotDefineChannels(), $commandTester->getDisplay());
+        $this->assertStringContainsString(
+            AsyncApiError::asyncApiDoesNotDefineChannels($this->tester->getDefaultAsyncApiFilePath()),
+            $commandTester->getDisplay(),
+        );
     }
 }

@@ -42,20 +42,24 @@ class AsyncApiChannelValidatorRule implements ValidatorRuleInterface
         ValidateResponseTransfer $validateResponseTransfer,
         ?array $context = null
     ): ValidateResponseTransfer {
-        return $this->validateAtLeastOneChannelExists($asyncApi, $validateResponseTransfer);
+        return $this->validateAtLeastOneChannelExists($asyncApi, $asyncApiFileName, $validateResponseTransfer);
     }
 
     /**
      * @param array $asyncApi
+     * @param string $asyncApiFileName
      * @param \Transfer\ValidateResponseTransfer $validateResponseTransfer
      *
      * @return \Transfer\ValidateResponseTransfer
      */
-    protected function validateAtLeastOneChannelExists(array $asyncApi, ValidateResponseTransfer $validateResponseTransfer): ValidateResponseTransfer
-    {
+    protected function validateAtLeastOneChannelExists(
+        array $asyncApi,
+        string $asyncApiFileName,
+        ValidateResponseTransfer $validateResponseTransfer
+    ): ValidateResponseTransfer {
         if (!isset($asyncApi['channels'])) {
             $validateResponseTransfer->addError($this->messageBuilder->buildMessage(
-                AsyncApiError::asyncApiDoesNotDefineChannels(),
+                AsyncApiError::asyncApiDoesNotDefineChannels($asyncApiFileName),
             ));
         }
 

@@ -73,7 +73,11 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
         $asyncApiResponseTransfer = $this->buildCodeForSubscribeMessagesChannels($asyncApi, $asyncApiResponseTransfer, $organization);
 
         if ($asyncApiResponseTransfer->getErrors()->count() || !$asyncApiResponseTransfer->getMessages()->count()) {
-            $asyncApiResponseTransfer->addError($this->messageBuilder->buildMessage(AsyncApiError::couldNotGenerateCodeFromAsyncApi()));
+            $asyncApiResponseTransfer->addError(
+                $this->messageBuilder->buildMessage(
+                    AsyncApiError::couldNotGenerateCodeFromAsyncApi($asyncApiRequestTransfer->getTargetFileOrFail()),
+                ),
+            );
         }
 
         if ($asyncApiResponseTransfer->getErrors()->count() === 0) {

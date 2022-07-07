@@ -14,12 +14,17 @@ class AsyncApiValidatorHelper extends Module
     use AsyncApiHelperTrait;
 
     /**
+     * @var string
+     */
+    protected const ASYNC_API_FILE_NAME = 'asyncapi.yml';
+
+    /**
      * @return void
      */
     public function haveValidAsyncApiFile(): void
     {
         $files = [
-            'asyncapi.yml' => file_get_contents(codecept_data_dir('api/valid/base_asyncapi.schema.yml')),
+            static::ASYNC_API_FILE_NAME => file_get_contents(codecept_data_dir('api/valid/base_asyncapi.schema.yml')),
         ];
 
         $this->prepareAsyncApiSchema($files);
@@ -31,7 +36,7 @@ class AsyncApiValidatorHelper extends Module
     public function haveDefaultCreatedAsyncApiFile(): void
     {
         $files = [
-            'asyncapi.yml' => file_get_contents(codecept_data_dir('api/builder/asyncapi-empty.yml')),
+            static::ASYNC_API_FILE_NAME => file_get_contents(codecept_data_dir('api/builder/asyncapi-empty.yml')),
         ];
 
         $this->prepareAsyncApiSchema($files);
@@ -43,7 +48,7 @@ class AsyncApiValidatorHelper extends Module
     public function haveAsyncApiFileSyntaxError(): void
     {
         $files = [
-            'asyncapi.yml' => file_get_contents(codecept_data_dir('api/invalid/syntax_error_asyncapi.schema.yml')),
+            static::ASYNC_API_FILE_NAME => file_get_contents(codecept_data_dir('api/invalid/syntax_error_asyncapi.schema.yml')),
         ];
 
         $this->prepareAsyncApiSchema($files);
@@ -55,7 +60,7 @@ class AsyncApiValidatorHelper extends Module
     public function haveAsyncApiFileWithMissingRequiredFields(): void
     {
         $files = [
-            'asyncapi.yml' => file_get_contents(codecept_data_dir('api/invalid/asyncapi-with-missing-operation-id.yml')),
+            static::ASYNC_API_FILE_NAME => file_get_contents(codecept_data_dir('api/invalid/asyncapi-with-missing-operation-id.yml')),
         ];
 
         $this->prepareAsyncApiSchema($files);
@@ -67,7 +72,7 @@ class AsyncApiValidatorHelper extends Module
     public function haveAsyncApiFileWithDuplicatedMessageNames(): void
     {
         $files = [
-            'asyncapi.yml' => file_get_contents(codecept_data_dir('api/invalid/asyncapi-duplicated-message-names.yml')),
+            static::ASYNC_API_FILE_NAME => file_get_contents(codecept_data_dir('api/invalid/asyncapi-duplicated-message-names.yml')),
         ];
 
         $this->prepareAsyncApiSchema($files);
@@ -80,12 +85,50 @@ class AsyncApiValidatorHelper extends Module
      */
     protected function prepareAsyncApiSchema(array $files): void
     {
-        $structure = [
-            'resources' => [
-                'api' => $files,
-            ],
-        ];
+        $this->getAsyncApiHelper()->mockDirectoryStructure(
+            $this->buildStructureByPath($this->getOpenApiSchemaPath(), $files),
+        );
+    }
 
-        $this->getAsyncApiHelper()->mockDirectoryStructure($structure);
+    /**
+     * @return string
+     */
+    protected function getOpenApiSchemaPath(): string
+    {
+        return 'resources/api';
+    }
+
+    /**
+     * @param string $path
+     * @param array $files
+     *
+     * @return array
+     */
+    protected function buildStructureByPath(string $path, array $files): array
+    {
+        $pathFragments = explode('/', trim($path, '/'));
+
+        $structure = [];
+        $current = &$structure;
+        foreach ($pathFragments as $fragment) {
+            $current[$fragment] = [];
+            $current = &$current[$fragment];
+        }
+        $current = $files;
+
+        return $structure;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDefaultAsyncApiFilePath(): string
+    {
+        return sprintf(
+            '%s/%s/%s',
+            $this->getAsyncApiHelper()->getRootPath(),
+            $this->getOpenApiSchemaPath(),
+            static::ASYNC_API_FILE_NAME,
+        );
     }
 }

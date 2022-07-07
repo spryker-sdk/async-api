@@ -46,7 +46,11 @@ class AsyncApiOperationIdValidatorRule implements ValidatorRuleInterface
 
         foreach ($asyncApi['components']['messages'] as $message) {
             if (!isset($message['operationId'])) {
-                $validateResponseTransfer->addError($this->messageBuilder->buildMessage(AsyncApiError::messageDoesNotHaveAnOperationId($message['name'])));
+                $validateResponseTransfer->addError(
+                    $this->messageBuilder->buildMessage(
+                        AsyncApiError::messageDoesNotHaveAnOperationId($message['name'], $asyncApiFileName),
+                    ),
+                );
             }
         }
 

@@ -71,7 +71,11 @@ class AsyncApiValidatorFacadeTest extends Unit
 
         // Assert
         $expectedErrorMessage = $validateResponseTransfer->getErrors()[0];
-        $this->assertEquals(AsyncApiError::asyncApiDoesNotDefineMessages(), $expectedErrorMessage->getMessage(), 'AsyncApi file "vfs://root/resources/api/valid/invalid_base_asyncapi.schema.yml" does not contain messages.');
+        $this->assertEquals(
+            AsyncApiError::asyncApiDoesNotDefineMessages($this->tester->getDefaultAsyncApiFilePath()),
+            $expectedErrorMessage->getMessage(),
+            'AsyncApi file "vfs://root/resources/api/valid/invalid_base_asyncapi.schema.yml" does not contain messages.',
+        );
     }
 
     /**
@@ -89,7 +93,11 @@ class AsyncApiValidatorFacadeTest extends Unit
 
         // Assert
         $messages = $this->tester->getMessagesFromValidateResponseTransfer($validateResponseTransfer);
-        $this->assertContains(AsyncApiError::messageDoesNotHaveAnOperationId('OutgoingMessage'), $messages, sprintf("Messages: \n\n%s\n", implode(PHP_EOL, $messages)));
+        $this->assertContains(
+            AsyncApiError::messageDoesNotHaveAnOperationId('OutgoingMessage', $this->tester->getDefaultAsyncApiFilePath()),
+            $messages,
+            sprintf("Messages: \n\n%s\n", implode(PHP_EOL, $messages)),
+        );
     }
 
     /**
@@ -107,7 +115,15 @@ class AsyncApiValidatorFacadeTest extends Unit
 
         // Assert
         $messages = $this->tester->getMessagesFromValidateResponseTransfer($validateResponseTransfer);
-        $this->assertContains(AsyncApiError::messageNameUsedMoreThanOnce('OutgoingMessage'), $messages, sprintf("Messages: \n\n%s\n", implode(PHP_EOL, $messages)));
-        $this->assertContains(AsyncApiError::messageNameUsedMoreThanOnce('IncomingMessage'), $messages, sprintf("Messages: \n\n%s\n", implode(PHP_EOL, $messages)));
+        $this->assertContains(
+            AsyncApiError::messageNameUsedMoreThanOnce('OutgoingMessage', $this->tester->getDefaultAsyncApiFilePath()),
+            $messages,
+            sprintf("Messages: \n\n%s\n", implode(PHP_EOL, $messages)),
+        );
+        $this->assertContains(
+            AsyncApiError::messageNameUsedMoreThanOnce('IncomingMessage', $this->tester->getDefaultAsyncApiFilePath()),
+            $messages,
+            sprintf("Messages: \n\n%s\n", implode(PHP_EOL, $messages)),
+        );
     }
 }
