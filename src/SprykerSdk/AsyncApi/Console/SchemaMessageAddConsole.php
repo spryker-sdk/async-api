@@ -134,6 +134,7 @@ class SchemaMessageAddConsole extends AbstractConsole
                 AsyncApiError::messageTypeHasWrongValue(
                     static::OPTION_MESSAGE_TYPE,
                     [static::VALUE_PUBLISH, static::VALUE_SUBSCRIBE],
+                    $asyncApiRequestTransfer->getTargetFileOrFail(),
                 ),
             );
         }

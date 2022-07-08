@@ -89,6 +89,7 @@ class SchemaMessageAddConsoleTest extends Unit
             AsyncApiError::messageTypeHasWrongValue(
                 SchemaMessageAddConsole::OPTION_MESSAGE_TYPE,
                 [SchemaMessageAddConsole::VALUE_PUBLISH, SchemaMessageAddConsole::VALUE_SUBSCRIBE],
+                $this->tester->getDefaultAsyncApiFilePath(),
             ),
         );
         // Act

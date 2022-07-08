@@ -42,22 +42,26 @@ class AsyncApiMessageValidatorRule implements ValidatorRuleInterface
         ValidateResponseTransfer $validateResponseTransfer,
         ?array $context = null
     ): ValidateResponseTransfer {
-        $validateResponseTransfer = $this->validateAtLeastOneMessageExists($asyncApi, $validateResponseTransfer);
+        $validateResponseTransfer = $this->validateAtLeastOneMessageExists($asyncApi, $asyncApiFileName, $validateResponseTransfer);
 
-        return $this->validateMessageNamesAreOnlyUsedOnce($asyncApi, $validateResponseTransfer);
+        return $this->validateMessageNamesAreOnlyUsedOnce($asyncApi, $asyncApiFileName, $validateResponseTransfer);
     }
 
     /**
      * @param array $asyncApi
+     * @param string $asyncApiFileName
      * @param \Transfer\ValidateResponseTransfer $validateResponseTransfer
      *
      * @return \Transfer\ValidateResponseTransfer
      */
-    protected function validateAtLeastOneMessageExists(array $asyncApi, ValidateResponseTransfer $validateResponseTransfer): ValidateResponseTransfer
-    {
+    protected function validateAtLeastOneMessageExists(
+        array $asyncApi,
+        string $asyncApiFileName,
+        ValidateResponseTransfer $validateResponseTransfer
+    ): ValidateResponseTransfer {
         if (!isset($asyncApi['components']['messages']) || count($asyncApi['components']['messages']) === 0) {
             $validateResponseTransfer->addError($this->messageBuilder->buildMessage(
-                AsyncApiError::asyncApiDoesNotDefineMessages(),
+                AsyncApiError::asyncApiDoesNotDefineMessages($asyncApiFileName),
             ));
         }
 
@@ -66,12 +70,16 @@ class AsyncApiMessageValidatorRule implements ValidatorRuleInterface
 
     /**
      * @param array $asyncApi
+     * @param string $asyncApiFileName
      * @param \Transfer\ValidateResponseTransfer $validateResponseTransfer
      *
      * @return \Transfer\ValidateResponseTransfer
      */
-    protected function validateMessageNamesAreOnlyUsedOnce(array $asyncApi, ValidateResponseTransfer $validateResponseTransfer): ValidateResponseTransfer
-    {
+    protected function validateMessageNamesAreOnlyUsedOnce(
+        array $asyncApi,
+        string $asyncApiFileName,
+        ValidateResponseTransfer $validateResponseTransfer
+    ): ValidateResponseTransfer {
         if (!isset($asyncApi['components']['messages'])) {
             return $validateResponseTransfer;
         }
@@ -81,7 +89,7 @@ class AsyncApiMessageValidatorRule implements ValidatorRuleInterface
         foreach ($asyncApi['components']['messages'] as $message) {
             if (isset($messageNames[$message['name']])) {
                 $validateResponseTransfer->addError($this->messageBuilder->buildMessage(
-                    AsyncApiError::messageNameUsedMoreThanOnce($message['name']),
+                    AsyncApiError::messageNameUsedMoreThanOnce($message['name'], $asyncApiFileName),
                 ));
             }
             $messageNames[$message['name']] = true;

@@ -10,78 +10,154 @@ namespace SprykerSdk\AsyncApi\Message;
 class AsyncApiError
 {
     /**
+     * @var string
+     */
+    protected const SCHEMA_VALIDATION_ERROR_PREFIX = 'AsyncAPI schema validation error';
+
+    /**
+     * @var string
+     */
+    protected const CODE_GENERATION_ERROR_PREFIX = 'AsyncAPI code generation error';
+
+    /**
+     * @param string $path
+     *
      * @return string
      */
-    public static function couldNotGenerateCodeFromAsyncApi(): string
+    public static function couldNotGenerateCodeFromAsyncApi(string $path): string
     {
-        return static::format('Something went wrong while trying to generate code. Either no channels have been found or the channels do not have messages defined. Please run validation before generating code.');
+        return static::format(
+            sprintf(
+                '%s: Something went wrong while trying to generate code from Open API schema file "%s". Either no channels have been found or the channels do not have messages defined. Please run validation before generating code.',
+                static::CODE_GENERATION_ERROR_PREFIX,
+                $path,
+            ),
+        );
     }
 
     /**
+     * @param string $path
+     *
      * @return string
      */
-    public static function asyncApiDoesNotDefineChannels(): string
+    public static function asyncApiDoesNotDefineChannels(string $path): string
     {
-        return static::format('Async API file doesn\'t contain channels. You need at least one channel where messages should go through.');
+        return static::format(
+            sprintf(
+                '%s: Async API file "%s" doesn\'t contain channels. You need at least one channel where messages should go through.',
+                static::SCHEMA_VALIDATION_ERROR_PREFIX,
+                $path,
+            ),
+        );
     }
 
     /**
+     * @param string $path
+     *
      * @return string
      */
-    public static function asyncApiDoesNotDefineMessages(): string
+    public static function asyncApiDoesNotDefineMessages(string $path): string
     {
-        return static::format('Async API file doesn\'t contain messages. You need at least one message.');
+        return static::format(
+            sprintf(
+                '%s: Async API file "%s" doesn\'t contain messages. You need at least one message.',
+                static::SCHEMA_VALIDATION_ERROR_PREFIX,
+                $path,
+            ),
+        );
     }
 
     /**
      * @param string $messageName
+     * @param string $path
      *
      * @return string
      */
-    public static function messageDoesNotHaveAnOperationId(string $messageName): string
+    public static function messageDoesNotHaveAnOperationId(string $messageName, string $path): string
     {
-        return static::format(sprintf('The message "%s" doesn\'t have an operationId defined.', $messageName));
+        return static::format(
+            sprintf(
+                '%s: The message "%s" from file "%s" doesn\'t have an operationId defined.',
+                static::SCHEMA_VALIDATION_ERROR_PREFIX,
+                $messageName,
+                $path,
+            ),
+        );
     }
 
     /**
      * @param string $messageName
+     * @param string $path
      *
      * @return string
      */
-    public static function messageNameUsedMoreThanOnce(string $messageName): string
+    public static function messageNameUsedMoreThanOnce(string $messageName, string $path): string
     {
-        return static::format(sprintf('The message name "%s" is used more than once.', $messageName));
+        return static::format(
+            sprintf(
+                '%s: The message name "%s" from file "%s" is used more than once.',
+                static::SCHEMA_VALIDATION_ERROR_PREFIX,
+                $messageName,
+                $path,
+            ),
+        );
     }
 
     /**
-     * @param string $fileName
+     * @param string $path
      *
      * @return string
      */
-    public static function asyncApiFileDoesNotExist(string $fileName): string
+    public static function asyncApiFileDoesNotExist(string $path): string
     {
-        return static::format(sprintf('Couldn\'t find AsyncAPI schema file "%s".', $fileName));
+        return static::format(
+            sprintf(
+                '%s: Couldn\'t find AsyncAPI schema file "%s".',
+                static::SCHEMA_VALIDATION_ERROR_PREFIX,
+                $path,
+            ),
+        );
     }
 
     /**
-     * @param string $fileName
+     * @param string $path
+     * @param string $message
      *
      * @return string
      */
-    public static function couldNotParseAsyncApiFile(string $fileName): string
+    public static function couldNotParseAsyncApiFile(string $path, string $message): string
     {
-        return static::format(sprintf('Couldn\'t not parse AsyncAPI schema file "%s".', $fileName));
+        return static::format(
+            sprintf(
+                '%s: Couldn\'t not parse AsyncAPI schema file "%s". Message - "%s"',
+                static::SCHEMA_VALIDATION_ERROR_PREFIX,
+                $path,
+                $message,
+            ),
+        );
     }
 
     /**
      * @param string $messageTypeOption
      * @param array $availableValues
+     * @param string $path
      *
      * @return string
      */
-    public static function messageTypeHasWrongValue(string $messageTypeOption, array $availableValues): string
-    {
-        return static::format(sprintf('The option "%s" must be one of "%s"', $messageTypeOption, implode('","', $availableValues)));
+    public static function messageTypeHasWrongValue(
+        string $messageTypeOption,
+        array $availableValues,
+        string $path
+    ): string {
+        return static::format(
+            sprintf(
+                '%s: The option "%s" from file "%s" must be one of "%s"',
+                static::SCHEMA_VALIDATION_ERROR_PREFIX,
+                $messageTypeOption,
+                $path,
+                implode('","', $availableValues),
+            ),
+        );
     }
 
     /**
