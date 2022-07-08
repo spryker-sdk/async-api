@@ -70,7 +70,7 @@ class AsyncApiValidator implements ValidatorInterface
             $asyncApi = Yaml::parseFile($asyncApiFile);
         } catch (Exception $e) {
             $validateResponseTransfer->addError($this->messageBuilder->buildMessage(
-                AsyncApiError::couldNotParseAsyncApiFile($asyncApiFile),
+                AsyncApiError::couldNotParseAsyncApiFile($asyncApiFile, $e->getMessage()),
             ));
 
             return $validateResponseTransfer;

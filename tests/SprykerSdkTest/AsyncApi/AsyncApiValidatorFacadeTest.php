@@ -53,7 +53,17 @@ class AsyncApiValidatorFacadeTest extends Unit
 
         // Assert
         $expectedErrorMessage = $validateResponseTransfer->getErrors()[0];
-        $this->assertEquals(AsyncApiError::couldNotParseAsyncApiFile('vfs://root/resources/api/asyncapi.yml'), $expectedErrorMessage->getMessage(), 'AsyncApi file "vfs://root/resources/api/valid/invalid_base_asyncapi.schema.yml" is invalid. Error: "Syntax error".');
+        $this->assertEquals(
+            AsyncApiError::couldNotParseAsyncApiFile(
+                $this->tester->getDefaultAsyncApiFilePath(),
+                sprintf(
+                    'Unable to parse in "%s" at line 5 (near "components").',
+                    $this->tester->getDefaultAsyncApiFilePath(),
+                ),
+            ),
+            $expectedErrorMessage->getMessage(),
+            'AsyncApi file "vfs://root/resources/api/valid/invalid_base_asyncapi.schema.yml" is invalid. Error: "Syntax error".',
+        );
     }
 
     /**

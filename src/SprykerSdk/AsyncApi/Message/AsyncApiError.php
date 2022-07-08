@@ -121,16 +121,18 @@ class AsyncApiError
 
     /**
      * @param string $path
+     * @param string $message
      *
      * @return string
      */
-    public static function couldNotParseAsyncApiFile(string $path): string
+    public static function couldNotParseAsyncApiFile(string $path, string $message): string
     {
         return static::format(
             sprintf(
-                '%s: Couldn\'t not parse AsyncAPI schema file "%s".',
+                '%s: Couldn\'t not parse AsyncAPI schema file "%s". Message - "%s"',
                 static::SCHEMA_VALIDATION_ERROR_PREFIX,
                 $path,
+                $message,
             ),
         );
     }
