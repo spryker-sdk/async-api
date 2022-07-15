@@ -49,7 +49,7 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
         $asyncApiResponseTransfer = new AsyncApiResponseTransfer();
 
         $asyncApi = [
-            'asyncapi' => '2.2.0',
+            'asyncapi' => '2.4.0',
             'info' => [
                 'title' => $asyncApiRequestTransfer->getAsyncApiOrFail()->getTitleOrFail(),
                 'version' => $asyncApiRequestTransfer->getAsyncApiOrFail()->getVersionOrFail(),
