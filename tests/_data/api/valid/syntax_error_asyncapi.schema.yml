@@ -1,4 +1,4 @@
-asyncapi: 2.2.0
+asyncapi: 2.4.0
 info:
     title: 'Test File'
     version: 0.1.0
