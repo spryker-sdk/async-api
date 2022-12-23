@@ -7,6 +7,7 @@
 
 namespace SprykerSdk\AsyncApi\Code\Builder;
 
+use Doctrine\Inflector\InflectorFactory;
 use SprykerSdk\AsyncApi\AsyncApi\AsyncApiInterface;
 use SprykerSdk\AsyncApi\AsyncApi\Channel\AsyncApiChannelInterface;
 use SprykerSdk\AsyncApi\AsyncApi\Loader\AsyncApiLoaderInterface;
@@ -196,12 +197,14 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
 
         /** @var \SprykerSdk\AsyncApi\AsyncApi\Message\Attributes\AsyncApiMessageAttributeCollectionInterface $property */
         foreach ($properties->getAttributes() as $propertyName => $property) {
+            $propertyNameSingular = $this->getSingularized($propertyName);
+
             /** @var \SprykerSdk\AsyncApi\AsyncApi\Message\Attributes\AsyncApiMessageAttributeInterface $typeAttribute */
             $typeAttribute = $property->getAttribute('type');
             /** @var string $type */
             $type = $typeAttribute->getValue();
 
-            $transferPropertiesToAdd[] = sprintf('%s:%s', $propertyName, $type);
+            $transferPropertiesToAdd[] = ($propertyNameSingular) ? sprintf('%s:%s:%s', $propertyName, $type, $propertyNameSingular) : sprintf('%s:%s', $propertyName, $type);
             $asyncApiResponseTransfer->addMessage($this->messageBuilder->buildMessage(AsyncApiInfo::addedPropertyWithTypeTo($propertyName, $type, $asyncApiMessageName, $moduleName)));
         }
 
@@ -251,6 +254,19 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
         $this->runCommandLines($commandLines);
 
         return $asyncApiResponseTransfer;
+    }
+
+    /**
+     * @param string $propertyName
+     *
+     * @return string|null
+     */
+    protected function getSingularized(string $propertyName): ?string
+    {
+        $inflector = InflectorFactory::create()->build();
+        $singularized = $inflector->singularize($propertyName);
+
+        return ($singularized !== $propertyName) ? $propertyName : null;
     }
 
     /**
