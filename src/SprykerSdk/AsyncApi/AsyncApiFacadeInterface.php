@@ -56,7 +56,7 @@ interface AsyncApiFacadeInterface
      * - Reads an AsyncAPI file and validates it.
      * - Validates that an AsyncAPI file contains at least one message.
      * - Validates that an AsyncAPI file does not contain duplicated messages.
-     * - Validates that all messages in the AsyncAPI file have an operationId.
+     * - Validates that all messages in the AsyncAPI file have an x-spryker extension with a module name or an operationId.
      *
      * @api
      *

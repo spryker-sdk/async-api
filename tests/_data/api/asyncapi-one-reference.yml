@@ -48,7 +48,8 @@ components:
     messages:
         PaymentMethodAdded:
             name: PaymentMethodAdded
-            operationId: operationId
+            x-spryker:
+                module: moduleName
             summary: ''
             payload:
                 $ref: '#/components/schemas/PaymentMethodAdded'

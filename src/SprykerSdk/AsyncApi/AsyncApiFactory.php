@@ -18,7 +18,7 @@ use SprykerSdk\AsyncApi\Message\MessageBuilderInterface;
 use SprykerSdk\AsyncApi\Validator\AsyncApiValidator;
 use SprykerSdk\AsyncApi\Validator\Rule\AsyncApiChannelValidatorRule;
 use SprykerSdk\AsyncApi\Validator\Rule\AsyncApiMessageValidatorRule;
-use SprykerSdk\AsyncApi\Validator\Rule\AsyncApiOperationIdValidatorRule;
+use SprykerSdk\AsyncApi\Validator\Rule\AsyncApiModuleNameValidatorRule;
 use SprykerSdk\AsyncApi\Validator\Rule\ValidatorRuleInterface;
 
 class AsyncApiFactory
@@ -83,7 +83,7 @@ class AsyncApiFactory
     {
         return [
             $this->createAsyncApiMessageValidatorRule(),
-            $this->createAsyncApiOperationIdValidatorRule(),
+            $this->createAsyncApiModuleNameValidatorRule(),
             $this->createAsyncApiChannelValidatorRule(),
         ];
     }
@@ -99,9 +99,9 @@ class AsyncApiFactory
     /**
      * @return \SprykerSdk\AsyncApi\Validator\Rule\ValidatorRuleInterface
      */
-    protected function createAsyncApiOperationIdValidatorRule(): ValidatorRuleInterface
+    protected function createAsyncApiModuleNameValidatorRule(): ValidatorRuleInterface
     {
-        return new AsyncApiOperationIdValidatorRule($this->createMessageBuilder());
+        return new AsyncApiModuleNameValidatorRule($this->createMessageBuilder());
     }
 
     /**

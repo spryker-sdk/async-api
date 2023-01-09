@@ -13,7 +13,9 @@ components:
     messages:
         OutgoingMessage:
             name: OutgoingMessage
-            # operationId: Module - This commented line will cause a validation issue
+            # operationId: Module - No x-spryker extension and no operationId will cause a validation issue
+#            x-spryker:
+#                module: Module
             payload:
                 $ref: '#/components/schemas/OutgoingMessage'
             headers:

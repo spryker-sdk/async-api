@@ -138,9 +138,9 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
             );
         }
 
-        if ($this->isOperationIdEmpty($asyncApiRequestTransfer)) {
+        if ($this->isModuleNameEmpty($asyncApiRequestTransfer)) {
             throw new InvalidConfigurationException(
-                sprintf('You must pass an operationId to the message with the option `-o`.'),
+                sprintf('You must pass a module name in the `x-spryker` extension with the option `-m`.'),
             );
         }
     }
@@ -170,13 +170,13 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
      *
      * @return bool
      */
-    protected function isOperationIdEmpty(AsyncApiRequestTransfer $asyncApiRequestTransfer): bool
+    protected function isModuleNameEmpty(AsyncApiRequestTransfer $asyncApiRequestTransfer): bool
     {
-        if ($asyncApiRequestTransfer->getOperationId() === null) {
+        if ($asyncApiRequestTransfer->getModuleName() === null) {
             return true;
         }
 
-        return $asyncApiRequestTransfer->getOperationId() === '';
+        return $asyncApiRequestTransfer->getModuleName() === '';
     }
 
     /**
@@ -195,7 +195,9 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
     ): array {
         $asyncApi['components']['messages'][$messageName] = [
             'name' => $messageName,
-            'operationId' => $asyncApiRequestTransfer->getOperationId() ?? '',
+            'x-spryker' => [
+                'module' => $asyncApiRequestTransfer->getModuleName() ?? '',
+            ],
             'summary' => $asyncApiMessageTransfer->getSummary() ?? '',
             'payload' => [
                 '$ref' => sprintf('#/components/schemas/%s', $messageName),

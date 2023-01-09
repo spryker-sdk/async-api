@@ -1,0 +1,41 @@
+asyncapi: 2.2.0
+info:
+    title: 'AsyncAPI definition.'
+    version: 0.1.0
+channels:
+    channel:
+        publish:
+            message:
+                oneOf:
+                    -   $ref: '#/components/messages/Message'
+
+components:
+    messages:
+        Message:
+            name: MessageWithCollection
+            description: Description
+            x-spryker:
+                module: ModuleName
+            payload:
+                $ref: '#/components/schemas/MessageWithCollection'
+
+    schemas:
+        MessageWithCollection:
+            type: object
+            properties:
+                items:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Message'
+                    required: true
+        Message:
+            type: object
+            properties:
+                foo:
+                    type: string
+                    example: 5da02a51-c9b3-48f4-b804-fab27b5f2239
+                    required: true
+                bar:
+                    type: string
+                    example: 42b3b25b-93e9-41c2-a236-81891e8bb8df
+                    required: true

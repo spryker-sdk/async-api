@@ -51,6 +51,50 @@ class CodeGenerateConsoleTest extends Unit
     /**
      * @return void
      */
+    public function testBuildFromAsyncApiRendersReferencedTransferProperties(): void
+    {
+        // Arrange
+        $buildFromAsyncApiConsoleMock = $this->tester->getAsyncApiBuilderConsoleMock();
+
+        $commandTester = $this->tester->getConsoleTester($buildFromAsyncApiConsoleMock);
+
+        // Act
+        $commandTester->execute([
+            '--' . CodeGenerateConsole::OPTION_ASYNC_API_FILE => codecept_data_dir('api/valid/transfer_references_transfer.yml'),
+            '--' . CodeGenerateConsole::OPTION_ORGANIZATION => 'Spryker',
+        ], ['verbosity' => OutputInterface::VERBOSITY_VERBOSE]);
+
+        // Assert
+        $this->assertSame(AbstractConsole::CODE_SUCCESS, $commandTester->getStatusCode());
+
+        $this->assertStringContainsString(AsyncApiInfo::addedPropertyWithTypeTo('foo', 'string', 'Message', 'ModuleName'), $commandTester->getDisplay());
+        $this->assertStringContainsString(AsyncApiInfo::addedPropertyWithTypeTo('bar', 'string', 'Message', 'ModuleName'), $commandTester->getDisplay());
+    }
+
+    /**
+     * @return void
+     */
+    public function testBuildFromAsyncApiBackwardsCompatibilityWithOperationId(): void
+    {
+        // Arrange
+        $buildFromAsyncApiConsoleMock = $this->tester->getAsyncApiBuilderConsoleMock();
+
+        $commandTester = $this->tester->getConsoleTester($buildFromAsyncApiConsoleMock);
+
+        // Act
+        $commandTester->execute([
+            '--' . CodeGenerateConsole::OPTION_ASYNC_API_FILE => codecept_data_dir('api/valid/BC_check-operation-id_asyncapi.schema.yml'),
+            '--' . CodeGenerateConsole::OPTION_ORGANIZATION => 'Spryker',
+        ], ['verbosity' => OutputInterface::VERBOSITY_VERBOSE]);
+
+        // Assert
+        $this->assertSame(AbstractConsole::CODE_SUCCESS, $commandTester->getStatusCode());
+        $this->assertStringContainsString(AsyncApiInfo::addedPropertyWithTypeTo('firstName', 'string', 'Message', 'MyModule'), $commandTester->getDisplay());
+    }
+
+    /**
+     * @return void
+     */
     public function testBuildFromAsyncApiPrintsResultToConsoleInVerboseMode(): void
     {
         // Arrange

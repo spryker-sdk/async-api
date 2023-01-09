@@ -73,11 +73,11 @@ class AsyncApiError
      *
      * @return string
      */
-    public static function messageDoesNotHaveAnOperationId(string $messageName, string $path): string
+    public static function messageDoesNotHaveAModuleName(string $messageName, string $path): string
     {
         return static::format(
             sprintf(
-                '%s: The message "%s" from file "%s" doesn\'t have an operationId defined.',
+                '%s: The message "%s" from file "%s" doesn\'t have a module name defined in the "x-spryker" extension.',
                 static::SCHEMA_VALIDATION_ERROR_PREFIX,
                 $messageName,
                 $path,

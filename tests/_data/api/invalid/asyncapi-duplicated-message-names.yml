@@ -37,28 +37,32 @@ components:
     messages:
         OutgoingMessage:
             name: OutgoingMessage
-            operationId: Module
+            x-spryker:
+                module: Module
             payload:
                 $ref: '#/components/schemas/OutgoingMessage'
             headers:
                 $ref: '#/components/schemas/headers'
         AnotherOutgoingMessage:
             name: OutgoingMessage
-            operationId: Module
+            x-spryker:
+                module: Module
             payload:
                 $ref: '#/components/schemas/AnotherOutgoingMessage'
             headers:
                 $ref: '#/components/schemas/headers'
         IncomingMessage:
             name: IncomingMessage
-            operationId: Module
+            x-spryker:
+                module: Module
             payload:
                 $ref: '#/components/schemas/IncomingMessage'
             headers:
                 $ref: '#/components/schemas/headers'
         AnotherIncomingMessage:
             name: IncomingMessage
-            operationId: Module
+            x-spryker:
+                module: Module
             payload:
                 $ref: '#/components/schemas/AnotherIncomingMessage'
             headers:

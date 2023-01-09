@@ -2,10 +2,6 @@ asyncapi: 2.4.0
 info:
     title: 'Test File'
     version: 0.1.0
-channels:
-    foo/bar:
-        subscribe:
-        publish:
 components:
     schemas:
         headers:
@@ -27,23 +23,3 @@ components:
                 correlationId:
                     type: string
                     description: 'Identifier of the current process.'
-        message:
-            type: object
-            properties:
-                firstName:
-                    type: string
-                lastName:
-                    type: string
-                email:
-                    type: string
-            required:
-                - firstName
-                - email
-    messages:
-        message:
-            name: message
-            x-spryker:
-                module: MyModule
-            summary: ''
-            payload:
-                $ref: '#/components/schemas/message'

@@ -153,6 +153,7 @@ class AsyncApiLoader implements AsyncApiLoaderInterface
             foreach ($message as $reference) {
                 $messageName = $this->resolveReferenceKey($reference);
                 $resolvedMessage = $this->resolveReference($asyncApi, $reference);
+
                 $messageWithResolvedReferences = $this->resolveReferences($resolvedMessage, $asyncApi);
                 $formattedMessages[$messageName] = $messageWithResolvedReferences;
             }
@@ -175,6 +176,7 @@ class AsyncApiLoader implements AsyncApiLoaderInterface
             $messageName = $this->resolveReferenceKey($reference);
             $resolvedMessage = $this->resolveReference($asyncApi, $reference);
             $messageWithResolvedReferences = $this->resolveReferences($resolvedMessage, $asyncApi);
+
             $formattedMessages[$messageName] = $messageWithResolvedReferences;
         }
 
@@ -212,6 +214,10 @@ class AsyncApiLoader implements AsyncApiLoaderInterface
         foreach ($array as $key => $value) {
             if (is_array($value)) {
                 $array[$key] = $this->resolveReferences($value, $asyncApi);
+                if (isset($array['type']) && $array['type'] === 'array' && isset($value['$ref'])) {
+                    $schemaParts = explode('/', $value['$ref']);
+                    $array['typeOf'] = array_pop($schemaParts);
+                }
             }
 
             if ($key === '$ref') {

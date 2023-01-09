@@ -46,6 +46,23 @@ class SchemaValidateConsoleTest extends Unit
     /**
      * @return void
      */
+    public function testValidateBCOperationIdAsyncApiReturnsSuccessCodeWhenValidationIsSuccessful(): void
+    {
+        // Arrange
+        $this->tester->haveBackwardsCompatibleAsyncApiFile();
+
+        $commandTester = $this->tester->getConsoleTester(SchemaValidateConsole::class);
+
+        // Act
+        $commandTester->execute([]);
+
+        // Assert
+        $this->assertSame(AbstractConsole::CODE_SUCCESS, $commandTester->getStatusCode());
+    }
+
+    /**
+     * @return void
+     */
     public function testValidateAsyncApiReturnsErrorCodeAndPrintsErrorMessagesWhenValidationFailed(): void
     {
         // Arrange

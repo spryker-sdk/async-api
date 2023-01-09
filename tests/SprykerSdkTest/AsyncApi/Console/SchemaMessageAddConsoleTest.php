@@ -43,7 +43,7 @@ class SchemaMessageAddConsoleTest extends Unit
         $commandTester->execute(
             [
                 SchemaMessageAddConsole::ARGUMENT_CHANNEL_NAME => 'test/channel',
-                SchemaMessageAddConsole::ARGUMENT_OPERATION_ID => 'operationId',
+                SchemaMessageAddConsole::ARGUMENT_MODULE_NAME => 'moduleName',
                 '--' . SchemaMessageAddConsole::OPTION_MESSAGE_TYPE => 'subscribe',
                 '--' . SchemaMessageAddConsole::OPTION_FROM_TRANSFER_CLASS => AsyncApiBuilderTestTransfer::class,
             ],
@@ -64,7 +64,7 @@ class SchemaMessageAddConsoleTest extends Unit
         $commandTester->execute(
             [
                 SchemaMessageAddConsole::ARGUMENT_CHANNEL_NAME => 'test/channel',
-                SchemaMessageAddConsole::ARGUMENT_OPERATION_ID => 'operationId',
+                SchemaMessageAddConsole::ARGUMENT_MODULE_NAME => 'moduleName',
                 '--' . SchemaMessageAddConsole::OPTION_MESSAGE_TYPE => 'publish',
                 '--' . SchemaMessageAddConsole::OPTION_FROM_TRANSFER_CLASS => AsyncApiBuilderTestTransfer::class,
             ],
@@ -96,7 +96,7 @@ class SchemaMessageAddConsoleTest extends Unit
         $commandTester->execute(
             [
                 SchemaMessageAddConsole::ARGUMENT_CHANNEL_NAME => 'test/channel',
-                SchemaMessageAddConsole::ARGUMENT_OPERATION_ID => 'operationId',
+                SchemaMessageAddConsole::ARGUMENT_MODULE_NAME => 'moduleName',
                 '--' . SchemaMessageAddConsole::OPTION_MESSAGE_TYPE => 'publishTest',
             ],
             ['verbosity' => OutputInterface::VERBOSITY_VERBOSE],
@@ -122,7 +122,7 @@ class SchemaMessageAddConsoleTest extends Unit
                 '--' . SchemaMessageAddConsole::OPTION_PROPERTY => ['property:string'],
                 '--' . SchemaMessageAddConsole::OPTION_ASYNC_API_FILE => codecept_data_dir('api/asyncapi.yml'),
                 SchemaMessageAddConsole::ARGUMENT_CHANNEL_NAME => 'channelNameA',
-                SchemaMessageAddConsole::ARGUMENT_OPERATION_ID => 'operationId',
+                SchemaMessageAddConsole::ARGUMENT_MODULE_NAME => 'moduleName',
                 SchemaMessageAddConsole::ARGUMENT_MESSAGE_NAME => 'OutgoingMessage',
             ],
         );
@@ -156,7 +156,7 @@ class SchemaMessageAddConsoleTest extends Unit
                 '--' . SchemaMessageAddConsole::OPTION_PROPERTY => ['property:string'],
                 '--' . SchemaMessageAddConsole::OPTION_ASYNC_API_FILE => codecept_data_dir('api/asyncapi-one-reference.yml'),
                 SchemaMessageAddConsole::ARGUMENT_CHANNEL_NAME => 'payment',
-                SchemaMessageAddConsole::ARGUMENT_OPERATION_ID => 'operationId',
+                SchemaMessageAddConsole::ARGUMENT_MODULE_NAME => 'moduleName',
                 SchemaMessageAddConsole::ARGUMENT_MESSAGE_NAME => 'PaymentMethodAdded',
             ],
         );

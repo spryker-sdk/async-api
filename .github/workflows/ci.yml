@@ -11,18 +11,17 @@ on:
 jobs:
     validation:
         name: "CS, ArchSniffer, PHPStan, Security"
-        runs-on: ubuntu-18.04
+        runs-on: ubuntu-22.04
         env:
             APPLICATION_ENV: testing
         strategy:
             fail-fast: false
             matrix:
                 php-version: [
-                    '7.4',
                     '8.1'
                 ]
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3
 
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
@@ -33,11 +32,10 @@ jobs:
 
             - name: Composer get cache directory
               id: composer-cache
-              run: |
-                  echo "::set-output name=dir::$(composer config cache-files-dir)"
+              run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
             - name: Composer cache
-              uses: actions/cache@v2
+              uses: actions/cache@v3
               with:
                   path: ${{ steps.composer-cache.outputs.dir }}
                   key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
@@ -56,39 +54,35 @@ jobs:
             - name: Run PHPStan
               run: composer stan
 
-            - name: Run Rector checks
-              run: composer rector-diff
+# Disabled as we need to update the architector packages as well to allow the latest version to be installed
+#            - name: Run Rector checks
+#              run: composer rector-ci
 
             - name: Run CodeStyle checks
               run: composer cs-check
 
-            - name: Codecept tests
-              if: ${{ matrix.php-version == '7.4' }}
-              run: composer test
-
             - name: Codecept tests with coverage
-              if: ${{ matrix.php-version == '8.1' }}
               run: composer test-cover
 
             - name: Code Coverage Report
-              if: success() && matrix.php-version == '8.1'
-              uses: codecov/codecov-action@v1
+              if: success()
+              uses: codecov/codecov-action@v3
               with:
                   file: ./tests/_output/coverage.xml
 
     prefer-lowest:
         name: "Prefer lowest checks"
-        runs-on: ubuntu-18.04
+        runs-on: ubuntu-22.04
         env:
             APPLICATION_ENV: testing
         strategy:
             fail-fast: false
             matrix:
                 php-version: [
-                    '7.4'
+                    '8.1'
                 ]
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3
 
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
@@ -99,11 +93,10 @@ jobs:
 
             - name: Composer get cache directory
               id: composer-cache
-              run: |
-                  echo "::set-output name=dir::$(composer config cache-files-dir)"
+              run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
             - name: Composer cache
-              uses: actions/cache@v2
+              uses: actions/cache@v3
               with:
                   path: ${{ steps.composer-cache.outputs.dir }}
                   key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
