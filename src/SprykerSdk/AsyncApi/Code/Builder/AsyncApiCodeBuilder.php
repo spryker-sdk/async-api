@@ -14,6 +14,7 @@ use SprykerSdk\AsyncApi\AsyncApi\Loader\AsyncApiLoaderInterface;
 use SprykerSdk\AsyncApi\AsyncApi\Message\AsyncApiMessageInterface;
 use SprykerSdk\AsyncApi\AsyncApi\Message\Attributes\AsyncApiMessageAttributeCollectionInterface;
 use SprykerSdk\AsyncApi\AsyncApiConfig;
+use SprykerSdk\AsyncApi\Exception\InvalidConfigurationException;
 use SprykerSdk\AsyncApi\Message\AsyncApiError;
 use SprykerSdk\AsyncApi\Message\AsyncApiInfo;
 use SprykerSdk\AsyncApi\Message\MessageBuilderInterface;
@@ -188,10 +189,10 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
         /** @var string $asyncApiMessageName */
         $asyncApiMessageName = $asyncApiMessage->getName();
 
-        $commandLines = $this->recursiveAddTransferPropertyAddCommandLines($commandLines, $asyncApiResponseTransfer, $asyncApiMessageName, $payload, $this->sprykMode, $projectNamespace, $moduleName);
+        $commandLines = $this->recursiveAddTransferPropertyAddCommandLines($commandLines, $asyncApiResponseTransfer, $asyncApiMessageName, $payload, $projectNamespace, $moduleName);
 
         // Add MessageAttribute to Transfer definition
-        $commandLines = $this->addTransferPropertyCommandLine($commandLines, $this->sprykMode, $projectNamespace, $moduleName, $asyncApiMessageName, 'messageAttributes', 'MessageAttribute');
+        $commandLines = $this->addTransferPropertyCommandLine($commandLines, $projectNamespace, $moduleName, $asyncApiMessageName, 'messageAttributes', 'MessageAttribute');
 
         $asyncApiResponseTransfer->addMessage($this->messageBuilder->buildMessage(AsyncApiInfo::addedPropertyWithTypeTo('messageAttributes', 'MessageAttributesTransfer', $asyncApiMessageName, $moduleName)));
 
@@ -214,44 +215,30 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
     }
 
     /**
-     * In previous versions we used the operationId as attribute to get where to render the code to we have to support it for BC reasons.
-     *
-     * We introduced a new `x-spryker` extension for the schema file:
-     *
-     * ```
-     * x-spryker:
-     *      module: ModuleName
-     * ```
-     *
      * @param \SprykerSdk\AsyncApi\AsyncApi\Message\AsyncApiMessageInterface $asyncApiMessage
+     *
+     * @throws \SprykerSdk\AsyncApi\Exception\InvalidConfigurationException
      *
      * @return string
      */
     protected function getModuleNameForMessage(AsyncApiMessageInterface $asyncApiMessage): string
     {
-        if ($asyncApiMessage->getAttribute('x-spryker')) {
-            /** @var \SprykerSdk\AsyncApi\AsyncApi\Message\Attributes\AsyncApiMessageAttributeCollectionInterface $xSprykerAttributeCollection */
-            $xSprykerAttributeCollection = $asyncApiMessage->getAttribute('x-spryker');
-
-            /** @var \SprykerSdk\AsyncApi\AsyncApi\Message\Attributes\AsyncApiMessageAttributeInterface|null $moduleNameAttribute */
-            $moduleNameAttribute = $xSprykerAttributeCollection->getAttribute('module');
-
-            if ($moduleNameAttribute) {
-                /** @var string $moduleName */
-                $moduleName = $moduleNameAttribute->getValue();
-
-                return $moduleName;
-            }
+        if (!$asyncApiMessage->getAttribute('x-spryker')) {
+            throw new InvalidConfigurationException(sprintf('Could not find an `x-spryker` extension. Please add one to your schema file for the "%s" message.', $asyncApiMessage->getName()));
         }
 
-        // BC-Fallback to operationId
-        /** @var \SprykerSdk\AsyncApi\AsyncApi\Message\Attributes\AsyncApiMessageAttributeInterface $operationIdAttribute */
-        $operationIdAttribute = $asyncApiMessage->getAttribute('operationId');
+        /** @var \SprykerSdk\AsyncApi\AsyncApi\Message\Attributes\AsyncApiMessageAttributeCollectionInterface $xSprykerAttributeCollection */
+        $xSprykerAttributeCollection = $asyncApiMessage->getAttribute('x-spryker');
 
-        /** @var string $moduleName */
-        $moduleName = $operationIdAttribute->getValue();
+        /** @var \SprykerSdk\AsyncApi\AsyncApi\Message\Attributes\AsyncApiMessageAttributeInterface|null $moduleNameAttribute */
+        $moduleNameAttribute = $xSprykerAttributeCollection->getAttribute('module');
 
-        return $moduleName;
+        if (!$moduleNameAttribute) {
+            throw new InvalidConfigurationException(sprintf('Could not find a `module` name property in the `x-spryker` extension. Please add one to your schema file for the "%s" message.', $asyncApiMessage->getName()));
+        }
+
+        /** @phpstan-var string */
+        return $moduleNameAttribute->getValue();
     }
 
     /**
@@ -263,7 +250,6 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
      * @param \Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
      * @param string $messageName
      * @param \SprykerSdk\AsyncApi\AsyncApi\Message\Attributes\AsyncApiMessageAttributeCollectionInterface $attributeCollection
-     * @param string $sprykMode
      * @param string $projectNamespace
      * @param string $moduleName
      *
@@ -274,7 +260,6 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
         AsyncApiResponseTransfer $asyncApiResponseTransfer,
         string $messageName,
         AsyncApiMessageAttributeCollectionInterface $attributeCollection,
-        string $sprykMode,
         string $projectNamespace,
         string $moduleName
     ): array {
@@ -304,7 +289,7 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
                     /** @var \SprykerSdk\AsyncApi\AsyncApi\Message\Attributes\AsyncApiMessageAttributeCollectionInterface $itemCollection */
                     $itemCollection = $property->getAttribute('items');
 
-                    $commandLines = $this->recursiveAddTransferPropertyAddCommandLines($commandLines, $asyncApiResponseTransfer, $innerMessageName, $itemCollection, $sprykMode, $projectNamespace, $moduleName);
+                    $commandLines = $this->recursiveAddTransferPropertyAddCommandLines($commandLines, $asyncApiResponseTransfer, $innerMessageName, $itemCollection, $projectNamespace, $moduleName);
                 }
             }
 
@@ -312,12 +297,11 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
             $asyncApiResponseTransfer->addMessage($this->messageBuilder->buildMessage(AsyncApiInfo::addedPropertyWithTypeTo($propertyName, $type, $messageName, $moduleName)));
         }
 
-        return $this->addTransferPropertyCommandLine($commandLines, $sprykMode, $projectNamespace, $moduleName, $messageName, implode(',', $transferPropertiesToAdd));
+        return $this->addTransferPropertyCommandLine($commandLines, $projectNamespace, $moduleName, $messageName, implode(',', $transferPropertiesToAdd));
     }
 
     /**
      * @param array<array<string>> $commandLines
-     * @param string $sprykMode
      * @param string $projectNamespace
      * @param string $moduleName
      * @param string $messageName
@@ -328,7 +312,6 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
      */
     protected function addTransferPropertyCommandLine(
         array $commandLines,
-        string $sprykMode,
         string $projectNamespace,
         string $moduleName,
         string $messageName,
@@ -338,7 +321,7 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
         $propertyCommandLine = [
             $this->config->getSprykRunExecutablePath() . '/vendor/bin/spryk-run',
             'AddSharedTransferProperty',
-            '--mode', $sprykMode,
+            '--mode', $this->sprykMode,
             '--organization', $projectNamespace,
             '--module', $moduleName,
             '--name', $messageName,

@@ -54,9 +54,8 @@ jobs:
             - name: Run PHPStan
               run: composer stan
 
-# Disabled as we need to update the architector packages as well to allow the latest version to be installed
-#            - name: Run Rector checks
-#              run: composer rector-ci
+            - name: Run Rector checks
+              run: composer rector-ci
 
             - name: Run CodeStyle checks
               run: composer cs-check
