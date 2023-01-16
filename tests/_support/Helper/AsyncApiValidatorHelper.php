@@ -60,7 +60,7 @@ class AsyncApiValidatorHelper extends Module
     public function haveAsyncApiFileWithMissingRequiredFields(): void
     {
         $files = [
-            static::ASYNC_API_FILE_NAME => file_get_contents(codecept_data_dir('api/invalid/asyncapi-with-missing-operation-id.yml')),
+            static::ASYNC_API_FILE_NAME => file_get_contents(codecept_data_dir('api/invalid/asyncapi-without-spryker-extension.yml')),
         ];
 
         $this->prepareAsyncApiSchema($files);

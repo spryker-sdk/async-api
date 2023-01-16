@@ -45,7 +45,7 @@ class AsyncApiModuleNameValidatorRule implements ValidatorRuleInterface
         }
 
         foreach ($asyncApi['components']['messages'] as $message) {
-            if (!isset($message['x-spryker']['module']) && !isset($message['operationId'])) {
+            if (!isset($message['x-spryker']['module'])) {
                 $validateResponseTransfer->addError(
                     $this->messageBuilder->buildMessage(
                         AsyncApiError::messageDoesNotHaveAModuleName($message['name'], $asyncApiFileName),

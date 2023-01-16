@@ -161,6 +161,36 @@ class AsyncApiError
     }
 
     /**
+     * @param string $messageName
+     * @return string
+     */
+    public static function couldNotFindAnSprykerExtension(
+        string $messageName
+    ): string {
+        return static::format(
+            sprintf(
+                'Could not find an `x-spryker` extension. Please add one to your schema file for the "%s" message.',
+                $messageName
+            ),
+        );
+    }
+
+    /**
+     * @param string $messageName
+     * @return string
+     */
+    public static function couldNotFindAModulePropertyInTheSprykerExtension(
+        string $messageName
+    ): string {
+        return static::format(
+            sprintf(
+                'Could not find a `module` name property in the `x-spryker` extension. Please add one to your schema file for the "%s" message.',
+                $messageName
+            ),
+        );
+    }
+
+    /**
      * Colorize output in CLI on Linux machines.
      *
      * Error text will be in red, everything in double quotes will be yellow, and quotes will be removed.

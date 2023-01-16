@@ -220,16 +220,6 @@ class AsyncApiHelper extends Module
     }
 
     /**
-     * return void
-     *
-     * @return void
-     */
-    public function haveBackwardsCompatibleAsyncApiFile(): void
-    {
-        $this->prepareAsyncApiFile(codecept_data_dir('api/valid/BC_check-operation-id_asyncapi.schema.yml'));
-    }
-
-    /**
      * @param string $pathToAsyncApi
      *
      * @return void

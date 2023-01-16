@@ -224,7 +224,7 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
     protected function getModuleNameForMessage(AsyncApiMessageInterface $asyncApiMessage): string
     {
         if (!$asyncApiMessage->getAttribute('x-spryker')) {
-            throw new InvalidConfigurationException(sprintf('Could not find an `x-spryker` extension. Please add one to your schema file for the "%s" message.', $asyncApiMessage->getName()));
+            throw new InvalidConfigurationException(AsyncApiError::couldNotFindAnSprykerExtension($asyncApiMessage->getName()));
         }
 
         /** @var \SprykerSdk\AsyncApi\AsyncApi\Message\Attributes\AsyncApiMessageAttributeCollectionInterface $xSprykerAttributeCollection */
@@ -234,7 +234,7 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
         $moduleNameAttribute = $xSprykerAttributeCollection->getAttribute('module');
 
         if (!$moduleNameAttribute) {
-            throw new InvalidConfigurationException(sprintf('Could not find a `module` name property in the `x-spryker` extension. Please add one to your schema file for the "%s" message.', $asyncApiMessage->getName()));
+            throw new InvalidConfigurationException(AsyncApiError::couldNotFindAModulePropertyInTheSprykerExtension($asyncApiMessage->getName()));
         }
 
         /** @phpstan-var string */

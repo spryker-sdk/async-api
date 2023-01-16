@@ -13,7 +13,6 @@ components:
     messages:
         OutgoingMessage:
             name: OutgoingMessage
-            # operationId: Module - No x-spryker extension and no operationId will cause a validation issue
 #            x-spryker:
 #                module: Module
             payload:
