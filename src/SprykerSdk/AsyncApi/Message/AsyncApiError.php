@@ -162,6 +162,7 @@ class AsyncApiError
 
     /**
      * @param string $messageName
+     *
      * @return string
      */
     public static function couldNotFindAnSprykerExtension(
@@ -170,13 +171,14 @@ class AsyncApiError
         return static::format(
             sprintf(
                 'Could not find an `x-spryker` extension. Please add one to your schema file for the "%s" message.',
-                $messageName
+                $messageName,
             ),
         );
     }
 
     /**
      * @param string $messageName
+     *
      * @return string
      */
     public static function couldNotFindAModulePropertyInTheSprykerExtension(
@@ -185,7 +187,7 @@ class AsyncApiError
         return static::format(
             sprintf(
                 'Could not find a `module` name property in the `x-spryker` extension. Please add one to your schema file for the "%s" message.',
-                $messageName
+                $messageName,
             ),
         );
     }

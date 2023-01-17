@@ -57,6 +57,7 @@
         "test": "codecept build && codecept run",
         "test-cover": "codecept build && codecept run --coverage-xml",
         "rector": "vendor/bin/rector process src/SprykerSdk/ --config architector.php --ansi",
-        "rector-ci": "vendor/bin/rector process src/SprykerSdk/ --config architector.php --ansi --dry-run"
+        "rector-ci": "vendor/bin/rector process src/SprykerSdk/ --config architector.php --ansi --dry-run",
+        "local-ci": "composer cs-fix && composer cs-check && composer stan && composer rector-ci && composer test"
     }
 }
