@@ -75,8 +75,8 @@ class AsyncApiHelper extends Module
         }
 
         return Stub::make(AsyncApiConfig::class, [
-            'getProjectRootPath' => function () {
-                return $this->rootPath;
+            'getProjectRootPath' => function (): string {
+                return $this->rootPath ?? '';
             },
         ]);
     }
@@ -187,7 +187,7 @@ class AsyncApiHelper extends Module
         $asyncApiRequestTransfer = $this->haveAsyncApiAddRequestWithExistingAsyncApi();
         $asyncApiRequestTransfer
             ->setPayloadTransferObjectName(AsyncApiMessageTransfer::class)
-            ->setOperationId('operationId');
+            ->setModuleName('moduleName');
 
         return $asyncApiRequestTransfer;
     }
@@ -204,7 +204,7 @@ class AsyncApiHelper extends Module
         $asyncApiRequestTransfer = $this->haveAsyncApiAddRequestWithExistingAsyncApi();
         $asyncApiRequestTransfer
             ->setProperties($properties ?? ['firstName:string:required', 'lastName:string', 'phoneNumber:int:required', 'email:string'])
-            ->setOperationId('operationId');
+            ->setModuleName('moduleName');
 
         return $asyncApiRequestTransfer;
     }
@@ -531,14 +531,19 @@ class AsyncApiHelper extends Module
      *
      * @return void
      */
-    public function assertMessageInChannelHasOperationId(string $targetFile, string $channelName, string $channelType, string $messageName): void
+    public function assertMessageInChannelHasAModuleName(string $targetFile, string $channelName, string $channelType, string $messageName): void
     {
         $asyncApi = Yaml::parseFile($targetFile);
 
         $this->assertMessageInChannelType($asyncApi, $messageName, $channelName, $channelType);
 
-        $this->assertArrayHasKey('operationId', $asyncApi['components']['messages'][$messageName], sprintf(
-            'Expected to have a operationId in the message "%s" but it does not exist.',
+        $this->assertArrayHasKey('x-spryker', $asyncApi['components']['messages'][$messageName], sprintf(
+            'Expected to have an x-spryker extension in the message "%s" but it does not exist.',
+            $messageName,
+        ));
+
+        $this->assertArrayHasKey('module', $asyncApi['components']['messages'][$messageName]['x-spryker'], sprintf(
+            'Expected to have an x-spryker extension in the message "%s" but it does not exist.',
             $messageName,
         ));
     }

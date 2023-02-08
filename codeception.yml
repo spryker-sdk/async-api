@@ -13,7 +13,7 @@ coverage:
 suites:
     AsyncApi:
         path: SprykerSdkTest/AsyncApi
-        class_name: AsyncApiTester
+        actor: AsyncApiTester
         modules:
             enabled:
                 - \SprykerSdkTest\Helper\AsyncApiHelper

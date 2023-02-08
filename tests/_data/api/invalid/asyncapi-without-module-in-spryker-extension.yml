@@ -1,0 +1,53 @@
+asyncapi: 2.4.0
+info:
+    title: 'Registry service (ATRS) AsyncAPI definition.'
+    version: 0.1.0
+channels:
+    channelNameA:
+        subscribe:
+            message:
+                oneOf:
+                    -
+                        $ref: '#/components/messages/OutgoingMessage'
+components:
+    messages:
+        OutgoingMessage:
+            name: OutgoingMessage
+            x-spryker:
+                foo: Bar
+            payload:
+                $ref: '#/components/schemas/OutgoingMessage'
+            headers:
+                $ref: '#/components/schemas/headers'
+    schemas:
+        OutgoingMessage:
+            type: object
+            properties:
+                outgoingSourceStatus:
+                    type: string
+                    example: 'outgoingSourceStatus'
+                outgoingTargetStatus:
+                    type: string
+                    example: 'outgoingTargetStatus'
+            required:
+                - outgoingSourceStatus
+                - outgoingTargetStatus
+
+        headers:
+            type: object
+            properties:
+                timestamp:
+                    type: integer
+                    description: 'Timestamp when this message was created (microtime).'
+                tenantIdentifier:
+                    type: string
+                    description: 'Identifier of the tenant for the triggered event.'
+                appIdentifier:
+                    type: string
+                    description: 'Identifier of the app for the triggered event.'
+                correlationId:
+                    type: string
+                    description: 'Identifier of the current process.'
+            required:
+                - timestamp
+                - correlationId

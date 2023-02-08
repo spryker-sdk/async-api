@@ -73,11 +73,11 @@ class AsyncApiError
      *
      * @return string
      */
-    public static function messageDoesNotHaveAnOperationId(string $messageName, string $path): string
+    public static function messageDoesNotHaveAModuleName(string $messageName, string $path): string
     {
         return static::format(
             sprintf(
-                '%s: The message "%s" from file "%s" doesn\'t have an operationId defined.',
+                '%s: The message "%s" from file "%s" doesn\'t have a module name defined in the "x-spryker" extension.',
                 static::SCHEMA_VALIDATION_ERROR_PREFIX,
                 $messageName,
                 $path,
@@ -156,6 +156,38 @@ class AsyncApiError
                 $messageTypeOption,
                 $path,
                 implode('","', $availableValues),
+            ),
+        );
+    }
+
+    /**
+     * @param string $messageName
+     *
+     * @return string
+     */
+    public static function couldNotFindAnSprykerExtension(
+        string $messageName
+    ): string {
+        return static::format(
+            sprintf(
+                'Could not find an `x-spryker` extension. Please add one to your schema file for the "%s" message.',
+                $messageName,
+            ),
+        );
+    }
+
+    /**
+     * @param string $messageName
+     *
+     * @return string
+     */
+    public static function couldNotFindAModulePropertyInTheSprykerExtension(
+        string $messageName
+    ): string {
+        return static::format(
+            sprintf(
+                'Could not find a `module` name property in the `x-spryker` extension. Please add one to your schema file for the "%s" message.',
+                $messageName,
             ),
         );
     }

@@ -104,7 +104,7 @@ class AsyncApiValidatorFacadeTest extends Unit
         // Assert
         $messages = $this->tester->getMessagesFromValidateResponseTransfer($validateResponseTransfer);
         $this->assertContains(
-            AsyncApiError::messageDoesNotHaveAnOperationId('OutgoingMessage', $this->tester->getDefaultAsyncApiFilePath()),
+            AsyncApiError::messageDoesNotHaveAModuleName('OutgoingMessage', $this->tester->getDefaultAsyncApiFilePath()),
             $messages,
             sprintf("Messages: \n\n%s\n", implode(PHP_EOL, $messages)),
         );

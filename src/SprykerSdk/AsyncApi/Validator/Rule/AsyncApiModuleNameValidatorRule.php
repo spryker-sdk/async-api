@@ -11,7 +11,7 @@ use SprykerSdk\AsyncApi\Message\AsyncApiError;
 use SprykerSdk\AsyncApi\Message\MessageBuilderInterface;
 use Transfer\ValidateResponseTransfer;
 
-class AsyncApiOperationIdValidatorRule implements ValidatorRuleInterface
+class AsyncApiModuleNameValidatorRule implements ValidatorRuleInterface
 {
     /**
      * @var \SprykerSdk\AsyncApi\Message\MessageBuilderInterface
@@ -45,10 +45,10 @@ class AsyncApiOperationIdValidatorRule implements ValidatorRuleInterface
         }
 
         foreach ($asyncApi['components']['messages'] as $message) {
-            if (!isset($message['operationId'])) {
+            if (!isset($message['x-spryker']['module'])) {
                 $validateResponseTransfer->addError(
                     $this->messageBuilder->buildMessage(
-                        AsyncApiError::messageDoesNotHaveAnOperationId($message['name'], $asyncApiFileName),
+                        AsyncApiError::messageDoesNotHaveAModuleName($message['name'], $asyncApiFileName),
                     ),
                 );
             }

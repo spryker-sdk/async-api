@@ -4,8 +4,10 @@ info:
     version: 0.1.0
 channels:
     foo/bar:
-        subscribe:
         publish:
+            message:
+                oneOf:
+                    -   $ref: '#/components/messages/Message'
 components:
     schemas:
         headers:
@@ -40,10 +42,9 @@ components:
                 - firstName
                 - email
     messages:
-        message:
+        Message:
             name: message
-            x-spryker:
-                module: MyModule
+            operationId: MyModule # BC check for older schemas with operationId
             summary: ''
             payload:
                 $ref: '#/components/schemas/message'

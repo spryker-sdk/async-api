@@ -11,7 +11,8 @@ components:
     messages:
         PaymentMethodAdded:
             name: PaymentMethodAdded
-            operationId: Oms
+            x-spryker:
+                module: Oms
             summary: 'Handle a new Payment method.'
             payload:
                 $ref: '#/components/schemas/PaymentMethodAdded'

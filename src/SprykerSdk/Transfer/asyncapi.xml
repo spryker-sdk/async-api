@@ -28,7 +28,7 @@
         <property name="asyncApiMesssage" type="AsyncApiMessage"/>
         <property name="payloadTransferObjectName" type="string"/>
         <property name="properties" type="array" singular="property"/>
-        <property name="operationId" type="string"/>
+        <property name="moduleName" type="string"/>
     </transfer>
 
     <transfer name="AsyncApi">

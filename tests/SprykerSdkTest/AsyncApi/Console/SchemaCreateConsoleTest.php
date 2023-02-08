@@ -31,10 +31,12 @@ class SchemaCreateConsoleTest extends Unit
      */
     public function testAsyncApiCreateConsole(): void
     {
-        $commandTester = $this->tester->getConsoleTester(new SchemaCreateConsole());
+        $schemaCreateConsole = new SchemaCreateConsole(null, $this->tester->getConfig());
+
+        $commandTester = $this->tester->getConsoleTester($schemaCreateConsole);
 
         // Act
-        $commandTester->execute([SchemaCreateConsole::ARGUMENT_TITLE => 'Test File', '--' . SchemaCreateConsole::OPTION_ASYNC_API_FILE => 'resources/api/asyncapi.yml'], ['verbosity' => OutputInterface::VERBOSITY_VERBOSE]);
+        $commandTester->execute([SchemaCreateConsole::ARGUMENT_TITLE => 'Test File'], ['verbosity' => OutputInterface::VERBOSITY_VERBOSE]);
 
         // Assert
         $this->assertSame(AbstractConsole::CODE_SUCCESS, $commandTester->getStatusCode());

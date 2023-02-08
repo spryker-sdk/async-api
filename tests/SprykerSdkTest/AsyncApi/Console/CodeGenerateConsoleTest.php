@@ -51,6 +51,29 @@ class CodeGenerateConsoleTest extends Unit
     /**
      * @return void
      */
+    public function testBuildFromAsyncApiRendersReferencedTransferProperties(): void
+    {
+        // Arrange
+        $buildFromAsyncApiConsoleMock = $this->tester->getAsyncApiBuilderConsoleMock();
+
+        $commandTester = $this->tester->getConsoleTester($buildFromAsyncApiConsoleMock);
+
+        // Act
+        $commandTester->execute([
+            '--' . CodeGenerateConsole::OPTION_ASYNC_API_FILE => codecept_data_dir('api/valid/transfer_references_transfer.yml'),
+            '--' . CodeGenerateConsole::OPTION_ORGANIZATION => 'Spryker',
+        ], ['verbosity' => OutputInterface::VERBOSITY_VERBOSE]);
+
+        // Assert
+        $this->assertSame(AbstractConsole::CODE_SUCCESS, $commandTester->getStatusCode());
+
+        $this->assertStringContainsString(AsyncApiInfo::addedPropertyWithTypeTo('foo', 'string', 'Message', 'ModuleName'), $commandTester->getDisplay());
+        $this->assertStringContainsString(AsyncApiInfo::addedPropertyWithTypeTo('bar', 'string', 'Message', 'ModuleName'), $commandTester->getDisplay());
+    }
+
+    /**
+     * @return void
+     */
     public function testBuildFromAsyncApiPrintsResultToConsoleInVerboseMode(): void
     {
         // Arrange
@@ -109,5 +132,43 @@ class CodeGenerateConsoleTest extends Unit
             AsyncApiError::couldNotGenerateCodeFromAsyncApi(codecept_data_dir('api/builder/asyncapi-empty.yml')),
             $commandTester->getDisplay(),
         );
+    }
+
+    /**
+     * @return void
+     */
+    public function testBuildFromAsyncApiWithoutAnSprykerExtensionThrowsAnException(): void
+    {
+        // Arrange
+        $buildFromAsyncApiConsoleMock = $this->tester->getAsyncApiBuilderConsoleMock();
+
+        $commandTester = $this->tester->getConsoleTester($buildFromAsyncApiConsoleMock);
+
+        // Expect
+        $this->expectExceptionMessage(AsyncApiError::couldNotFindAnSprykerExtension('OutgoingMessage'));
+
+        // Act
+        $commandTester->execute([
+            '--' . CodeGenerateConsole::OPTION_ASYNC_API_FILE => codecept_data_dir('api/invalid/asyncapi-without-spryker-extension.yml'),
+        ], ['verbosity' => OutputInterface::VERBOSITY_VERBOSE]);
+    }
+
+    /**
+     * @return void
+     */
+    public function testBuildFromAsyncApiWithoutAModuleInTheSprykerExtensionThrowsAnException(): void
+    {
+        // Arrange
+        $buildFromAsyncApiConsoleMock = $this->tester->getAsyncApiBuilderConsoleMock();
+
+        $commandTester = $this->tester->getConsoleTester($buildFromAsyncApiConsoleMock);
+
+        // Expect
+        $this->expectExceptionMessage(AsyncApiError::couldNotFindAModulePropertyInTheSprykerExtension('OutgoingMessage'));
+
+        // Act
+        $commandTester->execute([
+            '--' . CodeGenerateConsole::OPTION_ASYNC_API_FILE => codecept_data_dir('api/invalid/asyncapi-without-module-in-spryker-extension.yml'),
+        ], ['verbosity' => OutputInterface::VERBOSITY_VERBOSE]);
     }
 }

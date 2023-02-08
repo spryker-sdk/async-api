@@ -50,7 +50,7 @@ class AsyncApiRequestTransfer extends AbstractTransfer
     /**
      * @var string
      */
-    public const OPERATION_ID = 'operationId';
+    public const MODULE_NAME = 'moduleName';
 
     /**
      * @var string|null
@@ -90,7 +90,7 @@ class AsyncApiRequestTransfer extends AbstractTransfer
     /**
      * @var string|null
      */
-    protected $operationId;
+    protected $moduleName;
 
     /**
      * @var array<string, string>
@@ -114,9 +114,9 @@ class AsyncApiRequestTransfer extends AbstractTransfer
         'PayloadTransferObjectName' => 'payloadTransferObjectName',
         'properties' => 'properties',
         'Properties' => 'properties',
-        'operation_id' => 'operationId',
-        'operationId' => 'operationId',
-        'OperationId' => 'operationId',
+        'module_name' => 'moduleName',
+        'moduleName' => 'moduleName',
+        'ModuleName' => 'moduleName',
     ];
 
     /**
@@ -207,7 +207,7 @@ class AsyncApiRequestTransfer extends AbstractTransfer
             'is_nullable' => false,
             'is_strict' => false,
         ],
-        self::OPERATION_ID => [
+        self::MODULE_NAME => [
             'type' => 'string',
             'type_shim' => null,
             'name_underscore' => 'operation_id',
@@ -712,14 +712,14 @@ class AsyncApiRequestTransfer extends AbstractTransfer
     /**
      * @module AsyncApi
      *
-     * @param string|null $operationId
+     * @param string|null $moduleName
      *
      * @return $this
      */
-    public function setOperationId($operationId)
+    public function setModuleName($moduleName)
     {
-        $this->operationId = $operationId;
-        $this->modifiedProperties[self::OPERATION_ID] = true;
+        $this->moduleName = $moduleName;
+        $this->modifiedProperties[self::MODULE_NAME] = true;
 
         return $this;
     }
@@ -729,27 +729,27 @@ class AsyncApiRequestTransfer extends AbstractTransfer
      *
      * @return string|null
      */
-    public function getOperationId()
+    public function getModuleName()
     {
-        return $this->operationId;
+        return $this->moduleName;
     }
 
     /**
      * @module AsyncApi
      *
-     * @param string|null $operationId
-     *
-     * @throws \Exception
+     * @param string|null $moduleName
      *
      * @return $this
+     *@throws \Exception
+     *
      */
-    public function setOperationIdOrFail($operationId)
+    public function setModuleNameOrFail($moduleName)
     {
-        if ($operationId === null) {
-            $this->throwNullValueException(static::OPERATION_ID);
+        if ($moduleName === null) {
+            $this->throwNullValueException(static::MODULE_NAME);
         }
 
-        return $this->setOperationId($operationId);
+        return $this->setModuleName($moduleName);
     }
 
     /**
@@ -759,13 +759,13 @@ class AsyncApiRequestTransfer extends AbstractTransfer
      *
      * @return string
      */
-    public function getOperationIdOrFail()
+    public function getModuleNameOrFail()
     {
-        if ($this->operationId === null) {
-            $this->throwNullValueException(static::OPERATION_ID);
+        if ($this->moduleName === null) {
+            $this->throwNullValueException(static::MODULE_NAME);
         }
 
-        return $this->operationId;
+        return $this->moduleName;
     }
 
     /**
@@ -777,7 +777,7 @@ class AsyncApiRequestTransfer extends AbstractTransfer
      */
     public function requireOperationId()
     {
-        $this->assertPropertyIsSet(self::OPERATION_ID);
+        $this->assertPropertyIsSet(self::MODULE_NAME);
 
         return $this;
     }
@@ -801,7 +801,7 @@ class AsyncApiRequestTransfer extends AbstractTransfer
                 case 'version':
                 case 'payloadTransferObjectName':
                 case 'properties':
-                case 'operationId':
+                case 'moduleName':
                     $this->$normalizedPropertyName = $value;
                     $this->modifiedProperties[$normalizedPropertyName] = true;
 
@@ -941,7 +941,7 @@ class AsyncApiRequestTransfer extends AbstractTransfer
                 case 'version':
                 case 'payloadTransferObjectName':
                 case 'properties':
-                case 'operationId':
+                case 'moduleName':
                     $values[$arrayKey] = $value;
 
                     break;
@@ -978,7 +978,7 @@ class AsyncApiRequestTransfer extends AbstractTransfer
                 case 'version':
                 case 'payloadTransferObjectName':
                 case 'properties':
-                case 'operationId':
+                case 'moduleName':
                     $values[$arrayKey] = $value;
 
                     break;
@@ -1045,7 +1045,7 @@ class AsyncApiRequestTransfer extends AbstractTransfer
             'version' => $this->version,
             'payloadTransferObjectName' => $this->payloadTransferObjectName,
             'properties' => $this->properties,
-            'operationId' => $this->operationId,
+            'moduleName' => $this->moduleName,
             'asyncApi' => $this->asyncApi,
             'asyncApiMesssage' => $this->asyncApiMesssage,
         ];
@@ -1062,7 +1062,7 @@ class AsyncApiRequestTransfer extends AbstractTransfer
             'version' => $this->version,
             'payload_transfer_object_name' => $this->payloadTransferObjectName,
             'properties' => $this->properties,
-            'operation_id' => $this->operationId,
+            'operation_id' => $this->moduleName,
             'async_api' => $this->asyncApi,
             'async_api_messsage' => $this->asyncApiMesssage,
         ];
@@ -1079,7 +1079,7 @@ class AsyncApiRequestTransfer extends AbstractTransfer
             'version' => $this->version instanceof AbstractTransfer ? $this->version->toArray(true, false) : $this->version,
             'payload_transfer_object_name' => $this->payloadTransferObjectName instanceof AbstractTransfer ? $this->payloadTransferObjectName->toArray(true, false) : $this->payloadTransferObjectName,
             'properties' => $this->properties instanceof AbstractTransfer ? $this->properties->toArray(true, false) : $this->properties,
-            'operation_id' => $this->operationId instanceof AbstractTransfer ? $this->operationId->toArray(true, false) : $this->operationId,
+            'operation_id' => $this->moduleName instanceof AbstractTransfer ? $this->moduleName->toArray(true, false) : $this->moduleName,
             'async_api' => $this->asyncApi instanceof AbstractTransfer ? $this->asyncApi->toArray(true, false) : $this->asyncApi,
             'async_api_messsage' => $this->asyncApiMesssage instanceof AbstractTransfer ? $this->asyncApiMesssage->toArray(true, false) : $this->asyncApiMesssage,
         ];
@@ -1096,7 +1096,7 @@ class AsyncApiRequestTransfer extends AbstractTransfer
             'version' => $this->version instanceof AbstractTransfer ? $this->version->toArray(true, true) : $this->version,
             'payloadTransferObjectName' => $this->payloadTransferObjectName instanceof AbstractTransfer ? $this->payloadTransferObjectName->toArray(true, true) : $this->payloadTransferObjectName,
             'properties' => $this->properties instanceof AbstractTransfer ? $this->properties->toArray(true, true) : $this->properties,
-            'operationId' => $this->operationId instanceof AbstractTransfer ? $this->operationId->toArray(true, true) : $this->operationId,
+            'moduleName' => $this->moduleName instanceof AbstractTransfer ? $this->moduleName->toArray(true, true) : $this->moduleName,
             'asyncApi' => $this->asyncApi instanceof AbstractTransfer ? $this->asyncApi->toArray(true, true) : $this->asyncApi,
             'asyncApiMesssage' => $this->asyncApiMesssage instanceof AbstractTransfer ? $this->asyncApiMesssage->toArray(true, true) : $this->asyncApiMesssage,
         ];
