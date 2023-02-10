@@ -11,7 +11,7 @@ on:
 jobs:
     validation:
         name: "CS, ArchSniffer, PHPStan, Security"
-        runs-on: ubuntu-22.04
+        runs-on: ubuntu-latest
         env:
             APPLICATION_ENV: testing
         strategy:
@@ -71,7 +71,7 @@ jobs:
 
     prefer-lowest:
         name: "Prefer lowest checks"
-        runs-on: ubuntu-22.04
+        runs-on: ubuntu-latest
         env:
             APPLICATION_ENV: testing
         strategy:
