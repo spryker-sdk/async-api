@@ -103,7 +103,7 @@ class SchemaMessageAddConsole extends AbstractConsole
             ->setDescription('Adds a message definition to a specified Async API schema file.')
             ->addArgument(static::ARGUMENT_CHANNEL_NAME, InputArgument::REQUIRED, 'The channel name to which the message should be sent.')
             ->addArgument(static::ARGUMENT_MESSAGE_NAME, InputOption::VALUE_REQUIRED, 'Name of the message e.g ProductUpdated.')
-            ->addArgument(static::ARGUMENT_MODULE_NAME, InputOption::VALUE_REQUIRED, 'The module name that will work with the message.')
+            ->addArgument(static::ARGUMENT_MODULE_NAME, InputOption::VALUE_REQUIRED, 'The module name that will be used to send or receive the message.')
             ->addOption(static::OPTION_ASYNC_API_FILE, static::OPTION_ASYNC_API_FILE_SHORT, InputOption::VALUE_REQUIRED, '', $this->getConfig()->getDefaultAsyncApiFile())
             ->addOption(static::OPTION_PROPERTY, static::OPTION_PROPERTY_SHORT, InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'When this option is set the property value will be added to the message definition of the specified channel. Format: propertyName:propertyType. Example: -P firstName:string')
             ->addOption(static::OPTION_FROM_TRANSFER_CLASS, static::OPTION_FROM_TRANSFER_CLASS_SHORT, InputOption::VALUE_REQUIRED, 'The Transfer class name from which the message should be created.')
