@@ -13,12 +13,17 @@ use SprykerSdk\AsyncApi\Message\AsyncApiInfo;
 class AsyncApiInfoTest extends Unit
 {
     /**
+     * @var string
+     */
+    protected const TEST_FILE_NAME = 'fileName';
+
+    /**
      * @return void
      */
     public function testInfoMessageIsFormattedWhenOSIsNotWindows()
     {
         $class = new AsyncApiInfo(true);
-        $message = $class::asyncApiSchemaFileIsValid();
+        $message = $class::asyncApiFileCreated(static::TEST_FILE_NAME);
 
         $this->assertNotNull($message);
         $this->assertStringContainsString('[', $message);
@@ -30,7 +35,7 @@ class AsyncApiInfoTest extends Unit
     public function testInfoMessageIsNotFormattedWhenOSIsWindows()
     {
         $class = new AsyncApiInfo(false);
-        $message = $class::asyncApiSchemaFileIsValid();
+        $message = $class::asyncApiFileCreated(static::TEST_FILE_NAME);
 
         $this->assertNotNull($message);
         $this->assertStringNotContainsString('[', $message);
