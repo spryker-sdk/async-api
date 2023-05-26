@@ -11,6 +11,7 @@ use Rector\Core\Configuration\Option;
 use Rector\DeadCode\Rector\ClassMethod\RemoveUnusedPromotedPropertyRector;
 use Rector\DeadCode\Rector\ClassMethod\RemoveUselessParamTagRector;
 use Rector\DeadCode\Rector\ClassMethod\RemoveUselessReturnTagRector;
+use Rector\DeadCode\Rector\Property\RemoveUselessVarTagRector;
 use Rector\EarlyReturn\Rector\If_\ChangeAndIfToEarlyReturnRector;
 use Rector\EarlyReturn\Rector\If_\ChangeOrIfReturnToEarlyReturnRector;
 use Rector\EarlyReturn\Rector\Return_\ReturnBinaryAndToEarlyReturnRector;
@@ -35,5 +36,6 @@ return static function (RectorConfig $rectorConfig) {
         ReturnBinaryAndToEarlyReturnRector::class,
         SimplifyUselessVariableRector::class,
         TypedPropertyRector::class,
+        RemoveUselessVarTagRector::class
     ]);
 };

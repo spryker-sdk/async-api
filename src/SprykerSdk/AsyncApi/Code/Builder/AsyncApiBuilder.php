@@ -266,7 +266,7 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
         }
 
         if ($asyncApiMessageTransfer->getIsSubscribe()) {
-            $asyncApi = $this->addMessageToChannelType($asyncApi, $messageName, $channelName, 'subscribe');
+            return $this->addMessageToChannelType($asyncApi, $messageName, $channelName, 'subscribe');
         }
 
         return $asyncApi;

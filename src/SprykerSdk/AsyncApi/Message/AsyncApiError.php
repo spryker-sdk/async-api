@@ -204,7 +204,7 @@ class AsyncApiError
     protected static function format(string $message): string
     {
         if (PHP_SAPI === PHP_SAPI && stripos(PHP_OS, 'WIN') === false) {
-            $message = "\033[31m" . preg_replace_callback('/"(.+?)"/', function (array $matches) {
+            return "\033[31m" . preg_replace_callback('/"(.+?)"/', function (array $matches) {
                     return sprintf("\033[0m\033[33m%s\033[0m\033[31m", $matches[1]);
             }, $message);
         }
