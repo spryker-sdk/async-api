@@ -29,7 +29,7 @@ class AsyncApiInfoTest extends Unit
      */
     public function testInfoMessageIsNotFormattedWhenOSIsWindows()
     {
-        $class = new AsyncApiInfo();
+        $class = new AsyncApiInfo(false);
         $message = $class::asyncApiSchemaFileIsValid();
 
         $this->assertNotNull($message);

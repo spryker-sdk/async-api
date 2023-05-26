@@ -34,7 +34,7 @@ class AsyncApiErrorTest extends Unit
      */
     public function testErrorMessageIsNotFormattedWhenOSIsWindows()
     {
-        $class = new AsyncApiError();
+        $class = new AsyncApiError(false);
         $message = $class::couldNotFindAModulePropertyInTheSprykerExtension(static::TEST_PATH);
 
         $this->assertNotNull($message);
