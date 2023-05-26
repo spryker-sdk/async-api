@@ -9,6 +9,13 @@ namespace SprykerSdk\AsyncApi\Message;
 
 class AsyncApiInfo
 {
+    protected static ?bool $isNotWindows = null;
+
+    public function __construct(?bool $isNotWindows = null)
+    {
+        static::$isNotWindows = $isNotWindows ?? stripos(PHP_OS, 'WIN') === false ;
+    }
+
     /**
      * @return string
      */
@@ -102,7 +109,7 @@ class AsyncApiInfo
      */
     protected static function format(string $message): string
     {
-        if (PHP_SAPI === PHP_SAPI && stripos(PHP_OS, 'WIN') === false) {
+        if (static::$isNotWindows) {
             return "\033[32m" . preg_replace_callback('/"(.+?)"/', function (array $matches) {
                 return sprintf("\033[0m\033[33m%s\033[0m\033[32m", $matches[1]);
             }, $message);
