@@ -11,9 +11,12 @@ class AsyncApiInfo
 {
     protected static ?bool $isNotWindows = null;
 
+    /**
+     * @param bool|null $isNotWindows
+     */
     public function __construct(?bool $isNotWindows = null)
     {
-        static::$isNotWindows = $isNotWindows ?? stripos(PHP_OS, 'WIN') === false ;
+        static::$isNotWindows = $isNotWindows ?? stripos(PHP_OS, 'WIN') === false;
     }
 
     /**
