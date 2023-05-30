@@ -108,7 +108,7 @@ class AsyncApiInfo
     {
         return static::format(
             sprintf(
-                'AsyncAPI cli not found in your system, please make sure to install "%s" package. More info at "%s".',
+                'AsyncAPI cli not found in your system, please make sure to install the "%s" package. More info at "%s".',
                 '@asyncapi/cli',
                 'https://www.asyncapi.com/docs/tools/cli/installation',
             ),

@@ -58,8 +58,7 @@ class AsyncApiCli implements AsyncApiCliInterface
     public function isCliInstalled(): bool
     {
         try {
-            $asyncApiValidateCommand = sprintf('%s %s', static::ASYNCAPI_CLI_COMMAND, static::ASYNCAPI_CLI_VERSION);
-            $process = new Process([$asyncApiValidateCommand], $this->config->getProjectRootPath());
+            $process = new Process([static::ASYNCAPI_CLI_COMMAND, static::ASYNCAPI_CLI_VERSION], $this->config->getProjectRootPath());
             $process->run(function ($type, $buffer): void {
                 echo $buffer;
             });
@@ -87,8 +86,7 @@ class AsyncApiCli implements AsyncApiCliInterface
         }
 
         try {
-            $asyncApiValidateCommand = sprintf('%s %s %s', static::ASYNCAPI_CLI_COMMAND, static::ASYNCAPI_CLI_VALIDATE, $asyncApiFilePath);
-            $process = new Process([$asyncApiValidateCommand], $this->config->getProjectRootPath());
+            $process = new Process([static::ASYNCAPI_CLI_COMMAND, static::ASYNCAPI_CLI_VALIDATE, $asyncApiFilePath], $this->config->getProjectRootPath());
             $process->run(function ($type, $buffer): void {
                 echo $buffer;
             });
