@@ -8,6 +8,7 @@
 namespace SprykerSdk\AsyncApi\Validator;
 
 use Exception;
+use SprykerSdk\AsyncApi\AsyncApi\Cli\AsyncApiCliInterface;
 use SprykerSdk\AsyncApi\AsyncApiConfig;
 use SprykerSdk\AsyncApi\Message\AsyncApiError;
 use SprykerSdk\AsyncApi\Message\AsyncApiInfo;
@@ -34,15 +35,22 @@ class AsyncApiValidator implements ValidatorInterface
     protected array $validatorRules;
 
     /**
+     * @var \SprykerSdk\AsyncApi\AsyncApi\Cli\AsyncApiCliInterface
+     */
+    protected AsyncApiCliInterface $asyncApiCli;
+
+    /**
      * @param \SprykerSdk\AsyncApi\AsyncApiConfig $config
      * @param \SprykerSdk\AsyncApi\Message\MessageBuilderInterface $messageBuilder
+     * @param \SprykerSdk\AsyncApi\AsyncApi\Cli\AsyncApiCliInterface $asyncApiCli
      * @param array<\SprykerSdk\AsyncApi\Validator\Rule\ValidatorRuleInterface> $validatorRules
      */
-    public function __construct(AsyncApiConfig $config, MessageBuilderInterface $messageBuilder, array $validatorRules = [])
+    public function __construct(AsyncApiConfig $config, MessageBuilderInterface $messageBuilder, AsyncApiCliInterface $asyncApiCli, array $validatorRules = [])
     {
         $this->config = $config;
         $this->messageBuilder = $messageBuilder;
         $this->validatorRules = $validatorRules;
+        $this->asyncApiCli = $asyncApiCli;
     }
 
     /**
@@ -75,6 +83,8 @@ class AsyncApiValidator implements ValidatorInterface
 
             return $validateResponseTransfer;
         }
+
+        $validateResponseTransfer = $this->asyncApiCli->validate($validateResponseTransfer, $asyncApiFile);
 
         $validateResponseTransfer = $this->executeValidatorRules($asyncApi, $asyncApiFile, $validateResponseTransfer);
 

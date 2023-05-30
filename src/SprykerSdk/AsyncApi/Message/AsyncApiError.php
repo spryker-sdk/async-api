@@ -203,6 +203,25 @@ class AsyncApiError
     }
 
     /**
+     * @param string $path
+     * @param string $message
+     *
+     * @return string
+     */
+    public static function asyncApiCliValidationFailed(
+        string $path,
+        string $message
+    ): string {
+        return static::format(
+            sprintf(
+                'AsyncAPI CLI failed to validate schema "%s" with message "%s".',
+                $path,
+                $message,
+            ),
+        );
+    }
+
+    /**
      * Colorize output in CLI on Linux machines.
      *
      * Error text will be in red, everything in double quotes will be yellow, and quotes will be removed.
