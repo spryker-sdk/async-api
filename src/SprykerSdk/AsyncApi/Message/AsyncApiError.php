@@ -20,14 +20,6 @@ class AsyncApiError extends AbstractAsyncApiMessage
     protected const CODE_GENERATION_ERROR_PREFIX = 'AsyncAPI code generation error';
 
     /**
-     * @param bool|null $isWindows
-     */
-    public function __construct(?bool $isWindows = null)
-    {
-        parent::__construct($isWindows);
-    }
-
-    /**
      * @param string $path
      *
      * @return string

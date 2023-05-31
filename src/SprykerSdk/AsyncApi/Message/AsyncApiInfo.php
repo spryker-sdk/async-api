@@ -10,14 +10,6 @@ namespace SprykerSdk\AsyncApi\Message;
 class AsyncApiInfo extends AbstractAsyncApiMessage
 {
     /**
-     * @param bool|null $isWindows
-     */
-    public function __construct(?bool $isWindows = null)
-    {
-        parent::__construct($isWindows);
-    }
-
-    /**
      * @return string
      */
     public static function asyncApiSchemaFileIsValid(): string
