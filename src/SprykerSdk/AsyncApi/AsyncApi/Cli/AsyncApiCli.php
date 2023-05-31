@@ -19,17 +19,17 @@ class AsyncApiCli implements AsyncApiCliInterface
     /**
      * @var string
      */
-    public const ASYNCAPI_CLI = 'asyncapi';
+    protected const ASYNCAPI_CLI = 'asyncapi';
 
     /**
      * @var string
      */
-    public const ASYNCAPI_CLI_VALIDATE_COMMAND = 'validate';
+    protected const ASYNCAPI_CLI_VALIDATE_COMMAND = 'validate';
 
     /**
      * @var string
      */
-    public const ASYNCAPI_CLI_VERSION = '--version';
+    protected const ASYNCAPI_CLI_VERSION = '--version';
 
     /**
      * @var \SprykerSdk\AsyncApi\AsyncApiConfig
