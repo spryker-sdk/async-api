@@ -22,7 +22,7 @@ class AsyncApiInfoTest extends Unit
      */
     public function testInfoMessageIsFormattedWhenOSIsNotWindows()
     {
-        $class = new AsyncApiInfo(true);
+        $class = new AsyncApiInfo(false);
         $message = $class::asyncApiFileCreated(static::TEST_FILE_NAME);
 
         $this->assertNotNull($message);
@@ -34,7 +34,7 @@ class AsyncApiInfoTest extends Unit
      */
     public function testInfoMessageIsNotFormattedWhenOSIsWindows()
     {
-        $class = new AsyncApiInfo(false);
+        $class = new AsyncApiInfo(true);
         $message = $class::asyncApiFileCreated(static::TEST_FILE_NAME);
 
         $this->assertNotNull($message);

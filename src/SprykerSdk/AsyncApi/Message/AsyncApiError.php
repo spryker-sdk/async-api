@@ -7,7 +7,7 @@
 
 namespace SprykerSdk\AsyncApi\Message;
 
-class AsyncApiError
+class AsyncApiError extends AbstractAsyncApiMessage
 {
     /**
      * @var string
@@ -19,14 +19,12 @@ class AsyncApiError
      */
     protected const CODE_GENERATION_ERROR_PREFIX = 'AsyncAPI code generation error';
 
-    protected static ?bool $isNotWindows = null;
-
     /**
-     * @param bool|null $isNotWindows
+     * @param bool|null $isWindows
      */
-    public function __construct(?bool $isNotWindows = null)
+    public function __construct(?bool $isWindows = null)
     {
-        static::$isNotWindows = $isNotWindows ?? (PHP_SAPI === PHP_SAPI && stripos(PHP_OS, 'WIN') === false);
+        parent::__construct($isWindows);
     }
 
     /**
@@ -228,7 +226,7 @@ class AsyncApiError
      */
     protected static function format(string $message): string
     {
-        if (static::$isNotWindows) {
+        if (!static::$isWindows) {
             return "\033[31m" . preg_replace_callback('/"(.+?)"/', function (array $matches) {
                     return sprintf("\033[0m\033[33m%s\033[0m\033[31m", $matches[1]);
             }, $message);
