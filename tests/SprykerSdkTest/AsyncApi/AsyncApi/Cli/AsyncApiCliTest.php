@@ -84,6 +84,24 @@ class AsyncApiCliTest extends Unit
     }
 
     /**
+     * @return void
+     */
+    public function testAsyncApiIsInstalledWhenIRunTheValidationOnAnValidFileThenIDontSeeAnErrorMessage()
+    {
+        // Arrange
+        $asyncApiCliMock = $this->getAsyncApiCliMock(['runProcess']);
+        $asyncApiCliMock->method('runProcess')->willReturn(true);
+
+        // Act
+        $validateResponseTransfer = $asyncApiCliMock->validate((new ValidateResponseTransfer()), codecept_data_dir('api/valid/base_asyncapi.schema.yml'));
+
+        $validateResponseTransferErrors = $validateResponseTransfer->getErrors();
+
+        // Assert
+        $this->assertCount(0, $validateResponseTransferErrors);
+    }
+
+    /**
      * @param array $methods
      *
      * @return \PHPUnit\Framework\MockObject\MockObject|(\SprykerSdk\AsyncApi\AsyncApi\Cli\AsyncApiCli&\PHPUnit\Framework\MockObject\MockObject)
