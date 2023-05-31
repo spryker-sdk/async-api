@@ -7,7 +7,6 @@
 
 namespace SprykerSdk\AsyncApi\AsyncApi\Cli;
 
-use Exception;
 use SprykerSdk\AsyncApi\AsyncApiConfig;
 use SprykerSdk\AsyncApi\Message\AsyncApiError;
 use SprykerSdk\AsyncApi\Message\AsyncApiInfo;
@@ -20,12 +19,12 @@ class AsyncApiCli implements AsyncApiCliInterface
     /**
      * @var string
      */
-    public const ASYNCAPI_CLI_COMMAND = 'asyncapi';
+    public const ASYNCAPI_CLI = 'asyncapi';
 
     /**
      * @var string
      */
-    public const ASYNCAPI_CLI_VALIDATE = 'validate';
+    public const ASYNCAPI_CLI_VALIDATE_COMMAND = 'validate';
 
     /**
      * @var string
@@ -53,23 +52,6 @@ class AsyncApiCli implements AsyncApiCliInterface
     }
 
     /**
-     * @return bool
-     */
-    public function isCliInstalled(): bool
-    {
-        try {
-            $process = new Process([static::ASYNCAPI_CLI_COMMAND, static::ASYNCAPI_CLI_VERSION], $this->config->getProjectRootPath());
-            $process->run(function ($type, $buffer): void {
-                echo $buffer;
-            });
-        } catch (Exception $e) {
-            return false;
-        }
-
-        return $process->isSuccessful();
-    }
-
-    /**
      * @param \Transfer\ValidateResponseTransfer $validateResponseTransfer
      * @param string $asyncApiFilePath
      *
@@ -85,25 +67,53 @@ class AsyncApiCli implements AsyncApiCliInterface
             return $validateResponseTransfer;
         }
 
-        try {
-            $process = new Process([static::ASYNCAPI_CLI_COMMAND, static::ASYNCAPI_CLI_VALIDATE, $asyncApiFilePath], $this->config->getProjectRootPath());
-            $process->run(function ($type, $buffer): void {
-                echo $buffer;
-            });
-        } catch (Exception $e) {
+        if (!$this->runProcess([static::ASYNCAPI_CLI, static::ASYNCAPI_CLI_VALIDATE_COMMAND, $asyncApiFilePath])) {
             $validateResponseTransfer->addError($this->messageBuilder->buildMessage(
-                AsyncApiError::asyncApiCliValidationFailed($asyncApiFilePath, $e->getMessage()),
+                AsyncApiError::asyncApiCliValidationFailed($asyncApiFilePath),
             ));
 
             return $validateResponseTransfer;
         }
 
-        if (!$process->isSuccessful()) {
-            $validateResponseTransfer->addError($this->messageBuilder->buildMessage(
-                AsyncApiError::asyncApiCliValidationFailed($asyncApiFilePath, $process->getErrorOutput()),
-            ));
+        return $validateResponseTransfer;
+    }
+
+    /**
+     * @return bool
+     */
+    protected function isCliInstalled(): bool
+    {
+        if (!$this->runProcess([static::ASYNCAPI_CLI, static::ASYNCAPI_CLI_VERSION])) {
+            $this->triggerError('The AsyncAPI validator must be installed starting from the next major version 1.0.0. Not having the validator installed will mark the validation failed.');
+
+            return false;
         }
 
-        return $validateResponseTransfer;
+        return true;
+    }
+
+    /**
+     * @param array $command
+     *
+     * @return bool
+     */
+    protected function runProcess(array $command): bool
+    {
+        $process = new Process($command, $this->config->getProjectRootPath());
+        $process->run(function ($type, $buffer): void {
+            echo $buffer;
+        });
+
+        return $process->isSuccessful();
+    }
+
+    /**
+     * @param string $errorMessage
+     *
+     * @return void
+     */
+    protected function triggerError(string $errorMessage): void
+    {
+        trigger_error($errorMessage, E_USER_DEPRECATED);
     }
 }

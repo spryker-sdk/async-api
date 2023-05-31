@@ -40,4 +40,16 @@ class AsyncApiInfoTest extends Unit
         $this->assertNotNull($message);
         $this->assertStringNotContainsString('[', $message);
     }
+
+    /**
+     * @return void
+     */
+    /*public function testInfoMessage()
+    {
+        $class = new AsyncApiInfo(true);
+        $message = $class::asyncApiCliNotFound();
+
+        $this->assertNotNull($message);
+        $this->assertStringContainsString('[', $message);
+    }*/
 }

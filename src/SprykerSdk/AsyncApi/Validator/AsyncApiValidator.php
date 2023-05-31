@@ -84,9 +84,9 @@ class AsyncApiValidator implements ValidatorInterface
             return $validateResponseTransfer;
         }
 
-        $validateResponseTransfer = $this->asyncApiCli->validate($validateResponseTransfer, $asyncApiFile);
-
         $validateResponseTransfer = $this->executeValidatorRules($asyncApi, $asyncApiFile, $validateResponseTransfer);
+
+        $validateResponseTransfer = $this->asyncApiCli->validate($validateResponseTransfer, $asyncApiFile);
 
         if ($validateResponseTransfer->getErrors()->count() === 0) {
             $validateResponseTransfer->addMessage($this->messageBuilder->buildMessage(AsyncApiInfo::asyncApiSchemaFileIsValid()));

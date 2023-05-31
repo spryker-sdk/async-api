@@ -204,19 +204,15 @@ class AsyncApiError
 
     /**
      * @param string $path
-     * @param string $message
      *
      * @return string
      */
-    public static function asyncApiCliValidationFailed(
-        string $path,
-        string $message
-    ): string {
+    public static function asyncApiCliValidationFailed(string $path): string
+    {
         return static::format(
             sprintf(
-                'AsyncAPI CLI failed to validate schema "%s" with message "%s".',
+                'AsyncAPI CLI failed to validate schema "%s".',
                 $path,
-                $message,
             ),
         );
     }

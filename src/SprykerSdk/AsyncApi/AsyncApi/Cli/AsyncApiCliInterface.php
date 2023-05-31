@@ -12,11 +12,6 @@ use Transfer\ValidateResponseTransfer;
 interface AsyncApiCliInterface
 {
     /**
-     * @return bool
-     */
-    public function isCliInstalled(): bool;
-
-    /**
      * @param \Transfer\ValidateResponseTransfer $validateResponseTransfer
      * @param string $asyncApiFilePath
      *

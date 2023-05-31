@@ -31,8 +31,6 @@ class AsyncApiConfig
     /**
      * @api
      *
-     * @throws \SprykerSdk\AsyncApi\Exception\AsyncApiException
-     *
      * @return string
      */
     public function getProjectRootPath(): string
