@@ -102,6 +102,20 @@ class AsyncApiInfo
     }
 
     /**
+     * @return string
+     */
+    public static function asyncApiCliNotFound(): string
+    {
+        return static::format(
+            sprintf(
+                'AsyncAPI cli not found in your system, please make sure to install the "%s" package. More info at "%s".',
+                '@asyncapi/cli',
+                'https://www.asyncapi.com/docs/tools/cli/installation',
+            ),
+        );
+    }
+
+    /**
      * Colorize output in CLI on Linux machines.
      *
      * Info text will be in green, everything in double quotes will be yellow, and quotes will be removed.
