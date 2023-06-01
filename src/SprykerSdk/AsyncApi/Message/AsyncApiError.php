@@ -7,7 +7,7 @@
 
 namespace SprykerSdk\AsyncApi\Message;
 
-class AsyncApiError
+class AsyncApiError extends AbstractAsyncApiMessage
 {
     /**
      * @var string
@@ -193,6 +193,21 @@ class AsyncApiError
     }
 
     /**
+     * @param string $path
+     *
+     * @return string
+     */
+    public static function asyncApiCliValidationFailed(string $path): string
+    {
+        return static::format(
+            sprintf(
+                'AsyncAPI CLI failed to validate schema "%s".',
+                $path,
+            ),
+        );
+    }
+
+    /**
      * Colorize output in CLI on Linux machines.
      *
      * Error text will be in red, everything in double quotes will be yellow, and quotes will be removed.
@@ -203,8 +218,8 @@ class AsyncApiError
      */
     protected static function format(string $message): string
     {
-        if (PHP_SAPI === PHP_SAPI && stripos(PHP_OS, 'WIN') === false) {
-            $message = "\033[31m" . preg_replace_callback('/"(.+?)"/', function (array $matches) {
+        if (!static::$isWindows) {
+            return "\033[31m" . preg_replace_callback('/"(.+?)"/', function (array $matches) {
                     return sprintf("\033[0m\033[33m%s\033[0m\033[31m", $matches[1]);
             }, $message);
         }

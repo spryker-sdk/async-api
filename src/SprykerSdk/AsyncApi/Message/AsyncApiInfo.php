@@ -7,7 +7,7 @@
 
 namespace SprykerSdk\AsyncApi\Message;
 
-class AsyncApiInfo
+class AsyncApiInfo extends AbstractAsyncApiMessage
 {
     /**
      * @return string
@@ -92,6 +92,20 @@ class AsyncApiInfo
     }
 
     /**
+     * @return string
+     */
+    public static function asyncApiCliNotFound(): string
+    {
+        return static::format(
+            sprintf(
+                'AsyncAPI cli not found in your system, please make sure to install the "%s" package. More info at "%s".',
+                '@asyncapi/cli',
+                'https://www.asyncapi.com/docs/tools/cli/installation',
+            ),
+        );
+    }
+
+    /**
      * Colorize output in CLI on Linux machines.
      *
      * Info text will be in green, everything in double quotes will be yellow, and quotes will be removed.
@@ -102,8 +116,8 @@ class AsyncApiInfo
      */
     protected static function format(string $message): string
     {
-        if (PHP_SAPI === PHP_SAPI && stripos(PHP_OS, 'WIN') === false) {
-            $message = "\033[32m" . preg_replace_callback('/"(.+?)"/', function (array $matches) {
+        if (!static::$isWindows) {
+            return "\033[32m" . preg_replace_callback('/"(.+?)"/', function (array $matches) {
                 return sprintf("\033[0m\033[33m%s\033[0m\033[32m", $matches[1]);
             }, $message);
         }

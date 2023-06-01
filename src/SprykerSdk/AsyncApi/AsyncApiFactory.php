@@ -7,6 +7,8 @@
 
 namespace SprykerSdk\AsyncApi;
 
+use SprykerSdk\AsyncApi\AsyncApi\Cli\AsyncApiCli;
+use SprykerSdk\AsyncApi\AsyncApi\Cli\AsyncApiCliInterface;
 use SprykerSdk\AsyncApi\AsyncApi\Loader\AsyncApiLoader;
 use SprykerSdk\AsyncApi\AsyncApi\Loader\AsyncApiLoaderInterface;
 use SprykerSdk\AsyncApi\Code\Builder\AsyncApiBuilder;
@@ -72,6 +74,7 @@ class AsyncApiFactory
         return new AsyncApiValidator(
             $this->getConfig(),
             $this->createMessageBuilder(),
+            $this->createAsyncApiCli(),
             $this->getAsyncApiValidatorRules(),
         );
     }
@@ -118,5 +121,13 @@ class AsyncApiFactory
     public function createMessageBuilder(): MessageBuilderInterface
     {
         return new MessageBuilder();
+    }
+
+    /**
+     * @return \SprykerSdk\AsyncApi\AsyncApi\Cli\AsyncApiCliInterface
+     */
+    public function createAsyncApiCli(): AsyncApiCliInterface
+    {
+        return new AsyncApiCli($this->getConfig(), $this->createMessageBuilder());
     }
 }

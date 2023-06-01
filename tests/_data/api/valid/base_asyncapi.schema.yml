@@ -5,7 +5,11 @@ info:
 channels:
     foo/bar:
         subscribe:
+            message:
+                $ref: '#/components/messages/message'
         publish:
+            message:
+                $ref: '#/components/messages/message'
 components:
     schemas:
         headers:

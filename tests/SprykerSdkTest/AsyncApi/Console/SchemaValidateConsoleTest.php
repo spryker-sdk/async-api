@@ -32,12 +32,10 @@ class SchemaValidateConsoleTest extends Unit
     public function testValidateAsyncApiReturnsSuccessCodeWhenValidationIsSuccessful(): void
     {
         // Arrange
-        $this->tester->haveValidAsyncApiFile();
-
         $commandTester = $this->tester->getConsoleTester(SchemaValidateConsole::class);
 
         // Act
-        $commandTester->execute([]);
+        $commandTester->execute(['--asyncapi-file' => codecept_data_dir('api/valid/base_asyncapi.schema.yml')]);
 
         // Assert
         $this->assertSame(AbstractConsole::CODE_SUCCESS, $commandTester->getStatusCode());
