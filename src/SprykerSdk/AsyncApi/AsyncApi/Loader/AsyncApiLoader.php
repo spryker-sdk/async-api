@@ -29,9 +29,23 @@ class AsyncApiLoader implements AsyncApiLoaderInterface
      */
     public function load(string $asyncApiPath): AsyncApiInterface
     {
-        $asyncApi = Yaml::parseFile($asyncApiPath);
+        $asyncApi = $this->getYmlArray($asyncApiPath);
 
         return new AsyncApi($this->getChannels($asyncApi));
+    }
+
+    /**
+     * @param string $asyncApiPath
+     *
+     * @return array
+     */
+    protected function getYmlArray(string $asyncApiPath): array
+    {
+        if (filter_var($asyncApiPath, FILTER_VALIDATE_URL)) {
+            return Yaml::parse((string)file_get_contents($asyncApiPath));
+        }
+
+        return Yaml::parseFile($asyncApiPath);
     }
 
     /**
@@ -253,6 +267,11 @@ class AsyncApiLoader implements AsyncApiLoaderInterface
      */
     protected function resolveReference(array $asyncApi, string $reference): array
     {
+        // This is Spryker internal. This file contains header information you can reference in your schema file.
+        if (strpos($reference, '#/components/schemas/message-broker') !== false) {
+            return $this->resolveRemoteReference($asyncApi, '#/components/schemas/message-broker', '#/components/schemas/headers');
+        }
+
         $propertyAccessor = PropertyAccess::createPropertyAccessor();
 
         $propertyPath = ltrim($reference, '#/');
@@ -261,5 +280,39 @@ class AsyncApiLoader implements AsyncApiLoaderInterface
         $propertyPath = sprintf('[%s]', $propertyPath);
 
         return $propertyAccessor->getValue($asyncApi, $propertyPath);
+    }
+
+    /**
+     * @param array<string, mixed> $asyncApi
+     * @param string $reference
+     * @param string $remoteReference
+     *
+     * @return array<string, mixed>
+     */
+    protected function resolveRemoteReference(array $asyncApi, string $reference, string $remoteReference): array
+    {
+        $propertyAccessor = PropertyAccess::createPropertyAccessor();
+
+        $propertyPath = ltrim($reference, '#/');
+        $propertyPath = str_replace('/', '][', $propertyPath);
+
+        $propertyPath = sprintf('[%s]', $propertyPath);
+        $value = $propertyAccessor->getValue($asyncApi, $propertyPath);
+
+        return (!is_array($value)) ? [] : $this->resolveFromUrl($value, $remoteReference);
+    }
+
+    /**
+     * @param array $value
+     * @param string $remoteReference
+     *
+     * @return array<mixed>
+     */
+    protected function resolveFromUrl(array $value, string $remoteReference): array
+    {
+        $key = array_key_first($value);
+        $value = $value[$key];
+
+        return (!filter_var($value, FILTER_VALIDATE_URL)) ? [] : $this->resolveReference($this->getYmlArray($value), $remoteReference);
     }
 }
