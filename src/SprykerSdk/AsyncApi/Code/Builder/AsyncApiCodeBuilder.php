@@ -141,9 +141,37 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
         string $projectNamespace
     ): AsyncApiResponseTransfer {
         foreach ($asyncApiChannel->getPublishMessages() as $asyncApiMessage) {
-            $asyncApiResponseTransfer = $this->createTransferForMessage($asyncApiMessage, $asyncApiResponseTransfer, $projectNamespace);
-            $asyncApiResponseTransfer = $this->createHandlerForMessage($asyncApiMessage, $asyncApiResponseTransfer, $projectNamespace);
+            $asyncApiResponseTransfer = $this->runAddAsyncApiPublishMessage($asyncApiChannel, $asyncApiMessage, $asyncApiResponseTransfer, $projectNamespace);
         }
+
+        return $asyncApiResponseTransfer;
+    }
+
+    /**
+     * @return void
+     */
+    protected function runAddAsyncApiPublishMessage(
+        AsyncApiChannelInterface $asyncApiChannel,
+        AsyncApiMessageInterface $asyncApiMessage,
+        AsyncApiResponseTransfer $asyncApiResponseTransfer,
+        string $projectNamespace
+    ): AsyncApiResponseTransfer {
+        $messagesProperties = $this->getMessagesProperties($asyncApiMessage, $asyncApiResponseTransfer, $projectNamespace);
+        $moduleName = $this->getModuleNameForMessage($asyncApiMessage);
+
+        $commandLine = [
+            $this->config->getSprykRunExecutablePath() . '/vendor/bin/spryk-run',
+            'AddAsyncApiPublishMessage',
+            '--mode', $this->sprykMode,
+            '--organization', $projectNamespace,
+            '--module', $moduleName,
+            '--messageName', $asyncApiMessage->getName(),
+            '--channelName', $asyncApiChannel->getName(),
+            '--messages', implode(';', $messagesProperties),
+            '-n',
+        ];
+
+        $this->runCommandLine($commandLine);
 
         return $asyncApiResponseTransfer;
     }
@@ -161,8 +189,38 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
         string $projectNamespace
     ): AsyncApiResponseTransfer {
         foreach ($asyncApiChannel->getSubscribeMessages() as $asyncApiMessage) {
-            $asyncApiResponseTransfer = $this->createTransferForMessage($asyncApiMessage, $asyncApiResponseTransfer, $projectNamespace);
+            $asyncApiResponseTransfer = $this->runAddAsyncApiSubscribeMessage($asyncApiChannel, $asyncApiMessage, $asyncApiResponseTransfer, $projectNamespace);
+//            $asyncApiResponseTransfer = $this->createTransferForMessage($asyncApiMessage, $asyncApiResponseTransfer, $projectNamespace);
         }
+
+        return $asyncApiResponseTransfer;
+    }
+
+    /**
+     * @return void
+     */
+    protected function runAddAsyncApiSubscribeMessage(
+        AsyncApiChannelInterface $asyncApiChannel,
+        AsyncApiMessageInterface $asyncApiMessage,
+        AsyncApiResponseTransfer $asyncApiResponseTransfer,
+        string $projectNamespace
+    ): AsyncApiResponseTransfer {
+        $messagesProperties = $this->getMessagesProperties($asyncApiMessage, $asyncApiResponseTransfer, $projectNamespace);
+        $moduleName = $this->getModuleNameForMessage($asyncApiMessage);
+
+        $commandLine = [
+            $this->config->getSprykRunExecutablePath() . '/vendor/bin/spryk-run',
+            'AddAsyncApiSubscribeMessage',
+            '--mode', $this->sprykMode,
+            '--organization', $projectNamespace,
+            '--module', $moduleName,
+            '--messageName', $asyncApiMessage->getName(),
+            '--channelName', $asyncApiChannel->getName(),
+            '--messages', implode(';', $messagesProperties),
+            '-n',
+        ];
+
+        $this->runCommandLine($commandLine);
 
         return $asyncApiResponseTransfer;
     }
@@ -170,18 +228,14 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
     /**
      * @param \SprykerSdk\AsyncApi\AsyncApi\Message\AsyncApiMessageInterface $asyncApiMessage
      * @param \Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
-     * @param string $projectNamespace
      *
      * @return \Transfer\AsyncApiResponseTransfer
      */
-    protected function createTransferForMessage(
+    protected function getMessagesProperties(
         AsyncApiMessageInterface $asyncApiMessage,
-        AsyncApiResponseTransfer $asyncApiResponseTransfer,
-        string $projectNamespace
-    ): AsyncApiResponseTransfer {
-        $commandLines = [];
-
-        $moduleName = $this->getModuleNameForMessage($asyncApiMessage);
+        AsyncApiResponseTransfer $asyncApiResponseTransfer
+    ): array {
+        $messagesProperties = [];
 
         /** @var \SprykerSdk\AsyncApi\AsyncApi\Message\Attributes\AsyncApiMessageAttributeCollectionInterface $payload */
         $payload = $asyncApiMessage->getAttribute('payload');
@@ -189,29 +243,7 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
         /** @var string $asyncApiMessageName */
         $asyncApiMessageName = $asyncApiMessage->getName();
 
-        $commandLines = $this->recursiveAddTransferPropertyAddCommandLines($commandLines, $asyncApiResponseTransfer, $asyncApiMessageName, $payload, $projectNamespace, $moduleName);
-
-        // Add MessageAttribute to Transfer definition
-        $commandLines = $this->addTransferPropertyCommandLine($commandLines, $projectNamespace, $moduleName, $asyncApiMessageName, 'messageAttributes', 'MessageAttribute');
-
-        $asyncApiResponseTransfer->addMessage($this->messageBuilder->buildMessage(AsyncApiInfo::addedPropertyWithTypeTo('messageAttributes', 'MessageAttributesTransfer', $asyncApiMessageName, $moduleName)));
-
-        $commandLines[] = [
-            $this->config->getSprykRunExecutablePath() . '/vendor/bin/spryk-run',
-            'AddSharedTransferDefinition',
-            '--mode', $this->sprykMode,
-            '--organization', $projectNamespace,
-            '--module', $moduleName,
-            '--name', 'MessageAttributes',
-            '-n',
-            '-v',
-        ];
-
-        $asyncApiResponseTransfer->addMessage($this->messageBuilder->buildMessage(AsyncApiInfo::addedTransferDefinitionTo('MessageAttributeTransfer', $moduleName)));
-
-        $this->runCommandLines($commandLines);
-
-        return $asyncApiResponseTransfer;
+        return $this->recursiveAddTransferProperty($messagesProperties, $asyncApiResponseTransfer, $asyncApiMessageName, $payload);
     }
 
     /**
@@ -250,23 +282,18 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
      * @param \Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
      * @param string $messageName
      * @param \SprykerSdk\AsyncApi\AsyncApi\Message\Attributes\AsyncApiMessageAttributeCollectionInterface $attributeCollection
-     * @param string $projectNamespace
-     * @param string $moduleName
      *
      * @return array<array<string>>
      */
-    protected function recursiveAddTransferPropertyAddCommandLines(
-        array $commandLines,
+    protected function recursiveAddTransferProperty(
+        array $messagesProperties,
         AsyncApiResponseTransfer $asyncApiResponseTransfer,
         string $messageName,
-        AsyncApiMessageAttributeCollectionInterface $attributeCollection,
-        string $projectNamespace,
-        string $moduleName
+        AsyncApiMessageAttributeCollectionInterface $attributeCollection
     ): array {
-        $transferPropertiesToAdd = [];
-
         /** @var \SprykerSdk\AsyncApi\AsyncApi\Message\Attributes\AsyncApiMessageAttributeCollectionInterface $properties */
         $properties = $attributeCollection->getAttribute('properties');
+        $propertiesForCurrentMessage = [];
 
         /** @var \SprykerSdk\AsyncApi\AsyncApi\Message\Attributes\AsyncApiMessageAttributeCollectionInterface $property */
         foreach ($properties->getAttributes() as $propertyName => $property) {
@@ -289,56 +316,16 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
                     /** @var \SprykerSdk\AsyncApi\AsyncApi\Message\Attributes\AsyncApiMessageAttributeCollectionInterface $itemCollection */
                     $itemCollection = $property->getAttribute('items');
 
-                    $commandLines = $this->recursiveAddTransferPropertyAddCommandLines($commandLines, $asyncApiResponseTransfer, $innerMessageName, $itemCollection, $projectNamespace, $moduleName);
+                    $messagesProperties = $this->recursiveAddTransferProperty($messagesProperties, $asyncApiResponseTransfer, $innerMessageName, $itemCollection);
                 }
             }
 
-            $transferPropertiesToAdd[] = ($propertyNameSingular) ? sprintf('%s:%s:%s', $propertyName, $type, $propertyNameSingular) : sprintf('%s:%s', $propertyName, $type);
-            $asyncApiResponseTransfer->addMessage($this->messageBuilder->buildMessage(AsyncApiInfo::addedPropertyWithTypeTo($propertyName, $type, $messageName, $moduleName)));
+            $propertiesForCurrentMessage[] = ($propertyNameSingular) ? sprintf('%s:%s:%s', $propertyName, $type, $propertyNameSingular) : sprintf('%s:%s', $propertyName, $type);
         }
 
-        return $this->addTransferPropertyCommandLine($commandLines, $projectNamespace, $moduleName, $messageName, implode(',', $transferPropertiesToAdd));
-    }
+        $messagesProperties[] = sprintf('%s#%s', $messageName, implode(',', $propertiesForCurrentMessage));
 
-    /**
-     * @param array<array<string>> $commandLines
-     * @param string $projectNamespace
-     * @param string $moduleName
-     * @param string $messageName
-     * @param string $propertyName
-     * @param string|null $propertyType
-     *
-     * @return array<array<string>>
-     */
-    protected function addTransferPropertyCommandLine(
-        array $commandLines,
-        string $projectNamespace,
-        string $moduleName,
-        string $messageName,
-        string $propertyName,
-        ?string $propertyType = null
-    ): array {
-        $propertyCommandLine = [
-            $this->config->getSprykRunExecutablePath() . '/vendor/bin/spryk-run',
-            'AddSharedTransferProperty',
-            '--mode', $this->sprykMode,
-            '--organization', $projectNamespace,
-            '--module', $moduleName,
-            '--name', $messageName,
-            '--propertyName', $propertyName,
-        ];
-
-        if ($propertyType) {
-            $propertyCommandLine[] = '--propertyType';
-            $propertyCommandLine[] = $propertyType;
-        }
-
-        $propertyCommandLine[] = '-n'; // No interaction
-        $propertyCommandLine[] = '-v'; // verbose mode
-
-        $commandLines[] = $propertyCommandLine;
-
-        return $commandLines;
+        return $messagesProperties;
     }
 
     /**
@@ -355,60 +342,19 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
     }
 
     /**
-     * @param \SprykerSdk\AsyncApi\AsyncApi\Message\AsyncApiMessageInterface $asyncApiMessage
-     * @param \Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
-     * @param string $projectNamespace
-     *
-     * @return \Transfer\AsyncApiResponseTransfer
-     */
-    protected function createHandlerForMessage(
-        AsyncApiMessageInterface $asyncApiMessage,
-        AsyncApiResponseTransfer $asyncApiResponseTransfer,
-        string $projectNamespace
-    ): AsyncApiResponseTransfer {
-        $commandLines = [];
-
-        $moduleName = $this->getModuleNameForMessage($asyncApiMessage);
-
-        /** @var \SprykerSdk\AsyncApi\AsyncApi\Message\Attributes\AsyncApiMessageAttributeInterface $messageNameAttribute */
-        $messageNameAttribute = $asyncApiMessage->getAttribute('name');
-        /** @var string $messageName */
-        $messageName = $messageNameAttribute->getValue();
-
-        $commandLines[] = [
-            $this->config->getSprykRunExecutablePath() . '/vendor/bin/spryk-run',
-            'AddMessageBrokerHandlerPlugin',
-            '--mode', $this->sprykMode,
-            '--organization', $projectNamespace,
-            '--module', $moduleName,
-            '--messageName', $messageName,
-            '-n',
-            '-v',
-        ];
-
-        $asyncApiResponseTransfer->addMessage($this->messageBuilder->buildMessage(AsyncApiInfo::addedMessageHandlerPluginForMessageTo($messageName, $moduleName)));
-
-        $this->runCommandLines($commandLines);
-
-        return $asyncApiResponseTransfer;
-    }
-
-    /**
      * @codeCoverageIgnore
      *
      * @param array<array> $commandLines
      *
      * @return void
      */
-    protected function runCommandLines(array $commandLines): void
+    protected function runCommandLine(array $commandLine): void
     {
-        foreach ($commandLines as $commandLine) {
-            $process = new Process($commandLine, $this->config->getProjectRootPath());
+        $process = new Process($commandLine, $this->config->getProjectRootPath());
 
-            $process->run(function ($a, $buffer) {
-                echo $buffer;
-                // For debugging purposes, set a breakpoint here to see issues.
-            });
-        }
+        $process->run(function ($a, $buffer) {
+            echo $buffer;
+            // For debugging purposes, set a breakpoint here to see issues.
+        });
     }
 }
