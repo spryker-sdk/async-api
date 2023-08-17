@@ -190,7 +190,6 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
     ): AsyncApiResponseTransfer {
         foreach ($asyncApiChannel->getSubscribeMessages() as $asyncApiMessage) {
             $asyncApiResponseTransfer = $this->runAddAsyncApiSubscribeMessage($asyncApiChannel, $asyncApiMessage, $asyncApiResponseTransfer, $projectNamespace);
-//            $asyncApiResponseTransfer = $this->createTransferForMessage($asyncApiMessage, $asyncApiResponseTransfer, $projectNamespace);
         }
 
         return $asyncApiResponseTransfer;
@@ -243,7 +242,14 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
         /** @var string $asyncApiMessageName */
         $asyncApiMessageName = $asyncApiMessage->getName();
 
-        return $this->recursiveAddTransferProperty($messagesProperties, $asyncApiResponseTransfer, $asyncApiMessageName, $payload);
+        $messagesProperties = $this->recursiveAddTransferProperty($messagesProperties, $asyncApiResponseTransfer, $asyncApiMessageName, $payload);
+
+        // The last message is the first message and this needs to get the messageAttributes property
+        $rootMessage = array_pop($messagesProperties);
+        $rootMessage .= ',messageAttributes:MessageAttributes';
+        array_push($messagesProperties, $rootMessage);
+
+        return $messagesProperties;
     }
 
     /**
