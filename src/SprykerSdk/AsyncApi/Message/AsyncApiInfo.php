@@ -57,41 +57,6 @@ class AsyncApiInfo extends AbstractAsyncApiMessage
     }
 
     /**
-     * @param string $propertyName
-     * @param string $type
-     * @param string $asyncApiMessageName
-     * @param string $moduleName
-     *
-     * @return string
-     */
-    public static function addedPropertyWithTypeTo(string $propertyName, string $type, string $asyncApiMessageName, string $moduleName): string
-    {
-        return static::format(sprintf('Added property "%s" with type "%s" to the "%sTransfer" transfer object of the module "%s".', $propertyName, $type, $asyncApiMessageName, $moduleName));
-    }
-
-    /**
-     * @param string $asyncApiMessageName
-     * @param string $moduleName
-     *
-     * @return string
-     */
-    public static function addedTransferDefinitionTo(string $asyncApiMessageName, string $moduleName): string
-    {
-        return static::format(sprintf('Added transfer definition for "%s" to the module "%s".', $asyncApiMessageName, $moduleName));
-    }
-
-    /**
-     * @param string $asyncApiMessageName
-     * @param string $moduleName
-     *
-     * @return string
-     */
-    public static function addedMessageHandlerPluginForMessageTo(string $asyncApiMessageName, string $moduleName): string
-    {
-        return static::format(sprintf('Added MessageHandlerPlugin for the message "%sTransfer" to the module "%s".', $asyncApiMessageName, $moduleName));
-    }
-
-    /**
      * @return string
      */
     public static function asyncApiCliNotFound(): string
