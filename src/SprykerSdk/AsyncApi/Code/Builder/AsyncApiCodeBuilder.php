@@ -148,7 +148,12 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
     }
 
     /**
-     * @return void
+     * @param \SprykerSdk\AsyncApi\AsyncApi\Channel\AsyncApiChannelInterface $asyncApiChannel
+     * @param \SprykerSdk\AsyncApi\AsyncApi\Message\AsyncApiMessageInterface $asyncApiMessage
+     * @param \Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
+     * @param string $projectNamespace
+     *
+     * @return \Transfer\AsyncApiResponseTransfer
      */
     protected function runAddAsyncApiPublishMessage(
         AsyncApiChannelInterface $asyncApiChannel,
@@ -156,7 +161,7 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
         AsyncApiResponseTransfer $asyncApiResponseTransfer,
         string $projectNamespace
     ): AsyncApiResponseTransfer {
-        $messagesProperties = $this->getMessagesProperties($asyncApiMessage, $asyncApiResponseTransfer, $projectNamespace);
+        $messagesProperties = $this->getMessagesProperties($asyncApiMessage, $asyncApiResponseTransfer);
         $moduleName = $this->getModuleNameForMessage($asyncApiMessage);
 
         $commandLine = [
@@ -171,6 +176,7 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
             '-n',
         ];
 
+        $asyncApiResponseTransfer->addMessage($this->messageBuilder->buildMessage(AsyncApiInfo::generatedCodeFromAsyncApiSchema()));
         $this->runCommandLine($commandLine);
 
         return $asyncApiResponseTransfer;
@@ -196,7 +202,12 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
     }
 
     /**
-     * @return void
+     * @param \SprykerSdk\AsyncApi\AsyncApi\Channel\AsyncApiChannelInterface $asyncApiChannel
+     * @param \SprykerSdk\AsyncApi\AsyncApi\Message\AsyncApiMessageInterface $asyncApiMessage
+     * @param \Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
+     * @param string $projectNamespace
+     *
+     * @return \Transfer\AsyncApiResponseTransfer
      */
     protected function runAddAsyncApiSubscribeMessage(
         AsyncApiChannelInterface $asyncApiChannel,
@@ -204,7 +215,7 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
         AsyncApiResponseTransfer $asyncApiResponseTransfer,
         string $projectNamespace
     ): AsyncApiResponseTransfer {
-        $messagesProperties = $this->getMessagesProperties($asyncApiMessage, $asyncApiResponseTransfer, $projectNamespace);
+        $messagesProperties = $this->getMessagesProperties($asyncApiMessage, $asyncApiResponseTransfer);
         $moduleName = $this->getModuleNameForMessage($asyncApiMessage);
 
         $commandLine = [
@@ -219,6 +230,7 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
             '-n',
         ];
 
+        $asyncApiResponseTransfer->addMessage($this->messageBuilder->buildMessage(AsyncApiInfo::generatedCodeFromAsyncApiSchema()));
         $this->runCommandLine($commandLine);
 
         return $asyncApiResponseTransfer;
@@ -228,7 +240,7 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
      * @param \SprykerSdk\AsyncApi\AsyncApi\Message\AsyncApiMessageInterface $asyncApiMessage
      * @param \Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
      *
-     * @return \Transfer\AsyncApiResponseTransfer
+     * @return array
      */
     protected function getMessagesProperties(
         AsyncApiMessageInterface $asyncApiMessage,
@@ -284,12 +296,12 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
      * properties which reference another transfer for this inner transfer we also need to add the transfer
      * definition with its properties.
      *
-     * @param array<array<string>> $commandLines
+     * @param array<array<string>|string> $messagesProperties
      * @param \Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
      * @param string $messageName
      * @param \SprykerSdk\AsyncApi\AsyncApi\Message\Attributes\AsyncApiMessageAttributeCollectionInterface $attributeCollection
      *
-     * @return array<array<string>>
+     * @return array<array<string>|string>
      */
     protected function recursiveAddTransferProperty(
         array $messagesProperties,
@@ -350,7 +362,7 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
     /**
      * @codeCoverageIgnore
      *
-     * @param array<array> $commandLines
+     * @param array<int, string> $commandLine
      *
      * @return void
      */
