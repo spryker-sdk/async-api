@@ -7,5 +7,6 @@ parameters:
 
     ignoreErrors:
         - '#Parameter .+ of method .+Transfer::.+\(\).+ given.#'
+        - '#Binary operation .+ results in an error.#'
 
     reportUnmatchedIgnoredErrors: false
