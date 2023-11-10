@@ -319,8 +319,10 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
 
             /** @var \SprykerSdk\AsyncApi\AsyncApi\Message\Attributes\AsyncApiMessageAttributeInterface $typeAttribute */
             $typeAttribute = $property->getAttribute('type');
+
             /** @var string $type */
             $type = $typeAttribute->getValue();
+            $type = $this->normalizeTransferType($type);
 
             if ($type === 'array') {
                 /** @var \SprykerSdk\AsyncApi\AsyncApi\Message\Attributes\AsyncApiMessageAttributeInterface|null $typeOfAttribute */
@@ -344,6 +346,19 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
         $messagesProperties[] = sprintf('%s#%s', $messageName, implode(',', $propertiesForCurrentMessage));
 
         return $messagesProperties;
+    }
+
+    /**
+     * @param string $type
+     *
+     * @return string
+     */
+    protected function normalizeTransferType(string $type): string
+    {
+        return match ($type) {
+            'integer' => 'int',
+            default => $type,
+        };
     }
 
     /**
