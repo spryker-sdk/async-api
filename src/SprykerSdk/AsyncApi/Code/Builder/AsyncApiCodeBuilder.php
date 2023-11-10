@@ -370,7 +370,7 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
     {
         $process = new Process($commandLine, $this->config->getProjectRootPath());
 
-        $process->run(function ($a, $buffer) {
+        $process->run(function ($a, $buffer): void {
             echo $buffer;
             // For debugging purposes, set a breakpoint here to see issues.
         });

@@ -181,7 +181,7 @@ class AsyncApiLoader implements AsyncApiLoaderInterface
      *
      * @return array<mixed>
      */
-    protected function resolveWithResolvedReferences(array $asyncApi, string $reference)
+    protected function resolveWithResolvedReferences(array $asyncApi, string $reference): array
     {
         $resolved = $this->resolveReference($asyncApi, $reference);
 
