@@ -19,6 +19,7 @@ use SprykerSdk\AsyncApi\AsyncApi\Message\Attributes\AsyncApiMessageAttributeColl
 use SprykerSdk\AsyncApi\AsyncApi\Message\Attributes\AsyncApiMessageAttributeCollectionInterface;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\Yaml\Yaml;
+use Throwable;
 
 class AsyncApiLoader implements AsyncApiLoaderInterface
 {
@@ -166,14 +167,95 @@ class AsyncApiLoader implements AsyncApiLoaderInterface
         foreach ($messages as $message) {
             foreach ($message as $reference) {
                 $messageName = $this->resolveReferenceKey($reference);
-                $resolvedMessage = $this->resolveReference($asyncApi, $reference);
 
-                $messageWithResolvedReferences = $this->resolveReferences($resolvedMessage, $asyncApi);
-                $formattedMessages[$messageName] = $messageWithResolvedReferences;
+                $formattedMessages[$messageName] = $this->resolveWithResolvedReferences($asyncApi, $reference);
             }
         }
 
         return $formattedMessages;
+    }
+
+    /**
+     * @param array $asyncApi
+     * @param string $reference
+     *
+     * @return array<mixed>
+     */
+    protected function resolveWithResolvedReferences(array $asyncApi, string $reference)
+    {
+        $resolved = $this->resolveReference($asyncApi, $reference);
+
+        if (!$resolved) {
+            return $this->resolveWithResolvedReferencesFromRemoteApi($asyncApi, $reference);
+        }
+
+        return $this->resolveReferences($resolved, $asyncApi);
+    }
+
+    /**
+     * @param array $asyncApi
+     * @param string $reference
+     *
+     * @return array<mixed>
+     */
+    protected function resolveWithResolvedReferencesFromRemoteApi(array $asyncApi, string $reference): array
+    {
+        [$value, $remoteReference] = $this->getReferenceInRootAsyncApi($asyncApi, $reference);
+
+        $key = array_key_first($value);
+        $value = $value[$key];
+
+        $valueFragments = explode('#', $value);
+        $value = $valueFragments[0];
+
+        if (!filter_var($value, FILTER_VALIDATE_URL)) {
+            return [];
+        }
+
+        if (isset($valueFragments[1])) {
+            // Ensure that if the prefix has a trailing slash we only have one at the end.
+            $remoteReferencePrefix = rtrim($valueFragments[1], '/') . '/';
+            $remoteReference = $remoteReferencePrefix . $remoteReference;
+        }
+
+        $remoteReference = sprintf('#/%s', ltrim($remoteReference, '#/'));
+
+        $remoteAsyncApi = $this->getYmlArray($value);
+
+        $resolvedMessage = $this->resolveReference($remoteAsyncApi, $remoteReference);
+
+        return $this->resolveReferences($resolvedMessage, $remoteAsyncApi);
+    }
+
+    /**
+     * @param array $asyncApi
+     * @param string $reference
+     *
+     * @return array
+     */
+    protected function getReferenceInRootAsyncApi(array $asyncApi, string $reference): array
+    {
+        $referenceFragments = explode('/', $reference);
+        $referenceFragmentsLength = count($referenceFragments);
+
+        while (true) {
+            $currentPosition = --$referenceFragmentsLength;
+
+            $thisReference = array_slice($referenceFragments, 0, $currentPosition);
+            $thisReference = implode('/', $thisReference);
+
+            $remoteReference = array_slice($referenceFragments, $currentPosition);
+            $remoteReference = implode('/', $remoteReference);
+
+            try {
+                $propertyPath = $this->getPropertyPath($thisReference);
+                $value = $this->getFromPropertyPath($asyncApi, $propertyPath);
+                if ($value !== null) {
+                    return [$value, $remoteReference];
+                }
+            } catch (Throwable) {
+            }
+        }
     }
 
     /**
@@ -188,10 +270,8 @@ class AsyncApiLoader implements AsyncApiLoaderInterface
 
         foreach ($messages as $reference) {
             $messageName = $this->resolveReferenceKey($reference);
-            $resolvedMessage = $this->resolveReference($asyncApi, $reference);
-            $messageWithResolvedReferences = $this->resolveReferences($resolvedMessage, $asyncApi);
 
-            $formattedMessages[$messageName] = $messageWithResolvedReferences;
+            $formattedMessages[$messageName] = $this->resolveWithResolvedReferences($asyncApi, $reference);
         }
 
         return $formattedMessages;
@@ -235,9 +315,7 @@ class AsyncApiLoader implements AsyncApiLoaderInterface
             }
 
             if ($key === '$ref') {
-                $resolved = $this->resolveReference($asyncApi, $value);
-                $resolved = $this->resolveReferences($resolved, $asyncApi);
-                $array += $resolved;
+                $array += $this->resolveWithResolvedReferences($asyncApi, $value);
 
                 unset($array[$key]);
             }
@@ -263,56 +341,25 @@ class AsyncApiLoader implements AsyncApiLoaderInterface
      * @param array<string, mixed> $asyncApi
      * @param string $reference
      *
-     * @return array<string, mixed>
+     * @return array<mixed>
      */
     protected function resolveReference(array $asyncApi, string $reference): array
     {
-        // This is Spryker internal. This file contains header information you can reference in your schema file.
-        if (strpos($reference, '#/components/schemas/message-broker') !== false) {
-            return $this->resolveRemoteReference($asyncApi, '#/components/schemas/message-broker', '#/components/schemas/headers');
-        }
+        $propertyPath = $this->getPropertyPath($reference);
 
-        $propertyAccessor = PropertyAccess::createPropertyAccessor();
-
-        $propertyPath = ltrim($reference, '#/');
-        $propertyPath = str_replace('/', '][', $propertyPath);
-
-        $propertyPath = sprintf('[%s]', $propertyPath);
-
-        return $propertyAccessor->getValue($asyncApi, $propertyPath);
+        return (array)$this->getFromPropertyPath($asyncApi, $propertyPath);
     }
 
     /**
-     * @param array<string, mixed> $asyncApi
      * @param string $reference
-     * @param string $remoteReference
      *
-     * @return array<string, mixed>
+     * @return string
      */
-    protected function resolveRemoteReference(array $asyncApi, string $reference, string $remoteReference): array
+    protected function getPropertyPath(string $reference): string
     {
-        $propertyAccessor = PropertyAccess::createPropertyAccessor();
-
         $propertyPath = ltrim($reference, '#/');
         $propertyPath = str_replace('/', '][', $propertyPath);
 
-        $propertyPath = sprintf('[%s]', $propertyPath);
-        $value = $propertyAccessor->getValue($asyncApi, $propertyPath);
-
-        return (!is_array($value)) ? [] : $this->resolveFromUrl($value, $remoteReference);
-    }
-
-    /**
-     * @param array $value
-     * @param string $remoteReference
-     *
-     * @return array<mixed>
-     */
-    protected function resolveFromUrl(array $value, string $remoteReference): array
-    {
-        $key = array_key_first($value);
-        $value = $value[$key];
-
-        return (!filter_var($value, FILTER_VALIDATE_URL)) ? [] : $this->resolveReference($this->getYmlArray($value), $remoteReference);
+        return sprintf('[%s]', $propertyPath);
     }
 }

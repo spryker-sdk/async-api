@@ -77,4 +77,32 @@ class AsyncApiLoaderTest extends Unit
         $this->assertSame('string', $headerProperties->getAttribute('correlationId')->getAttribute('type')->getValue());
         $this->assertSame('string', $headerProperties->getAttribute('tenantIdentifier')->getAttribute('type')->getValue());
     }
+
+    /**
+     * @group single
+     *
+     * @return void
+     */
+    public function testLoadResolvesReferencesToRemoteReferencedFilesWithVariablePath(): void
+    {
+        // Arrange
+        $asyncApiLoader = new AsyncApiLoader();
+
+        // Act
+        $asyncApi = $asyncApiLoader->load(codecept_data_dir('api/valid/transfer_references_remote.yml'));
+
+        $channel = $asyncApi->getChannel('channel');
+        $publishMessages = iterator_to_array($channel->getPublishMessages());
+        /** @var \SprykerSdk\AsyncApi\AsyncApi\Message\AsyncApiMessageInterface $publishMessage */
+        $publishMessage = $publishMessages['MessageWithVariablePath'];
+
+        $header = $publishMessage->getAttribute('headers');
+        $headerProperties = $header->getAttribute('properties');
+
+        // Assert
+        $this->assertSame('string', $headerProperties->getAttribute('authorization')->getAttribute('type')->getValue());
+        $this->assertSame('integer', $headerProperties->getAttribute('timestamp')->getAttribute('type')->getValue());
+        $this->assertSame('string', $headerProperties->getAttribute('correlationId')->getAttribute('type')->getValue());
+        $this->assertSame('string', $headerProperties->getAttribute('tenantIdentifier')->getAttribute('type')->getValue());
+    }
 }

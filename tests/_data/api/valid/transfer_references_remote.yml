@@ -8,6 +8,7 @@ channels:
             message:
                 oneOf:
                     -   $ref: '#/components/messages/Message'
+                    -   $ref: '#/components/messages/MessageWithVariablePath'
 
 components:
     messages:
@@ -20,6 +21,16 @@ components:
                 $ref: '#/components/schemas/MessageWithCollection'
             headers:
                 $ref: '#/components/schemas/message-broker/components/schemas/headers'
+
+        MessageWithVariablePath:
+            name: MessageWithCollection
+            description: Description
+            x-spryker:
+                module: ModuleName
+            payload:
+                $ref: '#/components/schemas/MessageWithCollection'
+            headers:
+                $ref: '#/components/schemas/message-broker-with-variable-path/schemas/headers'
 
     schemas:
         MessageWithCollection:
@@ -44,3 +55,6 @@ components:
 
         message-broker:
             $ref: 'https://raw.githubusercontent.com/spryker/message-broker/1.6.0/resources/api/template.yml'
+
+        message-broker-with-variable-path:
+            $ref: 'https://raw.githubusercontent.com/spryker/message-broker/1.6.0/resources/api/template.yml#/components'
