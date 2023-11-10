@@ -17,9 +17,7 @@
     <exclude-pattern>*/tests/_helpers/*</exclude-pattern>
     <exclude-pattern>*/tests/_output/*</exclude-pattern>
 
-    <rule ref="vendor/spryker/code-sniffer/Spryker/ruleset.xml">
-        <exclude name="Spryker.Commenting.DisallowArrayTypeHintSyntax"/>
-    </rule>
+    <rule ref="vendor/spryker/code-sniffer/Spryker/ruleset.xml"/>
 
     <rule ref="vendor/spryker/code-sniffer/SprykerStrict/ruleset.xml">
         <exclude name="SprykerStrict.TypeHints.ParameterTypeHint"/>
