@@ -51,8 +51,6 @@ class AsyncApiLoaderTest extends Unit
     }
 
     /**
-     * @group single
-     *
      * @return void
      */
     public function testLoadResolvesReferencesToRemoteReferencedFiles(): void
@@ -76,6 +74,30 @@ class AsyncApiLoaderTest extends Unit
         $this->assertSame('integer', $headerProperties->getAttribute('timestamp')->getAttribute('type')->getValue());
         $this->assertSame('string', $headerProperties->getAttribute('correlationId')->getAttribute('type')->getValue());
         $this->assertSame('string', $headerProperties->getAttribute('tenantIdentifier')->getAttribute('type')->getValue());
+    }
+
+    /**
+     * @group single
+     * @return void
+     */
+    public function testLoadDoesNotResolvesReferencesToRemoteReferencedWhenInvalidUrlIsGiven(): void
+    {
+        // Arrange
+        $asyncApiLoader = new AsyncApiLoader();
+
+        // Act
+        $asyncApi = $asyncApiLoader->load(codecept_data_dir('api/invalid/transfer_references_remote_invalid_url.yml'));
+
+        $channel = $asyncApi->getChannel('channel');
+        $publishMessages = iterator_to_array($channel->getPublishMessages());
+        /** @var \SprykerSdk\AsyncApi\AsyncApi\Message\AsyncApiMessageInterface $publishMessage */
+        $publishMessage = $publishMessages['Message'];
+
+        $header = $publishMessage->getAttribute('headers');
+        $headerProperties = $header->getAttribute('properties');
+
+        // Assert
+        $this->assertNull($headerProperties);
     }
 
     /**

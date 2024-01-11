@@ -247,13 +247,10 @@ class AsyncApiLoader implements AsyncApiLoaderInterface
             $remoteReference = array_slice($referenceFragments, $currentPosition);
             $remoteReference = implode('/', $remoteReference);
 
-            try {
-                $propertyPath = $this->getPropertyPath($thisReference);
-                $value = $this->getFromPropertyPath($asyncApi, $propertyPath);
-                if ($value !== null) {
-                    return [$value, $remoteReference];
-                }
-            } catch (Throwable) {
+            $propertyPath = $this->getPropertyPath($thisReference);
+            $value = $this->getFromPropertyPath($asyncApi, $propertyPath);
+            if ($value !== null) {
+                return [$value, $remoteReference];
             }
         }
     }

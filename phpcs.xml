@@ -18,12 +18,20 @@
     <exclude-pattern>*/tests/_output/*</exclude-pattern>
 
     <rule ref="vendor/spryker/code-sniffer/Spryker/ruleset.xml">
-        <exclude name="Spryker.Commenting.DisallowArrayTypeHintSyntax"/>
+        <exclude name="Spryker.Commenting.DocBlock"/>
+        <exclude name="Spryker.Commenting.DocBlockParam"/>
+        <exclude name="Spryker.Commenting.DocBlockReturnVoid"/>
     </rule>
 
     <rule ref="vendor/spryker/code-sniffer/SprykerStrict/ruleset.xml">
         <exclude name="SprykerStrict.TypeHints.ParameterTypeHint"/>
         <exclude name="SprykerStrict.TypeHints.PropertyTypeHint"/>
+    </rule>
+
+    <!-- Conflicting rule for constructor property promotion, this needs to be excluded otherwise Rector will refactor and CS Sniffer complains. -->
+    <rule ref="SlevomatCodingStandard.Classes.DisallowConstructorPropertyPromotion">
+        <exclude
+            name="SlevomatCodingStandard.Classes.DisallowConstructorPropertyPromotion.DisallowedConstructorPropertyPromotion"/>
     </rule>
 
 </ruleset>

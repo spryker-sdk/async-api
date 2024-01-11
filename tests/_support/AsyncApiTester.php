@@ -25,7 +25,7 @@ use SprykerSdk\AsyncApi\AsyncApiFacadeInterface;
  * @method void comment($description)
  * @method void pause()
  *
- * @SuppressWarnings(PHPMD)
+ * @SuppressWarnings(\SprykerSdkTest\AsyncApi\PHPMD)
  */
 class AsyncApiTester extends Actor
 {
