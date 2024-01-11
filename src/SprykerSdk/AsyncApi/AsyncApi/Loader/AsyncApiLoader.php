@@ -19,7 +19,6 @@ use SprykerSdk\AsyncApi\AsyncApi\Message\Attributes\AsyncApiMessageAttributeColl
 use SprykerSdk\AsyncApi\AsyncApi\Message\Attributes\AsyncApiMessageAttributeCollectionInterface;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\Yaml\Yaml;
-use Throwable;
 
 class AsyncApiLoader implements AsyncApiLoaderInterface
 {
