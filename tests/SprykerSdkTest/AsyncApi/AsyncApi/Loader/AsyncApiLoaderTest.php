@@ -77,7 +77,6 @@ class AsyncApiLoaderTest extends Unit
     }
 
     /**
-     * @group single
      * @return void
      */
     public function testLoadDoesNotResolvesReferencesToRemoteReferencedWhenInvalidUrlIsGiven(): void
