@@ -32,7 +32,7 @@ class AsyncApiCliTest extends Unit
     /**
      * @return void
      */
-    public function testNoAsyncApiInstalledWhenIRunTheValidationThenISeeAMessageWithInstallInstructions()
+    public function testNoAsyncApiInstalledWhenIRunTheValidationThenISeeAMessageWithInstallInstructions(): void
     {
         // Arrange
         $asyncApiCliMock = $this->getAsyncApiCliMock(['runProcess']);
@@ -51,7 +51,7 @@ class AsyncApiCliTest extends Unit
     /**
      * @return void
      */
-    public function testAsyncApiIsInstalledWhenIRunTheValidationOnAnInvalidFileThenISeeAnErrorMessage()
+    public function testAsyncApiIsInstalledWhenIRunTheValidationOnAnInvalidFileThenISeeAnErrorMessage(): void
     {
         // Arrange
         $asyncApiCliMock = $this->getAsyncApiCliMock(['runProcess']);
@@ -70,7 +70,7 @@ class AsyncApiCliTest extends Unit
     /**
      * @return void
      */
-    public function testNoAsyncApiInstalledWhenIRunTheValidationTriggerDeprecationWarning()
+    public function testNoAsyncApiInstalledWhenIRunTheValidationTriggerDeprecationWarning(): void
     {
         // Arrange
         $asyncApiCliMock = $this->getAsyncApiCliMock(['runProcess', 'triggerError']);
@@ -86,7 +86,7 @@ class AsyncApiCliTest extends Unit
     /**
      * @return void
      */
-    public function testAsyncApiIsInstalledWhenIRunTheValidationOnAnValidFileThenIDontSeeAnErrorMessage()
+    public function testAsyncApiIsInstalledWhenIRunTheValidationOnAnValidFileThenIDontSeeAnErrorMessage(): void
     {
         // Arrange
         $asyncApiCliMock = $this->getAsyncApiCliMock(['runProcess']);

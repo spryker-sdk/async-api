@@ -20,7 +20,7 @@ class AsyncApiErrorTest extends Unit
     /**
      * @return void
      */
-    public function testErrorMessageIsFormattedWhenOSIsNotWindows()
+    public function testErrorMessageIsFormattedWhenOSIsNotWindows(): void
     {
         $class = new AsyncApiError(false);
         $message = $class::couldNotFindAModulePropertyInTheSprykerExtension(static::TEST_PATH);
@@ -32,7 +32,7 @@ class AsyncApiErrorTest extends Unit
     /**
      * @return void
      */
-    public function testErrorMessageIsNotFormattedWhenOSIsWindows()
+    public function testErrorMessageIsNotFormattedWhenOSIsWindows(): void
     {
         $class = new AsyncApiError(true);
         $message = $class::couldNotFindAModulePropertyInTheSprykerExtension(static::TEST_PATH);

@@ -319,8 +319,10 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
 
             /** @var \SprykerSdk\AsyncApi\AsyncApi\Message\Attributes\AsyncApiMessageAttributeInterface $typeAttribute */
             $typeAttribute = $property->getAttribute('type');
+
             /** @var string $type */
             $type = $typeAttribute->getValue();
+            $type = $this->normalizeTransferType($type);
 
             if ($type === 'array') {
                 /** @var \SprykerSdk\AsyncApi\AsyncApi\Message\Attributes\AsyncApiMessageAttributeInterface|null $typeOfAttribute */
@@ -347,6 +349,19 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
     }
 
     /**
+     * @param string $type
+     *
+     * @return string
+     */
+    protected function normalizeTransferType(string $type): string
+    {
+        return match ($type) {
+            'integer' => 'int',
+            default => $type,
+        };
+    }
+
+    /**
      * @param string $propertyName
      *
      * @return string|null
@@ -370,7 +385,7 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
     {
         $process = new Process($commandLine, $this->config->getProjectRootPath());
 
-        $process->run(function ($a, $buffer) {
+        $process->run(function ($a, $buffer): void {
             echo $buffer;
             // For debugging purposes, set a breakpoint here to see issues.
         });
