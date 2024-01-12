@@ -7,6 +7,7 @@
 
 namespace SprykerSdk\AsyncApi\AsyncApi\Loader;
 
+use InvalidArgumentException;
 use SprykerSdk\AsyncApi\AsyncApi\AsyncApi;
 use SprykerSdk\AsyncApi\AsyncApi\AsyncApiInterface;
 use SprykerSdk\AsyncApi\AsyncApi\Channel\AsyncApiChannel;
@@ -42,10 +43,20 @@ class AsyncApiLoader implements AsyncApiLoaderInterface
     protected function getYmlArray(string $asyncApiPath): array
     {
         if (filter_var($asyncApiPath, FILTER_VALIDATE_URL)) {
+            $this->validateRemotePath($asyncApiPath);
+
             return Yaml::parse((string)file_get_contents($asyncApiPath));
         }
 
         return Yaml::parseFile($asyncApiPath);
+    }
+
+    protected function validateRemotePath(string $asyncApiPath): void
+    {
+        // phpcs:disable
+        if (@file_get_contents($asyncApiPath) === false) {
+            throw new InvalidArgumentException(sprintf('The remote file "%s" could not be loaded. Error: "%s"', $asyncApiPath, error_get_last() ? error_get_last()['message'] : 'Unknown error'));
+        }
     }
 
     /**

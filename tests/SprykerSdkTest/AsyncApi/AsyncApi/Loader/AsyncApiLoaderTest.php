@@ -100,8 +100,6 @@ class AsyncApiLoaderTest extends Unit
     }
 
     /**
-     * @group single
-     *
      * @return void
      */
     public function testLoadResolvesReferencesToRemoteReferencedFilesWithVariablePath(): void
@@ -125,5 +123,24 @@ class AsyncApiLoaderTest extends Unit
         $this->assertSame('integer', $headerProperties->getAttribute('timestamp')->getAttribute('type')->getValue());
         $this->assertSame('string', $headerProperties->getAttribute('correlationId')->getAttribute('type')->getValue());
         $this->assertSame('string', $headerProperties->getAttribute('tenantIdentifier')->getAttribute('type')->getValue());
+    }
+
+    /**
+     * @return void
+     */
+    public function testLoadThrowsAnExceptionWhenAsyncApiFileCanNotBeLoadedFromRemotePath(): void
+    {
+        // Arrange
+        $asyncApiLoader = new AsyncApiLoader();
+
+        // Expect
+        $filename = 'https://www.does-not-exists.de/invalid-file-name.yml';
+        $expectedError = 'file_get_contents(https://www.does-not-exists.de/invalid-file-name.yml): Failed to open stream: php_network_getaddresses: getaddrinfo for www.does-not-exists.de failed: nodename nor servname provided, or not known';
+
+        $this->expectException('\InvalidArgumentException');
+        $this->expectExceptionMessage(sprintf('The remote file "%s" could not be loaded. Error: "%s"', $filename, $expectedError));
+
+        // Act
+        $asyncApiLoader->load($filename);
     }
 }
