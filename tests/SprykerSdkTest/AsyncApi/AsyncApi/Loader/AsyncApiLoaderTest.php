@@ -9,6 +9,7 @@ namespace SprykerSdkTest\AsyncApi\AsyncApi\Loader;
 
 use Codeception\Test\Unit;
 use SprykerSdk\AsyncApi\AsyncApi\Loader\AsyncApiLoader;
+use SprykerSdk\AsyncApi\Exception\InvalidFilePathException;
 use SprykerSdkTest\AsyncApi\AsyncApiTester;
 
 /**
@@ -134,13 +135,9 @@ class AsyncApiLoaderTest extends Unit
         $asyncApiLoader = new AsyncApiLoader();
 
         // Expect
-        $filename = 'https://www.does-not-exists.de/invalid-file-name.yml';
-        $expectedError = 'file_get_contents(https://www.does-not-exists.de/invalid-file-name.yml): Failed to open stream: php_network_getaddresses: getaddrinfo for www.does-not-exists.de failed: nodename nor servname provided, or not known';
-
-        $this->expectException('\InvalidArgumentException');
-        $this->expectExceptionMessage(sprintf('The remote file "%s" could not be loaded. Error: "%s"', $filename, $expectedError));
+        $this->expectException(InvalidFilePathException::class);
 
         // Act
-        $asyncApiLoader->load($filename);
+        $asyncApiLoader->load('https://www.does-not-exists.de/invalid-file-name.yml');
     }
 }

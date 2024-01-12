@@ -7,7 +7,6 @@
 
 namespace SprykerSdk\AsyncApi\AsyncApi\Loader;
 
-use InvalidArgumentException;
 use SprykerSdk\AsyncApi\AsyncApi\AsyncApi;
 use SprykerSdk\AsyncApi\AsyncApi\AsyncApiInterface;
 use SprykerSdk\AsyncApi\AsyncApi\Channel\AsyncApiChannel;
@@ -18,6 +17,7 @@ use SprykerSdk\AsyncApi\AsyncApi\Message\AsyncApiMessageCollection;
 use SprykerSdk\AsyncApi\AsyncApi\Message\Attributes\AsyncApiMessageAttribute;
 use SprykerSdk\AsyncApi\AsyncApi\Message\Attributes\AsyncApiMessageAttributeCollection;
 use SprykerSdk\AsyncApi\AsyncApi\Message\Attributes\AsyncApiMessageAttributeCollectionInterface;
+use SprykerSdk\AsyncApi\Exception\InvalidFilePathException;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\Yaml\Yaml;
 
@@ -55,7 +55,7 @@ class AsyncApiLoader implements AsyncApiLoaderInterface
     {
         // phpcs:disable
         if (@file_get_contents($asyncApiPath) === false) {
-            throw new InvalidArgumentException(sprintf('The remote file "%s" could not be loaded. Error: "%s"', $asyncApiPath, error_get_last() ? error_get_last()['message'] : 'Unknown error'));
+            throw new InvalidFilePathException(sprintf('The remote file "%s" could not be loaded. Error: "%s"', $asyncApiPath, error_get_last() ? error_get_last()['message'] : 'Unknown error'));
         }
     }
 
