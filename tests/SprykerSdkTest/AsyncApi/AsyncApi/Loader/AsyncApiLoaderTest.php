@@ -9,6 +9,7 @@ namespace SprykerSdkTest\AsyncApi\AsyncApi\Loader;
 
 use Codeception\Test\Unit;
 use SprykerSdk\AsyncApi\AsyncApi\Loader\AsyncApiLoader;
+use SprykerSdk\AsyncApi\Exception\InvalidFilePathException;
 use SprykerSdkTest\AsyncApi\AsyncApiTester;
 
 /**
@@ -51,8 +52,6 @@ class AsyncApiLoaderTest extends Unit
     }
 
     /**
-     * @group single
-     *
      * @return void
      */
     public function testLoadResolvesReferencesToRemoteReferencedFiles(): void
@@ -76,5 +75,69 @@ class AsyncApiLoaderTest extends Unit
         $this->assertSame('integer', $headerProperties->getAttribute('timestamp')->getAttribute('type')->getValue());
         $this->assertSame('string', $headerProperties->getAttribute('correlationId')->getAttribute('type')->getValue());
         $this->assertSame('string', $headerProperties->getAttribute('tenantIdentifier')->getAttribute('type')->getValue());
+    }
+
+    /**
+     * @return void
+     */
+    public function testLoadDoesNotResolvesReferencesToRemoteReferencedWhenInvalidUrlIsGiven(): void
+    {
+        // Arrange
+        $asyncApiLoader = new AsyncApiLoader();
+
+        // Act
+        $asyncApi = $asyncApiLoader->load(codecept_data_dir('api/invalid/transfer_references_remote_invalid_url.yml'));
+
+        $channel = $asyncApi->getChannel('channel');
+        $publishMessages = iterator_to_array($channel->getPublishMessages());
+        /** @var \SprykerSdk\AsyncApi\AsyncApi\Message\AsyncApiMessageInterface $publishMessage */
+        $publishMessage = $publishMessages['Message'];
+
+        $header = $publishMessage->getAttribute('headers');
+        $headerProperties = $header->getAttribute('properties');
+
+        // Assert
+        $this->assertNull($headerProperties);
+    }
+
+    /**
+     * @return void
+     */
+    public function testLoadResolvesReferencesToRemoteReferencedFilesWithVariablePath(): void
+    {
+        // Arrange
+        $asyncApiLoader = new AsyncApiLoader();
+
+        // Act
+        $asyncApi = $asyncApiLoader->load(codecept_data_dir('api/valid/transfer_references_remote.yml'));
+
+        $channel = $asyncApi->getChannel('channel');
+        $publishMessages = iterator_to_array($channel->getPublishMessages());
+        /** @var \SprykerSdk\AsyncApi\AsyncApi\Message\AsyncApiMessageInterface $publishMessage */
+        $publishMessage = $publishMessages['MessageWithVariablePath'];
+
+        $header = $publishMessage->getAttribute('headers');
+        $headerProperties = $header->getAttribute('properties');
+
+        // Assert
+        $this->assertSame('string', $headerProperties->getAttribute('authorization')->getAttribute('type')->getValue());
+        $this->assertSame('integer', $headerProperties->getAttribute('timestamp')->getAttribute('type')->getValue());
+        $this->assertSame('string', $headerProperties->getAttribute('correlationId')->getAttribute('type')->getValue());
+        $this->assertSame('string', $headerProperties->getAttribute('tenantIdentifier')->getAttribute('type')->getValue());
+    }
+
+    /**
+     * @return void
+     */
+    public function testLoadThrowsAnExceptionWhenAsyncApiFileCanNotBeLoadedFromRemotePath(): void
+    {
+        // Arrange
+        $asyncApiLoader = new AsyncApiLoader();
+
+        // Expect
+        $this->expectException(InvalidFilePathException::class);
+
+        // Act
+        $asyncApiLoader->load('https://www.does-not-exists.de/invalid-file-name.yml');
     }
 }

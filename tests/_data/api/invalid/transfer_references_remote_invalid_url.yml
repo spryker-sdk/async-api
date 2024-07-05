@@ -54,7 +54,7 @@ components:
                     required: true
 
         message-broker:
-            $ref: 'https://raw.githubusercontent.com/spryker/message-broker/1.6.0/resources/api/template.yml'
+            $ref: 'invalid url'
 
         message-broker-with-variable-path:
-            $ref: 'https://raw.githubusercontent.com/spryker/message-broker/1.6.0/resources/api/template.yml#/components'
+            $ref: 'invalid url'
