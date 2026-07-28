@@ -6,10 +6,10 @@
     "require": {
         "php": ">=8.0",
         "doctrine/inflector": "~1.4.2 || ~2.0.0",
-        "symfony/console": "^4.0.0 || ^5.3 || ^6.0",
-        "symfony/finder": "^4.0.0 || ^5.3 || ^6.0",
-        "symfony/process": "^4.0.0 || ^5.4 || ^6.0",
-        "symfony/property-access": "^4.0.0 || ^5.4 || ^6.0"
+        "symfony/console": "^4.0.0 || ^5.3 || ^6.0 || ^7.0",
+        "symfony/finder": "^4.0.0 || ^5.3 || ^6.0 || ^7.0",
+        "symfony/process": "^4.0.0 || ^5.4 || ^6.0 || ^7.0",
+        "symfony/property-access": "^4.0.0 || ^5.4 || ^6.0 || ^7.0"
     },
     "require-dev": {
         "codeception/codeception": "^5.0.0",
@@ -18,7 +18,7 @@
         "sllh/composer-versions-check": "^2.0",
         "spryker-sdk/architector": "0.1.x-dev",
         "spryker/code-sniffer": "^0.17.20",
-        "symfony/var-dumper": "^6.0.0"
+        "symfony/var-dumper": "^6.0.0 || ^7.0.0"
     },
     "autoload": {
         "psr-4": {
