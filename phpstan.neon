@@ -1,6 +1,5 @@
 parameters:
     level: 8
-    checkMissingIterableValueType: false
 
     bootstrapFiles:
         - phpstan-bootstrap.php
@@ -8,5 +7,6 @@ parameters:
     ignoreErrors:
         - '#Parameter .+ of method .+Transfer::.+\(\).+ given.#'
         - '#Binary operation .+ results in an error.#'
+        - '#has no value type specified in iterable type#'
 
     reportUnmatchedIgnoredErrors: false
