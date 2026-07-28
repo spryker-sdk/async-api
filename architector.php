@@ -10,6 +10,7 @@ use Rector\Config\RectorConfig;
 use Rector\DeadCode\Rector\ClassMethod\RemoveUnusedPromotedPropertyRector;
 use Rector\DeadCode\Rector\ClassMethod\RemoveUselessParamTagRector;
 use Rector\DeadCode\Rector\ClassMethod\RemoveUselessReturnTagRector;
+use Rector\DeadCode\Rector\Property\RemoveDefaultValueFromAssignedPropertyRector;
 use Rector\DeadCode\Rector\Property\RemoveUselessVarTagRector;
 use Rector\Php74\Rector\Closure\ClosureToArrowFunctionRector;
 use Rector\Set\ValueObject\SetList;
@@ -27,6 +28,12 @@ return static function (RectorConfig $rectorConfig) {
         RemoveUnusedPromotedPropertyRector::class,
         RemoveUselessReturnTagRector::class,
         SimplifyUselessVariableRector::class,
-        RemoveUselessVarTagRector::class
+        RemoveUselessVarTagRector::class,
+        // $isWindows is a static property only ever assigned inside the instance
+        // constructor; removing its default breaks any static-only access path
+        // that happens before the class is first instantiated.
+        RemoveDefaultValueFromAssignedPropertyRector::class => [
+            __DIR__ . '/src/SprykerSdk/AsyncApi/Message/AbstractAsyncApiMessage.php',
+        ],
     ]);
 };
