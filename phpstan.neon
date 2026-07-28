@@ -7,6 +7,6 @@ parameters:
     ignoreErrors:
         - '#Parameter .+ of method .+Transfer::.+\(\).+ given.#'
         - '#Binary operation .+ results in an error.#'
-        - '#has no value type specified in iterable type#'
+        - '#no value type specified in iterable type#'
 
     reportUnmatchedIgnoredErrors: false

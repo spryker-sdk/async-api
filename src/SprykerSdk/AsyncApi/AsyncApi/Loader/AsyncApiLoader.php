@@ -55,7 +55,9 @@ class AsyncApiLoader implements AsyncApiLoaderInterface
     {
         // phpcs:disable
         if (@file_get_contents($asyncApiPath) === false) {
-            throw new InvalidFilePathException(sprintf('The remote file "%s" could not be loaded. Error: "%s"', $asyncApiPath, error_get_last() ? error_get_last()['message'] : 'Unknown error'));
+            $lastError = error_get_last();
+
+            throw new InvalidFilePathException(sprintf('The remote file "%s" could not be loaded. Error: "%s"', $asyncApiPath, $lastError ? $lastError['message'] : 'Unknown error'));
         }
     }
 
