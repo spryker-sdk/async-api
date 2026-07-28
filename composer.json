@@ -16,7 +16,7 @@
         "codeception/module-asserts": "^3.0.0",
         "mikey179/vfsstream": "^1.6.10",
         "sllh/composer-versions-check": "^2.0",
-        "spryker-sdk/architector": "dev-feature/frw-11816/symfony-7-support",
+        "spryker-sdk/architector": "0.1.x-dev",
         "spryker/code-sniffer": "^0.17.20",
         "symfony/var-dumper": "^6.0.0 || ^7.0.0"
     },
