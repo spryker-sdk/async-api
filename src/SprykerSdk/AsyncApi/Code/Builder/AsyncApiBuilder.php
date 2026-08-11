@@ -389,7 +389,6 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
             $transferObject = new $transferObjectClassName();
             $transferObjectReflection = new ReflectionClass($transferObjectClassName);
             $transferMetadataProperty = $transferObjectReflection->getProperty('transferMetadata');
-            $transferMetadataProperty->setAccessible(true);
 
             $transferProperties = $transferMetadataProperty->getValue($transferObject);
 

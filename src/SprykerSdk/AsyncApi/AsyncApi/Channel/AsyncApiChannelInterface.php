@@ -23,8 +23,6 @@ interface AsyncApiChannelInterface
 
     /**
      * @param string $messageName
-     *
-     * @return \SprykerSdk\AsyncApi\AsyncApi\Message\AsyncApiMessageInterface|null
      */
     public function getPublishMessage(string $messageName): ?AsyncApiMessageInterface;
 
@@ -35,8 +33,6 @@ interface AsyncApiChannelInterface
 
     /**
      * @param string $messageName
-     *
-     * @return \SprykerSdk\AsyncApi\AsyncApi\Message\AsyncApiMessageInterface|null
      */
     public function getSubscribeMessage(string $messageName): ?AsyncApiMessageInterface;
 }

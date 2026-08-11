@@ -16,8 +16,6 @@ interface AsyncApiChannelCollectionInterface
 
     /**
      * @param string $channelName
-     *
-     * @return \SprykerSdk\AsyncApi\AsyncApi\Channel\AsyncApiChannelInterface|null
      */
     public function getChannel(string $channelName): ?AsyncApiChannelInterface;
 }

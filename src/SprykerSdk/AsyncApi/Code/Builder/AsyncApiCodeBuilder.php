@@ -363,8 +363,6 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
 
     /**
      * @param string $propertyName
-     *
-     * @return string|null
      */
     protected function getSingularized(string $propertyName): ?string
     {
