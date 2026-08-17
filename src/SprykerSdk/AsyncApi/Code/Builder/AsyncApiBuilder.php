@@ -128,19 +128,19 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
     {
         if ($this->isPropertyOptionEmpty($asyncApiRequestTransfer) && $this->isTransferOptionEmpty($asyncApiRequestTransfer)) {
             throw new InvalidConfigurationException(
-                sprintf('You either need to pass properties with the `-P` option or you need to pass a transfer class name for reverse engineering with the `-t` option.'),
+                'You either need to pass properties with the `-P` option or you need to pass a transfer class name for reverse engineering with the `-t` option.',
             );
         }
 
         if (!$this->isPropertyOptionEmpty($asyncApiRequestTransfer) && !$this->isTransferOptionEmpty($asyncApiRequestTransfer)) {
             throw new InvalidConfigurationException(
-                sprintf('You can only pass one of the options `-P` or `-t`, not both.'),
+                'You can only pass one of the options `-P` or `-t`, not both.',
             );
         }
 
         if ($this->isModuleNameEmpty($asyncApiRequestTransfer)) {
             throw new InvalidConfigurationException(
-                sprintf('You must pass a module name in the `x-spryker` extension with the option `-m`.'),
+                'You must pass a module name in the `x-spryker` extension with the option `-m`.',
             );
         }
     }
@@ -295,7 +295,7 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
                 $asyncApi['channels'][$channelName][$channelType]['message'],
             ];
 
-            if ($this->messageNameExists($messageName, $messages) === true) {
+            if ($this->messageNameExists($messageName, $messages)) {
                 return $asyncApi;
             }
 
