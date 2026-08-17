@@ -16,8 +16,6 @@ interface AsyncApiMessageCollectionInterface
 
     /**
      * @param string $messageName
-     *
-     * @return \SprykerSdk\AsyncApi\AsyncApi\Message\AsyncApiMessageInterface|null
      */
     public function getMessage(string $messageName): ?AsyncApiMessageInterface;
 }

@@ -46,8 +46,10 @@ class AsyncApiConfig
      */
     public function getSprykRunExecutablePath(): string
     {
-        if (getenv('INSTALLED_ROOT_DIRECTORY')) {
-            return getenv('INSTALLED_ROOT_DIRECTORY');
+        $installedRootDirectory = getenv('INSTALLED_ROOT_DIRECTORY');
+
+        if ($installedRootDirectory) {
+            return $installedRootDirectory;
         }
 
         return (string)getcwd();

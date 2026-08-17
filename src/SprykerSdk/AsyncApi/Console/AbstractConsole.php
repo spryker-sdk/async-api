@@ -29,7 +29,7 @@ class AbstractConsole extends Command
     /**
      * @var \SprykerSdk\AsyncApi\AsyncApiConfig|null
      */
-    protected ?AsyncApiConfig $config = null;
+    protected ?AsyncApiConfig $config;
 
     /**
      * @var \SprykerSdk\AsyncApi\AsyncApiFacadeInterface|null

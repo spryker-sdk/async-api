@@ -57,8 +57,6 @@ class AsyncApiChannel implements AsyncApiChannelInterface
 
     /**
      * @param string $messageName
-     *
-     * @return \SprykerSdk\AsyncApi\AsyncApi\Message\AsyncApiMessageInterface|null
      */
     public function getPublishMessage(string $messageName): ?AsyncApiMessageInterface
     {
@@ -75,8 +73,6 @@ class AsyncApiChannel implements AsyncApiChannelInterface
 
     /**
      * @param string $messageName
-     *
-     * @return \SprykerSdk\AsyncApi\AsyncApi\Message\AsyncApiMessageInterface|null
      */
     public function getSubscribeMessage(string $messageName): ?AsyncApiMessageInterface
     {
