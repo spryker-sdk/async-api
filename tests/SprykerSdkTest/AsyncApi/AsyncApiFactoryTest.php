@@ -23,9 +23,6 @@ class AsyncApiFactoryTest extends Unit
      */
     protected AsyncApiTester $tester;
 
-    /**
-     * @return void
-     */
     public function testCreateAsyncApiCodeBuilder(): void
     {
         // Act

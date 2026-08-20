@@ -16,8 +16,6 @@ interface ValidatorRuleInterface
      * @param string $fileName
      * @param \Transfer\ValidateResponseTransfer $validateResponseTransfer
      * @param array|null $context
-     *
-     * @return \Transfer\ValidateResponseTransfer
      */
     public function validate(
         array $data,

@@ -17,9 +17,6 @@ class AsyncApiErrorTest extends Unit
      */
     protected const TEST_PATH = 'test/path';
 
-    /**
-     * @return void
-     */
     public function testErrorMessageIsFormattedWhenOSIsNotWindows(): void
     {
         $class = new AsyncApiError(false);
@@ -29,9 +26,6 @@ class AsyncApiErrorTest extends Unit
         $this->assertStringContainsString('[', $message);
     }
 
-    /**
-     * @return void
-     */
     public function testErrorMessageIsNotFormattedWhenOSIsWindows(): void
     {
         $class = new AsyncApiError(true);

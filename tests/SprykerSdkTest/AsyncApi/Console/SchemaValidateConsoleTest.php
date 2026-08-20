@@ -26,9 +26,6 @@ class SchemaValidateConsoleTest extends Unit
      */
     protected AsyncApiTester $tester;
 
-    /**
-     * @return void
-     */
     public function testValidateAsyncApiReturnsSuccessCodeWhenValidationIsSuccessful(): void
     {
         // Arrange
@@ -41,9 +38,6 @@ class SchemaValidateConsoleTest extends Unit
         $this->assertSame(AbstractConsole::CODE_SUCCESS, $commandTester->getStatusCode());
     }
 
-    /**
-     * @return void
-     */
     public function testValidateAsyncApiReturnsErrorCodeAndPrintsErrorMessagesWhenValidationFailed(): void
     {
         // Arrange

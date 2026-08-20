@@ -39,9 +39,6 @@ class AsyncApiChannel implements AsyncApiChannelInterface
         $this->subscribeMessages = $subscribeMessages;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;

@@ -15,8 +15,6 @@ interface ValidatorInterface
     /**
      * @param \Transfer\ValidateRequestTransfer $validateRequestTransfer
      * @param \Transfer\ValidateResponseTransfer|null $validateResponseTransfer
-     *
-     * @return \Transfer\ValidateResponseTransfer
      */
     public function validate(
         ValidateRequestTransfer $validateRequestTransfer,

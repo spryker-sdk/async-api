@@ -11,9 +11,6 @@ use SprykerSdk\AsyncApi\AsyncApi\Message\AsyncApiMessageInterface;
 
 interface AsyncApiChannelInterface
 {
-    /**
-     * @return string
-     */
     public function getName(): string;
 
     /**

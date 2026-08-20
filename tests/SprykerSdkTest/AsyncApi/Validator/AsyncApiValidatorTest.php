@@ -27,9 +27,6 @@ class AsyncApiValidatorTest extends Unit
      */
     protected AsyncApiTester $tester;
 
-    /**
-     * @return void
-     */
     public function testValidateAsyncApiReturnsErrorMessageWhenNoChannelsDefined(): void
     {
         // Arrange

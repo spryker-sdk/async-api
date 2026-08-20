@@ -41,8 +41,6 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
 
     /**
      * @param \Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
-     *
-     * @return \Transfer\AsyncApiResponseTransfer
      */
     public function addAsyncApi(AsyncApiRequestTransfer $asyncApiRequestTransfer): AsyncApiResponseTransfer
     {
@@ -79,8 +77,6 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
 
     /**
      * @param \Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
-     *
-     * @return \Transfer\AsyncApiResponseTransfer
      */
     public function addAsyncApiMessage(AsyncApiRequestTransfer $asyncApiRequestTransfer): AsyncApiResponseTransfer
     {
@@ -121,8 +117,6 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
      * @param \Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
      *
      * @throws \SprykerSdk\AsyncApi\Exception\InvalidConfigurationException
-     *
-     * @return void
      */
     protected function validateRequest(AsyncApiRequestTransfer $asyncApiRequestTransfer): void
     {
@@ -147,8 +141,6 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
 
     /**
      * @param \Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
-     *
-     * @return bool
      */
     protected function isPropertyOptionEmpty(AsyncApiRequestTransfer $asyncApiRequestTransfer): bool
     {
@@ -157,8 +149,6 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
 
     /**
      * @param \Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
-     *
-     * @return bool
      */
     protected function isTransferOptionEmpty(AsyncApiRequestTransfer $asyncApiRequestTransfer): bool
     {
@@ -167,8 +157,6 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
 
     /**
      * @param \Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
-     *
-     * @return bool
      */
     protected function isModuleNameEmpty(AsyncApiRequestTransfer $asyncApiRequestTransfer): bool
     {
@@ -184,8 +172,6 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
      * @param string $messageName
      * @param \Transfer\AsyncApiMessageTransfer $asyncApiMessageTransfer
      * @param \Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
-     *
-     * @return array
      */
     protected function addComponentMessage(
         array $asyncApi,
@@ -212,8 +198,6 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
      * @param string $messageName
      * @param \Transfer\AsyncApiMessageTransfer $asyncApiMessageTransfer
      * @param \Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
-     *
-     * @return array
      */
     protected function addComponentSchemaMessage(
         array $asyncApi,
@@ -231,8 +215,6 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
      * @param array $messageProperties
      * @param array $requiredFields
      * @param string $messageName
-     *
-     * @return array
      */
     protected function buildComponentSchemaMessage(array $asyncApi, array $messageProperties, array $requiredFields, string $messageName): array
     {
@@ -254,8 +236,6 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
      * @param array $asyncApi
      * @param string $messageName
      * @param \Transfer\AsyncApiMessageTransfer $asyncApiMessageTransfer
-     *
-     * @return array
      */
     protected function addMessageToChannel(array $asyncApi, string $messageName, AsyncApiMessageTransfer $asyncApiMessageTransfer): array
     {
@@ -277,8 +257,6 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
      * @param string $messageName
      * @param string $channelName
      * @param string $channelType
-     *
-     * @return array
      */
     protected function addMessageToChannelType(array $asyncApi, string $messageName, string $channelName, string $channelType): array
     {
@@ -322,8 +300,6 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
      * @param array $asyncApi
      * @param string $messageName
      * @param \Transfer\AsyncApiMessageTransfer $asyncApiMessageTransfer
-     *
-     * @return array
      */
     protected function addComponentMessageHeader(array $asyncApi, string $messageName, AsyncApiMessageTransfer $asyncApiMessageTransfer): array
     {
@@ -338,8 +314,6 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
 
     /**
      * @param string $type
-     *
-     * @return string
      */
     protected function mapTransferTypeToAsyncyApiType(string $type): string
     {
@@ -353,8 +327,6 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
     /**
      * @param \Transfer\AsyncApiMessageTransfer $asyncApiMessageTransfer
      * @param \Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
-     *
-     * @return string
      */
     protected function getMessageName(AsyncApiMessageTransfer $asyncApiMessageTransfer, AsyncApiRequestTransfer $asyncApiRequestTransfer): string
     {
@@ -371,8 +343,6 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
     /**
      * @param \Transfer\AsyncApiMessageTransfer $asyncApiMessageTransfer
      * @param \Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
-     *
-     * @return \Transfer\AsyncApiMessageTransfer
      */
     protected function getMessageAttributes(
         AsyncApiMessageTransfer $asyncApiMessageTransfer,
@@ -422,8 +392,6 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
 
     /**
      * @param array $asyncApi
-     *
-     * @return array
      */
     protected function addDefaults(array $asyncApi): array
     {
@@ -468,8 +436,6 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
     /**
      * @param string $targetFile
      * @param array $asyncApi
-     *
-     * @return bool
      */
     protected function writeToFile(string $targetFile, array $asyncApi): bool
     {
@@ -488,8 +454,6 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
 
     /**
      * @param array $asyncApi
-     *
-     * @return array
      */
     protected function orderAsyncApiElements(array $asyncApi): array
     {
@@ -520,8 +484,6 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
     /**
      * @param \Transfer\AsyncApiMessageTransfer $asyncApiMessageTransfer
      * @param \Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
-     *
-     * @return \Transfer\AsyncApiMessageTransfer
      */
     protected function formatProperty(
         AsyncApiMessageTransfer $asyncApiMessageTransfer,
@@ -550,8 +512,6 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
     /**
      * @param string $targetFile
      * @param array $asyncApi
-     *
-     * @return bool
      */
     protected function updateAsyncApi(string $targetFile, array $asyncApi): bool
     {
@@ -564,8 +524,6 @@ class AsyncApiBuilder implements AsyncApiBuilderInterface
     /**
      * @param string $messageName
      * @param array $messages
-     *
-     * @return bool
      */
     protected function messageNameExists(string $messageName, array $messages): bool
     {

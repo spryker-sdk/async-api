@@ -24,8 +24,6 @@ class AsyncApiConfigTest extends Unit
 
     /**
      * Tests that ensures we get the default executable path when installed the "normal" way.
-     *
-     * @return void
      */
     public function testGetSprykRunExecutableReturnsDefaultExecutable(): void
     {
@@ -42,8 +40,6 @@ class AsyncApiConfigTest extends Unit
 
     /**
      * Tests that ensures we get a path to where this SDK is installed. Usually only when used within the SprykerSDK.
-     *
-     * @return void
      */
     public function testGetSprykRunExecutableReturnsExternalDefinedExecutable(): void
     {

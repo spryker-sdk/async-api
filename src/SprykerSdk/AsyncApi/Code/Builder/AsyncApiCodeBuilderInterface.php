@@ -14,8 +14,6 @@ interface AsyncApiCodeBuilderInterface
 {
     /**
      * @param \Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
-     *
-     * @return \Transfer\AsyncApiResponseTransfer
      */
     public function build(AsyncApiRequestTransfer $asyncApiRequestTransfer): AsyncApiResponseTransfer;
 }

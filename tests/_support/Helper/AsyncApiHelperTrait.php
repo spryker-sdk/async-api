@@ -11,9 +11,6 @@ use Codeception\Module;
 
 trait AsyncApiHelperTrait
 {
-    /**
-     * @return \SprykerSdkTest\Helper\AsyncApiHelper
-     */
     protected function getAsyncApiHelper(): AsyncApiHelper
     {
         /** @var \SprykerSdkTest\Helper\AsyncApiHelper $asyncApiHelper */
@@ -24,8 +21,6 @@ trait AsyncApiHelperTrait
 
     /**
      * @param string $name
-     *
-     * @return \Codeception\Module
      */
     abstract protected function getModule(string $name): Module;
 }

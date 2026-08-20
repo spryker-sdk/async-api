@@ -20,9 +20,6 @@ use SprykerSdk\AsyncApi\AsyncApi\Message\AsyncApiMessageInterface;
  */
 class AsyncApiTest extends Unit
 {
-    /**
-     * @return void
-     */
     public function testLoadReturnsAsyncApiWithManyReferences(): void
     {
         // Arrange
@@ -35,9 +32,6 @@ class AsyncApiTest extends Unit
         $this->assertInstanceOf(AsyncApiInterface::class, $asyncApi);
     }
 
-    /**
-     * @return void
-     */
     public function testLoadReturnsAsyncApiWithSingleReference(): void
     {
         // Arrange
@@ -50,9 +44,6 @@ class AsyncApiTest extends Unit
         $this->assertInstanceOf(AsyncApiInterface::class, $asyncApi);
     }
 
-    /**
-     * @return void
-     */
     public function testLoadReturnsAsyncApi(): void
     {
         // Arrange
@@ -65,9 +56,6 @@ class AsyncApiTest extends Unit
         $this->assertInstanceOf(AsyncApiInterface::class, $asyncApi);
     }
 
-    /**
-     * @return void
-     */
     public function testGetChannelsReturnsIterable(): void
     {
         // Arrange
@@ -83,9 +71,6 @@ class AsyncApiTest extends Unit
         }
     }
 
-    /**
-     * @return void
-     */
     public function testGetChannelByNameReturnsChannel(): void
     {
         // Arrange
@@ -101,9 +86,6 @@ class AsyncApiTest extends Unit
         $this->assertInstanceOf(AsyncApiChannelInterface::class, $channel);
     }
 
-    /**
-     * @return void
-     */
     public function testGetPublishMessageByNameFromChannelReturnsMessage(): void
     {
         // Arrange
@@ -120,9 +102,6 @@ class AsyncApiTest extends Unit
         $this->assertInstanceOf(AsyncApiMessageInterface::class, $publishMessage);
     }
 
-    /**
-     * @return void
-     */
     public function testGetSubscribeMessageByNameFromChannelReturnsMessage(): void
     {
         // Arrange
@@ -139,9 +118,6 @@ class AsyncApiTest extends Unit
         $this->assertInstanceOf(AsyncApiMessageInterface::class, $subscribeMessage);
     }
 
-    /**
-     * @return void
-     */
     public function testGetPublishMessagesFromChannelReturnsIterable(): void
     {
         // Arrange
@@ -159,9 +135,6 @@ class AsyncApiTest extends Unit
         }
     }
 
-    /**
-     * @return void
-     */
     public function testGetSubscribeMessagesFromChannelReturnsIterable(): void
     {
         // Arrange
@@ -179,9 +152,6 @@ class AsyncApiTest extends Unit
         }
     }
 
-    /**
-     * @return void
-     */
     public function testGetAttributesFromSubscribeMessagesReturnsIterable(): void
     {
         // Arrange
@@ -199,9 +169,6 @@ class AsyncApiTest extends Unit
         }
     }
 
-    /**
-     * @return void
-     */
     public function testGetAttributeFromSubscribeMessagesReturnsIterable(): void
     {
         // Arrange
@@ -219,9 +186,6 @@ class AsyncApiTest extends Unit
         $this->assertSame('OutgoingMessage', $attribute->getValue());
     }
 
-    /**
-     * @return void
-     */
     public function testLoadDefinitionFromAnInvalidFileDoesNotThrowAnException(): void
     {
         // Arrange

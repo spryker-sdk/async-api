@@ -9,17 +9,11 @@ namespace SprykerSdk\AsyncApi\Message;
 
 class AsyncApiInfo extends AbstractAsyncApiMessage
 {
-    /**
-     * @return string
-     */
     public static function asyncApiSchemaFileIsValid(): string
     {
         return static::format('Async API file doesn\'t contain any errors.');
     }
 
-    /**
-     * @return string
-     */
     public static function generatedCodeFromAsyncApiSchema(): string
     {
         return static::format('Successfully generated code to work with asynchronous messages.');
@@ -27,8 +21,6 @@ class AsyncApiInfo extends AbstractAsyncApiMessage
 
     /**
      * @param string $fileName
-     *
-     * @return string
      */
     public static function asyncApiFileCreated(string $fileName): string
     {
@@ -37,8 +29,6 @@ class AsyncApiInfo extends AbstractAsyncApiMessage
 
     /**
      * @param string $fileName
-     *
-     * @return string
      */
     public static function asyncApiFileUpdated(string $fileName): string
     {
@@ -48,17 +38,12 @@ class AsyncApiInfo extends AbstractAsyncApiMessage
     /**
      * @param string $messageName
      * @param string $channelName
-     *
-     * @return string
      */
     public static function addedMessageToChannel(string $messageName, string $channelName): string
     {
         return static::format(sprintf('Successfully added the message "%s" to the channel "%s".', $messageName, $channelName));
     }
 
-    /**
-     * @return string
-     */
     public static function asyncApiCliNotFound(): string
     {
         return static::format(
@@ -76,8 +61,6 @@ class AsyncApiInfo extends AbstractAsyncApiMessage
      * Info text will be in green, everything in double quotes will be yellow, and quotes will be removed.
      *
      * @param string $message
-     *
-     * @return string
      */
     protected static function format(string $message): string
     {

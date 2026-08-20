@@ -21,8 +21,6 @@ class AsyncApiError extends AbstractAsyncApiMessage
 
     /**
      * @param string $path
-     *
-     * @return string
      */
     public static function couldNotGenerateCodeFromAsyncApi(string $path): string
     {
@@ -37,8 +35,6 @@ class AsyncApiError extends AbstractAsyncApiMessage
 
     /**
      * @param string $path
-     *
-     * @return string
      */
     public static function asyncApiDoesNotDefineChannels(string $path): string
     {
@@ -53,8 +49,6 @@ class AsyncApiError extends AbstractAsyncApiMessage
 
     /**
      * @param string $path
-     *
-     * @return string
      */
     public static function asyncApiDoesNotDefineMessages(string $path): string
     {
@@ -70,8 +64,6 @@ class AsyncApiError extends AbstractAsyncApiMessage
     /**
      * @param string $messageName
      * @param string $path
-     *
-     * @return string
      */
     public static function messageDoesNotHaveAModuleName(string $messageName, string $path): string
     {
@@ -88,8 +80,6 @@ class AsyncApiError extends AbstractAsyncApiMessage
     /**
      * @param string $messageName
      * @param string $path
-     *
-     * @return string
      */
     public static function messageNameUsedMoreThanOnce(string $messageName, string $path): string
     {
@@ -105,8 +95,6 @@ class AsyncApiError extends AbstractAsyncApiMessage
 
     /**
      * @param string $path
-     *
-     * @return string
      */
     public static function asyncApiFileDoesNotExist(string $path): string
     {
@@ -122,8 +110,6 @@ class AsyncApiError extends AbstractAsyncApiMessage
     /**
      * @param string $path
      * @param string $message
-     *
-     * @return string
      */
     public static function couldNotParseAsyncApiFile(string $path, string $message): string
     {
@@ -141,8 +127,6 @@ class AsyncApiError extends AbstractAsyncApiMessage
      * @param string $messageTypeOption
      * @param array $availableValues
      * @param string $path
-     *
-     * @return string
      */
     public static function messageTypeHasWrongValue(
         string $messageTypeOption,
@@ -162,8 +146,6 @@ class AsyncApiError extends AbstractAsyncApiMessage
 
     /**
      * @param string $messageName
-     *
-     * @return string
      */
     public static function couldNotFindAnSprykerExtension(
         string $messageName
@@ -178,8 +160,6 @@ class AsyncApiError extends AbstractAsyncApiMessage
 
     /**
      * @param string $messageName
-     *
-     * @return string
      */
     public static function couldNotFindAModulePropertyInTheSprykerExtension(
         string $messageName
@@ -194,8 +174,6 @@ class AsyncApiError extends AbstractAsyncApiMessage
 
     /**
      * @param string $path
-     *
-     * @return string
      */
     public static function asyncApiCliValidationFailed(string $path): string
     {
@@ -213,8 +191,6 @@ class AsyncApiError extends AbstractAsyncApiMessage
      * Error text will be in red, everything in double quotes will be yellow, and quotes will be removed.
      *
      * @param string $message
-     *
-     * @return string
      */
     protected static function format(string $message): string
     {

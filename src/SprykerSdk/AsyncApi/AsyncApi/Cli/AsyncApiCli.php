@@ -54,8 +54,6 @@ class AsyncApiCli implements AsyncApiCliInterface
     /**
      * @param \Transfer\ValidateResponseTransfer $validateResponseTransfer
      * @param string $asyncApiFilePath
-     *
-     * @return \Transfer\ValidateResponseTransfer
      */
     public function validate(ValidateResponseTransfer $validateResponseTransfer, string $asyncApiFilePath): ValidateResponseTransfer
     {
@@ -78,9 +76,6 @@ class AsyncApiCli implements AsyncApiCliInterface
         return $validateResponseTransfer;
     }
 
-    /**
-     * @return bool
-     */
     protected function isCliInstalled(): bool
     {
         if (!$this->runProcess([static::ASYNCAPI_CLI, static::ASYNCAPI_CLI_VERSION])) {
@@ -94,8 +89,6 @@ class AsyncApiCli implements AsyncApiCliInterface
 
     /**
      * @param array $command
-     *
-     * @return bool
      */
     protected function runProcess(array $command): bool
     {
@@ -109,8 +102,6 @@ class AsyncApiCli implements AsyncApiCliInterface
 
     /**
      * @param string $errorMessage
-     *
-     * @return void
      */
     protected function triggerError(string $errorMessage): void
     {

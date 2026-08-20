@@ -36,8 +36,6 @@ class AsyncApiHelper extends Module
 
     /**
      * @param \Codeception\TestInterface $test
-     *
-     * @return void
      */
     public function _before(TestInterface $test): void
     {
@@ -49,25 +47,17 @@ class AsyncApiHelper extends Module
 
     /**
      * @param \Codeception\TestInterface $test
-     *
-     * @return void
      */
     public function _after(TestInterface $test): void
     {
         $this->rootPath = null;
     }
 
-    /**
-     * @return \SprykerSdk\AsyncApi\AsyncApiFacadeInterface
-     */
     public function getFacade(): AsyncApiFacadeInterface
     {
         return new AsyncApiFacade();
     }
 
-    /**
-     * @return \SprykerSdk\AsyncApi\AsyncApiConfig
-     */
     public function getConfig(): AsyncApiConfig
     {
         if ($this->rootPath === null) { // This will always be set, check if a test fails as it expects the normal filesystem
@@ -81,9 +71,6 @@ class AsyncApiHelper extends Module
         ]);
     }
 
-    /**
-     * @return string
-     */
     public function getRootPath(): string
     {
         return $this->rootPath;
@@ -93,8 +80,6 @@ class AsyncApiHelper extends Module
      * This will ensure that the AopSdkConfig::getProjectRootPath() will return the passed path.
      *
      * @param string $rootPath
-     *
-     * @return void
      */
     public function mockRoot(string $rootPath): void
     {
@@ -105,8 +90,6 @@ class AsyncApiHelper extends Module
      * Sets up an expected directory structure in the virtual filesystem
      *
      * @param array $structure
-     *
-     * @return void
      */
     public function mockDirectoryStructure(array $structure): void
     {
@@ -120,9 +103,6 @@ class AsyncApiHelper extends Module
      */
     public const CHANNEL_NAME = 'foo/bar';
 
-    /**
-     * @return \Transfer\AsyncApiRequestTransfer
-     */
     public function haveAsyncApiAddRequest(): AsyncApiRequestTransfer
     {
         $asyncApiTransfer = new AsyncApiTransfer();
@@ -141,8 +121,6 @@ class AsyncApiHelper extends Module
     /**
      * We assume that an AsyncApi file with version 0.1.0 exists when `\SprykerSdkTest\Helper\AsyncApiHelper::haveAsyncApiFile()`
      * was called before `\SprykerSdk\Zed\AopSdk\Business\AopSdkFacadeInterface::addAsyncApi()` is executed.
-     *
-     * @return \Transfer\AsyncApiRequestTransfer
      */
     public function haveAsyncApiUpdateVersionRequest(): AsyncApiRequestTransfer
     {
@@ -159,9 +137,6 @@ class AsyncApiHelper extends Module
         return $asyncApiRequestTransfer;
     }
 
-    /**
-     * @return \Transfer\AsyncApiRequestTransfer
-     */
     public function haveAsyncApiAddRequestWithExistingAsyncApi(): AsyncApiRequestTransfer
     {
         $this->haveAsyncApiFile();
@@ -179,9 +154,6 @@ class AsyncApiHelper extends Module
         return $asyncApiRequestTransfer;
     }
 
-    /**
-     * @return \Transfer\AsyncApiRequestTransfer
-     */
     public function haveAsyncApiAddRequestWithExistingAsyncApiAndPayloadTransferObject(): AsyncApiRequestTransfer
     {
         $asyncApiRequestTransfer = $this->haveAsyncApiAddRequestWithExistingAsyncApi();
@@ -196,8 +168,6 @@ class AsyncApiHelper extends Module
      * This simulates a CLI command execution where properties are set in the AsyncApiRequestTransfer.
      *
      * @param array|null $properties
-     *
-     * @return \Transfer\AsyncApiRequestTransfer
      */
     public function haveAsyncApiAddRequestWithExistingAsyncApiAndProperties(?array $properties = null): AsyncApiRequestTransfer
     {
@@ -211,8 +181,6 @@ class AsyncApiHelper extends Module
 
     /**
      * return void
-     *
-     * @return void
      */
     public function haveAsyncApiFile(): void
     {
@@ -221,8 +189,6 @@ class AsyncApiHelper extends Module
 
     /**
      * @param string $pathToAsyncApi
-     *
-     * @return void
      */
     protected function prepareAsyncApiFile(string $pathToAsyncApi): void
     {
@@ -237,8 +203,6 @@ class AsyncApiHelper extends Module
 
     /**
      * @param \Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
-     *
-     * @return array
      */
     public function getMessagesFromAsyncApiResponseTransfer(AsyncApiResponseTransfer $asyncApiResponseTransfer): array
     {
@@ -255,8 +219,6 @@ class AsyncApiHelper extends Module
      * @param string $targetFile
      * @param string $messageName
      * @param string $channelName
-     *
-     * @return void
      */
     public function assertAsyncApiHasPublishMessageInChannel(string $targetFile, string $messageName, string $channelName): void
     {
@@ -270,8 +232,6 @@ class AsyncApiHelper extends Module
      * @param string $targetFile
      * @param string $messageName
      * @param string $channelName
-     *
-     * @return void
      */
     public function assertAsyncApiHasSubscribeMessageInChannel(string $targetFile, string $messageName, string $channelName): void
     {
@@ -284,8 +244,6 @@ class AsyncApiHelper extends Module
     /**
      * @param string $targetFile
      * @param string $expectedVersion
-     *
-     * @return void
      */
     public function assertAsyncApiVersionIsUpdated(string $targetFile, string $expectedVersion): void
     {
@@ -300,8 +258,6 @@ class AsyncApiHelper extends Module
      * @param string $messageName
      * @param string $channelName
      * @param string $channelType
-     *
-     * @return void
      */
     protected function assertMessageInChannelType(array $asyncApi, string $messageName, string $channelName, string $channelType): void
     {
@@ -322,8 +278,6 @@ class AsyncApiHelper extends Module
      * @param string $messageName
      * @param string $channelName
      * @param string $channelType
-     *
-     * @return string|null
      */
     protected function getExpectedMessageReference(array $asyncApi, string $messageName, string $channelName, string $channelType): ?string
     {
@@ -347,8 +301,6 @@ class AsyncApiHelper extends Module
     /**
      * @param array $messages
      * @param string $expectedMessageReference
-     *
-     * @return string|null
      */
     protected function getExpectedMessageReferenceFromOneOf(array $messages, string $expectedMessageReference): ?string
     {
@@ -365,8 +317,6 @@ class AsyncApiHelper extends Module
      * @param array $asyncApi
      * @param string $channelName
      * @param string $channelType
-     *
-     * @return void
      */
     protected function assertChannelType(array $asyncApi, string $channelName, string $channelType): void
     {
@@ -389,8 +339,6 @@ class AsyncApiHelper extends Module
 
     /**
      * @param \Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
-     *
-     * @return void
      */
     public function assertAsyncApiResponseHasNoErrors(AsyncApiResponseTransfer $asyncApiResponseTransfer): void
     {
@@ -402,8 +350,6 @@ class AsyncApiHelper extends Module
 
     /**
      * @param string|null $messageName When $messageName is passed the message will not have a PayloadTransferObjectName.
-     *
-     * @return \Transfer\AsyncApiMessageTransfer
      */
     public function havePublishMessageWithMetadata(?string $messageName = null): AsyncApiMessageTransfer
     {
@@ -412,8 +358,6 @@ class AsyncApiHelper extends Module
 
     /**
      * @param string|null $messageName When $messageName is passed the message will not have a PayloadTransferObjectName.
-     *
-     * @return \Transfer\AsyncApiMessageTransfer
      */
     public function haveSubscribeMessageWithMetadata(?string $messageName = null): AsyncApiMessageTransfer
     {
@@ -424,8 +368,6 @@ class AsyncApiHelper extends Module
      * @param bool $withMetadata
      * @param string $channelType
      * @param string|null $messageName
-     *
-     * @return \Transfer\AsyncApiMessageTransfer
      */
     protected function createMessage(bool $withMetadata, string $channelType, ?string $messageName = null): AsyncApiMessageTransfer
     {
@@ -457,9 +399,6 @@ class AsyncApiHelper extends Module
         return $asyncApiMessageTransfer;
     }
 
-    /**
-     * @return \SprykerSdk\AsyncApi\Console\CodeGenerateConsole
-     */
     public function getAsyncApiBuilderConsoleMock(): CodeGenerateConsole
     {
         $asyncApiCodeBuilderStub = Stub::construct(
@@ -492,8 +431,6 @@ class AsyncApiHelper extends Module
      * @param string $channelType
      * @param string $messageName
      * @param array $property
-     *
-     * @return void
      */
     public function assertMessageInChannelHasProperty(string $targetFile, string $channelName, string $channelType, string $messageName, array $property): void
     {
@@ -528,8 +465,6 @@ class AsyncApiHelper extends Module
      * @param string $channelName
      * @param string $channelType
      * @param string $messageName
-     *
-     * @return void
      */
     public function assertMessageInChannelHasAModuleName(string $targetFile, string $channelName, string $channelType, string $messageName): void
     {
@@ -553,8 +488,6 @@ class AsyncApiHelper extends Module
      * @param string $messageName
      * @param string $channelName
      * @param string $channelType
-     *
-     * @return void
      */
     public function assertMessageExistsOnlyOnceInChannel(array $asyncApi, string $messageName, string $channelName, string $channelType): void
     {

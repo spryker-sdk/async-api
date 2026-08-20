@@ -21,17 +21,12 @@ class AsyncApiFacade implements AsyncApiFacadeInterface
 
     /**
      * @param \SprykerSdk\AsyncApi\AsyncApiFactory $asyncApiFactory
-     *
-     * @return void
      */
     public function setFactory(AsyncApiFactory $asyncApiFactory): void
     {
         $this->asyncApiFactory = $asyncApiFactory;
     }
 
-    /**
-     * @return \SprykerSdk\AsyncApi\AsyncApiFactory
-     */
     protected function getFactory(): AsyncApiFactory
     {
         if (!$this->asyncApiFactory) {

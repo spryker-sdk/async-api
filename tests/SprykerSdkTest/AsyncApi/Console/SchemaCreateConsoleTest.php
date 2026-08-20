@@ -26,9 +26,6 @@ class SchemaCreateConsoleTest extends Unit
      */
     protected AsyncApiTester $tester;
 
-    /**
-     * @return void
-     */
     public function testAsyncApiCreateConsole(): void
     {
         $schemaCreateConsole = new SchemaCreateConsole(null, $this->tester->getConfig());

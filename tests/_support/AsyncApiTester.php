@@ -36,9 +36,6 @@ class AsyncApiTester extends Actor
      */
     protected ?AsyncApiFacadeInterface $asyncApiFacade = null;
 
-    /**
-     * @return \SprykerSdk\AsyncApi\AsyncApiFacadeInterface
-     */
     public function getFacade(): AsyncApiFacadeInterface
     {
         if (!$this->asyncApiFacade) {

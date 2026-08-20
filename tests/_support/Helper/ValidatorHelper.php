@@ -15,9 +15,6 @@ class ValidatorHelper extends Module
 {
     use AsyncApiHelperTrait;
 
-    /**
-     * @return void
-     */
     public function haveValidConfigurations(): void
     {
         $structure = $this->getValidBaseStructure();
@@ -39,9 +36,6 @@ class ValidatorHelper extends Module
         ];
     }
 
-    /**
-     * @return \Transfer\ValidateRequestTransfer
-     */
     public function haveValidateRequest(): ValidateRequestTransfer
     {
         $config = $this->getAsyncApiHelper()->getConfig();
@@ -54,8 +48,6 @@ class ValidatorHelper extends Module
 
     /**
      * @param \Transfer\ValidateResponseTransfer $validateResponseTransfer
-     *
-     * @return array
      */
     public function getMessagesFromValidateResponseTransfer(ValidateResponseTransfer $validateResponseTransfer): array
     {

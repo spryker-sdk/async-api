@@ -34,9 +34,6 @@ class CodeGenerateConsole extends AbstractConsole
      */
     public const OPTION_ORGANIZATION_SHORT = 'o';
 
-    /**
-     * @return void
-     */
     protected function configure(): void
     {
         $this->setName('code:asyncapi:generate')
@@ -48,8 +45,6 @@ class CodeGenerateConsole extends AbstractConsole
     /**
      * @param \Symfony\Component\Console\Input\InputInterface $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
-     *
-     * @return int
      */
     public function execute(InputInterface $input, OutputInterface $output): int
     {

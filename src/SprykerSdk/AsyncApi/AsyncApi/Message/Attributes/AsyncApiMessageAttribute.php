@@ -29,9 +29,6 @@ class AsyncApiMessageAttribute implements AsyncApiMessageAttributeInterface
         $this->value = $value;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;

@@ -56,8 +56,6 @@ class AsyncApiValidator implements ValidatorInterface
     /**
      * @param \Transfer\ValidateRequestTransfer $validateRequestTransfer
      * @param \Transfer\ValidateResponseTransfer|null $validateResponseTransfer
-     *
-     * @return \Transfer\ValidateResponseTransfer
      */
     public function validate(
         ValidateRequestTransfer $validateRequestTransfer,
@@ -100,8 +98,6 @@ class AsyncApiValidator implements ValidatorInterface
      * @param string $fileName
      * @param \Transfer\ValidateResponseTransfer $validateResponseTransfer
      * @param array|null $context
-     *
-     * @return \Transfer\ValidateResponseTransfer
      */
     protected function executeValidatorRules(
         array $fileData,

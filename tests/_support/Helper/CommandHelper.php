@@ -18,8 +18,6 @@ class CommandHelper extends Module
 
     /**
      * @param \SprykerSdk\AsyncApi\Console\AbstractConsole|string $command
-     *
-     * @return \Symfony\Component\Console\Tester\CommandTester
      */
     public function getConsoleTester($command): CommandTester
     {

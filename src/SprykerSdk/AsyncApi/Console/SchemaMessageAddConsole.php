@@ -94,9 +94,6 @@ class SchemaMessageAddConsole extends AbstractConsole
      */
     public const VALUE_SUBSCRIBE = 'subscribe';
 
-    /**
-     * @return void
-     */
     protected function configure(): void
     {
         $this->setName('schema:asyncapi:message:add')
@@ -116,8 +113,6 @@ class SchemaMessageAddConsole extends AbstractConsole
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      *
      * @throws \SprykerSdk\AsyncApi\Exception\InvalidConfigurationException
-     *
-     * @return int
      */
     public function execute(InputInterface $input, OutputInterface $output): int
     {

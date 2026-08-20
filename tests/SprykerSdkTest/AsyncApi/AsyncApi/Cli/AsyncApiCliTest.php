@@ -29,9 +29,6 @@ class AsyncApiCliTest extends Unit
      */
     protected AsyncApiTester $tester;
 
-    /**
-     * @return void
-     */
     public function testNoAsyncApiInstalledWhenIRunTheValidationThenISeeAMessageWithInstallInstructions(): void
     {
         // Arrange
@@ -48,9 +45,6 @@ class AsyncApiCliTest extends Unit
         $this->assertSame(AsyncApiInfo::asyncApiCliNotFound(), $validateResponseTransferMessages->offsetGet(0)->getMessage());
     }
 
-    /**
-     * @return void
-     */
     public function testAsyncApiIsInstalledWhenIRunTheValidationOnAnInvalidFileThenISeeAnErrorMessage(): void
     {
         // Arrange
@@ -67,9 +61,6 @@ class AsyncApiCliTest extends Unit
         $this->assertSame(AsyncApiError::asyncApiCliValidationFailed('somePath'), $validateResponseTransferErrors->offsetGet(0)->getMessage());
     }
 
-    /**
-     * @return void
-     */
     public function testNoAsyncApiInstalledWhenIRunTheValidationTriggerDeprecationWarning(): void
     {
         // Arrange
@@ -83,9 +74,6 @@ class AsyncApiCliTest extends Unit
         $asyncApiCliMock->validate((new ValidateResponseTransfer()), '/');
     }
 
-    /**
-     * @return void
-     */
     public function testAsyncApiIsInstalledWhenIRunTheValidationOnAnValidFileThenIDontSeeAnErrorMessage(): void
     {
         // Arrange

@@ -13,8 +13,6 @@ interface MessageBuilderInterface
 {
     /**
      * @param string $message
-     *
-     * @return \Transfer\MessageTransfer
      */
     public function buildMessage(string $message): MessageTransfer;
 }
