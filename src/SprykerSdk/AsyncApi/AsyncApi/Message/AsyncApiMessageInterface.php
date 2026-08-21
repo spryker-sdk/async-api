@@ -9,9 +9,6 @@ namespace SprykerSdk\AsyncApi\AsyncApi\Message;
 
 interface AsyncApiMessageInterface
 {
-    /**
-     * @return string
-     */
     public function getName(): string;
 
     /**

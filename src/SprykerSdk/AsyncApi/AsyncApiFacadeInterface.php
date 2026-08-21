@@ -21,8 +21,6 @@ interface AsyncApiFacadeInterface
      * @api
      *
      * @param \Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
-     *
-     * @return \Transfer\AsyncApiResponseTransfer
      */
     public function addAsyncApi(AsyncApiRequestTransfer $asyncApiRequestTransfer): AsyncApiResponseTransfer;
 
@@ -34,8 +32,6 @@ interface AsyncApiFacadeInterface
      * @api
      *
      * @param \Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
-     *
-     * @return \Transfer\AsyncApiResponseTransfer
      */
     public function addAsyncApiMessage(AsyncApiRequestTransfer $asyncApiRequestTransfer): AsyncApiResponseTransfer;
 
@@ -46,8 +42,6 @@ interface AsyncApiFacadeInterface
      * @api
      *
      * @param \Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
-     *
-     * @return \Transfer\AsyncApiResponseTransfer
      */
     public function buildFromAsyncApi(AsyncApiRequestTransfer $asyncApiRequestTransfer): AsyncApiResponseTransfer;
 
@@ -61,8 +55,6 @@ interface AsyncApiFacadeInterface
      * @api
      *
      * @param \Transfer\ValidateRequestTransfer $validateRequestTransfer
-     *
-     * @return \Transfer\ValidateResponseTransfer
      */
     public function validateAsyncApi(ValidateRequestTransfer $validateRequestTransfer): ValidateResponseTransfer;
 }

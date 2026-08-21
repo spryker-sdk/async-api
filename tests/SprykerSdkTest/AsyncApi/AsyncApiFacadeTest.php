@@ -28,9 +28,6 @@ class AsyncApiFacadeTest extends Unit
      */
     protected AsyncApiTester $tester;
 
-    /**
-     * @return void
-     */
     public function testAddAsyncApiAddsANewAsyncApiFile(): void
     {
         // Arrange
@@ -46,9 +43,6 @@ class AsyncApiFacadeTest extends Unit
         $this->assertFileExists($asyncApiRequestTransfer->getTargetFile());
     }
 
-    /**
-     * @return void
-     */
     public function testAddAsyncApiUpdatesTheVersionOfAnExistingAsyncApiFile(): void
     {
         // Arrange
@@ -65,9 +59,6 @@ class AsyncApiFacadeTest extends Unit
         $this->tester->assertAsyncApiVersionIsUpdated($asyncApiRequestTransfer->getTargetFile(), '1.0.0');
     }
 
-    /**
-     * @return void
-     */
     public function testAddAsyncApiMessageReturnsFailedResponseWhenAsyncApiFileDoesNotExists(): void
     {
         // Arrange
@@ -84,9 +75,6 @@ class AsyncApiFacadeTest extends Unit
         $this->assertSame(AsyncApiError::asyncApiFileDoesNotExist('not existing file'), $asyncApiResponseTransfer->getErrors()[0]->getMessage());
     }
 
-    /**
-     * @return void
-     */
     public function testAddAsyncApiMessageFromTransferObjectAddsAPublishMessageToTheAsyncApiFile(): void
     {
         // Arrange
@@ -104,9 +92,6 @@ class AsyncApiFacadeTest extends Unit
         $this->tester->assertAsyncApiHasPublishMessageInChannel($asyncApiRequestTransfer->getTargetFile(), 'AsyncApiMessage', $asyncApiMessageTransfer->getChannel()->getName());
     }
 
-    /**
-     * @return void
-     */
     public function testAddAsyncApiMessageFromTransferObjectAddsASubscribeMessageToTheAsyncApiFile(): void
     {
         // Arrange
@@ -124,9 +109,6 @@ class AsyncApiFacadeTest extends Unit
         $this->tester->assertAsyncApiHasSubscribeMessageInChannel($asyncApiRequestTransfer->getTargetFile(), 'AsyncApiMessage', $asyncApiMessageTransfer->getChannel()->getName());
     }
 
-    /**
-     * @return void
-     */
     public function testAddAsyncApiMessageFromTransferObjectAddsAnAdditionalPublishMessageWhenChannelHasAlreadyAMessage(): void
     {
         // Arrange
@@ -148,9 +130,6 @@ class AsyncApiFacadeTest extends Unit
         $this->tester->assertAsyncApiHasPublishMessageInChannel($asyncApiRequestTransfer->getTargetFile(), 'AdditionalMessage', $asyncApiMessageTransfer->getChannel()->getName());
     }
 
-    /**
-     * @return void
-     */
     public function testAddAsyncApiMessageFromTransferObjectAddsAnAdditionalPublishMessageWhenChannelHasAlreadyMessages(): void
     {
         // Arrange
@@ -179,9 +158,6 @@ class AsyncApiFacadeTest extends Unit
         $this->tester->assertAsyncApiHasPublishMessageInChannel($asyncApiRequestTransfer->getTargetFile(), 'AsyncApiBuilderTest3', $asyncApiMessageTransfer->getChannel()->getName());
     }
 
-    /**
-     * @return void
-     */
     public function testAddAsyncApiMessageAddsMessageWithDefinedProperties(): void
     {
         // Arrange
@@ -201,9 +177,6 @@ class AsyncApiFacadeTest extends Unit
         $this->tester->assertMessageInChannelHasProperty($asyncApiRequestTransfer->getTargetFile(), $asyncApiMessageTransfer->getChannel()->getName(), 'publish', $asyncApiMessageTransfer->getName(), ['phoneNumber', 'int', true]);
     }
 
-    /**
-     * @return void
-     */
     public function testAddAsyncApiThrowsExceptionWhenTransferObjectAndPropertiesGivenInAsyncApiRequest(): void
     {
         // Arrange
@@ -221,9 +194,6 @@ class AsyncApiFacadeTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testAddAsyncApiThrowsExceptionWhenNeitherTransferObjectOrPropertiesGivenInAsyncApiRequest(): void
     {
         // Arrange
@@ -242,9 +212,6 @@ class AsyncApiFacadeTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testAddAsyncApiThrowsExceptionWhenOperationIdIsMissionInAsyncApiRequest(): void
     {
         // Arrange

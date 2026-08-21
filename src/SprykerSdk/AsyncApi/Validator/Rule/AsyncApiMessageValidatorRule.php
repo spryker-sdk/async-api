@@ -33,8 +33,6 @@ class AsyncApiMessageValidatorRule implements ValidatorRuleInterface
      * @param string $asyncApiFileName
      * @param \Transfer\ValidateResponseTransfer $validateResponseTransfer
      * @param array|null $context
-     *
-     * @return \Transfer\ValidateResponseTransfer
      */
     public function validate(
         array $asyncApi,
@@ -51,8 +49,6 @@ class AsyncApiMessageValidatorRule implements ValidatorRuleInterface
      * @param array $asyncApi
      * @param string $asyncApiFileName
      * @param \Transfer\ValidateResponseTransfer $validateResponseTransfer
-     *
-     * @return \Transfer\ValidateResponseTransfer
      */
     protected function validateAtLeastOneMessageExists(
         array $asyncApi,
@@ -72,8 +68,6 @@ class AsyncApiMessageValidatorRule implements ValidatorRuleInterface
      * @param array $asyncApi
      * @param string $asyncApiFileName
      * @param \Transfer\ValidateResponseTransfer $validateResponseTransfer
-     *
-     * @return \Transfer\ValidateResponseTransfer
      */
     protected function validateMessageNamesAreOnlyUsedOnce(
         array $asyncApi,

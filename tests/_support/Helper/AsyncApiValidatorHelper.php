@@ -18,9 +18,6 @@ class AsyncApiValidatorHelper extends Module
      */
     protected const ASYNC_API_FILE_NAME = 'asyncapi.yml';
 
-    /**
-     * @return void
-     */
     public function haveValidAsyncApiFile(): void
     {
         $files = [
@@ -30,9 +27,6 @@ class AsyncApiValidatorHelper extends Module
         $this->prepareAsyncApiSchema($files);
     }
 
-    /**
-     * @return void
-     */
     public function haveDefaultCreatedAsyncApiFile(): void
     {
         $files = [
@@ -42,9 +36,6 @@ class AsyncApiValidatorHelper extends Module
         $this->prepareAsyncApiSchema($files);
     }
 
-    /**
-     * @return void
-     */
     public function haveAsyncApiFileSyntaxError(): void
     {
         $files = [
@@ -54,9 +45,6 @@ class AsyncApiValidatorHelper extends Module
         $this->prepareAsyncApiSchema($files);
     }
 
-    /**
-     * @return void
-     */
     public function haveAsyncApiFileWithMissingRequiredFields(): void
     {
         $files = [
@@ -66,9 +54,6 @@ class AsyncApiValidatorHelper extends Module
         $this->prepareAsyncApiSchema($files);
     }
 
-    /**
-     * @return void
-     */
     public function haveAsyncApiFileWithDuplicatedMessageNames(): void
     {
         $files = [
@@ -80,8 +65,6 @@ class AsyncApiValidatorHelper extends Module
 
     /**
      * @param array $files
-     *
-     * @return void
      */
     protected function prepareAsyncApiSchema(array $files): void
     {
@@ -90,9 +73,6 @@ class AsyncApiValidatorHelper extends Module
         );
     }
 
-    /**
-     * @return string
-     */
     protected function getOpenApiSchemaPath(): string
     {
         return 'resources/api';
@@ -101,8 +81,6 @@ class AsyncApiValidatorHelper extends Module
     /**
      * @param string $path
      * @param array $files
-     *
-     * @return array
      */
     protected function buildStructureByPath(string $path, array $files): array
     {
@@ -119,9 +97,6 @@ class AsyncApiValidatorHelper extends Module
         return $structure;
     }
 
-    /**
-     * @return string
-     */
     public function getDefaultAsyncApiFilePath(): string
     {
         return sprintf(

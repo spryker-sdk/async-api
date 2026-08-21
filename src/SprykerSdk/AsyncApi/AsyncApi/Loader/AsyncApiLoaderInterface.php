@@ -13,8 +13,6 @@ interface AsyncApiLoaderInterface
 {
     /**
      * @param string $asyncApiPath
-     *
-     * @return \SprykerSdk\AsyncApi\AsyncApi\AsyncApiInterface
      */
     public function load(string $asyncApiPath): AsyncApiInterface;
 }

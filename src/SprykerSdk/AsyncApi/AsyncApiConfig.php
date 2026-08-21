@@ -13,8 +13,6 @@ class AsyncApiConfig
      * @api
      *
      * @throws \SprykerSdk\AsyncApi\Exception\AsyncApiException
-     *
-     * @return string
      */
     public function getDefaultAsyncApiFile(): string
     {
@@ -30,8 +28,6 @@ class AsyncApiConfig
 
     /**
      * @api
-     *
-     * @return string
      */
     public function getProjectRootPath(): string
     {
@@ -41,8 +37,6 @@ class AsyncApiConfig
     /**
      * Returns the current working directory or `INSTALLED_ROOT_DIRECTORY` (when INSTALLED_ROOT_DIRECTORY is defined).
      * This is needed to be able to execute this tool within the SprykerSdk and not inside of a project directly.
-     *
-     * @return string
      */
     public function getSprykRunExecutablePath(): string
     {

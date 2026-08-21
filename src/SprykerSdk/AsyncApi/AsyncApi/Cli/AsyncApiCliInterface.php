@@ -14,8 +14,6 @@ interface AsyncApiCliInterface
     /**
      * @param \Transfer\ValidateResponseTransfer $validateResponseTransfer
      * @param string $asyncApiFilePath
-     *
-     * @return \Transfer\ValidateResponseTransfer
      */
     public function validate(ValidateResponseTransfer $validateResponseTransfer, string $asyncApiFilePath): ValidateResponseTransfer;
 }

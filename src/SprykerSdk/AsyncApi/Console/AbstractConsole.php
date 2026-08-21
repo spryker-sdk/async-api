@@ -47,9 +47,6 @@ class AbstractConsole extends Command
         parent::__construct($name);
     }
 
-    /**
-     * @return \SprykerSdk\AsyncApi\AsyncApiConfig
-     */
     protected function getConfig(): AsyncApiConfig
     {
         if ($this->config === null) {
@@ -61,17 +58,12 @@ class AbstractConsole extends Command
 
     /**
      * @param \SprykerSdk\AsyncApi\AsyncApiFacadeInterface $asyncApiFacade
-     *
-     * @return void
      */
     public function setFacade(AsyncApiFacadeInterface $asyncApiFacade): void
     {
         $this->facade = $asyncApiFacade;
     }
 
-    /**
-     * @return \SprykerSdk\AsyncApi\AsyncApiFacadeInterface
-     */
     protected function getFacade(): AsyncApiFacadeInterface
     {
         if ($this->facade === null) {
@@ -84,8 +76,6 @@ class AbstractConsole extends Command
     /**
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @param \ArrayObject<int, \Transfer\MessageTransfer> $messageTransfers
-     *
-     * @return void
      */
     protected function printMessages(OutputInterface $output, ArrayObject $messageTransfers): void
     {

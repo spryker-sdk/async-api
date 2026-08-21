@@ -30,9 +30,6 @@ class SchemaMessageAddConsoleTest extends Unit
      */
     protected AsyncApiTester $tester;
 
-    /**
-     * @return void
-     */
     public function testAddMessageReturnsSuccessCodeWhenMessageWasAdded(): void
     {
         // Arrange
@@ -53,9 +50,6 @@ class SchemaMessageAddConsoleTest extends Unit
         $this->assertSame(AbstractConsole::CODE_SUCCESS, $commandTester->getStatusCode());
     }
 
-    /**
-     * @return void
-     */
     public function testAddMessageReturnsErrorCodeAndPrintsErrorMessagesWhenMessageCouldNotBeAddedWhenAsyncApiDoesNotExists(): void
     {
         $commandTester = $this->tester->getConsoleTester(SchemaMessageAddConsole::class, false);
@@ -76,9 +70,6 @@ class SchemaMessageAddConsoleTest extends Unit
         $this->assertNotEmpty($commandTester->getDisplay());
     }
 
-    /**
-     * @return void
-     */
     public function testAddMessageReturnsErrorCodeAndPrintsErrorMessagesWhenMessageTypeIsNotPublishAndNotSubscribe(): void
     {
         $commandTester = $this->tester->getConsoleTester(SchemaMessageAddConsole::class, false);
@@ -106,8 +97,6 @@ class SchemaMessageAddConsoleTest extends Unit
     /**
      * This test ensures that a message can only be added once per channel.
      * The given API file already has the message that should be added and thus adding it again will be skipped.
-     *
-     * @return void
      */
     public function testAddMessageOnlyWhenMessageNameDoesNotExistInChannel(): void
     {
@@ -140,8 +129,6 @@ class SchemaMessageAddConsoleTest extends Unit
      * if ($this->messageNameExists($messageName, $messages) === true) {
      *     return $asyncApi;
      * }
-     *
-     * @return void
      */
     public function testAddExistingMessageToChannelWithOneMessageDoesNotCreateOneOfArray(): void
     {

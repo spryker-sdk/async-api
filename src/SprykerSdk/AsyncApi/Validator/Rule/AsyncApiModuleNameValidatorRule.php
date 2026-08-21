@@ -31,8 +31,6 @@ class AsyncApiModuleNameValidatorRule implements ValidatorRuleInterface
      * @param string $asyncApiFileName
      * @param \Transfer\ValidateResponseTransfer $validateResponseTransfer
      * @param array|null $context
-     *
-     * @return \Transfer\ValidateResponseTransfer
      */
     public function validate(
         array $asyncApi,

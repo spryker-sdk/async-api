@@ -17,9 +17,6 @@ class AsyncApiInfoTest extends Unit
      */
     protected const TEST_FILE_NAME = 'fileName';
 
-    /**
-     * @return void
-     */
     public function testInfoMessageIsFormattedWhenOSIsNotWindows(): void
     {
         $class = new AsyncApiInfo(false);
@@ -29,9 +26,6 @@ class AsyncApiInfoTest extends Unit
         $this->assertStringContainsString('[', $message);
     }
 
-    /**
-     * @return void
-     */
     public function testInfoMessageIsNotFormattedWhenOSIsWindows(): void
     {
         $class = new AsyncApiInfo(true);

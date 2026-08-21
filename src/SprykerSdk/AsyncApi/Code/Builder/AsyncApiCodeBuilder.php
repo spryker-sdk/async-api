@@ -58,8 +58,6 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
 
     /**
      * @param \Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
-     *
-     * @return \Transfer\AsyncApiResponseTransfer
      */
     public function build(AsyncApiRequestTransfer $asyncApiRequestTransfer): AsyncApiResponseTransfer
     {
@@ -94,8 +92,6 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
      * @param \SprykerSdk\AsyncApi\AsyncApi\AsyncApiInterface $asyncApi
      * @param \Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
      * @param string $projectNamespace
-     *
-     * @return \Transfer\AsyncApiResponseTransfer
      */
     protected function buildCodeForPublishMessagesChannels(
         AsyncApiInterface $asyncApi,
@@ -113,8 +109,6 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
      * @param \SprykerSdk\AsyncApi\AsyncApi\AsyncApiInterface $asyncApi
      * @param \Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
      * @param string $projectNamespace
-     *
-     * @return \Transfer\AsyncApiResponseTransfer
      */
     protected function buildCodeForSubscribeMessagesChannels(
         AsyncApiInterface $asyncApi,
@@ -132,8 +126,6 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
      * @param \SprykerSdk\AsyncApi\AsyncApi\Channel\AsyncApiChannelInterface $asyncApiChannel
      * @param \Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
      * @param string $projectNamespace
-     *
-     * @return \Transfer\AsyncApiResponseTransfer
      */
     protected function buildCodeForPublishMessages(
         AsyncApiChannelInterface $asyncApiChannel,
@@ -152,8 +144,6 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
      * @param \SprykerSdk\AsyncApi\AsyncApi\Message\AsyncApiMessageInterface $asyncApiMessage
      * @param \Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
      * @param string $projectNamespace
-     *
-     * @return \Transfer\AsyncApiResponseTransfer
      */
     protected function runAddAsyncApiPublishMessage(
         AsyncApiChannelInterface $asyncApiChannel,
@@ -186,8 +176,6 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
      * @param \SprykerSdk\AsyncApi\AsyncApi\Channel\AsyncApiChannelInterface $asyncApiChannel
      * @param \Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
      * @param string $projectNamespace
-     *
-     * @return \Transfer\AsyncApiResponseTransfer
      */
     protected function buildCodeForSubscribeMessages(
         AsyncApiChannelInterface $asyncApiChannel,
@@ -206,8 +194,6 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
      * @param \SprykerSdk\AsyncApi\AsyncApi\Message\AsyncApiMessageInterface $asyncApiMessage
      * @param \Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
      * @param string $projectNamespace
-     *
-     * @return \Transfer\AsyncApiResponseTransfer
      */
     protected function runAddAsyncApiSubscribeMessage(
         AsyncApiChannelInterface $asyncApiChannel,
@@ -239,8 +225,6 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
     /**
      * @param \SprykerSdk\AsyncApi\AsyncApi\Message\AsyncApiMessageInterface $asyncApiMessage
      * @param \Transfer\AsyncApiResponseTransfer $asyncApiResponseTransfer
-     *
-     * @return array
      */
     protected function getMessagesProperties(
         AsyncApiMessageInterface $asyncApiMessage,
@@ -268,8 +252,6 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
      * @param \SprykerSdk\AsyncApi\AsyncApi\Message\AsyncApiMessageInterface $asyncApiMessage
      *
      * @throws \SprykerSdk\AsyncApi\Exception\InvalidConfigurationException
-     *
-     * @return string
      */
     protected function getModuleNameForMessage(AsyncApiMessageInterface $asyncApiMessage): string
     {
@@ -350,8 +332,6 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
 
     /**
      * @param string $type
-     *
-     * @return string
      */
     protected function normalizeTransferType(string $type): string
     {
@@ -376,8 +356,6 @@ class AsyncApiCodeBuilder implements AsyncApiCodeBuilderInterface
      * @codeCoverageIgnore
      *
      * @param array<int, string> $commandLine
-     *
-     * @return void
      */
     protected function runCommandLine(array $commandLine): void
     {

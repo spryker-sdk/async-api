@@ -33,8 +33,6 @@ class AsyncApiChannelValidatorRule implements ValidatorRuleInterface
      * @param string $asyncApiFileName
      * @param \Transfer\ValidateResponseTransfer $validateResponseTransfer
      * @param array|null $context
-     *
-     * @return \Transfer\ValidateResponseTransfer
      */
     public function validate(
         array $asyncApi,
@@ -49,8 +47,6 @@ class AsyncApiChannelValidatorRule implements ValidatorRuleInterface
      * @param array $asyncApi
      * @param string $asyncApiFileName
      * @param \Transfer\ValidateResponseTransfer $validateResponseTransfer
-     *
-     * @return \Transfer\ValidateResponseTransfer
      */
     protected function validateAtLeastOneChannelExists(
         array $asyncApi,

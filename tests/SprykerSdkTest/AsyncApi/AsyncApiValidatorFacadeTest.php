@@ -23,9 +23,6 @@ class AsyncApiValidatorFacadeTest extends Unit
      */
     protected AsyncApiTester $tester;
 
-    /**
-     * @return void
-     */
     public function testValidateAsyncApiReturnsFailedResponseWhenFileNotFound(): void
     {
         // Act
@@ -38,9 +35,6 @@ class AsyncApiValidatorFacadeTest extends Unit
         $this->assertEquals(AsyncApiError::asyncApiFileDoesNotExist('vfs://root/resources/api/asyncapi.yml'), $expectedErrorMessage->getMessage(), 'Async API file "vfs://root/resources/api/asyncapi.yml" not found');
     }
 
-    /**
-     * @return void
-     */
     public function testValidateAsyncApiReturnsFailedResponseWhenFileHasSyntaxError(): void
     {
         // Arrange
@@ -66,9 +60,6 @@ class AsyncApiValidatorFacadeTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testValidateAsyncApiReturnsFailedResponseWhenFileDoNotContainMessages(): void
     {
         // Arrange
@@ -88,9 +79,6 @@ class AsyncApiValidatorFacadeTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testValidateAsyncApiReturnsFailedResponseWhenFileExistsButARequiredFieldIsMissing(): void
     {
         // Arrange
@@ -110,9 +98,6 @@ class AsyncApiValidatorFacadeTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testValidateAsyncApiReturnsFailedResponseWhenMessageNameIsUsedMoreThanOnce(): void
     {
         // Arrange

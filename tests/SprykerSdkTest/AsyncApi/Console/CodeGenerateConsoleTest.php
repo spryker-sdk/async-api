@@ -27,9 +27,6 @@ class CodeGenerateConsoleTest extends Unit
      */
     protected AsyncApiTester $tester;
 
-    /**
-     * @return void
-     */
     public function testBuildFromAsyncApiReturnsSuccessCodeWhenProcessIsDone(): void
     {
         // Arrange
@@ -47,9 +44,6 @@ class CodeGenerateConsoleTest extends Unit
         $this->assertSame(AbstractConsole::CODE_SUCCESS, $commandTester->getStatusCode());
     }
 
-    /**
-     * @return void
-     */
     public function testBuildFromAsyncApiRendersReferencedTransferProperties(): void
     {
         // Arrange
@@ -70,9 +64,6 @@ class CodeGenerateConsoleTest extends Unit
 //        $this->assertStringContainsString(AsyncApiInfo::addedPropertyWithTypeTo('bar', 'string', 'Message', 'ModuleName'), $commandTester->getDisplay());
     }
 
-    /**
-     * @return void
-     */
     public function testBuildFromAsyncApiPrintsResultToConsoleInVerboseMode(): void
     {
         // Arrange
@@ -91,9 +82,6 @@ class CodeGenerateConsoleTest extends Unit
 //        $this->assertStringContainsString(AsyncApiInfo::addedMessageHandlerPluginForMessageTo('IncomingMessage', 'Module'), $commandTester->getDisplay());
     }
 
-    /**
-     * @return void
-     */
     public function testBuildFromAsyncApiReturnsErrorCodeWhenAnErrorOccurred(): void
     {
         // Arrange
@@ -110,9 +98,6 @@ class CodeGenerateConsoleTest extends Unit
         $this->assertSame(AbstractConsole::CODE_ERROR, $commandTester->getStatusCode());
     }
 
-    /**
-     * @return void
-     */
     public function testBuildFromAsyncApiReturnsErrorCodeWhenAnErrorOccurredAndPrintsResultToConsoleInVerboseMode(): void
     {
         // Arrange
@@ -133,9 +118,6 @@ class CodeGenerateConsoleTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testBuildFromAsyncApiWithoutAnSprykerExtensionThrowsAnException(): void
     {
         // Arrange
@@ -152,9 +134,6 @@ class CodeGenerateConsoleTest extends Unit
         ], ['verbosity' => OutputInterface::VERBOSITY_VERBOSE]);
     }
 
-    /**
-     * @return void
-     */
     public function testBuildFromAsyncApiWithoutAModuleInTheSprykerExtensionThrowsAnException(): void
     {
         // Arrange

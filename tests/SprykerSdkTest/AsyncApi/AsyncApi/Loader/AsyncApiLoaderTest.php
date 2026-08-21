@@ -26,9 +26,6 @@ class AsyncApiLoaderTest extends Unit
      */
     protected AsyncApiTester $tester;
 
-    /**
-     * @return void
-     */
     public function testLoadResolvesReferencesToTransfersInPayload(): void
     {
         // Arrange
@@ -51,9 +48,6 @@ class AsyncApiLoaderTest extends Unit
         $this->assertSame('string', $items->getAttribute('bar')->getAttribute('type')->getValue());
     }
 
-    /**
-     * @return void
-     */
     public function testLoadResolvesReferencesToRemoteReferencedFiles(): void
     {
         // Arrange
@@ -77,9 +71,6 @@ class AsyncApiLoaderTest extends Unit
         $this->assertSame('string', $headerProperties->getAttribute('tenantIdentifier')->getAttribute('type')->getValue());
     }
 
-    /**
-     * @return void
-     */
     public function testLoadDoesNotResolvesReferencesToRemoteReferencedWhenInvalidUrlIsGiven(): void
     {
         // Arrange
@@ -100,9 +91,6 @@ class AsyncApiLoaderTest extends Unit
         $this->assertNull($headerProperties);
     }
 
-    /**
-     * @return void
-     */
     public function testLoadResolvesReferencesToRemoteReferencedFilesWithVariablePath(): void
     {
         // Arrange
@@ -126,9 +114,6 @@ class AsyncApiLoaderTest extends Unit
         $this->assertSame('string', $headerProperties->getAttribute('tenantIdentifier')->getAttribute('type')->getValue());
     }
 
-    /**
-     * @return void
-     */
     public function testLoadThrowsAnExceptionWhenAsyncApiFileCanNotBeLoadedFromRemotePath(): void
     {
         // Arrange

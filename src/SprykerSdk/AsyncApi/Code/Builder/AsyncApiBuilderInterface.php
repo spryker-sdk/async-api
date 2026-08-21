@@ -14,15 +14,11 @@ interface AsyncApiBuilderInterface
 {
     /**
      * @param \Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
-     *
-     * @return \Transfer\AsyncApiResponseTransfer
      */
     public function addAsyncApi(AsyncApiRequestTransfer $asyncApiRequestTransfer): AsyncApiResponseTransfer;
 
     /**
      * @param \Transfer\AsyncApiRequestTransfer $asyncApiRequestTransfer
-     *
-     * @return \Transfer\AsyncApiResponseTransfer
      */
     public function addAsyncApiMessage(AsyncApiRequestTransfer $asyncApiRequestTransfer): AsyncApiResponseTransfer;
 }
